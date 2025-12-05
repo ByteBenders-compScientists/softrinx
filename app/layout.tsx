@@ -1,40 +1,10 @@
 import type { Metadata } from 'next'
-import localFont from 'next/font/local'
+import { Inter } from 'next/font/google'
 import './globals.css'
 import Header from '@/components/layout/Header'
 import Footer from '@/components/layout/Footer'
 
-const dmSans = localFont({
-  src: [
-    {
-      path: '../public/fonts/DMSans-Regular.ttf',
-      weight: '400',
-      style: 'normal',
-    },
-    {
-      path: '../public/fonts/DMSans-Medium.ttf',
-      weight: '500',
-      style: 'normal',
-    },
-    {
-      path: '../public/fonts/DMSans-SemiBold.ttf',
-      weight: '600',
-      style: 'normal',
-    },
-    {
-      path: '../public/fonts/DMSans-Bold.ttf',
-      weight: '700',
-      style: 'normal',
-    },
-    {
-      path: '../public/fonts/DMSans-ExtraBold.ttf',
-      weight: '800',
-      style: 'normal',
-    },
-  ],
-  variable: '--font-dm-sans',
-  display: 'swap',
-})
+const inter = Inter({ subsets: ['latin'] })
 
 export const metadata: Metadata = {
   title: 'Softrinx - Premium Software Development Agency',
@@ -49,9 +19,11 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={dmSans.className}>
+      <body className={inter.className}>
+        <Header />
         {children}
-    </body>
+        <Footer />
+      </body>
     </html>
   )
 }
