@@ -248,7 +248,7 @@ export default function Services() {
 
         {/* Bottom CTA section */}
         <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-br from-gray-900 to-gray-800 rounded-2xl p-10 border border-gray-700 relative overflow-hidden">
+          <div className="bg-gradient-to-br from-gray-900 to-gray-800  p-10 border border-gray-700 relative overflow-hidden">
             <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl"></div>
             <div className="relative z-10 text-center">
               <h3 className="text-3xl font-bold text-white mb-4">
