@@ -1,0 +1,416 @@
+// ============================================
+// HERO SECTION ANIMATIONS
+// ============================================
+
+// Pulse dot animation
+.pulse-dot {
+    animation: pulse 2s cubic-bezier(0.4, 0, 0.6, 1) infinite;
+  }
+  
+  @keyframes pulse {
+    0%, 100% {
+      opacity: 1;
+    }
+    50% {
+      opacity: 0.5;
+    }
+  }
+  
+  // Badge entrance
+  .hero-badge {
+    animation: fadeInUp 0.8s ease-out 0.2s backwards;
+  }
+  
+  // Text stagger animations
+  .hero-text-1 {
+    animation: fadeInUp 0.8s ease-out 0.4s backwards;
+  }
+  
+  .hero-text-2 {
+    animation: fadeInUp 0.8s ease-out 0.6s backwards;
+  }
+  
+  .hero-text-3 {
+    animation: fadeInUp 0.8s ease-out 0.8s backwards;
+  }
+  
+  .hero-buttons {
+    animation: fadeInUp 0.8s ease-out 1s backwards;
+  }
+  
+  // Stat cards animation
+  .stat-card {
+    animation: fadeInUp 0.8s ease-out backwards;
+  }
+  
+  // Gradient shift animation for text
+  .gradient-shift {
+    background-size: 200% auto;
+    animation: gradientShift 3s linear infinite;
+  }
+  
+  @keyframes gradientShift {
+    0% {
+      background-position: 0% center;
+    }
+    100% {
+      background-position: 200% center;
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  // ============================================
+  // NAVIGATION ANIMATIONS
+  // ============================================
+  
+  // Hover gradient text effect
+  .hover-gradient-text {
+    position: relative;
+    background: linear-gradient(
+      to right,
+      #ffffff 0%,
+      #ffffff 50%,
+      #10b981 50%,
+      #3b82f6 75%,
+      #a855f7 100%
+    );
+    background-size: 200% auto;
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-position: 0% center;
+    transition: background-position 0.6s ease;
+  
+    &:hover {
+      background-position: -100% center;
+    }
+  }
+  
+  // Dropdown appear animation
+  .dropdown-appear {
+    animation: dropdownSlide 0.3s ease-out;
+  }
+  
+  @keyframes dropdownSlide {
+    from {
+      opacity: 0;
+      transform: translateY(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  // Dropdown items stagger
+  .dropdown-item {
+    animation: fadeInLeft 0.3s ease-out backwards;
+  }
+  
+  @keyframes fadeInLeft {
+    from {
+      opacity: 0;
+      transform: translateX(-10px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  // ============================================
+  // HERO SECTION ANIMATIONS
+  // ============================================
+  
+  .hamburger-lines {
+    width: 28px;
+    height: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+  }
+  
+  .hamburger-line {
+    width: 100%;
+    height: 3px;
+    background: white;
+    border-radius: 2px;
+    transition: all 0.4s cubic-bezier(0.68, -0.55, 0.265, 1.55);
+    position: absolute;
+    
+    &.line-1 {
+      top: 0;
+      
+      &.open {
+        top: 50%;
+        transform: translateY(-50%) rotate(45deg);
+      }
+    }
+    
+    &.line-2 {
+      top: 50%;
+      transform: translateY(-50%);
+      
+      &.open {
+        opacity: 0;
+        width: 0;
+      }
+    }
+    
+    &.line-3 {
+      bottom: 0;
+      
+      &.open {
+        bottom: 50%;
+        transform: translateY(50%) rotate(-45deg);
+      }
+    }
+  }
+  
+  // Mobile menu slide animation
+  .menu-slide {
+    &.translate-x-0 {
+      .menu-item {
+        animation: slideInRight 0.5s ease-out backwards;
+      }
+      
+      .menu-image {
+        animation: scaleIn 0.6s ease-out 0.2s backwards;
+      }
+      
+      .menu-cta {
+        animation: fadeInUp 0.6s ease-out 0.8s backwards;
+      }
+      
+      .menu-footer {
+        animation: fadeInUp 0.6s ease-out 1s backwards;
+      }
+    }
+  }
+  
+  @keyframes slideInRight {
+    from {
+      opacity: 0;
+      transform: translateX(30px);
+    }
+    to {
+      opacity: 1;
+      transform: translateX(0);
+    }
+  }
+  
+  @keyframes scaleIn {
+    from {
+      opacity: 0;
+      transform: scale(0.9);
+    }
+    to {
+      opacity: 1;
+      transform: scale(1);
+    }
+  }
+  
+  // ============================================
+  // UTILITY ANIMATIONS
+  // ============================================
+  
+  // Smooth transitions
+  .transition-smooth {
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+  
+  // Button hover lift
+  .hover-lift {
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+    
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+    }
+  }
+  
+  // Glow effect on hover
+  .hover-glow {
+    transition: all 0.3s ease;
+    
+    &:hover {
+      filter: drop-shadow(0 0 20px rgba(16, 185, 129, 0.4));
+    }
+  }
+  
+  // Responsive animations - reduce motion for accessibility
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+  // app/styles/animations.scss
+
+// Fade-in animation
+.fade-in {
+  opacity: 0;
+  animation: fadeIn 1s ease forwards;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+// Slide-up animation
+.slide-up {
+  opacity: 0;
+  transform: translateY(20px);
+  animation: slideUp 1s ease 0.3s forwards;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Text gradient animation
+.text-gradient {
+  background: linear-gradient(90deg, #3b82f6 0%, #8b5cf6 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  color: transparent;
+  background-size: 200% auto;
+  animation: textGradient 4s linear infinite;
+}
+
+@keyframes textGradient {
+  0% {
+    background-position: 0% center;
+  }
+  50% {
+    background-position: 100% center;
+  }
+  100% {
+    background-position: 0% center;
+  }
+}
+
+// Scroll-based animations
+.transform-on-scroll {
+  opacity: 0;
+  transform: translateY(40px);
+  transition: opacity 0.6s ease, transform 0.6s ease;
+  
+  &.animate-in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+// Counter animation
+.counter {
+  position: relative;
+  
+  &::after {
+    content: attr(data-target);
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+// Team card hover effect
+.team-card {
+  overflow: hidden;
+  
+  &:hover .team-image {
+    transform: scale(1.05);
+  }
+}
+
+// Process step animation
+.process-step {
+  position: relative;
+  
+  &::before {
+    content: '';
+    position: absolute;
+    left: 8px;
+    top: 8px;
+    width: 16px;
+    height: 16px;
+    border-radius: 50%;
+    background-color: #fff;
+    border: 2px solid currentColor;
+    z-index: 1;
+  }
+}
+
+// Service card hover animation
+.service-card {
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  
+  &:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+  }
+}
+
+// Button hover effects
+.btn-primary {
+  position: relative;
+  overflow: hidden;
+  transition: all 0.3s ease;
+  
+  &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    transition: width 0.6s ease, height 0.6s ease;
+  }
+  
+  &:hover::after {
+    width: 300%;
+    height: 300%;
+  }
+}
+
+// Form input focus effects
+input, textarea, select {
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+  
+  &:focus {
+    border-color: #3b82f6;
+    box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.2);
+  }
+}
