@@ -74,9 +74,9 @@ export default function TeamPage() {
     {
       id: 4,
       name: "Brian Chege",
-      role: "UX/UI Director",
-      bio: "Brian ensures our applications not only function flawlessly but also provide intuitive and engaging user experiences.",
-      image: "/images/images/chege.jpg",
+      role: "Fullstack Web and Mobile Developer",
+      bio: "Brian specializes in building scalable web and mobile applications, ensuring seamless user experiences across all platforms.",
+      image: "/images/images/brian.jpg",
       social: {
         linkedin: "https://linkedin.com",
         twitter: "https://x.com/https://twitter.com/chegephil24",
