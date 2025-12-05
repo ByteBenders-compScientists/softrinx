@@ -191,114 +191,132 @@ export default function TestimonialsPage() {
       
       {/* Featured Testimonial Slider */}
       <section className="py-20 bg-white featured-testimonials">
-        <div className="container mx-auto px-4">
-          <div className="relative">
-            <div className="max-w-6xl mx-auto overflow-hidden">
-              <div 
-                ref={sliderRef}
-                className="flex transition-transform duration-700 ease-in-out"
-                style={{ width: `${testimonials.length * 100}%` }}
-              >
-                {testimonials.map((testimonial, index) => (
-                  <div 
-                    key={testimonial.id}
-                    className="w-full flex-shrink-0 px-4"
-                    style={{ width: `${100 / testimonials.length}%` }}
-                  >
-                    <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 overflow-hidden testimonial-card">
-                      <div className="flex flex-col md:flex-row gap-8">
-                        <div className="md:w-1/3">
-                          <div className="aspect-square relative rounded-xl overflow-hidden mb-6">
-                            <Image
-                              src={testimonial.image}
-                              alt={testimonial.name}
-                              fill
-                              className="object-cover"
-                            />
-                          </div>
-                          <div>
-                            <div className="w-32 h-12 relative mb-4">
-                              <Image
-                                src={testimonial.logo}
-                                alt={testimonial.company}
-                                fill
-                                className="object-contain"
-                              />
-                            </div>
-                            <h3 className="text-xl font-bold text-gray-900">{testimonial.name}</h3>
-                            <p className="text-emerald-600 font-medium">{testimonial.role}</p>
-                            <p className="text-gray-500">{testimonial.company}</p>
-                            <div className="flex mt-3">
-                              {Array.from({ length: 5 }).map((_, i) => (
-                                <Star
-                                  key={i}
-                                  className={`w-5 h-5 ${
-                                    i < testimonial.stars
-                                      ? "text-yellow-400 fill-yellow-400"
-                                      : "text-gray-300"
-                                  }`}
-                                />
-                              ))}
-                            </div>
-                          </div>
-                        </div>
-                        <div className="md:w-2/3 flex flex-col justify-center">
-                          <div className="mb-6">
-                            <Quote className="w-12 h-12 text-emerald-500/20" />
-                          </div>
-                          <p className="text-xl text-gray-700 leading-relaxed mb-6">
-                            {testimonial.quote}
-                          </p>
-                          <div className="mt-auto">
-                            <a
-                              href={`/case-studies/${testimonial.category}`}
-                              className="text-emerald-600 font-medium hover:text-emerald-700 transition-colors inline-flex items-center"
-                            >
-                              Read full case study
-                              <ArrowRight className="ml-2 w-4 h-4" />
-                            </a>
-                          </div>
-                        </div>
+  <div className="container mx-auto px-4">
+    <div className="relative">
+
+      {/* Slider Track */}
+      <div className="max-w-6xl mx-auto overflow-hidden">
+        <div
+          ref={sliderRef}
+          className="flex transition-transform duration-700 ease-in-out snap-x snap-mandatory"
+          style={{ transform: `translateX(-${activeIndex * 100}%)` }}
+        >
+          {testimonials.map((testimonial, index) => (
+            <div
+              key={testimonial.id}
+              className="w-full flex-shrink-0 snap-center px-4"
+            >
+              {/* Card */}
+              <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 testimonial-card">
+                <div className="flex flex-col md:flex-row gap-8">
+                  
+                  {/* Left Section */}
+                  <div className="md:w-1/3">
+                    <div className="aspect-square relative rounded-xl overflow-hidden mb-6">
+                      <Image
+                        src={testimonial.image}
+                        alt={testimonial.name}
+                        fill
+                        className="object-cover"
+                        priority={index === 0}
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                      />
+                    </div>
+
+                    <div>
+                      <div className="w-32 h-12 relative mb-4">
+                        <Image
+                          src={testimonial.logo}
+                          alt={testimonial.company}
+                          fill
+                          className="object-contain"
+                        />
+                      </div>
+
+                      <h3 className="text-xl font-bold text-gray-900">
+                        {testimonial.name}
+                      </h3>
+
+                      <p className="text-emerald-600 font-medium">
+                        {testimonial.role}
+                      </p>
+
+                      <p className="text-gray-500">{testimonial.company}</p>
+
+                      {/* Stars */}
+                      <div className="flex mt-3">
+                        {Array.from({ length: 5 }).map((_, i) => (
+                          <Star
+                            key={i}
+                            className={`w-5 h-5 ${
+                              i < testimonial.stars
+                                ? "text-yellow-400 fill-yellow-400"
+                                : "text-gray-300"
+                            }`}
+                          />
+                        ))}
                       </div>
                     </div>
                   </div>
-                ))}
+
+                  {/* Right Section */}
+                  <div className="md:w-2/3 flex flex-col justify-center">
+                    <Quote className="w-12 h-12 text-emerald-500/20 mb-6" />
+
+                    <p className="text-xl text-gray-700 leading-relaxed mb-6">
+                      {testimonial.quote}
+                    </p>
+
+                    <a
+                      href={`/case-studies/${testimonial.category}`}
+                      className="text-emerald-600 font-medium hover:text-emerald-700 inline-flex items-center"
+                    >
+                      Read full case study
+                      <ArrowRight className="ml-2 w-4 h-4" />
+                    </a>
+                  </div>
+
+                </div>
               </div>
             </div>
-            
-            <div className="flex justify-center mt-8 gap-4">
-              <button
-                onClick={prevTestimonial}
-                className="p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-emerald-100 hover:text-emerald-600 transition-colors"
-                aria-label="Previous testimonial"
-              >
-                <ArrowLeft className="w-5 h-5" />
-              </button>
-              <div className="flex space-x-2">
-                {testimonials.map((_, index) => (
-                  <button
-                    key={index}
-                    className={`w-3 h-3 rounded-full transition-all ${
-                      index === activeIndex 
-                        ? "bg-emerald-500 w-8" 
-                        : "bg-gray-300 hover:bg-gray-400"
-                    }`}
-                    onClick={() => setActiveIndex(index)}
-                    aria-label={`Go to testimonial ${index + 1}`}
-                  />
-                ))}
-              </div>
-              <button
-                onClick={nextTestimonial}
-                className="p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-emerald-100 hover:text-emerald-600 transition-colors"
-                aria-label="Next testimonial"
-              >
-                <ArrowRight className="w-5 h-5" />
-              </button>
-            </div>
-          </div>
+          ))}
         </div>
-      </section>
+      </div>
+
+      {/* Controls */}
+      <div className="flex justify-center mt-8 gap-4">
+        <button
+          onClick={prevTestimonial}
+          className="p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-emerald-100 hover:text-emerald-600"
+        >
+          <ArrowLeft className="w-5 h-5" />
+        </button>
+
+        {/* Dots */}
+        <div className="flex space-x-2">
+          {testimonials.map((_, index) => (
+            <button
+              key={index}
+              className={`w-3 h-3 rounded-full transition-all ${
+                index === activeIndex ? "bg-emerald-500 w-8" : "bg-gray-300"
+              }`}
+              onClick={() => setActiveIndex(index)}
+            />
+          ))}
+        </div>
+
+        <button
+          onClick={nextTestimonial}
+          className="p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-emerald-100 hover:text-emerald-600"
+        >
+          <ArrowRight className="w-5 h-5" />
+        </button>
+      </div>
+
+    </div>
+  </div>
+</section>
+
       
       {/* Results Section */}
       <section className="py-20 bg-gray-50 stats-section">

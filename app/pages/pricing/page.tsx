@@ -16,8 +16,8 @@ export default function PricingPage() {
       {
         name: "Basic",
         description: "Perfect for startups and small projects",
-        monthlyPrice: 4900,
-        annualPrice: 4400,
+        monthlyPrice: 900,
+        annualPrice: 600,
         features: [
           { name: "Custom Web Application", included: true },
           { name: "Responsive Design", included: true },
@@ -36,8 +36,8 @@ export default function PricingPage() {
       {
         name: "Growth",
         description: "Scale your startup with advanced features",
-        monthlyPrice: 9900,
-        annualPrice: 8900,
+        monthlyPrice: 900,
+        annualPrice: 800,
         popular: true,
         features: [
           { name: "Custom Web Application", included: true },
@@ -57,8 +57,8 @@ export default function PricingPage() {
       {
         name: "Scale",
         description: "Enterprise-grade solutions for growing startups",
-        monthlyPrice: 14900,
-        annualPrice: 13400,
+        monthlyPrice: 1400,
+        annualPrice: 1000,
         features: [
           { name: "Custom Web Application", included: true },
           { name: "Responsive Design", included: true },
@@ -99,8 +99,8 @@ export default function PricingPage() {
       {
         name: "Enterprise",
         description: "Comprehensive solutions for complex needs",
-        monthlyPrice: 19900,
-        annualPrice: 17900,
+        monthlyPrice: 2000,
+        annualPrice: 1800,
         popular: true,
         features: [
           { name: "Custom Web & Mobile Apps", included: true },
@@ -120,8 +120,8 @@ export default function PricingPage() {
       {
         name: "Premium",
         description: "Ultimate enterprise-grade solution",
-        monthlyPrice: 29900,
-        annualPrice: 26900,
+        monthlyPrice: 2900,
+        annualPrice: 2600,
         features: [
           { name: "Custom Web & Mobile Apps", included: true },
           { name: "Advanced User Management", included: true },
@@ -142,8 +142,8 @@ export default function PricingPage() {
       {
         name: "White Label",
         description: "Resell our solutions under your brand",
-        monthlyPrice: 14900,
-        annualPrice: 13400,
+        monthlyPrice: 4900,
+        annualPrice: 3900,
         features: [
           { name: "White Labeled Products", included: true },
           { name: "Client Management", included: true },
@@ -162,8 +162,8 @@ export default function PricingPage() {
       {
         name: "Partner",
         description: "Full partnership with technical support",
-        monthlyPrice: 24900,
-        annualPrice: 22400,
+        monthlyPrice: 5000,
+        annualPrice: 4500,
         popular: true,
         features: [
           { name: "White Labeled Products", included: true },
@@ -183,8 +183,8 @@ export default function PricingPage() {
       {
         name: "Strategic",
         description: "Deep partnership with shared success",
-        monthlyPrice: 39900,
-        annualPrice: 35900,
+        monthlyPrice: 9000,
+        annualPrice: 8500,
         features: [
           { name: "White Labeled Products", included: true },
           { name: "Client Management", included: true },
