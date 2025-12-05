@@ -79,17 +79,7 @@ const Hero = () => {
               isVisible ? 'translate-y-0 opacity-100' : 'translate-y-10 opacity-0'
             }`}
           >
-            {/* Professional badge */}
-            <div className="inline-flex items-center gap-3 px-5 py-3 mb-10 bg-gradient-to-r from-emerald-500/10 to-blue-500/10 backdrop-blur-sm rounded-xl border border-emerald-500/20">
-              <div className="flex items-center gap-2">
-                <div className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-                <span className="text-sm font-semibold text-emerald-300">
-                  Enterprise-Grade Development
-                </span>
-              </div>
-              <div className="h-4 w-px bg-emerald-500/30 mx-2" />
-              <span className="text-xs text-gray-400">Since 2008</span>
-            </div>
+          
 
             {/* Main headline */}
             <h1 className="text-5xl md:text-6xl lg:text-7xl font-bold mb-8 leading-tight">
@@ -123,7 +113,7 @@ const Hero = () => {
 
               <Link
                 href="/portfolio"
-                className="group px-10 py-5 bg-white/5 backdrop-blur-sm text-white font-semibold rounded-xl border border-white/20 hover:border-emerald-400/50 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1"
+                className="group px-10 py-5 bg-white text-gray-500 backdrop-blur-sm font-semibold rounded-xl border border-white/20 hover:border-emerald-400/50 hover:bg-white/10 transition-all duration-300 hover:-translate-y-1"
               >
                 <span className="flex items-center justify-center gap-3 text-lg">
                   View Case Studies
@@ -160,62 +150,17 @@ const Hero = () => {
           {/* Right column - Floating person image with stats */}
           <div className="relative">
             {/* Floating person image - Replace with your PNG */}
-            <div className="relative h-[500px] rounded-2xl overflow-hidden border-2 border-emerald-500/20 shadow-2xl">
-              <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/10 to-blue-500/10 flex items-center justify-center">
-                {/* Placeholder for person PNG - Replace this div with your Image component */}
-                <div className="relative w-80 h-80">
-                  {/* This would be your PNG image - using placeholder for now */}
-                  <div className="absolute inset-0 bg-gradient-to-br from-emerald-500/20 to-blue-500/20 rounded-full flex items-center justify-center">
-                    <div className="text-center">
-                      <Users className="w-32 h-32 text-emerald-400/30 mx-auto mb-4" />
-                      <div className="text-lg font-semibold text-emerald-300">
-                        Your PNG Here
-                      </div>
-                      <div className="text-sm text-gray-400 mt-2">
-                        Professional pointing to left
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Floating stats around the person */}
-                  <div className="absolute -top-6 -right-6 bg-gradient-to-br from-emerald-500/20 to-emerald-600/20 backdrop-blur-sm rounded-xl p-4 border border-emerald-500/30 shadow-lg">
-                    <div className="text-2xl font-bold text-white">500+</div>
-                    <div className="text-xs text-emerald-300">Projects</div>
-                  </div>
-                  
-                  <div className="absolute -bottom-6 -left-6 bg-gradient-to-br from-blue-500/20 to-blue-600/20 backdrop-blur-sm rounded-xl p-4 border border-blue-500/30 shadow-lg">
-                    <div className="text-2xl font-bold text-white">99.7%</div>
-                    <div className="text-xs text-blue-300">Satisfaction</div>
-                  </div>
-                  
-                  <div className="absolute top-1/2 -right-12 transform -translate-y-1/2 bg-gradient-to-br from-purple-500/20 to-purple-600/20 backdrop-blur-sm rounded-xl p-4 border border-purple-500/30 shadow-lg">
-                    <div className="text-2xl font-bold text-white">15+</div>
-                    <div className="text-xs text-purple-300">Years</div>
-                  </div>
-                </div>
-              </div>
+            <div className="relative ">
+             <Image
+                src="/images/images/heroo2.png"
+                alt="Software Engineer"
+               width={600}
+                height={800}
+                  className="object-cover w-full h-full"
+              />  
             </div>
 
-            {/* Stats at bottom of image section */}
-            <div className="grid grid-cols-3 gap-4 mt-8">
-              {[
-                { value: '250+', label: 'Projects', icon: Target, color: 'text-emerald-400' },
-                { value: '40+', label: 'Engineers', icon: Users, color: 'text-blue-400' },
-                { value: '24/7', label: 'Support', icon: Shield, color: 'text-purple-400' },
-              ].map((stat, idx) => {
-                const Icon = stat.icon;
-                return (
-                  <div
-                    key={idx}
-                    className="bg-white/5 backdrop-blur-sm rounded-xl p-4 border border-white/10 text-center"
-                  >
-                    <Icon className={`w-5 h-5 ${stat.color} mx-auto mb-2`} />
-                    <div className="text-2xl font-bold text-white">{stat.value}</div>
-                    <div className="text-xs text-gray-400">{stat.label}</div>
-                  </div>
-                );
-              })}
-            </div>
+          
           </div>
         </div>
 
