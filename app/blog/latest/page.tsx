@@ -150,7 +150,7 @@ export default function LatestBlogPage() {
       <Navigation />
       
       {/* Hero Section - Minimal & Clean */}
-      <section ref={heroRef} className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-br from-emerald-50 via-white to-teal-50">
+      <section ref={heroRef} className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-b from-gray-900 to-black text-white">
         {/* Animated Background Pattern */}
         <div className="absolute inset-0">
           <div className="latest-pulse-ring absolute top-20 right-20 w-96 h-96 border-4 border-emerald-200 rounded-full"></div>
@@ -159,10 +159,7 @@ export default function LatestBlogPage() {
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="latest-badge inline-flex items-center px-4 py-2 bg-emerald-100 rounded-full text-emerald-700 mb-6">
-              <Flame className="w-4 h-4 mr-2" />
-              <span className="text-sm font-semibold">Hot Off the Press</span>
-            </div>
+
 
             <h1 className="text-5xl md:text-6xl font-bold mb-6 latest-hero-title">
               Latest <span className="bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">Articles</span>
@@ -200,19 +197,7 @@ export default function LatestBlogPage() {
         </div>
       </section>
 
-      {/* Trending Highlight Bar */}
-      {filter === "all" && (
-        <section className="py-6 bg-gradient-to-r from-orange-500 to-red-500 text-white">
-          <div className="container mx-auto px-4">
-            <div className="flex items-center justify-center gap-3 text-center">
-              <Flame className="w-5 h-5 animate-pulse" />
-              <span className="font-medium">
-                6 articles are trending right now • Top article has 3.2k views
-              </span>
-            </div>
-          </div>
-        </section>
-      )}
+
 
       {/* Latest Posts Grid - Timeline Style */}
       <section ref={postsRef} className="py-20 bg-white">
@@ -331,10 +316,10 @@ export default function LatestBlogPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-5xl mx-auto grid grid-cols-2 md:grid-cols-4 gap-8">
             {[
-              { icon: <Star className="w-8 h-8" />, value: "48+", label: "Articles" },
-              { icon: <Eye className="w-8 h-8" />, value: "125k+", label: "Total Views" },
-              { icon: <MessageCircle className="w-8 h-8" />, value: "2.3k+", label: "Comments" },
-              { icon: <TrendingUp className="w-8 h-8" />, value: "15k+", label: "Readers" }
+              { icon: <Star className="w-8 h-8" />, value: "20+", label: "Articles" },
+              { icon: <Eye className="w-8 h-8" />, value: "5k+", label: "Total Views" },
+              { icon: <MessageCircle className="w-8 h-8" />, value: "2k+", label: "Comments" },
+              { icon: <TrendingUp className="w-8 h-8" />, value: "1k+", label: "Readers" }
             ].map((stat, idx) => (
               <div key={idx} className="text-center latest-stat-card">
                 <div className="inline-flex items-center justify-center w-16 h-16 bg-emerald-100 text-emerald-600 rounded-full mb-4">

@@ -147,7 +147,7 @@ export default function CategoriesPage() {
               {[
                 { value: "6", label: "Categories" },
                 { value: "58", label: "Articles" },
-                { value: "15k", label: "Readers" }
+                { value: "4k", label: "Readers" }
               ].map((stat, idx) => (
                 <div key={idx} className="text-center">
                   <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
