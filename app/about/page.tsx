@@ -11,30 +11,39 @@ import {
   PenToolIcon,
   RocketIcon,
   LifeBuoyIcon,
-  Linkedin
+  Linkedin,
+  Target,
+  Lightbulb,
+  Shield,
+  ArrowRight,
+  CheckCircle2,
+  Star
 } from "lucide-react";
 
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
-
-// Import custom SCSS for animations (you'll need to create this)
-import "@/styles/about.scss";
+import OurApproachSection from "@/components/sections/approach";
+import WhyChooseUsSection from "@/components/sections/Us";
+import TestimonialsSection from "@/components/sections/TestimonialsSection";
 
 export default function AboutPage() {
   const heroRef = useRef(null);
-  const missionRef = useRef(null);
+  const approachRef = useRef(null);
+  const whyChooseRef = useRef(null);
+  const statsRef = useRef(null);
+  const testimonialsRef = useRef(null);
   const teamRef = useRef(null);
-  const timelineRef = useRef(null);
-  const processRef = useRef(null);
   const ctaRef = useRef(null);
   
-  const isMissionInView = useInView(missionRef, { once: true, amount: 0.3 });
+  const isApproachInView = useInView(approachRef, { once: true, amount: 0.3 });
+  const isWhyChooseInView = useInView(whyChooseRef, { once: true, amount: 0.3 });
+  const isStatsInView = useInView(statsRef, { once: true, amount: 0.3 });
+  const isTestimonialsInView = useInView(testimonialsRef, { once: true, amount: 0.2 });
   const isTeamInView = useInView(teamRef, { once: true, amount: 0.3 });
-  const isTimelineInView = useInView(timelineRef, { once: true, amount: 0.2 });
-  const isProcessInView = useInView(processRef, { once: true, amount: 0.3 });
   const isCtaInView = useInView(ctaRef, { once: true, amount: 0.5 });
 
   const [parallaxY, setParallaxY] = useState(0);
+  const [currentTestimonial, setCurrentTestimonial] = useState(0);
 
   useEffect(() => {
     const handleScroll = () => {
@@ -46,466 +55,449 @@ export default function AboutPage() {
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  // Stats counter animation
+  const [counters, setCounters] = useState({
+    years: 0,
+    customers: 0,
+    projects: 0,
+    awards: 0
+  });
+
+  useEffect(() => {
+    if (isStatsInView) {
+      const duration = 2000;
+      const steps = 60;
+      const interval = duration / steps;
+      
+      const targets = { years: 5, customers: 1500, projects: 800, awards: 15 };
+      let step = 0;
+
+      const timer = setInterval(() => {
+        step++;
+        const progress = step / steps;
+        
+        setCounters({
+          years: Math.floor(targets.years * progress),
+          customers: Math.floor(targets.customers * progress),
+          projects: Math.floor(targets.projects * progress),
+          awards: Math.floor(targets.awards * progress)
+        });
+
+        if (step >= steps) {
+          clearInterval(timer);
+          setCounters(targets);
+        }
+      }, interval);
+
+      return () => clearInterval(timer);
+    }
+  }, [isStatsInView]);
+
   // Team Members Data
   const teamMembers = [
     {
-      name: "Alex Reynolds",
-      role: "CEO & Founder",
-      bio: "With over 15 years in software development, Alex founded Softrinx to create transformative digital solutions for enterprises.",
-      image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?w=400&h=400&q=80",
-      linkedin: "https://linkedin.com"
+      name: "Mateo Daniel",
+      role: "Founder, CTO",
+      bio: "Visionary technologist with 15+ years building enterprise-grade software solutions that drive real business transformation.",
+      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&q=80",
+      socials: { linkedin: "#", twitter: "#", github: "#" }
     },
     {
-      name: "Samantha Chen",
-      role: "CTO",
-      bio: "Technical visionary with expertise in cloud architecture, AI implementation, and scaling distributed systems.",
-      image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=400&h=400&q=80",
-      linkedin: "https://linkedin.com"
+      name: "Elias Josiah",
+      role: "Co-Founder, CEO",
+      bio: "Strategic business leader passionate about leveraging technology to solve complex challenges and create lasting value.",
+      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&h=600&q=80",
+      socials: { linkedin: "#", twitter: "#" }
     },
     {
-      name: "Michael Osei",
-      role: "Lead Developer",
-      bio: "Full-stack expert specializing in React and Node.js ecosystems with a passion for clean, efficient code.",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&q=80",
-      linkedin: "https://linkedin.com"
+      name: "Miles Jaxon",
+      role: "Head of HR & Manager",
+      bio: "People-first leader focused on building high-performing teams and fostering cultures of innovation and excellence.",
+      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&h=600&q=80",
+      socials: { linkedin: "#", twitter: "#", facebook: "#", instagram: "#" }
     },
     {
-      name: "Olivia Martinez",
-      role: "Design Director",
-      bio: "Award-winning designer who transforms complex requirements into intuitive, beautiful user experiences.",
-      image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?w=400&h=400&q=80",
-      linkedin: "https://linkedin.com"
-    },
-    {
-      name: "David Park",
-      role: "Mobile Development Lead",
-      bio: "Native app specialist with deep expertise in iOS, Android, and cross-platform development frameworks.",
-      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=400&h=400&q=80",
-      linkedin: "https://linkedin.com"
-    },
-    {
-      name: "Rebecca Johnson",
-      role: "Project Manager",
-      bio: "Certified PMP with a track record of delivering complex enterprise projects on time and within budget.",
-      image: "https://images.unsplash.com/photo-1534751516642-a1af1ef26a56?w=400&h=400&q=80",
-      linkedin: "https://linkedin.com"
+      name: "Silas Nicholas",
+      role: "Software Engineer",
+      bio: "Full-stack engineer specializing in scalable architectures, clean code, and delivering robust solutions on time.",
+      image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&h=600&q=80",
+      socials: { linkedin: "#", github: "#" }
     }
   ];
 
-  // Company Timeline Data
-  const timelineEvents = [
+  // Testimonials
+  const testimonials = [
     {
-      year: "2010",
-      title: "Founded",
-      description: "Softrinx was established with a mission to create high-quality software solutions for businesses."
+      platform: "Trustpilot",
+      rating: 5,
+      text: "Softrinx transformed our legacy system into a modern, cloud-based platform that reduced our operational costs by 40% while improving performance dramatically.",
+      author: "Sarah Mitchell",
+      role: "CTO at TechFlow Solutions",
+      image: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=100&h=100&q=80",
+      date: "Nov 15, 2024"
     },
     {
-      year: "2013",
-      title: "First Enterprise Client",
-      description: "Secured our first Fortune 500 client, delivering a transformative supply chain management system."
+      platform: "Google",
+      rating: 5,
+      text: "Working with Softrinx was an absolute pleasure. Their team's expertise in mobile development helped us launch our app 2 months ahead of schedule with exceptional quality.",
+      author: "Marcus Chen",
+      role: "Product Director at FinanceHub",
+      image: "https://images.unsplash.com/photo-1472099645785-5658abf4ff4e?w=100&h=100&q=80",
+      date: "Oct 28, 2024"
     },
     {
-      year: "2016",
-      title: "Global Expansion",
-      description: "Opened offices in Europe and Asia to better serve our growing international client base."
-    },
-    {
-      year: "2018",
-      title: "AI Division Launch",
-      description: "Created a dedicated AI solutions team to help clients harness machine learning capabilities."
-    },
-    {
-      year: "2022",
-      title: "Cloud Excellence Award",
-      description: "Recognized for innovative cloud architecture solutions that reduced client costs by 40%."
-    },
-    {
-      year: "2025",
-      title: "Today",
-      description: "Leading a team of 100+ professionals, serving clients across 20+ countries worldwide."
+      platform: "Trustpilot",
+      rating: 5,
+      text: "The attention to detail and commitment to our success was outstanding. Softrinx didn't just deliver software—they delivered a complete solution that transformed our business.",
+      author: "Elena Rodriguez",
+      role: "CEO at HealthTech Innovations",
+      image: "https://images.unsplash.com/photo-1438761681033-6461ffad8d80?w=100&h=100&q=80",
+      date: "Dec 2, 2024"
     }
   ];
 
-  // Development Process Steps
-  const processSteps = [
+  const approachSections = [
     {
-      icon: <Globe className="w-8 h-8" />,
-      title: "Discovery",
-      description: "We deeply analyze your business needs, target audience, and project requirements."
+      title: "Customized Solutions",
+      description: "We don't believe in one-size-fits-all. Every project begins with deep discovery to understand your unique business challenges, goals, and requirements.",
+      image: "https://images.unsplash.com/photo-1553877522-43269d4ea984?w=600&h=400&q=80"
     },
     {
-      icon: <PenToolIcon className="w-8 h-8" />,
-      title: "Design",
-      description: "Creating intuitive UI/UX designs that balance aesthetics with functionality."
-    },
-    {
-      icon: <Code className="w-8 h-8" />,
-      title: "Development",
-      description: "Building your solution with clean, maintainable code and best practices."
-    },
-    {
-      icon: <Zap className="w-8 h-8" />,
-      title: "Testing",
-      description: "Rigorous quality assurance to ensure your software is robust and bug-free."
-    },
-    {
-      icon: <RocketIcon className="w-8 h-8" />,
-      title: "Deployment",
-      description: "Smooth launch with continuous integration and deployment pipelines."
-    },
-    {
-      icon: <LifeBuoyIcon className="w-8 h-8" />,
-      title: "Support",
-      description: "Ongoing maintenance and support to ensure your solution evolves with your business."
+      title: "Quality Reliability",
+      description: "Our rigorous testing and quality assurance processes ensure every solution we deliver is robust, secure, and performs flawlessly under real-world conditions.",
+      image: "https://images.unsplash.com/photo-1552664730-d307ca884978?w=600&h=400&q=80"
     }
+  ];
+
+  const whyChooseMetrics = [
+    { label: "Strategy", percentage: 70 },
+    { label: "Audience", percentage: 98 },
+    { label: "Keyword", percentage: 85 }
   ];
 
   return (
     <main className="bg-white">
       <Navigation />
       
-      {/* Hero Section */}
+      {/* Hero Section - Dark */}
       <section 
         ref={heroRef}
-        className="relative min-h-[60vh] flex items-center overflow-hidden bg-gray-900"
+        className="relative min-h-[70vh] flex items-center overflow-hidden bg-gray-950"
       >
-        {/* Background Image with Parallax */}
         <div className="absolute inset-0">
           <div 
             className="absolute inset-0 z-10"
             style={{ transform: `translateY(${parallaxY}px)` }}
           >
             <Image
-              src="https://images.unsplash.com/photo-1552664730-d307ca884978?w=1920&q=80"
-              alt="Team collaboration"
+              src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=1920&q=80"
+              alt="Softrinx team collaboration"
               fill
               className="object-cover"
               priority
               quality={90}
             />
-            <div className="absolute inset-0 bg-gradient-to-b from-gray-900/80 via-gray-900/60 to-gray-900/90" />
+            <div className="absolute inset-0 bg-gradient-to-b from-gray-950/90 via-gray-950/80 to-gray-950/95" />
           </div>
         </div>
         
-        {/* Hero Content */}
         <div className="container mx-auto px-4 relative z-20 pt-32 pb-20">
-          <div className="max-w-4xl mx-auto">
-            <h1 className="text-4xl md:text-6xl font-bold text-white mb-6 about-heading">
-              We're on a mission to <span className="bg-gradient-to-r from-emerald-400 to-teal-500 bg-clip-text text-transparent gradient-shift">build better software</span> for a digital world
-            </h1>
-            <p className="text-xl text-gray-300 mb-8 about-subheading">
-              For over a decade, we've been helping businesses transform their ideas into powerful, scalable, and user-friendly applications.
+          <div className="max-w-4xl">
+            <motion.div
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8 }}
+            >
+              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
+                We're on a mission to{" "}
+                <span className="bg-gradient-to-r from-emerald-400 to-teal-500 bg-clip-text text-transparent">
+                  build better software
+                </span>{" "}
+                for a digital world
+              </h1>
+            </motion.div>
+            
+            <motion.p
+              initial={{ opacity: 0, y: 30 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.8, delay: 0.2 }}
+              className="text-xl text-gray-300 mb-12 max-w-3xl"
+            >
+              For over a decade, we've been helping businesses transform their ideas into powerful, 
+              scalable, and user-friendly applications that drive real results.
+            </motion.p>
+          </div>
+        </div>
+      </section>
+
+     <OurApproachSection/>
+      <WhyChooseUsSection/>
+
+      {/* Stats Section - Light */}
+      <section ref={statsRef} className="py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isStatsInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Our Stats</h2>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+              Numbers that reflect our commitment to excellence and the trust our clients place in us.
             </p>
-            <div className="flex flex-wrap gap-4 about-stats">
-              <div className="bg-white/10 backdrop-blur-sm px-6 py-4 rounded-lg">
-                <div className="text-3xl font-bold text-white">15+</div>
-                <div className="text-sm text-gray-400">Years Experience</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm px-6 py-4 rounded-lg">
-                <div className="text-3xl font-bold text-white">500+</div>
-                <div className="text-sm text-gray-400">Projects Delivered</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm px-6 py-4 rounded-lg">
-                <div className="text-3xl font-bold text-white">200+</div>
-                <div className="text-sm text-gray-400">Happy Clients</div>
-              </div>
-              <div className="bg-white/10 backdrop-blur-sm px-6 py-4 rounded-lg">
-                <div className="text-3xl font-bold text-white">20+</div>
-                <div className="text-sm text-gray-400">Countries Served</div>
-              </div>
+          </motion.div>
+
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+            {[
+              { icon: Clock, value: counters.years, label: "Years", subtitle: "Working With Passion" },
+              { icon: Users, value: counters.customers, label: "Customer", subtitle: "Satisfied Customer" },
+              { icon: Target, value: counters.projects, label: "Project", subtitle: "We Have Completed" },
+              { icon: Award, value: counters.awards, label: "Awards", subtitle: "Achievement For Service" }
+            ].map((stat, idx) => (
+              <motion.div
+                key={stat.label}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isStatsInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                className="text-center group"
+              >
+                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-emerald-100 text-emerald-600 mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300 group-hover:scale-110">
+                  <stat.icon className="w-10 h-10" />
+                </div>
+                <div className="text-5xl font-bold text-gray-900 mb-2">
+                  {stat.value}{stat.label === "Customer" ? "K" : stat.label === "Project" ? "" : ""}
+                </div>
+                <div className="text-xl font-semibold text-gray-700 mb-1">{stat.label}</div>
+                <div className="text-gray-500 text-sm">{stat.subtitle}</div>
+              </motion.div>
+            ))}
+          </div>
+
+          {/* Client logos */}
+          <div className="mt-20">
+            <p className="text-center text-gray-600 font-semibold mb-10">
+              We Take Care Of More Than 1.5k Trusted Allies
+            </p>
+            <div className="flex flex-wrap items-center justify-center gap-12 opacity-40 grayscale">
+              {["Health Master", "Alx", "IntelliMark", "Aws", "Github"].map((company, idx) => (
+                <motion.div
+                  key={company}
+                  initial={{ opacity: 0 }}
+                  animate={isStatsInView ? { opacity: 0.4 } : {}}
+                  transition={{ duration: 0.6, delay: idx * 0.1 }}
+                  className="hover:opacity-100 hover:grayscale-0 transition-all duration-300"
+                >
+                  <div className="text-2xl font-bold text-gray-600">{company}</div>
+                </motion.div>
+              ))}
             </div>
           </div>
         </div>
       </section>
-      
-      {/* Mission Section */}
-      <section ref={missionRef} className="py-20">
+
+      <TestimonialsSection/>
+
+      {/* Team Section - Light */}
+      <section ref={teamRef} className="py-24 bg-white">
         <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="grid md:grid-cols-2 gap-12 items-center">
-              {/* Mission Content */}
-              <div className={`transform transition-all duration-1000 ${isMissionInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-                <h2 className="text-3xl font-bold mb-6">Our Mission & Vision</h2>
-                <div className="w-20 h-1 bg-emerald-500 mb-8"></div>
-                <p className="text-gray-600 mb-6 text-lg">
-                  At Softrinx, we believe that great software has the power to transform businesses and improve lives. Our mission is to deliver innovative, high-quality solutions that drive real results for our clients.
-                </p>
-                <p className="text-gray-600 mb-8 text-lg">
-                  We envision a world where technology enables businesses to operate more efficiently, connect more meaningfully with their customers, and create more positive impact in their communities.
-                </p>
-                
-                {/* Core Values */}
-                <div className="space-y-4">
-                  <div className="flex items-start">
-                    <div className="bg-emerald-100 p-3 rounded-lg text-emerald-600 mr-4">
-                      <Award className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold mb-1">Excellence</h3>
-                      <p className="text-gray-600">We're committed to excellence in everything we do, from code quality to client communication.</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start">
-                    <div className="bg-emerald-100 p-3 rounded-lg text-emerald-600 mr-4">
-                      <Users className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold mb-1">Collaboration</h3>
-                      <p className="text-gray-600">We believe the best solutions come from true partnership between our team and our clients.</p>
-                    </div>
-                  </div>
-                  
-                  <div className="flex items-start">
-                    <div className="bg-emerald-100 p-3 rounded-lg text-emerald-600 mr-4">
-                      <Zap className="w-6 h-6" />
-                    </div>
-                    <div>
-                      <h3 className="font-bold mb-1">Innovation</h3>
-                      <p className="text-gray-600">We continuously explore new technologies and approaches to deliver cutting-edge solutions.</p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-              
-              {/* Mission Image */}
-              <div className={`transform transition-all duration-1000 delay-300 ${isMissionInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-                <div className="relative rounded-2xl overflow-hidden shadow-2xl mission-image">
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={isTeamInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="text-center mb-16"
+          >
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Team Members</h2>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+              Meet the talented individuals who bring passion, expertise, and innovation to every project we deliver.
+            </p>
+          </motion.div>
+
+          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            {teamMembers.map((member, idx) => (
+              <motion.div
+                key={idx}
+                initial={{ opacity: 0, y: 30 }}
+                animate={isTeamInView ? { opacity: 1, y: 0 } : {}}
+                transition={{ duration: 0.6, delay: idx * 0.1 }}
+                className="group relative"
+              >
+                <div className="relative overflow-hidden rounded-2xl mb-6">
                   <Image
-                    src="https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&q=80"
-                    alt="Our mission"
-                    width={600}
-                    height={450}
-                    className="w-full h-auto"
+                    src={member.image}
+                    alt={member.name}
+                    width={400}
+                    height={500}
+                    className="w-full h-[400px] object-cover grayscale group-hover:grayscale-0 transition-all duration-500 group-hover:scale-105"
                   />
                   
-                  {/* Floating Elements */}
-                  <div className="absolute top-4 left-4 bg-white p-3 rounded-lg shadow-lg mission-float-element">
-                    <Code className="w-6 h-6 text-emerald-500" />
-                  </div>
-                  <div className="absolute top-1/2 right-4 bg-white p-3 rounded-lg shadow-lg mission-float-element delay-300">
-                    <BrainCircuit className="w-6 h-6 text-purple-500" />
-                  </div>
-                  <div className="absolute bottom-4 left-1/3 bg-white p-3 rounded-lg shadow-lg mission-float-element delay-600">
-                    <Smartphone className="w-6 h-6 text-blue-500" />
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      {/* Team Section */}
-      <section ref={teamRef} className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            {/* Section Header */}
-            <div className={`text-center mb-16 transform transition-all duration-1000 ${isTeamInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Meet Our Team</h2>
-              <div className="w-20 h-1 bg-emerald-500 mx-auto mb-6"></div>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                We're a diverse team of experts passionate about creating innovative software solutions that drive real business outcomes.
-              </p>
-            </div>
-            
-            {/* Team Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {teamMembers.map((member, idx) => (
-                <div 
-                  key={idx} 
-                  className={`bg-white rounded-xl overflow-hidden shadow-lg transition-all duration-700 transform group hover:shadow-2xl ${isTeamInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                  style={{ transitionDelay: `${idx * 100}ms` }}
-                >
-                  <div className="relative overflow-hidden">
-                    <Image
-                      src={member.image}
-                      alt={member.name}
-                      width={400}
-                      height={400}
-                      className="w-full h-64 object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
-                    <a 
-                      href={member.linkedin} 
-                      target="_blank" 
-                      rel="noopener noreferrer" 
-                      className="absolute bottom-4 right-4 p-2 bg-white rounded-full shadow-md opacity-0 group-hover:opacity-100 transition-all duration-300 transform translate-y-4 group-hover:translate-y-0 text-emerald-600 hover:bg-emerald-50"
-                    >
-                      <Linkedin className="w-5 h-5" />
-                    </a>
-                  </div>
-                  
-                  <div className="p-6">
-                    <h3 className="text-xl font-bold mb-1">{member.name}</h3>
-                    <p className="text-emerald-600 font-medium mb-3">{member.role}</p>
-                    <p className="text-gray-600">{member.bio}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-            
-            {/* Join the Team CTA */}
-            <div className={`mt-16 text-center transform transition-all duration-1000 delay-700 ${isTeamInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <Link 
-                href="/careers" 
-                className="inline-flex items-center text-emerald-600 font-semibold hover:text-emerald-700 transition-colors"
-              >
-                Join our growing team
-                <ChevronRight className="w-5 h-5 ml-1" />
-              </Link>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      {/* Timeline Section */}
-      <section ref={timelineRef} className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-5xl mx-auto">
-            {/* Section Header */}
-            <div className={`text-center mb-16 transform transition-all duration-1000 ${isTimelineInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Journey</h2>
-              <div className="w-20 h-1 bg-emerald-500 mx-auto mb-6"></div>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                From humble beginnings to industry leadership, our story is one of continuous growth and innovation.
-              </p>
-            </div>
-            
-            {/* Timeline */}
-            <div className="relative">
-              {/* Vertical Line */}
-              <div className="absolute left-1/2 transform -translate-x-1/2 h-full w-1 bg-gray-200"></div>
-              
-              {/* Timeline Events */}
-              <div className="space-y-12">
-                {timelineEvents.map((event, idx) => (
-                  <div 
-                    key={idx} 
-                    className={`relative flex items-center transform transition-all duration-700 ${isTimelineInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                    style={{ transitionDelay: `${idx * 150}ms` }}
-                  >
-                    {/* Left Side (Even) or Right Side (Odd) */}
-                    <div className={`flex w-full ${idx % 2 === 0 ? 'justify-end md:pr-8' : 'md:flex-row-reverse md:pl-8'}`}>
-                      <div className="hidden md:block w-1/2"></div>
-                      
-                      <div className="relative bg-white p-6 rounded-xl shadow-lg border-t-4 border-emerald-500 md:w-1/2">
-                        <div className="absolute top-6 right-full mr-4 hidden md:block">
-                          <div className="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold">
-                            {event.year}
-                          </div>
-                        </div>
-                        <div className="absolute top-6 left-full ml-4 hidden md:block">
-                          <div className="w-12 h-12 rounded-full bg-emerald-500 text-white flex items-center justify-center font-bold">
-                            {event.year}
-                          </div>
-                        </div>
-                        
-                        {/* Mobile Year */}
-                        <div className="mb-3 md:hidden">
-                          <span className="bg-emerald-100 text-emerald-600 px-3 py-1 rounded-full font-medium">{event.year}</span>
-                        </div>
-                        
-                        <h3 className="text-xl font-bold mb-2">{event.title}</h3>
-                        <p className="text-gray-600">{event.description}</p>
-                      </div>
+                  {/* Overlay with social icons */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-8">
+                    <div className="flex gap-3">
+                      <a 
+                        href={member.socials.linkedin}
+                        className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-colors"
+                      >
+                        <Linkedin className="w-5 h-5" />
+                      </a>
+                      {member.socials.twitter && (
+                        <a 
+                          href={member.socials.twitter}
+                          className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-colors"
+                        >
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
+                          </svg>
+                        </a>
+                      )}
+                      {member.socials.facebook && (
+                        <a 
+                          href={member.socials.facebook}
+                          className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-colors"
+                        >
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
+                          </svg>
+                        </a>
+                      )}
+                      {member.socials.instagram && (
+                        <a 
+                          href={member.socials.instagram}
+                          className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-colors"
+                        >
+                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01M7.5 2h9a5.5 5.5 0 015.5 5.5v9a5.5 5.5 0 01-5.5 5.5h-9A5.5 5.5 0 012 16.5v-9A5.5 5.5 0 017.5 2z" />
+                          </svg>
+                        </a>
+                      )}
                     </div>
-                    
-                    {/* Center Dot */}
-                    <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-emerald-600 border-4 border-white"></div>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      {/* Our Process Section */}
-      <section ref={processRef} className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            {/* Section Header */}
-            <div className={`text-center mb-16 transform transition-all duration-1000 ${isProcessInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Development Process</h2>
-              <div className="w-20 h-1 bg-emerald-500 mx-auto mb-6"></div>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-                We follow a proven methodology that ensures quality, efficiency, and successful project delivery.
-              </p>
-            </div>
-            
-            {/* Process Grid */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {processSteps.map((step, idx) => (
-                <div 
-                  key={idx} 
-                  className={`bg-white rounded-xl p-8 shadow-lg transition-all duration-700 transform border-b-4 border-emerald-500 hover:shadow-xl ${isProcessInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
-                  style={{ transitionDelay: `${idx * 100}ms` }}
-                >
-                  <div className="text-emerald-500 mb-4">{step.icon}</div>
-                  <h3 className="text-xl font-bold mb-3">{step.title}</h3>
-                  <p className="text-gray-600">{step.description}</p>
-                  <div className="mt-4 flex items-center text-sm font-medium text-emerald-600">
-                    <span className="w-8 h-8 rounded-full bg-emerald-100 flex items-center justify-center mr-3">
-                      {idx + 1}
-                    </span>
-                    Step {idx + 1}
                   </div>
                 </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
-      
-      {/* Client Logos Section */}
-      <section className="py-16 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-10">
-              <h2 className="text-2xl font-bold mb-4">Trusted By Industry Leaders</h2>
-              <p className="text-gray-600">We've partnered with companies of all sizes across various industries</p>
-            </div>
-            
-            <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-70">
-              {/* Replace with actual client logos */}
-              {[1, 2, 3, 4, 5, 6].map((i) => (
-                <div key={i} className="grayscale hover:grayscale-0 transition-all duration-300">
-                  <div className="h-12 w-32 bg-gray-200 rounded animate-pulse"></div>
+
+                <div className="text-center">
+                  <h3 className="text-2xl font-bold text-gray-900 mb-1">{member.name}</h3>
+                  <p className="text-emerald-600 font-medium mb-3">{member.role}</p>
                 </div>
-              ))}
-            </div>
+              </motion.div>
+            ))}
           </div>
         </div>
       </section>
-      
-      {/* CTA Section */}
-      <section 
-        ref={ctaRef} 
-        className="py-20 bg-gradient-to-r from-emerald-500 to-teal-600 text-white"
-      >
-        <div className="container mx-auto px-4">
+
+      {/* CTA Section - Dark with Background */}
+      <section ref={ctaRef} className="relative py-32 overflow-hidden">
+        <div className="absolute inset-0 z-0">
+          <Image
+            src="https://images.unsplash.com/photo-1557804506-669a67965ba0?w=1920&q=80"
+            alt="Contact us"
+            fill
+            className="object-cover"
+          />
+          <div className="absolute inset-0 bg-gray-950/90" />
+        </div>
+
+        <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className={`text-3xl md:text-4xl font-bold mb-6 transform transition-all duration-1000 ${isCtaInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              Ready to transform your business with custom software?
-            </h2>
-            <p className={`text-xl mb-8 text-white/80 transform transition-all duration-1000 delay-300 ${isCtaInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              Let's discuss your project and explore how we can help you achieve your business goals.
+            <motion.div
+              initial={{ opacity: 0, scale: 0.9 }}
+              animate={isCtaInView ? { opacity: 1, scale: 1 } : {}}
+              transition={{ duration: 0.6 }}
+            >
+              <div className="inline-block mb-8">
+                <div className="relative">
+                  <div className="absolute inset-0 bg-emerald-500/20 blur-3xl rounded-full" />
+                  <div className="relative w-32 h-32 rounded-full border-4 border-emerald-500 flex flex-col items-center justify-center">
+                    <div className="text-4xl font-bold text-white">10</div>
+                    <div className="text-sm text-emerald-400">Years</div>
+                  </div>
+                </div>
+              </div>
+
+              <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+                Ready to Unlock the Potential of Your Business?
+              </h2>
+              
+              <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
+                Let's discuss your project and explore how we can help you achieve your business goals with cutting-edge software solutions.
+              </p>
+
+              <Link
+                href="/contact"
+                className="inline-flex items-center gap-2 px-10 py-5 bg-transparent border-2 border-emerald-500 text-white font-bold rounded-full hover:bg-emerald-500 transition-all duration-300 group text-lg"
+              >
+                Contact With Us
+                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              </Link>
+            </motion.div>
+          </div>
+        </div>
+      </section>
+
+      {/* Latest Articles Preview - Optional Light Section */}
+      <section className="py-24 bg-white">
+        <div className="container mx-auto px-4">
+          <div className="text-center mb-16">
+            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">The Latest Article</h2>
+            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+              Stay informed with insights, best practices, and industry trends from our team of experts.
             </p>
-            <div className={`space-x-4 transform transition-all duration-1000 delay-500 ${isCtaInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <Link 
-                href="/contact" 
-                className="inline-block px-8 py-4 bg-white text-emerald-600 font-semibold rounded-full shadow-lg hover:shadow-xl hover:bg-gray-50 transition-all duration-300"
+          </div>
+
+          <div className="grid md:grid-cols-3 gap-8">
+            {[1, 2, 3].map((item) => (
+              <motion.div
+                key={item}
+                initial={{ opacity: 0, y: 30 }}
+                whileInView={{ opacity: 1, y: 0 }}
+                viewport={{ once: true }}
+                transition={{ duration: 0.6, delay: item * 0.1 }}
+                className="group"
               >
-                Get in Touch
-              </Link>
-              <Link 
-                href="/services" 
-                className="inline-block px-8 py-4 bg-transparent border-2 border-white/50 text-white font-semibold rounded-full hover:bg-white/10 transition-all duration-300"
-              >
-                Our Services
-              </Link>
-            </div>
+                <div className="relative overflow-hidden rounded-2xl mb-6">
+                  <Image
+                    src={`https://images.unsplash.com/photo-${
+                      item === 1 ? '1697577418970-95d99b5a55cf' : 
+                      item === 2 ? '1517245386807-bb43f82c33c4' : 
+                      '1516321318423-f06f85e504b3'
+                    }?w=600&q=80`}
+                    alt="Article"
+                    width={400}
+                    height={250}
+                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+                  />
+                  <div className="absolute top-4 left-4 bg-emerald-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
+                    Technology
+                  </div>
+                </div>
+                <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                  <span>By Admin</span>
+                  <span>•</span>
+                  <span>Dec {item}, 2024</span>
+                </div>
+                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-emerald-600 transition-colors">
+                  {item === 1 && "How AI is Transforming Software Development"}
+                  {item === 2 && "Best Practices for Scalable Web Applications"}
+                  {item === 3 && "The Future of Mobile App Development"}
+                </h3>
+                <Link 
+                  href="/blog"
+                  className="inline-flex items-center text-emerald-600 font-semibold hover:gap-2 transition-all group"
+                >
+                  Read More
+                  <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                </Link>
+              </motion.div>
+            ))}
+          </div>
+
+          <div className="text-center mt-12">
+            <Link
+              href="/blog"
+              className="inline-flex items-center px-8 py-4 bg-gray-900 text-white font-semibold rounded-full hover:bg-emerald-600 transition-colors"
+            >
+              View All Articles
+              <ArrowRight className="w-5 h-5 ml-2" />
+            </Link>
           </div>
         </div>
       </section>
