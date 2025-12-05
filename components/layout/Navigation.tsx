@@ -4,7 +4,7 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
 import { 
-  Menu, X, ChevronDown, Facebook, Twitter, Instagram, Linkedin, Github 
+  Menu, X, ChevronDown, Facebook, Twitter, Instagram, Linkedin, Github, Phone
 } from "lucide-react";
 
 const Navigation = () => {
@@ -93,7 +93,11 @@ const Navigation = () => {
   ];
 
   return (
-    <nav className={`fixed w-full z-50 transition-all duration-300 ${scrolled ? "bg-white/90 backdrop-blur-md shadow-md" : "bg-transparent"}`}>
+    <nav className={`fixed w-full z-50 transition-all duration-300 ${
+      scrolled 
+        ? "bg-gray-900/95 backdrop-blur-md shadow-lg" 
+        : "bg-transparent"
+    }`}>
       <div className="container mx-auto px-4 py-4">
         <div className="flex items-center justify-between">
           {/* Logo */}
@@ -103,7 +107,9 @@ const Navigation = () => {
               alt="Softrinx Logo" 
               width={150} 
               height={40} 
-              className="h-10 w-auto"
+              className={`h-10 w-auto transition-all duration-300 ${
+                scrolled ? "brightness-0 invert" : ""
+              }`}
             />
           </Link>
           
@@ -114,7 +120,7 @@ const Navigation = () => {
                 {item.dropdown ? (
                   <button 
                     onClick={() => handleDropdown(item.name)}
-                    className="flex items-center px-4 py-2 text-sm uppercase tracking-wider font-medium text-white hover-gradient-text transition-colors"
+                    className="flex items-center px-4 py-2 text-sm uppercase tracking-wider font-medium text-white hover:text-emerald-400 transition-colors"
                   >
                     {item.name}
                     <ChevronDown size={16} className={`ml-1 transition-transform duration-200 ${activeDropdown === item.name ? 'rotate-180' : ''}`} />
@@ -122,7 +128,7 @@ const Navigation = () => {
                 ) : (
                   <Link 
                     href={item.path}
-                    className="px-4 py-2 text-sm uppercase tracking-wider font-medium text-white hover-gradient-text transition-colors"
+                    className="px-4 py-2 text-sm uppercase tracking-wider font-medium text-white hover:text-emerald-400 transition-colors"
                   >
                     {item.name}
                   </Link>
@@ -155,15 +161,40 @@ const Navigation = () => {
             ))}
           </div>
 
-          {/* Simple White Hamburger - Always visible */}
-          <button 
-            className="p-2"
-            onClick={toggleMenu}
-            aria-label="Menu"
-          >
-            <Menu size={28} className={`text-white ${isOpen ? 'hidden' : 'block'}`} />
-            <X size={28} className={`text-white ${isOpen ? 'block' : 'hidden'}`} />
-          </button>
+          {/* Client Support & Hamburger */}
+          <div className="flex items-center gap-4">
+            {/* Client Support - Hidden on mobile */}
+            <div className="hidden lg:flex items-center gap-3 border-l border-white/20 pl-6">
+              <div className="text-right">
+                <p className="text-xs text-gray-300 uppercase tracking-wider">For Client Support:</p>
+                <a 
+                  href="tel:+254 750 109798" 
+                  className="text-white font-semibold hover:text-emerald-400 transition-colors"
+                >
+                +254 750 109798
+                </a>
+              </div>
+              <Phone className="w-5 h-5 text-emerald-400" />
+            </div>
+
+            {/* Get A Quote Button - Hidden on mobile */}
+            <Link
+              href="/contact"
+              className="hidden lg:block px-6 py-2.5 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/50"
+            >
+              Get A Quote
+            </Link>
+
+            {/* Hamburger Menu */}
+            <button 
+              className="p-2"
+              onClick={toggleMenu}
+              aria-label="Menu"
+            >
+              <Menu size={28} className={`text-white ${isOpen ? 'hidden' : 'block'}`} />
+              <X size={28} className={`text-white ${isOpen ? 'block' : 'hidden'}`} />
+            </button>
+          </div>
         </div>
       </div>
 
@@ -173,7 +204,7 @@ const Navigation = () => {
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className="container mx-auto px-4 py-8 h-full">
+        <div className="container mx-auto px-4 py-8 h-full overflow-y-auto">
           <div className="flex flex-col h-full">
             <div className="flex justify-between items-center mb-10">
               <Link href="/" className="flex items-center">
@@ -195,7 +226,7 @@ const Navigation = () => {
             </div>
 
             {/* Hero Image with Text */}
-            <div className="relative w-full h-48 rounded-2xl overflow-hidden mb-8 menu-image">
+            <div className="relative w-full h-48 rounded-2xl overflow-hidden mb-8">
               <Image
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80"
                 alt="Team collaboration"
@@ -209,6 +240,7 @@ const Navigation = () => {
               </div>
             </div>
 
+            {/* Navigation Items */}
             <div className="flex flex-col space-y-6 text-2xl font-medium">
               {navItems.map((item, idx) => (
                 <div key={item.name} className="border-b border-gray-100 pb-4">
@@ -216,8 +248,7 @@ const Navigation = () => {
                     <div>
                       <button 
                         onClick={() => handleDropdown(item.name)}
-                        className="flex items-center justify-between w-full text-gray-800 hover:text-emerald-600 transition-colors menu-item"
-                        style={{ animationDelay: `${idx * 80}ms` }}
+                        className="flex items-center justify-between w-full text-gray-800 hover:text-emerald-600 transition-colors"
                       >
                         {item.name}
                         <ChevronDown 
@@ -251,8 +282,7 @@ const Navigation = () => {
                   ) : (
                     <Link 
                       href={item.path}
-                      className="block text-gray-800 hover:text-emerald-600 transition-colors menu-item"
-                      style={{ animationDelay: `${idx * 80}ms` }}
+                      className="block text-gray-800 hover:text-emerald-600 transition-colors"
                       onClick={toggleMenu}
                     >
                       {item.name}
@@ -262,9 +292,35 @@ const Navigation = () => {
               ))}
             </div>
 
-            <div className="mt-auto">
+            {/* Client Support Mobile */}
+            <div className="mt-8 p-4 bg-emerald-50 rounded-xl border border-emerald-100">
+              <div className="flex items-center gap-3">
+                <Phone className="w-6 h-6 text-emerald-600" />
+                <div>
+                  <p className="text-xs text-gray-600 uppercase tracking-wider">For Client Support:</p>
+                  <a 
+                    href="tel:+254 750 109798" 
+                    className="text-lg font-semibold text-emerald-600 hover:text-emerald-700"
+                  >
+                  +254 750 109798
+                  </a>
+                </div>
+              </div>
+            </div>
+
+            {/* Get Quote Button Mobile */}
+            <Link
+              href="/contact"
+              className="mt-4 px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-lg transition-all duration-300 text-center"
+              onClick={toggleMenu}
+            >
+              Get A Quote
+            </Link>
+
+            {/* Social & Contact */}
+            <div className="mt-auto pt-8">
               <h3 className="text-lg font-semibold mb-4">Connect With Us</h3>
-              <div className="flex space-x-6">
+              <div className="flex space-x-4">
                 {socialIcons.map((social, index) => (
                   <a 
                     key={index}
@@ -278,9 +334,9 @@ const Navigation = () => {
                 ))}
               </div>
               
-              <div className="mt-8">
+              <div className="mt-6">
                 <p className="text-gray-600">Have questions? Get in touch!</p>
-                <p className="text-emerald-600 font-medium mt-1">contact@softrinx.com</p>
+                <p className="text-emerald-600 font-medium mt-1">hello@softrinx.com</p>
               </div>
             </div>
           </div>

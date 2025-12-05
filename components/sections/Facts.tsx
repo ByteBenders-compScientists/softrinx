@@ -3,6 +3,7 @@
 import { useRef } from 'react';
 import { Target, TrendingUp } from 'lucide-react';
 import Numbers from './numbers';
+import Image from 'next/image';
 
 export default function Facts() {
   const sectionRef = useRef(null);
@@ -51,13 +52,13 @@ export default function Facts() {
               </h2>
 
               {/* Company Info Box */}
-              <div className="bg-gray-900 rounded-lg p-8 mb-8">
+              <div className="bg-white shadow-2xl rounded-lg p-8 mb-8 border border-dotted border-bottom-2 border-emerald-600">
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-12 h-12 bg-emerald-500 rounded-full flex items-center justify-center">
                     <span className="text-white font-bold text-xl">S</span>
                   </div>
                   <div>
-                    <h3 className="text-white font-bold text-xl">Softrinx</h3>
+                    <h3 className="text-emerald-500 font-bold text-xl">Softrinx</h3>
                     <p className="text-emerald-400 text-sm">Creative IT Agency And Solutions</p>
                     <p className="text-emerald-400 text-sm font-bold">Since 2024</p>
                   </div>
@@ -73,7 +74,7 @@ export default function Facts() {
                   <div className="w-16 h-16 bg-emerald-500/20 rounded flex items-center justify-center">
                     <span className="text-4xl font-black text-gray-700">#1</span>
                   </div>
-                  <button className="px-6 py-3 bg-transparent border border-gray-700 hover:border-emerald-500 text-white rounded-full text-sm font-semibold transition-all duration-300">
+                  <button className="px-6 py-3 bg-transparent border border-gray-700 hover:border-emerald-500 text-gray-600 rounded-full text-sm font-semibold transition-all duration-300">
                     ABOUT MORE
                   </button>
                 </div>
@@ -128,9 +129,11 @@ export default function Facts() {
             
             {/* Main image */}
             <div className="relative overflow-hidden rounded-2xl shadow-2xl">
-              <img 
-                src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&h=600&fit=crop"
+              <Image
+                src="/images/images/homee.png"
                 alt="Team collaboration"
+                width={600}
+                height={800}
                 className="w-full h-[600px] object-cover transform group-hover:scale-105 transition-transform duration-700"
               />
               
