@@ -6,12 +6,15 @@ import Services from '@/components/sections/Services';
 import Portfolio from '@/components/sections/Portfolio';
 import About from '@/components/sections/About';
 import ContactForm from '@/components/sections/ContactForm';
+import Facts from '@/components/sections/Facts';
+// import Numbers from '@/components/sections/numbers';
 
 export default function Home() {
   return (
     <main>
       <Navigation />
       <Hero />
+      <Facts/>
       <Services />
       <About />
       <Portfolio />
