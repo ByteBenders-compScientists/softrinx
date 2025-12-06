@@ -25,7 +25,7 @@ const MobileCTA = () => {
         </h2>
         
         <p className="max-w-3xl mx-auto mb-12 text-2xl text-gray-600">
-          From initial concept to App Store launch and beyond. Let's build a mobile experience that users love.
+          From initial concept to App Store launch and beyond. Let&apos;s build a mobile experience that users love.
         </p>
         
         <div className="flex flex-col justify-center gap-6 mb-16 sm:flex-row">

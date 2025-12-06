@@ -234,33 +234,33 @@ export default function AuthorPage() {
       <section ref={heroRef} className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-br from-purple-900 via-indigo-900 to-blue-900">
         {/* Animated Background */}
         <div className="absolute inset-0">
-          <div className="author-float-circle absolute top-20 left-10 w-72 h-72 bg-purple-500/20 rounded-full blur-3xl"></div>
-          <div className="author-float-circle-delayed absolute bottom-10 right-20 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
-          <div className="author-sparkle-bg absolute inset-0"></div>
+          <div className="absolute rounded-full author-float-circle top-20 left-10 w-72 h-72 bg-purple-500/20 blur-3xl"></div>
+          <div className="absolute rounded-full author-float-circle-delayed bottom-10 right-20 w-96 h-96 bg-blue-500/20 blur-3xl"></div>
+          <div className="absolute inset-0 author-sparkle-bg"></div>
         </div>
 
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container relative z-10 px-4 mx-auto">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="author-badge inline-flex items-center px-4 py-2 bg-white/10 backdrop-blur-sm rounded-full text-white mb-6">
+            <div className="inline-flex items-center px-4 py-2 mb-6 text-white rounded-full author-badge bg-white/10 backdrop-blur-sm">
               <Users className="w-4 h-4 mr-2" />
               <span className="text-sm font-semibold">Meet Our Writers</span>
             </div>
 
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 author-hero-title">
-              Expert <span className="bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text text-transparent">Authors</span>
+            <h1 className="mb-6 text-5xl font-bold text-white md:text-6xl author-hero-title">
+              Expert <span className="text-transparent bg-gradient-to-r from-purple-400 to-pink-400 bg-clip-text">Authors</span>
             </h1>
 
-            <p className="text-xl text-gray-300 mb-10 author-hero-subtitle">
+            <p className="mb-10 text-xl text-gray-300 author-hero-subtitle">
               Learn from industry professionals sharing their knowledge and experience
             </p>
 
-            <div className="author-stats flex flex-wrap justify-center gap-8">
+            <div className="flex flex-wrap justify-center gap-8 author-stats">
               {[
                 { icon: <BookOpen className="w-6 h-6" />, value: "97+", label: "Articles Published" },
                 { icon: <Users className="w-6 h-6" />, value: "18k+", label: "Community Members" },
                 { icon: <Award className="w-6 h-6" />, value: "6", label: "Expert Authors" }
               ].map((stat, idx) => (
-                <div key={idx} className="flex items-center gap-3 bg-white/10 backdrop-blur-sm px-6 py-3 rounded-full">
+                <div key={idx} className="flex items-center gap-3 px-6 py-3 rounded-full bg-white/10 backdrop-blur-sm">
                   <div className="text-purple-300">{stat.icon}</div>
                   <div className="text-left">
                     <div className="text-2xl font-bold text-white">{stat.value}</div>
@@ -275,16 +275,16 @@ export default function AuthorPage() {
 
       {/* Authors Grid */}
       <section ref={authorsRef} className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-7xl mx-auto">
+        <div className="container px-4 mx-auto">
+          <div className="mx-auto max-w-7xl">
             <div className={`text-center mb-16 transform transition-all duration-1000 ${isAuthorsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">Our Content Creators</h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
+              <h2 className="mb-4 text-3xl font-bold md:text-4xl">Our Content Creators</h2>
+              <p className="max-w-2xl mx-auto text-xl text-gray-600">
                 Industry experts passionate about sharing knowledge and helping you grow
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {authors.map((author, idx) => (
                 <article 
                   key={idx}
@@ -303,15 +303,15 @@ export default function AuthorPage() {
                   </div>
 
                   {/* Profile Picture - Overlapping */}
-                  <div className="relative px-6 -mt-16 mb-4">
+                  <div className="relative px-6 mb-4 -mt-16">
                     <div className="relative w-32 h-32 mx-auto">
                       <Image
                         src={author.image}
                         alt={author.name}
                         fill
-                        className="rounded-full border-4 border-white shadow-xl object-cover"
+                        className="object-cover border-4 border-white rounded-full shadow-xl"
                       />
-                      <div className="absolute -bottom-2 -right-2 w-10 h-10 bg-emerald-500 rounded-full flex items-center justify-center text-white border-4 border-white">
+                      <div className="absolute flex items-center justify-center w-10 h-10 text-white border-4 border-white rounded-full -bottom-2 -right-2 bg-emerald-500">
                         <Star className="w-5 h-5 fill-current" />
                       </div>
                     </div>
@@ -319,17 +319,17 @@ export default function AuthorPage() {
 
                   {/* Author Info */}
                   <div className="px-6 pb-6 text-center">
-                    <h3 className="text-2xl font-bold mb-1 group-hover:text-emerald-600 transition-colors">
+                    <h3 className="mb-1 text-2xl font-bold transition-colors group-hover:text-emerald-600">
                       {author.name}
                     </h3>
-                    <p className="text-emerald-600 font-medium mb-2">{author.role}</p>
+                    <p className="mb-2 font-medium text-emerald-600">{author.role}</p>
                     
-                    <div className="flex items-center justify-center text-gray-500 text-sm mb-4">
+                    <div className="flex items-center justify-center mb-4 text-sm text-gray-500">
                       <MapPin className="w-4 h-4 mr-1" />
                       {author.location}
                     </div>
 
-                    <p className="text-gray-600 mb-4 leading-relaxed text-sm">
+                    <p className="mb-4 text-sm leading-relaxed text-gray-600">
                       {author.bio}
                     </p>
 
@@ -338,7 +338,7 @@ export default function AuthorPage() {
                       {author.expertise.map((skill, skillIdx) => (
                         <span 
                           key={skillIdx}
-                          className="px-3 py-1 bg-purple-100 text-purple-700 text-xs font-medium rounded-full"
+                          className="px-3 py-1 text-xs font-medium text-purple-700 bg-purple-100 rounded-full"
                         >
                           {skill}
                         </span>
@@ -346,7 +346,7 @@ export default function AuthorPage() {
                     </div>
 
                     {/* Stats */}
-                    <div className="grid grid-cols-3 gap-4 mb-6 py-4 border-y border-gray-100">
+                    <div className="grid grid-cols-3 gap-4 py-4 mb-6 border-gray-100 border-y">
                       <div>
                         <div className="text-2xl font-bold text-gray-900">{author.articlesCount}</div>
                         <div className="text-xs text-gray-500">Articles</div>
@@ -367,7 +367,7 @@ export default function AuthorPage() {
                         href={author.social.linkedin}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 bg-gray-100 hover:bg-blue-100 hover:text-blue-600 rounded-full transition-colors"
+                        className="p-2 transition-colors bg-gray-100 rounded-full hover:bg-blue-100 hover:text-blue-600"
                       >
                         <Linkedin className="w-4 h-4" />
                       </a>
@@ -375,7 +375,7 @@ export default function AuthorPage() {
                         href={author.social.twitter}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 bg-gray-100 hover:bg-sky-100 hover:text-sky-600 rounded-full transition-colors"
+                        className="p-2 transition-colors bg-gray-100 rounded-full hover:bg-sky-100 hover:text-sky-600"
                       >
                         <Twitter className="w-4 h-4" />
                       </a>
@@ -383,13 +383,13 @@ export default function AuthorPage() {
                         href={author.social.github}
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="p-2 bg-gray-100 hover:bg-gray-200 hover:text-gray-900 rounded-full transition-colors"
+                        className="p-2 transition-colors bg-gray-100 rounded-full hover:bg-gray-200 hover:text-gray-900"
                       >
                         <Github className="w-4 h-4" />
                       </a>
                       <a 
                         href={`mailto:${author.social.email}`}
-                        className="p-2 bg-gray-100 hover:bg-emerald-100 hover:text-emerald-600 rounded-full transition-colors"
+                        className="p-2 transition-colors bg-gray-100 rounded-full hover:bg-emerald-100 hover:text-emerald-600"
                       >
                         <Mail className="w-4 h-4" />
                       </a>
@@ -398,25 +398,25 @@ export default function AuthorPage() {
                     {/* View Profile Button */}
                     <button 
                       onClick={() => setSelectedAuthor(selectedAuthor === author.name ? null : author.name)}
-                      className="w-full px-6 py-3 bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white rounded-full font-medium transition-all duration-300 flex items-center justify-center group"
+                      className="flex items-center justify-center w-full px-6 py-3 font-medium text-white transition-all duration-300 rounded-full bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 group"
                     >
                       {selectedAuthor === author.name ? 'Hide' : 'View'} Articles
-                      <ArrowRight className="w-5 h-5 ml-2 group-hover:translate-x-1 transition-transform" />
+                      <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
                     </button>
 
                     {/* Recent Articles Dropdown */}
                     <div className={`mt-4 overflow-hidden transition-all duration-500 ${
                       selectedAuthor === author.name ? 'max-h-96 opacity-100' : 'max-h-0 opacity-0'
                     }`}>
-                      <div className="space-y-3 pt-4 border-t border-gray-100">
-                        <div className="text-sm font-semibold text-gray-700 mb-3">Recent Articles:</div>
+                      <div className="pt-4 space-y-3 border-t border-gray-100">
+                        <div className="mb-3 text-sm font-semibold text-gray-700">Recent Articles:</div>
                         {author.recentArticles.map((article, articleIdx) => (
                           <Link
                             key={articleIdx}
                             href={`/blog/${article.slug}`}
-                            className="block p-3 bg-gray-50 hover:bg-emerald-50 rounded-lg transition-colors group/article"
+                            className="block p-3 transition-colors rounded-lg bg-gray-50 hover:bg-emerald-50 group/article"
                           >
-                            <div className="font-medium text-sm mb-1 group-hover/article:text-emerald-600 transition-colors">
+                            <div className="mb-1 text-sm font-medium transition-colors group-hover/article:text-emerald-600">
                               {article.title}
                             </div>
                             <div className="flex items-center gap-3 text-xs text-gray-500">
@@ -443,14 +443,14 @@ export default function AuthorPage() {
 
       {/* Community Stats */}
       <section ref={statsRef} className="py-20 bg-white">
-        <div className="container mx-auto px-4">
+        <div className="container px-4 mx-auto">
           <div className="max-w-5xl mx-auto">
             <div className={`text-center mb-12 transform transition-all duration-1000 ${isStatsInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <h2 className="text-3xl font-bold mb-4">Community Impact</h2>
-              <p className="text-gray-600">Together, we're building a knowledge-sharing community</p>
+              <h2 className="mb-4 text-3xl font-bold">Community Impact</h2>
+              <p className="text-gray-600">Together, we&apos;re building a knowledge-sharing community</p>
             </div>
 
-            <div className="grid md:grid-cols-4 gap-8">
+            <div className="grid gap-8 md:grid-cols-4">
               {[
                 { icon: <BookOpen className="w-10 h-10" />, value: "97+", label: "Total Articles", color: "emerald" },
                 { icon: <Eye className="w-10 h-10" />, value: "244k+", label: "Total Views", color: "blue" },
@@ -465,7 +465,7 @@ export default function AuthorPage() {
                   <div className={`inline-flex items-center justify-center w-20 h-20 bg-${stat.color}-100 text-${stat.color}-600 rounded-full mb-4`}>
                     {stat.icon}
                   </div>
-                  <div className="text-4xl font-bold text-gray-900 mb-2">{stat.value}</div>
+                  <div className="mb-2 text-4xl font-bold text-gray-900">{stat.value}</div>
                   <div className="text-gray-600">{stat.label}</div>
                 </div>
               ))}
@@ -476,17 +476,17 @@ export default function AuthorPage() {
 
       {/* Join CTA */}
       <section className="py-20 bg-gradient-to-r from-purple-600 via-indigo-600 to-blue-600">
-        <div className="container mx-auto px-4">
+        <div className="container px-4 mx-auto">
           <div className="max-w-4xl mx-auto text-center text-white">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            <h2 className="mb-6 text-3xl font-bold md:text-4xl">
               Want to Contribute?
             </h2>
-            <p className="text-xl mb-8 text-white/90">
-              We're always looking for talented writers to join our team and share their expertise
+            <p className="mb-8 text-xl text-white/90">
+              We&apos;re always looking for talented writers to join our team and share their expertise
             </p>
             <Link 
               href="/careers"
-              className="inline-block px-8 py-4 bg-white text-purple-600 hover:bg-gray-100 font-semibold rounded-full shadow-lg hover:shadow-xl transition-all"
+              className="inline-block px-8 py-4 font-semibold text-purple-600 transition-all bg-white rounded-full shadow-lg hover:bg-gray-100 hover:shadow-xl"
             >
               Join Our Team
             </Link>

@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Smartphone, Battery, Zap, Shield, Globe, Bell, CheckCircle2 } from 'lucide-react';
 
 const MobileCapabilities = () => {
-  const [hoveredCard, setHoveredCard] = useState(null);
+  const [hoveredCard, setHoveredCard] = useState<number | null>(null);
 
   const capabilities = [
     {

@@ -50,7 +50,7 @@ export default function Contact() {
   };
 
   return (
-    <section className="relative py-24 bg-gradient-to-b from-gray-50 to-white overflow-hidden">
+    <section className="relative py-24 overflow-hidden bg-gradient-to-b from-gray-50 to-white">
       {/* Subtle background pattern */}
       <div className="absolute inset-0 opacity-[0.03]">
         <div className="absolute inset-0" style={{
@@ -59,11 +59,11 @@ export default function Contact() {
         }}></div>
       </div>
 
-      <div className="container mx-auto px-4 relative z-10 max-w-7xl">
+      <div className="container relative z-10 px-4 mx-auto max-w-7xl">
         {/* What We Do Section with animated background text */}
-        <div className="relative text-center mb-20">
+        <div className="relative mb-20 text-center">
           {/* Large background "Services" text - animated */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none w-full overflow-hidden">
+          <div className="absolute w-full overflow-hidden -translate-x-1/2 -translate-y-1/2 pointer-events-none left-1/2 top-1/2">
             <h3 className="text-[4rem] md:text-[14rem] lg:text-[14rem] font-black text-gray-200/40 tracking-tighter select-none whitespace-nowrap text-center leading-none animate-pulse">
               What we Do
             </h3>
@@ -72,32 +72,32 @@ export default function Contact() {
           <div className="relative">
             <div className="flex items-center justify-center gap-2 mb-4">
               <Sparkles className="w-5 h-5 text-emerald-500 animate-pulse" />
-              <span className="text-emerald-600 font-semibold uppercase text-sm tracking-wider">What We Offer</span>
+              <span className="text-sm font-semibold tracking-wider uppercase text-emerald-600">What We Offer</span>
               <Sparkles className="w-5 h-5 text-emerald-500 animate-pulse" />
             </div>
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">
+            <h2 className="mb-4 text-4xl font-bold text-gray-900 md:text-5xl">
               What We Do
             </h2>
           </div>
         </div>
 
         {/* Service Cards with stagger animation */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-24">
+        <div className="grid grid-cols-1 gap-8 mb-24 md:grid-cols-3">
           {services.map((service, index) => (
             <div 
               key={index} 
-              className="group text-center hover:scale-105 transition-all duration-500 ease-out"
+              className="text-center transition-all duration-500 ease-out group hover:scale-105"
               style={{
                 animation: `fadeInUp 0.6s ease-out ${index * 0.2}s both`
               }}
             >
-              <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-emerald-500 text-white mb-6 group-hover:bg-emerald-600 group-hover:shadow-xl group-hover:shadow-emerald-500/30 transition-all duration-300">
+              <div className="inline-flex items-center justify-center w-20 h-20 mb-6 text-white transition-all duration-300 rounded-full bg-emerald-500 group-hover:bg-emerald-600 group-hover:shadow-xl group-hover:shadow-emerald-500/30">
                 {service.icon}
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-4 group-hover:text-emerald-600 transition-colors duration-300">
+              <h3 className="mb-4 text-xl font-bold text-gray-900 transition-colors duration-300 group-hover:text-emerald-600">
                 {service.title}
               </h3>
-              <p className="text-gray-600 text-sm leading-relaxed">
+              <p className="text-sm leading-relaxed text-gray-600">
                 {service.description}
               </p>
             </div>
@@ -105,10 +105,10 @@ export default function Contact() {
         </div>
 
         {/* Creative Business Section with slide-in animation */}
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 mb-24 items-center">
+        <div className="grid items-center grid-cols-1 gap-12 mb-24 lg:grid-cols-2">
           {/* Image */}
           <div className="relative group" style={{ animation: 'slideInLeft 0.8s ease-out' }}>
-            <div className="absolute inset-0 bg-emerald-500/20 rounded-lg blur-xl group-hover:blur-2xl transition-all duration-500"></div>
+            <div className="absolute inset-0 transition-all duration-500 rounded-lg bg-emerald-500/20 blur-xl group-hover:blur-2xl"></div>
             <img 
               src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=600&h=400&fit=crop"
               alt="Softrinx team collaboration"
@@ -118,22 +118,22 @@ export default function Contact() {
 
           {/* Content */}
           <div style={{ animation: 'slideInRight 0.8s ease-out' }}>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6">
+            <h2 className="mb-6 text-3xl font-bold text-gray-900 md:text-4xl">
               Transform Your Vision Into Powerful Software Solutions
             </h2>
-            <p className="text-gray-600 mb-8 leading-relaxed">
+            <p className="mb-8 leading-relaxed text-gray-600">
               At Softrinx, we combine cutting-edge technology with deep industry expertise to build software that drives real business results. From enterprise applications to mobile experiences, we deliver solutions that scale with your ambitions.
             </p>
 
             {/* Features Grid */}
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+            <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
               {features.map((feature, index) => (
                 <div 
                   key={index} 
-                  className="flex items-center gap-3 group hover:translate-x-2 transition-transform duration-300"
+                  className="flex items-center gap-3 transition-transform duration-300 group hover:translate-x-2"
                   style={{ animation: `fadeIn 0.5s ease-out ${0.9 + index * 0.1}s both` }}
                 >
-                  <div className="flex-shrink-0 w-5 h-5 rounded-full bg-emerald-500 flex items-center justify-center group-hover:scale-110 transition-transform duration-300">
+                  <div className="flex items-center justify-center flex-shrink-0 w-5 h-5 transition-transform duration-300 rounded-full bg-emerald-500 group-hover:scale-110">
                     <CheckCircle2 className="w-3 h-3 text-white" />
                   </div>
                   <span className={`font-semibold ${feature.color}`}>
@@ -148,66 +148,66 @@ export default function Contact() {
         {/* Contact Section with background text effect */}
         <div className="relative">
           {/* Large background "Contact" text - animated */}
-          <div className="absolute left-1/2 top-0 -translate-x-1/2 pointer-events-none w-full overflow-hidden">
+          <div className="absolute top-0 w-full overflow-hidden -translate-x-1/2 pointer-events-none left-1/2">
             <h3 className="text-[8rem] md:text-[12rem] lg:text-[16rem] font-black text-gray-200/30 tracking-tighter select-none whitespace-nowrap text-center leading-none animate-pulse">
               Contact
             </h3>
           </div>
 
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 relative">
+          <div className="relative grid grid-cols-1 gap-12 lg:grid-cols-2">
             {/* Left Side - Contact Info */}
             <div style={{ animation: 'fadeInUp 0.8s ease-out' }}>
               <div className="flex items-center gap-2 mb-4">
                 <Sparkles className="w-5 h-5 text-emerald-500 animate-pulse" />
-                <span className="text-emerald-600 font-semibold uppercase text-sm tracking-wider">Get In Touch</span>
+                <span className="text-sm font-semibold tracking-wider uppercase text-emerald-600">Get In Touch</span>
               </div>
               
-              <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                Let's Build Something Great Together
+              <h2 className="mb-6 text-4xl font-bold text-gray-900 md:text-5xl">
+                Let&apos;s Build Something Great Together
               </h2>
-              <p className="text-gray-600 mb-8 leading-relaxed">
-                Have a project in mind? Whether you're looking to build a new application, modernize your systems, or need expert technical guidance, our team is ready to help you succeed.
+              <p className="mb-8 leading-relaxed text-gray-600">
+                Have a project in mind? Whether you&apos;re looking to build a new application, modernize your systems, or need expert technical guidance, our team is ready to help you succeed.
               </p>
 
               {/* Call Us Box */}
-              <div className="border-2 border-emerald-500 rounded-lg p-6 mb-8 inline-block hover:shadow-lg hover:shadow-emerald-500/20 transition-all duration-300 group">
+              <div className="inline-block p-6 mb-8 transition-all duration-300 border-2 rounded-lg border-emerald-500 hover:shadow-lg hover:shadow-emerald-500/20 group">
                 <div className="flex items-center gap-3">
-                  <Phone className="w-5 h-5 text-emerald-500 group-hover:rotate-12 transition-transform duration-300" />
-                  <span className="text-emerald-600 font-semibold">Call Us Now:</span>
-                  <span className="text-gray-900 font-bold text-lg">+254 750 109798</span>
+                  <Phone className="w-5 h-5 transition-transform duration-300 text-emerald-500 group-hover:rotate-12" />
+                  <span className="font-semibold text-emerald-600">Call Us Now:</span>
+                  <span className="text-lg font-bold text-gray-900">+254 750 109798</span>
                 </div>
               </div>
 
               {/* Office Locations */}
               <div className="space-y-6">
-                <div className="group hover:translate-x-2 transition-transform duration-300">
-                  <button className="flex items-center gap-2 text-gray-900 font-bold mb-3 hover:text-emerald-600 transition-colors">
+                <div className="transition-transform duration-300 group hover:translate-x-2">
+                  <button className="flex items-center gap-2 mb-3 font-bold text-gray-900 transition-colors hover:text-emerald-600">
                     <MapPin className="w-5 h-5 text-emerald-500" />
                     <span>Headquarters</span>
                   </button>
-                  <p className="text-gray-600 text-sm ml-7">
+                  <p className="text-sm text-gray-600 ml-7">
                     Softrinx Ltd, Nyeri Kenya.
                     Our main hub where we ideate, innovate, and deliver world-class software solutions.
                   </p>
                 </div>
 
-                <div className="group hover:translate-x-2 transition-transform duration-300">
-                  <button className="flex items-center gap-2 text-gray-900 font-bold mb-3 hover:text-emerald-600 transition-colors">
+                <div className="transition-transform duration-300 group hover:translate-x-2">
+                  <button className="flex items-center gap-2 mb-3 font-bold text-gray-900 transition-colors hover:text-emerald-600">
                     <MapPin className="w-5 h-5 text-emerald-500" />
                     <span>Development Center</span>
                   </button>
-                  <p className="text-gray-600 text-sm ml-7">
+                  <p className="text-sm text-gray-600 ml-7">
                     Nyeri, Nairobi Kenya.
                     Our state-of-the-art development center focused on building scalable and robust software solutions.
                   </p>
                 </div>
 
-                <div className="group hover:translate-x-2 transition-transform duration-300">
-                  <button className="flex items-center gap-2 text-gray-900 font-bold mb-3 hover:text-emerald-600 transition-colors">
+                <div className="transition-transform duration-300 group hover:translate-x-2">
+                  <button className="flex items-center gap-2 mb-3 font-bold text-gray-900 transition-colors hover:text-emerald-600">
                     <Mail className="w-5 h-5 text-emerald-500" />
                     <span>Email Support</span>
                   </button>
-                  <p className="text-gray-600 text-sm ml-7">
+                  <p className="text-sm text-gray-600 ml-7">
                     Reach us at info@softrinx.com for general inquiries, or support@softrinx.com 
                     for technical assistance. We typically respond within 24 hours.
                   </p>
@@ -217,100 +217,100 @@ export default function Contact() {
 
             {/* Right Side - Contact Form (White themed) */}
             <div 
-              className="bg-white rounded-lg p-8 shadow-xl border border-gray-200 hover:shadow-2xl transition-shadow duration-500"
+              className="p-8 transition-shadow duration-500 bg-white border border-gray-200 rounded-lg shadow-xl hover:shadow-2xl"
               style={{ animation: 'fadeInUp 1s ease-out' }}
             >
-              <h3 className="text-2xl font-bold text-gray-900 mb-2">
+              <h3 className="mb-2 text-2xl font-bold text-gray-900">
                 Get a Free Consultation
               </h3>
-              <p className="text-gray-600 text-sm mb-8">Fill out the form and our team will get back to you within 24 hours.</p>
+              <p className="mb-8 text-sm text-gray-600">Fill out the form and our team will get back to you within 24 hours.</p>
 
               <div className="space-y-6">
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-2">
                   <div>
-                    <label className="block text-gray-700 text-sm font-medium mb-2">
+                    <label className="block mb-2 text-sm font-medium text-gray-700">
                       First Name *
                     </label>
                     <input
                       type="text"
                       value={formData.firstName}
                       onChange={(e) => handleChange('firstName', e.target.value)}
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300"
+                      className="w-full px-4 py-3 text-gray-900 placeholder-gray-400 transition-all duration-300 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                       placeholder="John"
                     />
                   </div>
                   <div>
-                    <label className="block text-gray-700 text-sm font-medium mb-2">
+                    <label className="block mb-2 text-sm font-medium text-gray-700">
                       Last Name *
                     </label>
                     <input
                       type="text"
                       value={formData.lastName}
                       onChange={(e) => handleChange('lastName', e.target.value)}
-                      className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300"
+                      className="w-full px-4 py-3 text-gray-900 placeholder-gray-400 transition-all duration-300 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                       placeholder="Doe"
                     />
                   </div>
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 text-sm font-medium mb-2">
+                  <label className="block mb-2 text-sm font-medium text-gray-700">
                     Company/Organization *
                   </label>
                   <input
                     type="text"
                     value={formData.companyOrganization}
                     onChange={(e) => handleChange('companyOrganization', e.target.value)}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300"
+                    className="w-full px-4 py-3 text-gray-900 placeholder-gray-400 transition-all duration-300 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                     placeholder="Your Company Name"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 text-sm font-medium mb-2">
+                  <label className="block mb-2 text-sm font-medium text-gray-700">
                     Email Address *
                   </label>
                   <input
                     type="email"
                     value={formData.email}
                     onChange={(e) => handleChange('email', e.target.value)}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300"
+                    className="w-full px-4 py-3 text-gray-900 placeholder-gray-400 transition-all duration-300 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                     placeholder="john@company.com"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 text-sm font-medium mb-2">
+                  <label className="block mb-2 text-sm font-medium text-gray-700">
                     Phone Number
                   </label>
                   <input
                     type="tel"
                     value={formData.phone}
                     onChange={(e) => handleChange('phone', e.target.value)}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300"
+                    className="w-full px-4 py-3 text-gray-900 placeholder-gray-400 transition-all duration-300 border border-gray-300 rounded-lg bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                     placeholder="+25412345678"
                   />
                 </div>
 
                 <div>
-                  <label className="block text-gray-700 text-sm font-medium mb-2">
+                  <label className="block mb-2 text-sm font-medium text-gray-700">
                     Project Details *
                   </label>
                   <textarea
                     value={formData.message}
                     onChange={(e) => handleChange('message', e.target.value)}
                     rows={5}
-                    className="w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all duration-300 resize-none"
+                    className="w-full px-4 py-3 text-gray-900 placeholder-gray-400 transition-all duration-300 border border-gray-300 rounded-lg resize-none bg-gray-50 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                     placeholder="Tell us about your project, timeline, and requirements..."
                   />
                 </div>
 
                 <button
                   onClick={handleSubmit}
-                  className="group w-full py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-bold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/50 flex items-center justify-center gap-2"
+                  className="flex items-center justify-center w-full gap-2 py-4 font-bold text-white transition-all duration-300 rounded-lg group bg-emerald-500 hover:bg-emerald-600 hover:shadow-lg hover:shadow-emerald-500/50"
                 >
                   Send Message
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform duration-300" />
+                  <ArrowRight className="w-5 h-5 transition-transform duration-300 group-hover:translate-x-1" />
                 </button>
               </div>
             </div>

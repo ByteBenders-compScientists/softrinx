@@ -127,17 +127,17 @@ export default function TeamPage() {
       <Navigation />
 
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-b from-black via-gray-900 to-emerald-900 pt-32 pb-20 overflow-hidden team-hero">
+      <section className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-b from-black via-gray-900 to-emerald-900 team-hero">
         <div className="absolute inset-0 team-bg-pattern opacity-20"></div>
-        <div className="absolute right-0 top-0 w-1/2 h-full team-light-beam"></div>
+        <div className="absolute top-0 right-0 w-1/2 h-full team-light-beam"></div>
 
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container relative z-10 px-4 mx-auto">
           <div className="max-w-3xl">
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 anim-element team-title">
+            <h1 className="mb-6 text-5xl font-bold text-white md:text-7xl anim-element team-title">
               Meet Our <span className="text-emerald-400">Team</span>
             </h1>
-            <p className="text-xl text-gray-300 mb-10 anim-element team-subtitle">
-              The talented individuals behind Softrinx's success. A diverse group of experts committed to delivering excellence in every project.
+            <p className="mb-10 text-xl text-gray-300 anim-element team-subtitle">
+              The talented individuals behind Softrinx&apos;s success. A diverse group of experts committed to delivering excellence in every project.
             </p>
           </div>
         </div>
@@ -160,49 +160,49 @@ export default function TeamPage() {
 
       {/* Core Team Section */}
       <section ref={sectionRef} className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl font-bold mb-4 anim-element"> Team</h2>
-            <div className="w-20 h-1 bg-emerald-500 mx-auto mb-6"></div>
+        <div className="container px-4 mx-auto">
+          <div className="max-w-3xl mx-auto mb-16 text-center">
+            <h2 className="mb-4 text-4xl font-bold anim-element"> Team</h2>
+            <div className="w-20 h-1 mx-auto mb-6 bg-emerald-500"></div>
             <p className="text-xl text-gray-600 anim-element">
               Meet the visionaries who drive our company forward with expertise, passion, and innovation.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {teamMembers.slice(0, 5).map((member, index) => (
               <div 
                 key={member.id} 
-                className="team-card rounded-xl overflow-hidden shadow-lg transition-all duration-500 hover:shadow-2xl anim-element"
+                className="overflow-hidden transition-all duration-500 shadow-lg team-card rounded-xl hover:shadow-2xl anim-element"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="relative h-100 overflow-hidden">
+                <div className="relative overflow-hidden h-100">
                   <Image
                     src={member.image}
                     alt={member.name}
                     fill
                     className="object-cover transition-transform duration-700 hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300 flex items-end justify-center pb-6">
+                  <div className="absolute inset-0 flex items-end justify-center pb-6 transition-opacity duration-300 opacity-0 bg-gradient-to-t from-black/70 to-transparent hover:opacity-100">
                     <div className="flex space-x-3">
-                      <a href={member.social.linkedin} className="p-2 bg-white/10 backdrop-blur-sm rounded-full text-white hover:bg-emerald-500 transition-colors">
+                      <a href={member.social.linkedin} className="p-2 text-white transition-colors rounded-full bg-white/10 backdrop-blur-sm hover:bg-emerald-500">
                         <Linkedin size={18} />
                       </a>
-                      <a href={member.social.twitter} className="p-2 bg-white/10 backdrop-blur-sm rounded-full text-white hover:bg-emerald-500 transition-colors">
+                      <a href={member.social.twitter} className="p-2 text-white transition-colors rounded-full bg-white/10 backdrop-blur-sm hover:bg-emerald-500">
                         <Twitter size={18} />
                       </a>
-                      <a href={member.social.github} className="p-2 bg-white/10 backdrop-blur-sm rounded-full text-white hover:bg-emerald-500 transition-colors">
+                      <a href={member.social.github} className="p-2 text-white transition-colors rounded-full bg-white/10 backdrop-blur-sm hover:bg-emerald-500">
                         <Github size={18} />
                       </a>
-                      <a href={`mailto:${member.social.email}`} className="p-2 bg-white/10 backdrop-blur-sm rounded-full text-white hover:bg-emerald-500 transition-colors">
+                      <a href={`mailto:${member.social.email}`} className="p-2 text-white transition-colors rounded-full bg-white/10 backdrop-blur-sm hover:bg-emerald-500">
                         <Mail size={18} />
                       </a>
                     </div>
                   </div>
                 </div>
                 <div className="p-6">
-                  <h3 className="text-xl font-bold text-gray-900 mb-1">{member.name}</h3>
-                  <p className="text-emerald-600 font-medium mb-3">{member.role}</p>
+                  <h3 className="mb-1 text-xl font-bold text-gray-900">{member.name}</h3>
+                  <p className="mb-3 font-medium text-emerald-600">{member.role}</p>
                   <p className="text-gray-600">{member.bio}</p>
                 </div>
               </div>
@@ -213,24 +213,24 @@ export default function TeamPage() {
 
       {/* Our Values Section */}
       <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-4xl font-bold mb-4 anim-element">Our Values</h2>
-            <div className="w-20 h-1 bg-emerald-500 mx-auto mb-6"></div>
+        <div className="container px-4 mx-auto">
+          <div className="max-w-3xl mx-auto mb-16 text-center">
+            <h2 className="mb-4 text-4xl font-bold anim-element">Our Values</h2>
+            <div className="w-20 h-1 mx-auto mb-6 bg-emerald-500"></div>
             <p className="text-xl text-gray-600 anim-element">
               The core principles that guide our work and define our culture.
             </p>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-4">
             {valueProps.map((value, index) => (
               <div 
                 key={index} 
-                className="bg-white p-8 rounded-xl shadow-md transition-transform duration-300 hover:-translate-y-2 anim-element values-card"
+                className="p-8 transition-transform duration-300 bg-white shadow-md rounded-xl hover:-translate-y-2 anim-element values-card"
                 style={{ animationDelay: `${index * 100}ms` }}
               >
-                <div className="text-4xl mb-4">{value.icon}</div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3">{value.title}</h3>
+                <div className="mb-4 text-4xl">{value.icon}</div>
+                <h3 className="mb-3 text-xl font-bold text-gray-900">{value.title}</h3>
                 <p className="text-gray-600">{value.description}</p>
               </div>
             ))}
@@ -241,18 +241,18 @@ export default function TeamPage() {
       
 
       {/* Join Our Team Section */}
-      <section className="py-20 bg-gradient-to-r from-emerald-600 to-blue-500 relative overflow-hidden">
+      <section className="relative py-20 overflow-hidden bg-gradient-to-r from-emerald-600 to-blue-500">
         <div className="absolute inset-0 pattern-dots opacity-10"></div>
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container relative z-10 px-4 mx-auto">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl font-bold text-white mb-6 ">Join Our Team</h2>
-            <p className="text-xl text-white/90 mb-8 ">
-              We're always looking for talented individuals who are passionate about technology and innovation.
+            <h2 className="mb-6 text-4xl font-bold text-white ">Join Our Team</h2>
+            <p className="mb-8 text-xl text-white/90 ">
+              We&apos;re always looking for talented individuals who are passionate about technology and innovation.
               Check out our current openings and become part of our success story.
             </p>
             <a 
               href="/careers" 
-              className="inline-flex items-center px-8 py-4 bg-white text-emerald-600 font-semibold rounded-full hover:bg-gray-100 transition-colors shadow-lg hover:shadow-xl  join-btn"
+              className="inline-flex items-center px-8 py-4 font-semibold transition-colors bg-white rounded-full shadow-lg text-emerald-600 hover:bg-gray-100 hover:shadow-xl join-btn"
             >
               View Open Positions
             </a>

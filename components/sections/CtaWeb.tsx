@@ -25,7 +25,7 @@ const CTASectionWhite = () => {
         </h2>
         
         <p className="max-w-3xl mx-auto mb-12 text-2xl text-gray-600">
-          Stop settling for mediocre web applications. Let's build something that actually makes an impact.
+          Stop settling for mediocre web applications. Let&apos;s build something that actually makes an impact.
         </p>
         
         <div className="flex flex-col justify-center gap-6 mb-16 sm:flex-row">

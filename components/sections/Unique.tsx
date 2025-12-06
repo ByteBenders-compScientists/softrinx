@@ -73,7 +73,7 @@ const Unique = () => {
             </h2>
             
             <p className="mb-8 text-xl leading-relaxed text-gray-600">
-              We don't just write code—we engineer digital experiences that transform businesses. From concept to deployment, our expert team delivers cutting-edge web applications that drive real results and measurable growth.
+              We don&apos;t just write code—we engineer digital experiences that transform businesses. From concept to deployment, our expert team delivers cutting-edge web applications that drive real results and measurable growth.
             </p>
 
             <div className="grid grid-cols-2 gap-4">

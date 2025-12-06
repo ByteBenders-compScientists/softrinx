@@ -143,7 +143,7 @@ export default function UIUXDesignPage() {
       {/* Hero Section with Parallax Mouse Effect */}
       <section 
         ref={heroRef}
-        className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-purple-900 via-pink-900 to-slate-900"
+        className="relative flex items-center min-h-screen overflow-hidden bg-gradient-to-br from-purple-900 via-pink-900 to-slate-900"
       >
         <div className="absolute inset-0">
           <Image
@@ -159,67 +159,67 @@ export default function UIUXDesignPage() {
         
         {/* Interactive Floating Elements */}
         <div 
-          className="absolute w-96 h-96 bg-purple-500/30 rounded-full blur-3xl design-float-mouse"
+          className="absolute rounded-full w-96 h-96 bg-purple-500/30 blur-3xl design-float-mouse"
           style={{
             left: mousePosition.x * 0.05,
             top: mousePosition.y * 0.05,
           }}
         ></div>
         <div 
-          className="absolute w-96 h-96 bg-pink-500/30 rounded-full blur-3xl design-float-mouse"
+          className="absolute rounded-full w-96 h-96 bg-pink-500/30 blur-3xl design-float-mouse"
           style={{
             right: mousePosition.x * 0.03,
             bottom: mousePosition.y * 0.03,
           }}
         ></div>
         
-        <div className="container mx-auto px-4 relative z-20 pt-32 pb-20">
+        <div className="container relative z-20 px-4 pt-32 pb-20 mx-auto">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="design-badge mb-6">
-              <span className="inline-flex items-center px-6 py-3 bg-purple-500/20 backdrop-blur-sm rounded-full text-purple-300 font-medium">
+            <div className="mb-6 design-badge">
+              <span className="inline-flex items-center px-6 py-3 font-medium text-purple-300 rounded-full bg-purple-500/20 backdrop-blur-sm">
                 <Palette className="w-5 h-5 mr-2" />
                 UI/UX Design Excellence
               </span>
             </div>
             
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 design-hero-title">
-              Design That <span className="bg-gradient-to-r from-purple-400 via-pink-400 to-purple-500 bg-clip-text text-transparent">Captivates</span> & Converts
+            <h1 className="mb-6 text-5xl font-bold text-white md:text-7xl design-hero-title">
+              Design That <span className="text-transparent bg-gradient-to-r from-purple-400 via-pink-400 to-purple-500 bg-clip-text">Captivates</span> & Converts
             </h1>
             
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed design-hero-subtitle">
-              We create stunning, intuitive interfaces that don't just look beautiful—they solve problems, delight users, and drive measurable business results.
+            <p className="mb-8 text-xl leading-relaxed text-gray-300 md:text-2xl design-hero-subtitle">
+              We create stunning, intuitive interfaces that don&apos;t just look beautiful—they solve problems, delight users, and drive measurable business results.
             </p>
             
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 design-stats">
-              <div className="bg-white/10 backdrop-blur-sm px-4 py-4 rounded-xl border border-white/20">
+            <div className="grid grid-cols-2 gap-4 mb-12 md:grid-cols-4 design-stats">
+              <div className="px-4 py-4 border bg-white/10 backdrop-blur-sm rounded-xl border-white/20">
                 <div className="text-2xl font-bold text-purple-400">1000+</div>
                 <div className="text-xs text-gray-400">Designs</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm px-4 py-4 rounded-xl border border-white/20">
+              <div className="px-4 py-4 border bg-white/10 backdrop-blur-sm rounded-xl border-white/20">
                 <div className="text-2xl font-bold text-purple-400">98%</div>
                 <div className="text-xs text-gray-400">Satisfaction</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm px-4 py-4 rounded-xl border border-white/20">
+              <div className="px-4 py-4 border bg-white/10 backdrop-blur-sm rounded-xl border-white/20">
                 <div className="text-2xl font-bold text-purple-400">150%</div>
                 <div className="text-xs text-gray-400">Conversion ↑</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm px-4 py-4 rounded-xl border border-white/20">
+              <div className="px-4 py-4 border bg-white/10 backdrop-blur-sm rounded-xl border-white/20">
                 <div className="text-2xl font-bold text-purple-400">10+</div>
                 <div className="text-xs text-gray-400">Awards</div>
               </div>
             </div>
             
-            <div className="flex flex-wrap gap-4 justify-center design-cta">
+            <div className="flex flex-wrap justify-center gap-4 design-cta">
               <Link 
                 href="/contact" 
-                className="inline-flex items-center px-8 py-4 bg-purple-600 text-white font-semibold rounded-full hover:bg-purple-700 transition-all duration-300 shadow-lg"
+                className="inline-flex items-center px-8 py-4 font-semibold text-white transition-all duration-300 bg-purple-600 rounded-full shadow-lg hover:bg-purple-700"
               >
                 Start a Design Project
-                <ArrowRight className="ml-2 w-5 h-5" />
+                <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
               <Link 
                 href="/portfolio" 
-                className="inline-flex items-center px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-full hover:bg-white/20 transition-all duration-300 border border-white/20"
+                className="inline-flex items-center px-8 py-4 font-semibold text-white transition-all duration-300 border rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 border-white/20"
               >
                 View Design Portfolio
               </Link>
@@ -230,19 +230,19 @@ export default function UIUXDesignPage() {
       
       {/* Design Services */}
       <section ref={servicesRef} className="py-32 bg-gradient-to-b from-white via-purple-50 to-white">
-        <div className="container mx-auto px-4">
+        <div className="container px-4 mx-auto">
           <div className="max-w-6xl mx-auto">
             <div className={`text-center mb-20 transform transition-all duration-1000 ${isServicesInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              <h2 className="mb-6 text-4xl font-bold md:text-5xl">
                 Our <span className="text-purple-600">Design Services</span>
               </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto mb-8"></div>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <div className="w-24 h-1 mx-auto mb-8 bg-gradient-to-r from-purple-500 to-pink-500"></div>
+              <p className="max-w-3xl mx-auto text-xl text-gray-600">
                 Comprehensive design solutions that cover every aspect of the user experience.
               </p>
             </div>
             
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid gap-8 md:grid-cols-2">
               {designServices.map((service, idx) => (
                 <div
                   key={idx}
@@ -256,13 +256,13 @@ export default function UIUXDesignPage() {
                       {service.icon}
                     </div>
                     
-                    <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
-                    <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
+                    <h3 className="mb-4 text-2xl font-bold">{service.title}</h3>
+                    <p className="mb-6 leading-relaxed text-gray-600">{service.description}</p>
                     
                     <ul className="space-y-2">
                       {service.features.map((feature, fIdx) => (
                         <li key={fIdx} className="flex items-center text-gray-700">
-                          <CheckCircle2 className="w-5 h-5 text-purple-500 mr-3 flex-shrink-0" />
+                          <CheckCircle2 className="flex-shrink-0 w-5 h-5 mr-3 text-purple-500" />
                           {feature}
                         </li>
                       ))}
@@ -278,35 +278,35 @@ export default function UIUXDesignPage() {
       </section>
       
       {/* Design Principles */}
-      <section ref={principlesRef} className="py-32 bg-slate-900 text-white relative overflow-hidden">
+      <section ref={principlesRef} className="relative py-32 overflow-hidden text-white bg-slate-900">
         <div className="absolute inset-0">
           <div className="design-mesh-gradient"></div>
         </div>
         
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container relative z-10 px-4 mx-auto">
           <div className="max-w-6xl mx-auto">
             <div className={`text-center mb-20 transform transition-all duration-1000 ${isPrinciplesInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              <h2 className="mb-6 text-4xl font-bold md:text-5xl">
                 Our Design <span className="text-purple-400">Philosophy</span>
               </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-purple-400 to-pink-400 mx-auto mb-8"></div>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              <div className="w-24 h-1 mx-auto mb-8 bg-gradient-to-r from-purple-400 to-pink-400"></div>
+              <p className="max-w-3xl mx-auto text-xl text-gray-300">
                 Principles that guide every design decision we make.
               </p>
             </div>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
               {designPrinciples.map((principle, idx) => (
                 <div
                   key={idx}
                   className={`design-principle-card text-center p-8 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-purple-500/50 transition-all duration-500 ${isPrinciplesInView ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
                   style={{ transitionDelay: `${idx * 100}ms` }}
                 >
-                  <div className="inline-flex p-4 rounded-xl bg-purple-500/20 text-purple-400 mb-6">
+                  <div className="inline-flex p-4 mb-6 text-purple-400 rounded-xl bg-purple-500/20">
                     {principle.icon}
                   </div>
-                  <h3 className="text-xl font-bold mb-3">{principle.title}</h3>
-                  <p className="text-gray-400 leading-relaxed">{principle.description}</p>
+                  <h3 className="mb-3 text-xl font-bold">{principle.title}</h3>
+                  <p className="leading-relaxed text-gray-400">{principle.description}</p>
                 </div>
               ))}
             </div>
@@ -316,35 +316,35 @@ export default function UIUXDesignPage() {
       
       {/* Design Process */}
       <section ref={processRef} className="py-32 bg-white">
-        <div className="container mx-auto px-4">
+        <div className="container px-4 mx-auto">
           <div className="max-w-6xl mx-auto">
             <div className={`text-center mb-20 transform transition-all duration-1000 ${isProcessInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              <h2 className="mb-6 text-4xl font-bold md:text-5xl">
                 Our Design <span className="text-purple-600">Process</span>
               </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-purple-500 to-pink-500 mx-auto mb-8"></div>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <div className="w-24 h-1 mx-auto mb-8 bg-gradient-to-r from-purple-500 to-pink-500"></div>
+              <p className="max-w-3xl mx-auto text-xl text-gray-600">
                 A systematic approach that ensures exceptional results every time.
               </p>
             </div>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+            <div className="grid gap-6 md:grid-cols-2 lg:grid-cols-3">
               {designProcess.map((step, idx) => (
                 <div
                   key={idx}
                   className={`design-process-card group relative bg-gradient-to-br from-purple-50 to-pink-50 rounded-2xl p-8 hover:shadow-xl transition-all duration-500 ${isProcessInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}
                   style={{ transitionDelay: `${idx * 100}ms` }}
                 >
-                  <div className="absolute -top-4 -right-4 w-16 h-16 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl flex items-center justify-center text-white font-bold text-lg shadow-lg group-hover:scale-110 transition-transform">
+                  <div className="absolute flex items-center justify-center w-16 h-16 text-lg font-bold text-white transition-transform shadow-lg -top-4 -right-4 bg-gradient-to-br from-purple-500 to-pink-600 rounded-xl group-hover:scale-110">
                     {step.number}
                   </div>
                   
-                  <div className="inline-flex p-3 rounded-lg bg-purple-200 text-purple-700 mb-4">
+                  <div className="inline-flex p-3 mb-4 text-purple-700 bg-purple-200 rounded-lg">
                     {step.icon}
                   </div>
                   
-                  <h3 className="text-xl font-bold mb-3 text-gray-900">{step.title}</h3>
-                  <p className="text-gray-600 leading-relaxed">{step.description}</p>
+                  <h3 className="mb-3 text-xl font-bold text-gray-900">{step.title}</h3>
+                  <p className="leading-relaxed text-gray-600">{step.description}</p>
                 </div>
               ))}
             </div>
@@ -353,32 +353,32 @@ export default function UIUXDesignPage() {
       </section>
       
       {/* Design Showcase */}
-      <section className="py-32 bg-gray-900 text-white">
-        <div className="container mx-auto px-4">
+      <section className="py-32 text-white bg-gray-900">
+        <div className="container px-4 mx-auto">
           <div className="max-w-6xl mx-auto">
-            <div className="text-center mb-16">
-              <h2 className="text-4xl font-bold mb-6">
+            <div className="mb-16 text-center">
+              <h2 className="mb-6 text-4xl font-bold">
                 Recent <span className="text-purple-400">Design Work</span>
               </h2>
               <p className="text-xl text-gray-400">Beautiful interfaces that users love</p>
             </div>
             
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid gap-8 md:grid-cols-3">
               {showcaseImages.map((img, idx) => (
                 <div
                   key={idx}
-                  className="design-showcase-card group relative rounded-2xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-500"
+                  className="relative overflow-hidden transition-all duration-500 shadow-lg design-showcase-card group rounded-2xl hover:shadow-2xl"
                 >
                   <Image
                     src={img}
                     alt={`Design showcase ${idx + 1}`}
                     width={600}
                     height={450}
-                    className="w-full h-auto group-hover:scale-110 transition-transform duration-500"
+                    className="w-full h-auto transition-transform duration-500 group-hover:scale-110"
                   />
-                  <div className="absolute inset-0 bg-gradient-to-t from-purple-900/90 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                  <div className="absolute inset-0 flex items-end p-6 transition-opacity duration-300 opacity-0 bg-gradient-to-t from-purple-900/90 to-transparent group-hover:opacity-100">
                     <div>
-                      <h3 className="text-xl font-bold mb-2">Project {idx + 1}</h3>
+                      <h3 className="mb-2 text-xl font-bold">Project {idx + 1}</h3>
                       <p className="text-sm text-gray-300">UI/UX Design • 2024</p>
                     </div>
                   </div>
@@ -392,29 +392,29 @@ export default function UIUXDesignPage() {
       {/* CTA Section */}
       <section 
         ref={ctaRef} 
-        className="py-32 bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700 text-white relative overflow-hidden"
+        className="relative py-32 overflow-hidden text-white bg-gradient-to-r from-purple-600 via-pink-600 to-purple-700"
       >
         <div className="absolute inset-0 design-cta-waves"></div>
         
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container relative z-10 px-4 mx-auto">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className={`text-4xl md:text-5xl font-bold mb-6 transform transition-all duration-1000 ${isCtaInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               Ready For A <span className="text-yellow-300">Design Transformation</span>?
             </h2>
             <p className={`text-xl mb-12 text-white/90 max-w-2xl mx-auto transform transition-all duration-1000 delay-300 ${isCtaInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              Let's create an unforgettable experience that your users will love and your business will benefit from.
+              Let&apos;s create an unforgettable experience that your users will love and your business will benefit from.
             </p>
             <div className={`flex flex-wrap gap-4 justify-center transform transition-all duration-1000 delay-500 ${isCtaInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               <Link 
                 href="/contact" 
-                className="inline-flex items-center px-8 py-4 bg-white text-purple-600 font-semibold rounded-full shadow-lg hover:shadow-xl hover:bg-gray-50 transition-all duration-300"
+                className="inline-flex items-center px-8 py-4 font-semibold text-purple-600 transition-all duration-300 bg-white rounded-full shadow-lg hover:shadow-xl hover:bg-gray-50"
               >
                 Start Your Design
-                <ArrowRight className="ml-2 w-5 h-5" />
+                <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
               <Link 
                 href="/features" 
-                className="inline-flex items-center px-8 py-4 bg-transparent border-2 border-white/50 text-white font-semibold rounded-full hover:bg-white/10 transition-all duration-300"
+                className="inline-flex items-center px-8 py-4 font-semibold text-white transition-all duration-300 bg-transparent border-2 rounded-full border-white/50 hover:bg-white/10"
               >
                 All Features
               </Link>

@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import React, { useState, useEffect } from 'react';
 import { Code2, Zap, Shield, Rocket, Globe, Server, Database, Layout, ArrowRight, CheckCircle2, Sparkles, TrendingUp, Users, Award, Clock, Layers, Terminal, Cpu, MousePointer } from 'lucide-react';
@@ -15,7 +16,7 @@ const WebDevelopmentPage = () => {
   const [activeProcess, setActiveProcess] = useState(0);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: { clientX: any; clientY: any; }) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
     window.addEventListener('mousemove', handleMouseMove);
@@ -108,7 +109,7 @@ const WebDevelopmentPage = () => {
               </div>
               
               <h1 className="mb-6 text-6xl font-bold leading-tight text-white md:text-7xl">
-                We don't just build websites.
+                We don&apos;t just build websites.
                 <br />
                 <span className="text-transparent bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-500 bg-clip-text">
                   We engineer digital empires.

@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
 import { Code2 } from 'lucide-react';
+import Image from 'next/image';
 
 const TechnologyStackSection = () => {
-  const [hoveredTech, setHoveredTech] = useState(null);
+  const [hoveredTech, setHoveredTech] = useState<number | null>(null);
 
   const technologies = [
     { 
@@ -82,7 +83,7 @@ const TechnologyStackSection = () => {
             Powered by the <span className="text-transparent bg-gradient-to-r from-emerald-400 to-emerald-600 bg-clip-text">best tech</span>
           </h2>
           <p className="max-w-3xl mx-auto text-2xl text-gray-400">
-            We don't chase trends. We master proven technologies that Fortune 500 companies trust.
+            We don&apos;t chase trends. We master proven technologies that Fortune 500 companies trust.
           </p>
         </div>
 
@@ -103,13 +104,18 @@ const TechnologyStackSection = () => {
               <div className="relative flex flex-col items-center justify-center">
                 {/* Logo container */}
                 <div className="relative flex items-center justify-center w-32 h-32 mb-6">
-                  <img 
+                  <Image
                     src={tech.logo} 
                     alt={tech.name}
+                    width={128}
+                    height={128}
                     className="object-contain w-full h-full transition-all duration-500 filter group-hover:drop-shadow-2xl group-hover:scale-110"
                     onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'flex';
+                      (e.target as HTMLImageElement).style.display = 'none';
+                      const nextSibling = (e.target as HTMLImageElement).nextSibling as HTMLElement;
+                      if (nextSibling) {
+                        nextSibling.style.display = 'flex';
+                      }
                     }}
                   />
                   <div className="items-center justify-center hidden w-full h-full">

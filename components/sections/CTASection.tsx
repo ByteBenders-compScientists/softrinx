@@ -5,40 +5,40 @@ import { ArrowRight, MessageCircle, Calendar } from "lucide-react";
 
 export default function CTASection() {
   return (
-    <section className="py-32 bg-white relative overflow-hidden">
+    <section className="relative py-32 overflow-hidden bg-white">
       {/* Subtle gradient accents */}
-      <div className="absolute top-20 left-20 w-64 h-64 bg-emerald-400/10 rounded-full blur-3xl" />
-      <div className="absolute bottom-20 right-20 w-80 h-80 bg-teal-400/10 rounded-full blur-3xl" />
+      <div className="absolute w-64 h-64 rounded-full top-20 left-20 bg-emerald-400/10 blur-3xl" />
+      <div className="absolute rounded-full bottom-20 right-20 w-80 h-80 bg-teal-400/10 blur-3xl" />
 
-      <div className="container mx-auto px-4 relative z-10">
+      <div className="container relative z-10 px-4 mx-auto">
         <div className="max-w-5xl mx-auto text-center">
           {/* Main Heading */}
-          <h2 className="text-5xl md:text-7xl font-bold mb-8 text-gray-900">
+          <h2 className="mb-8 text-5xl font-bold text-gray-900 md:text-7xl">
             Ready To Build
-            <span className="block mt-2 bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text text-transparent">
+            <span className="block mt-2 text-transparent bg-gradient-to-r from-emerald-600 to-teal-600 bg-clip-text">
               Something Great?
             </span>
           </h2>
 
           {/* Description */}
-          <p className="text-xl text-gray-600 mb-12 max-w-3xl mx-auto leading-relaxed">
-            Let's discuss your project and bring your vision to life with cutting-edge technology and expert craftsmanship.
+          <p className="max-w-3xl mx-auto mb-12 text-xl leading-relaxed text-gray-600">
+            Let&apos;s discuss your project and bring your vision to life with cutting-edge technology and expert craftsmanship.
           </p>
 
           {/* CTA Buttons */}
-          <div className="flex flex-wrap gap-6 justify-center mb-20">
+          <div className="flex flex-wrap justify-center gap-6 mb-20">
             <Link
               href="/contact"
-              className="group inline-flex items-center gap-3 px-8 py-4 bg-emerald-600 text-white font-semibold rounded-full hover:bg-emerald-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:scale-105"
+              className="inline-flex items-center gap-3 px-8 py-4 font-semibold text-white transition-all duration-300 rounded-full shadow-lg group bg-emerald-600 hover:bg-emerald-700 hover:shadow-xl hover:scale-105"
             >
               <MessageCircle className="w-5 h-5" />
               Start Your Project
-              <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
             </Link>
 
             <Link
               href="/contact"
-              className="inline-flex items-center gap-3 px-8 py-4 bg-white text-emerald-600 font-semibold rounded-full border-2 border-emerald-600 hover:bg-emerald-50 transition-all duration-300"
+              className="inline-flex items-center gap-3 px-8 py-4 font-semibold transition-all duration-300 bg-white border-2 rounded-full text-emerald-600 border-emerald-600 hover:bg-emerald-50"
             >
               <Calendar className="w-5 h-5" />
               Schedule a Call
@@ -46,7 +46,7 @@ export default function CTASection() {
           </div>
 
           {/* Simple features */}
-          <div className="grid md:grid-cols-3 gap-12">
+          <div className="grid gap-12 md:grid-cols-3">
             {[
               {
                 title: "Free Consultation",
@@ -69,7 +69,7 @@ export default function CTASection() {
                   opacity: 0
                 }}
               >
-                <h3 className="text-xl font-bold text-gray-900 mb-2">
+                <h3 className="mb-2 text-xl font-bold text-gray-900">
                   {item.title}
                 </h3>
                 <p className="text-gray-600">

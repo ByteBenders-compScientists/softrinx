@@ -97,7 +97,7 @@ const MobileFeatures = () => {
             Unlock every <span className="text-transparent bg-gradient-to-r from-emerald-500 to-emerald-600 bg-clip-text">mobile feature</span>
           </h2>
           <p className="max-w-3xl mx-auto text-2xl text-gray-600">
-            We don't just build apps. We harness every native capability to create experiences users can't live without.
+            We don&apos;t just build apps. We harness every native capability to create experiences users can&apos;t live without.
           </p>
         </div>
 
@@ -169,9 +169,9 @@ const MobileFeatures = () => {
           
           <div className="relative">
             <Zap className="w-16 h-16 mx-auto mb-6" />
-            <h3 className="mb-4 text-4xl font-bold">Need a feature we didn't mention?</h3>
+            <h3 className="mb-4 text-4xl font-bold">Need a feature we didn&apos;t mention?</h3>
             <p className="max-w-2xl mx-auto mb-8 text-xl text-emerald-50">
-              We integrate with any API, SDK, or third-party service. If it's possible on mobile, we can build it.
+              We integrate with any API, SDK, or third-party service. If it&apos;s possible on mobile, we can build it.
             </p>
             <button className="px-10 py-4 text-lg font-bold transition-all duration-300 bg-white shadow-xl text-emerald-600 rounded-xl hover:bg-gray-100 hover:scale-105">
               Discuss Your Requirements

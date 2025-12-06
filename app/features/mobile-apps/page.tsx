@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 'use client'
 import React, { useState, useEffect } from 'react';
 import { Smartphone, Zap, Shield, Users, Globe, Download, Star, TrendingUp, Layers, Code2, Cpu, Battery, Wifi, Bell, Heart, ShoppingCart, MessageCircle, Camera, ArrowRight, CheckCircle2, Award, Clock, Sparkles, Terminal } from 'lucide-react';
@@ -15,7 +16,7 @@ const MobileAppDevPage = () => {
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: { clientX: any; clientY: any; }) => {
       setMousePosition({ x: e.clientX, y: e.clientY });
     };
     window.addEventListener('mousemove', handleMouseMove);
@@ -103,7 +104,7 @@ const MobileAppDevPage = () => {
                 Apps that users
                 <br />
                 <span className="text-transparent bg-gradient-to-r from-emerald-400 via-emerald-300 to-emerald-500 bg-clip-text">
-                  can't stop using
+                  can&apos;t stop using
                 </span>
               </h1>
               

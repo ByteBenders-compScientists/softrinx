@@ -159,16 +159,16 @@ export default function TestimonialsPage() {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-b from-black via-gray-900 to-emerald-900 pt-32 pb-20 overflow-hidden testimonials-hero">
+      <section className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-b from-black via-gray-900 to-emerald-900 testimonials-hero">
         <div className="absolute inset-0 testimonials-pattern opacity-10"></div>
         
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container relative z-10 px-4 mx-auto">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 testimonials-title">
+            <h1 className="mb-6 text-5xl font-bold text-white md:text-7xl testimonials-title">
               Our <span className="text-emerald-400">Success Stories</span>
             </h1>
-            <p className="text-xl text-gray-300 mb-10 testimonials-subtitle">
-              Don't just take our word for it. Hear what our clients have to say about our work and the results we've delivered.
+            <p className="mb-10 text-xl text-gray-300 testimonials-subtitle">
+              Don&apos;t just take our word for it. Hear what our clients have to say about our work and the results we&apos;ve delivered.
             </p>
           </div>
         </div>
@@ -191,7 +191,7 @@ export default function TestimonialsPage() {
       
       {/* Featured Testimonial Slider */}
       <section className="py-20 bg-white featured-testimonials">
-  <div className="container mx-auto px-4">
+  <div className="container px-4 mx-auto">
     <div className="relative">
 
       {/* Slider Track */}
@@ -204,15 +204,15 @@ export default function TestimonialsPage() {
           {testimonials.map((testimonial, index) => (
             <div
               key={testimonial.id}
-              className="w-full flex-shrink-0 snap-center px-4"
+              className="flex-shrink-0 w-full px-4 snap-center"
             >
               {/* Card */}
-              <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12 testimonial-card">
-                <div className="flex flex-col md:flex-row gap-8">
+              <div className="p-8 bg-white shadow-xl rounded-2xl md:p-12 testimonial-card">
+                <div className="flex flex-col gap-8 md:flex-row">
                   
                   {/* Left Section */}
                   <div className="md:w-1/3">
-                    <div className="aspect-square relative rounded-xl overflow-hidden mb-6">
+                    <div className="relative mb-6 overflow-hidden aspect-square rounded-xl">
                       <Image
                         src={testimonial.image}
                         alt={testimonial.name}
@@ -224,7 +224,7 @@ export default function TestimonialsPage() {
                     </div>
 
                     <div>
-                      <div className="w-32 h-12 relative mb-4">
+                      <div className="relative w-32 h-12 mb-4">
                         <Image
                           src={testimonial.logo}
                           alt={testimonial.company}
@@ -237,7 +237,7 @@ export default function TestimonialsPage() {
                         {testimonial.name}
                       </h3>
 
-                      <p className="text-emerald-600 font-medium">
+                      <p className="font-medium text-emerald-600">
                         {testimonial.role}
                       </p>
 
@@ -260,19 +260,19 @@ export default function TestimonialsPage() {
                   </div>
 
                   {/* Right Section */}
-                  <div className="md:w-2/3 flex flex-col justify-center">
-                    <Quote className="w-12 h-12 text-emerald-500/20 mb-6" />
+                  <div className="flex flex-col justify-center md:w-2/3">
+                    <Quote className="w-12 h-12 mb-6 text-emerald-500/20" />
 
-                    <p className="text-xl text-gray-700 leading-relaxed mb-6">
+                    <p className="mb-6 text-xl leading-relaxed text-gray-700">
                       {testimonial.quote}
                     </p>
 
                     <a
                       href={`/case-studies/${testimonial.category}`}
-                      className="text-emerald-600 font-medium hover:text-emerald-700 inline-flex items-center"
+                      className="inline-flex items-center font-medium text-emerald-600 hover:text-emerald-700"
                     >
                       Read full case study
-                      <ArrowRight className="ml-2 w-4 h-4" />
+                      <ArrowRight className="w-4 h-4 ml-2" />
                     </a>
                   </div>
 
@@ -284,10 +284,10 @@ export default function TestimonialsPage() {
       </div>
 
       {/* Controls */}
-      <div className="flex justify-center mt-8 gap-4">
+      <div className="flex justify-center gap-4 mt-8">
         <button
           onClick={prevTestimonial}
-          className="p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-emerald-100 hover:text-emerald-600"
+          className="p-3 text-gray-700 bg-gray-100 rounded-full hover:bg-emerald-100 hover:text-emerald-600"
         >
           <ArrowLeft className="w-5 h-5" />
         </button>
@@ -307,7 +307,7 @@ export default function TestimonialsPage() {
 
         <button
           onClick={nextTestimonial}
-          className="p-3 rounded-full bg-gray-100 text-gray-700 hover:bg-emerald-100 hover:text-emerald-600"
+          className="p-3 text-gray-700 bg-gray-100 rounded-full hover:bg-emerald-100 hover:text-emerald-600"
         >
           <ArrowRight className="w-5 h-5" />
         </button>
@@ -320,16 +320,16 @@ export default function TestimonialsPage() {
       
       {/* Results Section */}
       <section className="py-20 bg-gray-50 stats-section">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Real Results</h2>
-            <div className="w-20 h-1 bg-emerald-500 mx-auto mb-6"></div>
+        <div className="container px-4 mx-auto">
+          <div className="max-w-3xl mx-auto mb-16 text-center">
+            <h2 className="mb-4 text-4xl font-bold">Real Results</h2>
+            <div className="w-20 h-1 mx-auto mb-6 bg-emerald-500"></div>
             <p className="text-xl text-gray-600">
-              Our solutions deliver measurable impact across industries. Here's what we've achieved for our clients.
+              Our solutions deliver measurable impact across industries. Here&apos;s what we&apos;ve achieved for our clients.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 max-w-5xl mx-auto">
+          <div className="grid max-w-5xl grid-cols-1 gap-8 mx-auto md:grid-cols-2 lg:grid-cols-4">
             {[
               { value: "500+", label: "Projects Delivered", delay: 0 },
               { value: "35%", label: "Average Efficiency Improvement", delay: 100 },
@@ -338,14 +338,14 @@ export default function TestimonialsPage() {
             ].map((stat, index) => (
               <div 
                 key={index}
-                className="bg-white p-8 rounded-xl shadow-lg text-center stat-card"
+                className="p-8 text-center bg-white shadow-lg rounded-xl stat-card"
                 style={{ 
                   transitionDelay: `${stat.delay}ms`,
                   opacity: visibleStats ? 1 : 0,
                   transform: visibleStats ? "translateY(0)" : "translateY(30px)" 
                 }}
               >
-                <div className="text-5xl font-bold text-emerald-600 mb-3 counter">
+                <div className="mb-3 text-5xl font-bold text-emerald-600 counter">
                   {stat.value}
                 </div>
                 <div className="text-gray-600">{stat.label}</div>
@@ -357,20 +357,20 @@ export default function TestimonialsPage() {
       
       {/* Featured Case Studies */}
       <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Featured Case Studies</h2>
-            <div className="w-20 h-1 bg-emerald-500 mx-auto mb-6"></div>
+        <div className="container px-4 mx-auto">
+          <div className="max-w-3xl mx-auto mb-16 text-center">
+            <h2 className="mb-4 text-4xl font-bold">Featured Case Studies</h2>
+            <div className="w-20 h-1 mx-auto mb-6 bg-emerald-500"></div>
             <p className="text-xl text-gray-600">
-              Explore detailed case studies showing how we've helped businesses overcome challenges and achieve their goals.
+              Explore detailed case studies showing how we&apos;ve helped businesses overcome challenges and achieve their goals.
             </p>
           </div>
           
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
             {featuredProjects.map((project, index) => (
               <div 
                 key={index} 
-                className="group rounded-xl overflow-hidden shadow-lg transition-all duration-500 hover:shadow-2xl case-study-card"
+                className="overflow-hidden transition-all duration-500 shadow-lg group rounded-xl hover:shadow-2xl case-study-card"
               >
                 <div className="relative h-64 overflow-hidden">
                   <Image
@@ -381,28 +381,28 @@ export default function TestimonialsPage() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/40 to-transparent"></div>
                   <div className="absolute bottom-0 left-0 p-6">
-                    <p className="text-emerald-400 font-medium mb-1">{project.client}</p>
+                    <p className="mb-1 font-medium text-emerald-400">{project.client}</p>
                     <h3 className="text-xl font-bold text-white">{project.title}</h3>
                   </div>
                 </div>
                 <div className="p-6 bg-white">
-                  <p className="text-gray-600 mb-4">{project.description}</p>
+                  <p className="mb-4 text-gray-600">{project.description}</p>
                   <a
                     href={`/case-studies/${project.client.toLowerCase().replace(/\s+/g, '-')}`}
-                    className="inline-flex items-center text-emerald-600 font-medium hover:text-emerald-700 transition-colors"
+                    className="inline-flex items-center font-medium transition-colors text-emerald-600 hover:text-emerald-700"
                   >
                     Read case study
-                    <ArrowRight className="ml-2 w-4 h-4" />
+                    <ArrowRight className="w-4 h-4 ml-2" />
                   </a>
                 </div>
               </div>
             ))}
           </div>
           
-          <div className="text-center mt-12">
+          <div className="mt-12 text-center">
             <a
               href="/case-studies"
-              className="inline-flex items-center px-8 py-4 rounded-lg bg-emerald-500 text-white font-medium hover:bg-emerald-600 transition-colors shadow-md"
+              className="inline-flex items-center px-8 py-4 font-medium text-white transition-colors rounded-lg shadow-md bg-emerald-500 hover:bg-emerald-600"
             >
               View All Case Studies
             </a>
@@ -412,16 +412,16 @@ export default function TestimonialsPage() {
       
       {/* Client Logos */}
       <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-3xl mx-auto text-center mb-16">
-            <h2 className="text-4xl font-bold mb-4">Trusted By</h2>
-            <div className="w-20 h-1 bg-emerald-500 mx-auto mb-6"></div>
+        <div className="container px-4 mx-auto">
+          <div className="max-w-3xl mx-auto mb-16 text-center">
+            <h2 className="mb-4 text-4xl font-bold">Trusted By</h2>
+            <div className="w-20 h-1 mx-auto mb-6 bg-emerald-500"></div>
             <p className="text-xl text-gray-600">
-              We've helped companies of all sizes across multiple industries achieve their technology goals.
+              We&apos;ve helped companies of all sizes across multiple industries achieve their technology goals.
             </p>
           </div>
           
-          <div className="flex flex-wrap justify-center items-center gap-8 md:gap-12 max-w-5xl mx-auto client-logos">
+          <div className="flex flex-wrap items-center justify-center max-w-5xl gap-8 mx-auto md:gap-12 client-logos">
             {[
               "https://images.unsplash.com/photo-1611162617213-7d7a39e9b1d7?w=200",
               "https://images.unsplash.com/photo-1612026348880-28c19898b34b?w=200",
@@ -430,7 +430,7 @@ export default function TestimonialsPage() {
               "https://images.unsplash.com/photo-1563203369-26f2e4a5ccb7?w=200",
               "https://images.unsplash.com/photo-1572055582936-8e45677f79fe?w=200"
             ].map((logo, index) => (
-              <div key={index} className="w-32 h-20 relative grayscale hover:grayscale-0 transition-all duration-300 logo-item">
+              <div key={index} className="relative w-32 h-20 transition-all duration-300 grayscale hover:grayscale-0 logo-item">
                 <Image
                   src={logo}
                   alt={`Client logo ${index + 1}`}
@@ -444,25 +444,25 @@ export default function TestimonialsPage() {
       </section>
       
       {/* CTA Section */}
-      <section className="py-20 bg-gradient-to-r from-emerald-600 to-blue-500 relative overflow-hidden">
+      <section className="relative py-20 overflow-hidden bg-gradient-to-r from-emerald-600 to-blue-500">
         <div className="absolute inset-0 testimonial-cta-pattern opacity-10"></div>
         
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container relative z-10 px-4 mx-auto">
           <div className="max-w-3xl mx-auto text-center">
-            <h2 className="text-4xl font-bold text-white mb-6">Ready to Join Our Success Stories?</h2>
-            <p className="text-xl text-white/90 mb-8">
-              Let's discuss how we can help your business achieve similar results through innovative technology solutions.
+            <h2 className="mb-6 text-4xl font-bold text-white">Ready to Join Our Success Stories?</h2>
+            <p className="mb-8 text-xl text-white/90">
+              Let&apos;s discuss how we can help your business achieve similar results through innovative technology solutions.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col justify-center gap-4 sm:flex-row">
               <a
                 href="/contact"
-                className="px-8 py-4 bg-white text-emerald-600 font-semibold rounded-full hover:bg-gray-100 transition-colors shadow-lg hover:shadow-xl"
+                className="px-8 py-4 font-semibold transition-colors bg-white rounded-full shadow-lg text-emerald-600 hover:bg-gray-100 hover:shadow-xl"
               >
                 Start Your Project
               </a>
               <a
                 href="/case-studies"
-                className="px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-full border-2 border-white/20 hover:bg-white/20 transition-colors"
+                className="px-8 py-4 font-semibold text-white transition-colors border-2 rounded-full bg-white/10 backdrop-blur-sm border-white/20 hover:bg-white/20"
               >
                 Explore More Case Studies
               </a>

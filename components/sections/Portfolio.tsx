@@ -1,3 +1,4 @@
+/* eslint-disable react-hooks/set-state-in-effect */
 // components/sections/Portfolio.jsx
 "use client";
 
@@ -69,7 +70,7 @@ const Portfolio = () => {
   const [activeCategory, setActiveCategory] = useState('All');
   const [filteredItems, setFilteredItems] = useState(portfolioItems);
   const sectionRef = useRef(null);
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement | null>(null);
 
   useEffect(() => {
     if (activeCategory === 'All') {
@@ -102,7 +103,7 @@ const Portfolio = () => {
     };
   }, []);
 
-  const scrollCategories = (direction) => {
+  const scrollCategories = (direction: string) => {
     if (containerRef.current) {
       containerRef.current.scrollBy({
         left: direction === 'left' ? -200 : 200,
@@ -113,23 +114,23 @@ const Portfolio = () => {
 
   return (
     <section className="py-20 bg-white" id="portfolio">
-      <div className="container mx-auto px-4">
+      <div className="container px-4 mx-auto">
         <div 
           ref={sectionRef} 
-          className="max-w-3xl mx-auto text-center mb-12 opacity-0 translate-y-10 transition-all duration-700"
+          className="max-w-3xl mx-auto mb-12 text-center transition-all duration-700 translate-y-10 opacity-0"
         >
-          <h2 className="text-4xl font-bold mb-4">Featured Work</h2>
-          <div className="w-20 h-1 bg-emerald-500 mx-auto mb-6"></div>
+          <h2 className="mb-4 text-4xl font-bold">Featured Work</h2>
+          <div className="w-20 h-1 mx-auto mb-6 bg-emerald-500"></div>
           <p className="text-xl text-gray-600">
             Explore our portfolio of successful projects delivered to clients worldwide
           </p>
         </div>
 
         <div className="relative mb-8">
-          <div className="absolute left-0 top-1/2 -translate-y-1/2 z-10">
+          <div className="absolute left-0 z-10 -translate-y-1/2 top-1/2">
             <button
               onClick={() => scrollCategories('left')}
-              className="p-2 rounded-full bg-white shadow-md hover:bg-gray-50"
+              className="p-2 bg-white rounded-full shadow-md hover:bg-gray-50"
             >
               <ChevronLeft className="w-5 h-5" />
             </button>
@@ -137,7 +138,7 @@ const Portfolio = () => {
           
           <div 
             ref={containerRef} 
-            className="flex space-x-4 overflow-x-auto scrollbar-hide py-4 px-8 relative"
+            className="relative flex px-8 py-4 space-x-4 overflow-x-auto scrollbar-hide"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {categories.map((category, index) => (
@@ -155,21 +156,21 @@ const Portfolio = () => {
             ))}
           </div>
           
-          <div className="absolute right-0 top-1/2 -translate-y-1/2 z-10">
+          <div className="absolute right-0 z-10 -translate-y-1/2 top-1/2">
             <button
               onClick={() => scrollCategories('right')}
-              className="p-2 rounded-full bg-white shadow-md hover:bg-gray-50"
+              className="p-2 bg-white rounded-full shadow-md hover:bg-gray-50"
             >
               <ChevronRight className="w-5 h-5" />
             </button>
           </div>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-3">
           {filteredItems.map((item, index) => (
             <div 
               key={item.id}
-              className="group bg-white rounded-xl overflow-hidden shadow-lg hover:shadow-2xl transition-all duration-300"
+              className="overflow-hidden transition-all duration-300 bg-white shadow-lg group rounded-xl hover:shadow-2xl"
               style={{ 
                 transitionDelay: `${index * 100}ms`,
                 opacity: 0,
@@ -178,23 +179,23 @@ const Portfolio = () => {
               ref={(el) => {
                 if (el) {
                   setTimeout(() => {
-                    el.style.opacity = 1;
+                    el.style.opacity = '1';
                     el.style.transform = 'translateY(0)';
                   }, 100 + index * 100);
                 }
               }}
             >
-              <div className="relative overflow-hidden h-64">
+              <div className="relative h-64 overflow-hidden">
                 <Image
                   src={item.image}
                   alt={item.title}
                   width={600}
                   height={400}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                  className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex items-end p-6">
+                <div className="absolute inset-0 flex items-end p-6 transition-opacity duration-300 opacity-0 bg-gradient-to-t from-black/70 to-transparent group-hover:opacity-100">
                   <div>
-                    <p className="text-white/80 text-sm mb-1">{item.client}</p>
+                    <p className="mb-1 text-sm text-white/80">{item.client}</p>
                     <h3 className="text-xl font-bold text-white">{item.title}</h3>
                   </div>
                 </div>
@@ -205,20 +206,20 @@ const Portfolio = () => {
                   {item.tags.map((tag, i) => (
                     <span 
                       key={i} 
-                      className="px-3 py-1 bg-emerald-50 text-emerald-700 text-xs rounded-full"
+                      className="px-3 py-1 text-xs rounded-full bg-emerald-50 text-emerald-700"
                     >
                       {tag}
                     </span>
                   ))}
                 </div>
                 
-                <div className="flex justify-between items-center">
+                <div className="flex items-center justify-between">
                   <span className="text-gray-500">{item.category}</span>
                   <Link 
                     href={item.link}
-                    className="inline-flex items-center text-emerald-600 font-medium hover:underline"
+                    className="inline-flex items-center font-medium text-emerald-600 hover:underline"
                   >
-                    View project <ArrowUpRight className="ml-1 w-4 h-4" />
+                    View project <ArrowUpRight className="w-4 h-4 ml-1" />
                   </Link>
                 </div>
               </div>
@@ -226,13 +227,13 @@ const Portfolio = () => {
           ))}
         </div>
 
-        <div className="text-center mt-12">
+        <div className="mt-12 text-center">
           <Link 
             href="/portfolio" 
-            className="inline-flex items-center px-6 py-3 border-2 border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white font-medium rounded-lg transition-colors duration-300"
+            className="inline-flex items-center px-6 py-3 font-medium transition-colors duration-300 border-2 rounded-lg border-emerald-600 text-emerald-600 hover:bg-emerald-600 hover:text-white"
           >
             View All Projects
-            <ArrowUpRight className="ml-2 w-5 h-5" />
+            <ArrowUpRight className="w-5 h-5 ml-2" />
           </Link>
         </div>
       </div>

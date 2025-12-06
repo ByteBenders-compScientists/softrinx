@@ -26,12 +26,12 @@ export default function CorporateHero() {
         }}
       />
 
-      <div className="container mx-auto px-6 lg:px-12 relative z-10 pt-32 pb-20">
-        <div className="grid lg:grid-cols-12 gap-12 items-center">
+      <div className="container relative z-10 px-6 pt-32 pb-20 mx-auto lg:px-12">
+        <div className="grid items-center gap-12 lg:grid-cols-12">
           {/* Left Content - 7 columns */}
-          <div className="lg:col-span-7 space-y-6">
+          <div className="space-y-6 lg:col-span-7">
             <div className="space-y-4">
-              <h1 className="text-5xl lg:text-6xl font-bold text-white leading-tight">
+              <h1 className="text-5xl font-bold leading-tight text-white lg:text-6xl">
                 
 
  
@@ -41,14 +41,14 @@ We Build{' '}
               </h1>
             </div>
 
-            <p className="text-lg text-slate-300 leading-relaxed max-w-2xl">
-              For over a decade, we've been helping businesses transform their ideas into powerful, scalable, and user-friendly applications that drive real results.
+            <p className="max-w-2xl text-lg leading-relaxed text-slate-300">
+              For over a decade, we&apos;ve been helping businesses transform their ideas into powerful, scalable, and user-friendly applications that drive real results.
             </p>
 
             <div className="flex flex-wrap gap-4 pt-4">
               <button className="group flex items-center gap-3 px-8 py-3.5 bg-teal-500 hover:bg-teal-600 text-white font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-teal-500/30">
                 Get Started
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </button>
               
               <button className="flex items-center gap-3 px-8 py-3.5 bg-white/5 hover:bg-white/10 backdrop-blur-sm text-white font-semibold rounded-lg border border-white/10 hover:border-teal-400/50 transition-all duration-300">
@@ -83,7 +83,7 @@ We Build{' '}
           </div>
 
           {/* Right Side - Creative Image Layout */}
-          <div className="lg:col-span-5 hidden lg:block">
+          <div className="hidden lg:col-span-5 lg:block">
             <div className="relative h-[500px]">
               {/* Large main image - diagonal cut */}
               <div 
@@ -96,7 +96,7 @@ We Build{' '}
                 <img 
                   src="https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=700&fit=crop" 
                   alt="Workspace"
-                  className="w-full h-full object-cover"
+                  className="object-cover w-full h-full"
                 />
                 <div className="absolute inset-0 bg-gradient-to-br from-teal-500/10 to-transparent" />
               </div>
@@ -109,12 +109,12 @@ We Build{' '}
                 <img 
                   src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=500&h=400&fit=crop" 
                   alt="Team collaboration"
-                  className="w-full h-full object-cover"
+                  className="object-cover w-full h-full"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900/50 to-transparent" />
                 
                 {/* Floating badge */}
-                <div className="absolute -top-3 -right-3 bg-teal-500 text-white px-4 py-2 rounded-full text-sm font-bold shadow-lg">
+                <div className="absolute px-4 py-2 text-sm font-bold text-white bg-teal-500 rounded-full shadow-lg -top-3 -right-3">
                   10+ Years
                 </div>
               </div>
@@ -127,7 +127,7 @@ We Build{' '}
       </div>
 
       {/* Bottom darkening gradient */}
-      <div className="absolute bottom-0 left-0 right-0 h-32 bg-gradient-to-t from-slate-950 to-transparent pointer-events-none" />
+      <div className="absolute bottom-0 left-0 right-0 h-32 pointer-events-none bg-gradient-to-t from-slate-950 to-transparent" />
     </section>
   );
 }

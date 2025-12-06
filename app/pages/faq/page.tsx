@@ -129,26 +129,26 @@ const FAQPage = () => {
       <Navigation />
       
       {/* Hero Section */}
-      <section className="relative bg-gradient-to-b from-black via-gray-900 to-emerald-900 pt-32 pb-20 overflow-hidden faq-hero">
+      <section className="relative pt-32 pb-20 overflow-hidden bg-gradient-to-b from-black via-gray-900 to-emerald-900 faq-hero">
         <div className="absolute inset-0 faq-pattern opacity-10"></div>
         
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container relative z-10 px-4 mx-auto">
           <div className="max-w-3xl mx-auto text-center">
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 faq-title">
+            <h1 className="mb-6 text-5xl font-bold text-white md:text-7xl faq-title">
               Frequently Asked <span className="text-emerald-400">Questions</span>
             </h1>
-            <p className="text-xl text-gray-300 mb-10 faq-subtitle">
+            <p className="mb-10 text-xl text-gray-300 faq-subtitle">
               Find answers to the most common questions about our services, process, and expertise.
             </p>
             
             {/* Search Bar */}
             <div className="relative max-w-xl mx-auto">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
-                <Search className="h-5 w-5 text-gray-400" />
+              <div className="absolute inset-y-0 left-0 flex items-center pl-3 pointer-events-none">
+                <Search className="w-5 h-5 text-gray-400" />
               </div>
               <input
                 type="text"
-                className="block w-full pl-10 pr-4 py-4 rounded-full bg-white/10 backdrop-blur-sm text-white placeholder-gray-400 border border-white/20 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent transition-all"
+                className="block w-full py-4 pl-10 pr-4 text-white placeholder-gray-400 transition-all border rounded-full bg-white/10 backdrop-blur-sm border-white/20 focus:outline-none focus:ring-2 focus:ring-emerald-500 focus:border-transparent"
                 placeholder="Search for answers..."
                 value={searchQuery}
                 onChange={(e) => setSearchQuery(e.target.value)}
@@ -175,7 +175,7 @@ const FAQPage = () => {
       
       {/* FAQ Section */}
       <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
+        <div className="container px-4 mx-auto">
           <div className="max-w-4xl mx-auto">
             {searchQuery.length <= 2 && (
               <div className="mb-10 overflow-x-auto faq-tabs">
@@ -198,8 +198,8 @@ const FAQPage = () => {
             )}
             
             {searchQuery.length > 2 && filteredFAQs.length === 0 && (
-              <div className="text-center py-10">
-                <p className="text-2xl text-gray-600 mb-4">No results found</p>
+              <div className="py-10 text-center">
+                <p className="mb-4 text-2xl text-gray-600">No results found</p>
                 <p className="text-gray-500">Try different keywords or browse our categories</p>
               </div>
             )}
@@ -213,7 +213,7 @@ const FAQPage = () => {
                   }`}
                 >
                   <button
-                    className="flex justify-between items-center w-full text-left p-6 focus:outline-none"
+                    className="flex items-center justify-between w-full p-6 text-left focus:outline-none"
                     onClick={() => toggleFAQ(index)}
                   >
                     <h3 className="text-xl font-semibold text-gray-800">
@@ -243,22 +243,22 @@ const FAQPage = () => {
       
       {/* Still Have Questions */}
       <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
+        <div className="container px-4 mx-auto">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-4xl font-bold mb-6">Still Have Questions?</h2>
-            <p className="text-xl text-gray-600 mb-8">
-              We're here to help. Reach out to our team and we'll get back to you as soon as possible.
+            <h2 className="mb-6 text-4xl font-bold">Still Have Questions?</h2>
+            <p className="mb-8 text-xl text-gray-600">
+              We&apos;re here to help. Reach out to our team and we&apos;ll get back to you as soon as possible.
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
+            <div className="flex flex-col justify-center gap-4 sm:flex-row">
               <a
                 href="/contact"
-                className="px-8 py-4 bg-emerald-500 text-white font-semibold rounded-full hover:bg-emerald-600 transition-colors shadow-lg hover:shadow-xl"
+                className="px-8 py-4 font-semibold text-white transition-colors rounded-full shadow-lg bg-emerald-500 hover:bg-emerald-600 hover:shadow-xl"
               >
                 Contact Us
               </a>
               <a
                 href="mailto:support@softrinx.com"
-                className="px-8 py-4 bg-white text-emerald-600 font-semibold rounded-full border-2 border-emerald-500 hover:bg-emerald-50 transition-colors"
+                className="px-8 py-4 font-semibold transition-colors bg-white border-2 rounded-full text-emerald-600 border-emerald-500 hover:bg-emerald-50"
               >
                 Email Support
               </a>

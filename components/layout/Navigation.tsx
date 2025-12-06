@@ -100,7 +100,7 @@ const Navigation = () => {
         ? "bg-gray-900/95 backdrop-blur-md shadow-lg" 
         : "bg-transparent"
     }`}>
-      <div className="container mx-auto px-4 py-4">
+      <div className="container px-4 py-4 mx-auto">
         <div className="flex items-center justify-between">
           {/* Logo */}
           <Link href="/" className="flex items-center">
@@ -116,7 +116,7 @@ const Navigation = () => {
           </Link>
           
           {/* Desktop Nav */}
-          <div className="hidden lg:flex items-center space-x-1">
+          <div className="items-center hidden space-x-1 lg:flex">
             {navItems.map((item) => (
               <div key={item.name} className="relative group">
                 {item.dropdown ? (
@@ -125,14 +125,14 @@ const Navigation = () => {
                       <>
                         <Link 
                           href={item.path}
-                          className="px-4 py-2 text-sm uppercase tracking-wider font-medium text-white hover:text-emerald-400 transition-colors"
+                          className="px-4 py-2 text-sm font-medium tracking-wider text-white uppercase transition-colors hover:text-emerald-400"
                           onClick={() => setActiveDropdown(null)}
                         >
                           {item.name}
                         </Link>
                         <button
                           onClick={(e) => handleDropdownToggle(e, item.name)}
-                          className="px-1 py-2 text-white hover:text-emerald-400 transition-colors"
+                          className="px-1 py-2 text-white transition-colors hover:text-emerald-400"
                           aria-label={`Toggle ${item.name} dropdown`}
                         >
                           <ChevronDown size={16} className={`transition-transform duration-200 ${activeDropdown === item.name ? 'rotate-180' : ''}`} />
@@ -141,7 +141,7 @@ const Navigation = () => {
                     ) : (
                       <button
                         onClick={(e) => handleDropdownToggle(e, item.name)}
-                        className="flex items-center px-4 py-2 text-sm uppercase tracking-wider font-medium text-white hover:text-emerald-400 transition-colors"
+                        className="flex items-center px-4 py-2 text-sm font-medium tracking-wider text-white uppercase transition-colors hover:text-emerald-400"
                       >
                         {item.name}
                         <ChevronDown size={16} className={`ml-1 transition-transform duration-200 ${activeDropdown === item.name ? 'rotate-180' : ''}`} />
@@ -151,7 +151,7 @@ const Navigation = () => {
                 ) : (
                   <Link 
                     href={item.path}
-                    className="px-4 py-2 text-sm uppercase tracking-wider font-medium text-white hover:text-emerald-400 transition-colors"
+                    className="px-4 py-2 text-sm font-medium tracking-wider text-white uppercase transition-colors hover:text-emerald-400"
                   >
                     {item.name}
                   </Link>
@@ -187,12 +187,12 @@ const Navigation = () => {
           {/* Client Support & Hamburger */}
           <div className="flex items-center gap-4">
             {/* Client Support - Hidden on mobile */}
-            <div className="hidden lg:flex items-center gap-3 border-l border-white/20 pl-6">
+            <div className="items-center hidden gap-3 pl-6 border-l lg:flex border-white/20">
               <div className="text-right">
-                <p className="text-xs text-gray-300 uppercase tracking-wider">For Client Support:</p>
+                <p className="text-xs tracking-wider text-gray-300 uppercase">For Client Support:</p>
                 <a 
                   href="tel:+254750109798" 
-                  className="text-white font-semibold hover:text-emerald-400 transition-colors"
+                  className="font-semibold text-white transition-colors hover:text-emerald-400"
                 >
                 +254 750 109798
                 </a>
@@ -210,7 +210,7 @@ const Navigation = () => {
 
             {/* Hamburger Menu */}
             <button 
-              className="lg:hidden p-2"
+              className="p-2 lg:hidden"
               onClick={toggleMenu}
               aria-label="Menu"
             >
@@ -227,20 +227,20 @@ const Navigation = () => {
           isOpen ? 'translate-x-0' : 'translate-x-full'
         }`}
       >
-        <div className="container mx-auto px-4 py-8 h-full overflow-y-auto">
+        <div className="container h-full px-4 py-8 mx-auto overflow-y-auto">
           <div className="flex flex-col h-full">
-            <div className="flex justify-between items-center mb-10">
+            <div className="flex items-center justify-between mb-10">
               <Link href="/" className="flex items-center" onClick={toggleMenu}>
                 <Image 
                   src="/images/images/logo3.png" 
                   alt="Softrinx Logo" 
                   width={150} 
                   height={40} 
-                  className="h-10 w-auto"
+                  className="w-auto h-10"
                 />
               </Link>
               <button 
-                className="p-2 rounded-md text-gray-700 hover:bg-emerald-50 hover:text-emerald-600 transition-colors"
+                className="p-2 text-gray-700 transition-colors rounded-md hover:bg-emerald-50 hover:text-emerald-600"
                 onClick={toggleMenu}
                 aria-label="Close Menu"
               >
@@ -249,7 +249,7 @@ const Navigation = () => {
             </div>
 
             {/* Hero Image with Text */}
-            <div className="relative w-full h-48 rounded-2xl overflow-hidden mb-8">
+            <div className="relative w-full h-48 mb-8 overflow-hidden rounded-2xl">
               <Image
                 src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=800&q=80"
                 alt="Team collaboration"
@@ -257,16 +257,16 @@ const Navigation = () => {
                 className="object-cover"
               />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent" />
-              <div className="absolute bottom-4 left-4 right-4 text-white">
-                <p className="text-sm text-emerald-400 mb-1">Ready to innovate?</p>
-                <h3 className="text-xl font-bold">Let's Build Together</h3>
+              <div className="absolute text-white bottom-4 left-4 right-4">
+                <p className="mb-1 text-sm text-emerald-400">Ready to innovate?</p>
+                <h3 className="text-xl font-bold">Let&apos;s Build Together</h3>
               </div>
             </div>
 
             {/* Navigation Items */}
             <div className="flex flex-col space-y-6 text-2xl font-medium">
               {navItems.map((item) => (
-                <div key={item.name} className="border-b border-gray-100 pb-4">
+                <div key={item.name} className="pb-4 border-b border-gray-100">
                   {item.dropdown ? (
                     <div>
                       <div className="flex items-center justify-between">
@@ -274,14 +274,14 @@ const Navigation = () => {
                           <>
                             <Link 
                               href={item.path}
-                              className="flex-1 text-gray-800 hover:text-emerald-600 transition-colors"
+                              className="flex-1 text-gray-800 transition-colors hover:text-emerald-600"
                               onClick={toggleMenu}
                             >
                               {item.name}
                             </Link>
                             <button 
                               onClick={(e) => handleDropdownToggle(e, item.name)}
-                              className="p-2 text-gray-800 hover:text-emerald-600 transition-colors"
+                              className="p-2 text-gray-800 transition-colors hover:text-emerald-600"
                               aria-label={`Toggle ${item.name} submenu`}
                             >
                               <ChevronDown 
@@ -295,7 +295,7 @@ const Navigation = () => {
                         ) : (
                           <button 
                             onClick={(e) => handleDropdownToggle(e, item.name)}
-                            className="flex items-center justify-between w-full text-gray-800 hover:text-emerald-600 transition-colors"
+                            className="flex items-center justify-between w-full text-gray-800 transition-colors hover:text-emerald-600"
                           >
                             {item.name}
                             <ChevronDown 
@@ -331,7 +331,7 @@ const Navigation = () => {
                   ) : (
                     <Link 
                       href={item.path}
-                      className="block text-gray-800 hover:text-emerald-600 transition-colors"
+                      className="block text-gray-800 transition-colors hover:text-emerald-600"
                       onClick={toggleMenu}
                     >
                       {item.name}
@@ -342,11 +342,11 @@ const Navigation = () => {
             </div>
 
             {/* Client Support Mobile */}
-            <div className="mt-8 p-4 bg-emerald-50 rounded-xl border border-emerald-100">
+            <div className="p-4 mt-8 border bg-emerald-50 rounded-xl border-emerald-100">
               <div className="flex items-center gap-3">
                 <Phone className="w-6 h-6 text-emerald-600" />
                 <div>
-                  <p className="text-xs text-gray-600 uppercase tracking-wider">For Client Support:</p>
+                  <p className="text-xs tracking-wider text-gray-600 uppercase">For Client Support:</p>
                   <a 
                     href="tel:+254750109798" 
                     className="text-lg font-semibold text-emerald-600 hover:text-emerald-700"
@@ -360,15 +360,15 @@ const Navigation = () => {
             {/* Get Quote Button Mobile */}
             <Link
               href="/contact"
-              className="mt-4 px-6 py-3 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-lg transition-all duration-300 text-center"
+              className="px-6 py-3 mt-4 font-semibold text-center text-white transition-all duration-300 rounded-lg bg-emerald-500 hover:bg-emerald-600"
               onClick={toggleMenu}
             >
               Get A Quote
             </Link>
 
             {/* Social & Contact */}
-            <div className="mt-auto pt-8">
-              <h3 className="text-lg font-semibold mb-4">Connect With Us</h3>
+            <div className="pt-8 mt-auto">
+              <h3 className="mb-4 text-lg font-semibold">Connect With Us</h3>
               <div className="flex space-x-4">
                 {socialIcons.map((social, index) => (
                   <a 
@@ -376,7 +376,7 @@ const Navigation = () => {
                     href={social.link} 
                     target="_blank" 
                     rel="noopener noreferrer"
-                    className="p-2 rounded-full bg-gray-100 text-gray-700 hover:bg-emerald-100 hover:text-emerald-600 transition-colors"
+                    className="p-2 text-gray-700 transition-colors bg-gray-100 rounded-full hover:bg-emerald-100 hover:text-emerald-600"
                   >
                     {social.icon}
                   </a>
@@ -385,7 +385,7 @@ const Navigation = () => {
               
               <div className="mt-6">
                 <p className="text-gray-600">Have questions? Get in touch!</p>
-                <p className="text-emerald-600 font-medium mt-1">hello@softrinx.com</p>
+                <p className="mt-1 font-medium text-emerald-600">hello@softrinx.com</p>
               </div>
             </div>
           </div>

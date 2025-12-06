@@ -11,7 +11,7 @@ const Footer = () => {
   const currentYear = new Date().getFullYear();
 
   return (
-    <footer className="bg-gradient-to-b from-gray-900 to-black text-white relative">
+    <footer className="relative text-white bg-gradient-to-b from-gray-900 to-black">
       {/* Top curved shape */}
       <div className="relative">
         <svg viewBox="0 0 1200 120" preserveAspectRatio="none" className="relative block w-full h-[60px]">
@@ -23,95 +23,95 @@ const Footer = () => {
       </div>
 
       {/* Small CTA Section */}
-      <div className="container mx-auto px-4 py-8 mb-12">
-        <div className="bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl p-6 md:p-8 shadow-xl relative overflow-hidden">
+      <div className="container px-4 py-8 mx-auto mb-12">
+        <div className="relative p-6 overflow-hidden shadow-xl bg-gradient-to-r from-emerald-600 to-teal-600 rounded-2xl md:p-8">
           <div className="absolute inset-0 opacity-10" style={{
             backgroundImage: `radial-gradient(circle, white 1px, transparent 1px)`,
             backgroundSize: '30px 30px'
           }}></div>
           
-          <div className="relative z-10 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="relative z-10 flex flex-col items-center justify-between gap-6 md:flex-row">
             <div>
-              <h3 className="text-2xl md:text-3xl font-bold mb-2">Ready to start your project?</h3>
-              <p className="text-white/90 text-sm md:text-base">
-                Let's discuss your ideas and transform them into exceptional digital experiences
+              <h3 className="mb-2 text-2xl font-bold md:text-3xl">Ready to start your project?</h3>
+              <p className="text-sm text-white/90 md:text-base">
+                Let&apos;s discuss your ideas and transform them into exceptional digital experiences
               </p>
             </div>
             
             <Link 
               href="/contact"
-              className="group px-6 py-3 bg-white text-emerald-600 hover:bg-gray-100 font-semibold rounded-xl transition-all duration-300 flex items-center shadow-lg hover:shadow-2xl hover:scale-105 whitespace-nowrap"
+              className="flex items-center px-6 py-3 font-semibold transition-all duration-300 bg-white shadow-lg group text-emerald-600 hover:bg-gray-100 rounded-xl hover:shadow-2xl hover:scale-105 whitespace-nowrap"
             >
               Get in Touch
-              <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+              <ArrowRight className="w-5 h-5 ml-2 transition-transform group-hover:translate-x-1" />
             </Link>
           </div>
         </div>
       </div>
 
       {/* Main Footer Content */}
-      <div className="container mx-auto px-4 pb-12">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-12 gap-8 lg:gap-12">
+      <div className="container px-4 pb-12 mx-auto">
+        <div className="grid grid-cols-1 gap-8 md:grid-cols-2 lg:grid-cols-12 lg:gap-12">
           {/* Company Info - Spans 4 columns */}
-          <div className="lg:col-span-4 space-y-6">
+          <div className="space-y-6 lg:col-span-4">
             <Link href="/" className="inline-block group">
               <Image 
                 src="/images/images/logo3.png" 
                 alt="Softrinx Logo" 
                 width={180} 
                 height={45} 
-                className="h-12 w-auto brightness-0 invert group-hover:scale-105 transition-transform duration-300"
+                className="w-auto h-12 transition-transform duration-300 brightness-0 invert group-hover:scale-105"
               />
             </Link>
             
-            <p className="text-gray-400 leading-relaxed text-sm pr-8">
+            <p className="pr-8 text-sm leading-relaxed text-gray-400">
               Softrinx is a leading software development agency specializing in cutting-edge digital solutions. 
               We transform businesses through innovative technology, exceptional design, and strategic thinking.
             </p>
             
             {/* Social Links */}
             <div>
-              <h5 className="text-sm font-semibold text-gray-300 mb-4 uppercase tracking-wider">Follow Us</h5>
+              <h5 className="mb-4 text-sm font-semibold tracking-wider text-gray-300 uppercase">Follow Us</h5>
               <div className="flex flex-wrap gap-3">
                 <a 
                   href="https://facebook.com" 
                   target="_blank"
                   rel="noreferrer"
-                  className="group p-3 bg-gray-800/50 rounded-xl hover:bg-emerald-600 transition-all duration-300 border border-gray-700/50 hover:border-emerald-500 hover:scale-110"
+                  className="p-3 transition-all duration-300 border group bg-gray-800/50 rounded-xl hover:bg-emerald-600 border-gray-700/50 hover:border-emerald-500 hover:scale-110"
                 >
-                  <Facebook size={18} className="group-hover:scale-110 transition-transform" />
+                  <Facebook size={18} className="transition-transform group-hover:scale-110" />
                 </a>
                 <a 
                   href="https://twitter.com" 
                   target="_blank"
                   rel="noreferrer"
-                  className="group p-3 bg-gray-800/50 rounded-xl hover:bg-emerald-600 transition-all duration-300 border border-gray-700/50 hover:border-emerald-500 hover:scale-110"
+                  className="p-3 transition-all duration-300 border group bg-gray-800/50 rounded-xl hover:bg-emerald-600 border-gray-700/50 hover:border-emerald-500 hover:scale-110"
                 >
-                  <Twitter size={18} className="group-hover:scale-110 transition-transform" />
+                  <Twitter size={18} className="transition-transform group-hover:scale-110" />
                 </a>
                 <a 
                   href="https://linkedin.com" 
                   target="_blank"
                   rel="noreferrer"
-                  className="group p-3 bg-gray-800/50 rounded-xl hover:bg-emerald-600 transition-all duration-300 border border-gray-700/50 hover:border-emerald-500 hover:scale-110"
+                  className="p-3 transition-all duration-300 border group bg-gray-800/50 rounded-xl hover:bg-emerald-600 border-gray-700/50 hover:border-emerald-500 hover:scale-110"
                 >
-                  <Linkedin size={18} className="group-hover:scale-110 transition-transform" />
+                  <Linkedin size={18} className="transition-transform group-hover:scale-110" />
                 </a>
                 <a 
                   href="https://instagram.com" 
                   target="_blank"
                   rel="noreferrer"
-                  className="group p-3 bg-gray-800/50 rounded-xl hover:bg-emerald-600 transition-all duration-300 border border-gray-700/50 hover:border-emerald-500 hover:scale-110"
+                  className="p-3 transition-all duration-300 border group bg-gray-800/50 rounded-xl hover:bg-emerald-600 border-gray-700/50 hover:border-emerald-500 hover:scale-110"
                 >
-                  <Instagram size={18} className="group-hover:scale-110 transition-transform" />
+                  <Instagram size={18} className="transition-transform group-hover:scale-110" />
                 </a>
                 <a 
                   href="https://github.com" 
                   target="_blank"
                   rel="noreferrer"
-                  className="group p-3 bg-gray-800/50 rounded-xl hover:bg-emerald-600 transition-all duration-300 border border-gray-700/50 hover:border-emerald-500 hover:scale-110"
+                  className="p-3 transition-all duration-300 border group bg-gray-800/50 rounded-xl hover:bg-emerald-600 border-gray-700/50 hover:border-emerald-500 hover:scale-110"
                 >
-                  <Github size={18} className="group-hover:scale-110 transition-transform" />
+                  <Github size={18} className="transition-transform group-hover:scale-110" />
                 </a>
               </div>
             </div>
@@ -119,7 +119,7 @@ const Footer = () => {
 
           {/* Quick Links - Spans 2 columns */}
           <div className="lg:col-span-2">
-            <h4 className="text-lg font-bold mb-6 text-white relative inline-block">
+            <h4 className="relative inline-block mb-6 text-lg font-bold text-white">
               Quick Links
               <span className="absolute -bottom-2 left-0 w-12 h-0.5 bg-emerald-500"></span>
             </h4>
@@ -135,10 +135,10 @@ const Footer = () => {
                 <li key={i}>
                   <Link 
                     href={item.link}
-                    className="text-gray-400 hover:text-emerald-400 transition-all duration-300 flex items-center group text-sm"
+                    className="flex items-center text-sm text-gray-400 transition-all duration-300 hover:text-emerald-400 group"
                   >
-                    <ChevronRight className="w-4 h-4 mr-1 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all text-emerald-500" />
-                    <span className="group-hover:translate-x-1 transition-transform">{item.name}</span>
+                    <ChevronRight className="w-4 h-4 mr-1 transition-all transform -translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 text-emerald-500" />
+                    <span className="transition-transform group-hover:translate-x-1">{item.name}</span>
                   </Link>
                 </li>
               ))}
@@ -147,7 +147,7 @@ const Footer = () => {
 
           {/* Services - Spans 3 columns */}
           <div className="lg:col-span-3">
-            <h4 className="text-lg font-bold mb-6 text-white relative inline-block">
+            <h4 className="relative inline-block mb-6 text-lg font-bold text-white">
               Our Services
               <span className="absolute -bottom-2 left-0 w-12 h-0.5 bg-emerald-500"></span>
             </h4>
@@ -163,10 +163,10 @@ const Footer = () => {
                 <li key={i}>
                   <Link 
                     href={item.link}
-                    className="text-gray-400 hover:text-emerald-400 transition-all duration-300 flex items-center group text-sm"
+                    className="flex items-center text-sm text-gray-400 transition-all duration-300 hover:text-emerald-400 group"
                   >
-                    <ChevronRight className="w-4 h-4 mr-1 opacity-0 group-hover:opacity-100 transform -translate-x-2 group-hover:translate-x-0 transition-all text-emerald-500" />
-                    <span className="group-hover:translate-x-1 transition-transform">{item.name}</span>
+                    <ChevronRight className="w-4 h-4 mr-1 transition-all transform -translate-x-2 opacity-0 group-hover:opacity-100 group-hover:translate-x-0 text-emerald-500" />
+                    <span className="transition-transform group-hover:translate-x-1">{item.name}</span>
                   </Link>
                 </li>
               ))}
@@ -175,18 +175,18 @@ const Footer = () => {
 
           {/* Contact & Newsletter - Spans 3 columns */}
           <div className="lg:col-span-3">
-            <h4 className="text-lg font-bold mb-6 text-white relative inline-block">
+            <h4 className="relative inline-block mb-6 text-lg font-bold text-white">
               Get In Touch
               <span className="absolute -bottom-2 left-0 w-12 h-0.5 bg-emerald-500"></span>
             </h4>
             
-            <ul className="space-y-4 mb-8">
+            <ul className="mb-8 space-y-4">
               <li>
                 <a 
                   href="https://goo.gl/maps/softrinx" 
                   target="_blank"
                   rel="noreferrer"
-                  className="flex items-start text-gray-400 hover:text-emerald-400 transition-colors group text-sm"
+                  className="flex items-start text-sm text-gray-400 transition-colors hover:text-emerald-400 group"
                 >
                   <MapPin className="w-5 h-5 mr-3 mt-0.5 text-emerald-500 flex-shrink-0 group-hover:scale-110 transition-transform" />
                   <span>
@@ -198,30 +198,30 @@ const Footer = () => {
               <li>
                 <a 
                   href="mailto:info@softrinx.com" 
-                  className="flex items-center text-gray-400 hover:text-emerald-400 transition-colors group text-sm"
+                  className="flex items-center text-sm text-gray-400 transition-colors hover:text-emerald-400 group"
                 >
-                  <Mail className="w-5 h-5 mr-3 text-emerald-500 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                  <Mail className="flex-shrink-0 w-5 h-5 mr-3 transition-transform text-emerald-500 group-hover:scale-110" />
                   <span>info@softrinx.com</span>
                 </a>
               </li>
               <li>
                 <a 
                   href="tel:+254 750 109798" 
-                  className="flex items-center text-gray-400 hover:text-emerald-400 transition-colors group text-sm"
+                  className="flex items-center text-sm text-gray-400 transition-colors hover:text-emerald-400 group"
                 >
-                  <Phone className="w-5 h-5 mr-3 text-emerald-500 flex-shrink-0 group-hover:scale-110 transition-transform" />
+                  <Phone className="flex-shrink-0 w-5 h-5 mr-3 transition-transform text-emerald-500 group-hover:scale-110" />
                   <span>+254 750 109798</span>
                 </a>
               </li>
             </ul>
 
             {/* Newsletter */}
-            <div className="bg-gray-800/30 rounded-xl p-5 border border-gray-700/50 backdrop-blur-sm">
-              <h5 className="text-sm font-semibold mb-3 text-white flex items-center gap-2">
+            <div className="p-5 border bg-gray-800/30 rounded-xl border-gray-700/50 backdrop-blur-sm">
+              <h5 className="flex items-center gap-2 mb-3 text-sm font-semibold text-white">
                 <Send className="w-4 h-4 text-emerald-500" />
                 Newsletter
               </h5>
-              <p className="text-gray-400 text-xs mb-4">Stay updated with our latest insights and tech trends.</p>
+              <p className="mb-4 text-xs text-gray-400">Stay updated with our latest insights and tech trends.</p>
               <div className="flex">
                 <input 
                   type="email" 
@@ -230,7 +230,7 @@ const Footer = () => {
                 />
                 <button 
                   type="button" 
-                  className="bg-emerald-600 hover:bg-emerald-700 text-white rounded-r-lg px-4 transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/50"
+                  className="px-4 text-white transition-all duration-300 rounded-r-lg bg-emerald-600 hover:bg-emerald-700 hover:shadow-lg hover:shadow-emerald-500/50"
                 >
                   <ArrowRight className="w-5 h-5" />
                 </button>
@@ -242,23 +242,23 @@ const Footer = () => {
 
       {/* Bottom Bar */}
       <div className="border-t border-gray-800/50">
-        <div className="container mx-auto px-4 py-6">
-          <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-gray-500 text-center md:text-left text-sm">
-              © {currentYear} <span className="text-emerald-500 font-semibold">Softrinx</span>. All rights reserved.
+        <div className="container px-4 py-6 mx-auto">
+          <div className="flex flex-col items-center justify-between gap-4 md:flex-row">
+            <p className="text-sm text-center text-gray-500 md:text-left">
+              © {currentYear} <span className="font-semibold text-emerald-500">Softrinx</span>. All rights reserved.
             </p>
 
             <div className="flex flex-wrap justify-center gap-6">
-              <Link href="/privacy-policy" className="text-gray-500 hover:text-emerald-400 transition-colors text-sm hover:underline underline-offset-4">
+              <Link href="/privacy-policy" className="text-sm text-gray-500 transition-colors hover:text-emerald-400 hover:underline underline-offset-4">
                 Privacy Policy
               </Link>
-              <Link href="/terms-of-service" className="text-gray-500 hover:text-emerald-400 transition-colors text-sm hover:underline underline-offset-4">
+              <Link href="/terms-of-service" className="text-sm text-gray-500 transition-colors hover:text-emerald-400 hover:underline underline-offset-4">
                 Terms of Service
               </Link>
-              <Link href="/cookie-policy" className="text-gray-500 hover:text-emerald-400 transition-colors text-sm hover:underline underline-offset-4">
+              <Link href="/cookie-policy" className="text-sm text-gray-500 transition-colors hover:text-emerald-400 hover:underline underline-offset-4">
                 Cookie Policy
               </Link>
-              <Link href="/sitemap" className="text-gray-500 hover:text-emerald-400 transition-colors text-sm hover:underline underline-offset-4">
+              <Link href="/sitemap" className="text-sm text-gray-500 transition-colors hover:text-emerald-400 hover:underline underline-offset-4">
                 Sitemap
               </Link>
             </div>

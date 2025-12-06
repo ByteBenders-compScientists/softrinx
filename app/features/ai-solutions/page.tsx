@@ -133,7 +133,7 @@ export default function AISolutionsPage() {
       {/* Hero Section with Animated Particles */}
       <section 
         ref={heroRef}
-        className="relative min-h-screen flex items-center overflow-hidden bg-gradient-to-br from-orange-900 via-slate-900 to-purple-900"
+        className="relative flex items-center min-h-screen overflow-hidden bg-gradient-to-br from-orange-900 via-slate-900 to-purple-900"
       >
         <div className="absolute inset-0">
           <Image
@@ -152,7 +152,7 @@ export default function AISolutionsPage() {
           {particles.map((particle, idx) => (
             <div
               key={idx}
-              className="ai-particle absolute rounded-full bg-orange-400/30"
+              className="absolute rounded-full ai-particle bg-orange-400/30"
               style={{
                 left: `${particle.x}%`,
                 top: `${particle.y}%`,
@@ -164,53 +164,53 @@ export default function AISolutionsPage() {
           ))}
         </div>
         
-        <div className="container mx-auto px-4 relative z-20 pt-32 pb-20">
+        <div className="container relative z-20 px-4 pt-32 pb-20 mx-auto">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="ai-badge mb-6">
-              <span className="inline-flex items-center px-6 py-3 bg-orange-500/20 backdrop-blur-sm rounded-full text-orange-300 font-medium">
+            <div className="mb-6 ai-badge">
+              <span className="inline-flex items-center px-6 py-3 font-medium text-orange-300 rounded-full bg-orange-500/20 backdrop-blur-sm">
                 <Brain className="w-5 h-5 mr-2" />
                 Artificial Intelligence Solutions
               </span>
             </div>
             
-            <h1 className="text-5xl md:text-7xl font-bold text-white mb-6 ai-hero-title">
-              Intelligent Solutions <span className="bg-gradient-to-r from-orange-400 via-yellow-400 to-orange-500 bg-clip-text text-transparent">Powered By AI</span>
+            <h1 className="mb-6 text-5xl font-bold text-white md:text-7xl ai-hero-title">
+              Intelligent Solutions <span className="text-transparent bg-gradient-to-r from-orange-400 via-yellow-400 to-orange-500 bg-clip-text">Powered By AI</span>
             </h1>
             
-            <p className="text-xl md:text-2xl text-gray-300 mb-8 leading-relaxed ai-hero-subtitle">
+            <p className="mb-8 text-xl leading-relaxed text-gray-300 md:text-2xl ai-hero-subtitle">
               From machine learning to natural language processing—we build AI systems that learn, adapt, and deliver exceptional results for your business.
             </p>
             
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 mb-12 ai-stats">
-              <div className="bg-white/10 backdrop-blur-sm px-4 py-4 rounded-xl border border-white/20">
+            <div className="grid grid-cols-2 gap-4 mb-12 md:grid-cols-4 ai-stats">
+              <div className="px-4 py-4 border bg-white/10 backdrop-blur-sm rounded-xl border-white/20">
                 <div className="text-2xl font-bold text-orange-400">100+</div>
                 <div className="text-xs text-gray-400">AI Models</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm px-4 py-4 rounded-xl border border-white/20">
+              <div className="px-4 py-4 border bg-white/10 backdrop-blur-sm rounded-xl border-white/20">
                 <div className="text-2xl font-bold text-orange-400">10TB+</div>
                 <div className="text-xs text-gray-400">Data Processed</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm px-4 py-4 rounded-xl border border-white/20">
+              <div className="px-4 py-4 border bg-white/10 backdrop-blur-sm rounded-xl border-white/20">
                 <div className="text-2xl font-bold text-orange-400">99.5%</div>
                 <div className="text-xs text-gray-400">Accuracy</div>
               </div>
-              <div className="bg-white/10 backdrop-blur-sm px-4 py-4 rounded-xl border border-white/20">
+              <div className="px-4 py-4 border bg-white/10 backdrop-blur-sm rounded-xl border-white/20">
                 <div className="text-2xl font-bold text-orange-400">24/7</div>
                 <div className="text-xs text-gray-400">Automation</div>
               </div>
             </div>
             
-            <div className="flex flex-wrap gap-4 justify-center ai-cta">
+            <div className="flex flex-wrap justify-center gap-4 ai-cta">
               <Link 
                 href="/contact" 
-                className="inline-flex items-center px-8 py-4 bg-orange-600 text-white font-semibold rounded-full hover:bg-orange-700 transition-all duration-300 shadow-lg"
+                className="inline-flex items-center px-8 py-4 font-semibold text-white transition-all duration-300 bg-orange-600 rounded-full shadow-lg hover:bg-orange-700"
               >
                 Explore AI Solutions
-                <ArrowRight className="ml-2 w-5 h-5" />
+                <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
               <Link 
                 href="/portfolio" 
-                className="inline-flex items-center px-8 py-4 bg-white/10 backdrop-blur-sm text-white font-semibold rounded-full hover:bg-white/20 transition-all duration-300 border border-white/20"
+                className="inline-flex items-center px-8 py-4 font-semibold text-white transition-all duration-300 border rounded-full bg-white/10 backdrop-blur-sm hover:bg-white/20 border-white/20"
               >
                 Case Studies
               </Link>
@@ -221,19 +221,19 @@ export default function AISolutionsPage() {
       
       {/* AI Services */}
       <section ref={servicesRef} className="py-32 bg-white">
-        <div className="container mx-auto px-4">
+        <div className="container px-4 mx-auto">
           <div className="max-w-6xl mx-auto">
             <div className={`text-center mb-20 transform transition-all duration-1000 ${isServicesInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              <h2 className="mb-6 text-4xl font-bold md:text-5xl">
                 AI <span className="text-orange-600">Capabilities</span>
               </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-orange-500 to-yellow-500 mx-auto mb-8"></div>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <div className="w-24 h-1 mx-auto mb-8 bg-gradient-to-r from-orange-500 to-yellow-500"></div>
+              <p className="max-w-3xl mx-auto text-xl text-gray-600">
                 Comprehensive AI solutions that transform how you operate, compete, and grow.
               </p>
             </div>
             
-            <div className="grid md:grid-cols-2 gap-8">
+            <div className="grid gap-8 md:grid-cols-2">
               {aiServices.map((service, idx) => (
                 <div
                   key={idx}
@@ -247,20 +247,20 @@ export default function AISolutionsPage() {
                       {service.icon}
                     </div>
                     
-                    <h3 className="text-2xl font-bold mb-4">{service.title}</h3>
-                    <p className="text-gray-600 mb-6 leading-relaxed">{service.description}</p>
+                    <h3 className="mb-4 text-2xl font-bold">{service.title}</h3>
+                    <p className="mb-6 leading-relaxed text-gray-600">{service.description}</p>
                     
                     <ul className="space-y-2">
                       {service.features.map((feature, fIdx) => (
                         <li key={fIdx} className="flex items-center text-gray-700">
-                          <CheckCircle2 className="w-5 h-5 text-orange-500 mr-3 flex-shrink-0" />
+                          <CheckCircle2 className="flex-shrink-0 w-5 h-5 mr-3 text-orange-500" />
                           {feature}
                         </li>
                       ))}
                     </ul>
                   </div>
                   
-                  <div className="absolute -right-10 -bottom-10 w-40 h-40 bg-gradient-to-br from-orange-400 to-yellow-600 rounded-full opacity-0 group-hover:opacity-10 transition-opacity duration-500 blur-3xl"></div>
+                  <div className="absolute w-40 h-40 transition-opacity duration-500 rounded-full opacity-0 -right-10 -bottom-10 bg-gradient-to-br from-orange-400 to-yellow-600 group-hover:opacity-10 blur-3xl"></div>
                 </div>
               ))}
             </div>
@@ -269,33 +269,33 @@ export default function AISolutionsPage() {
       </section>
       
       {/* AI Capabilities Stats */}
-      <section ref={capabilitiesRef} className="py-32 bg-gradient-to-br from-slate-900 to-orange-900 text-white relative overflow-hidden">
+      <section ref={capabilitiesRef} className="relative py-32 overflow-hidden text-white bg-gradient-to-br from-slate-900 to-orange-900">
         <div className="absolute inset-0 ai-grid-pattern"></div>
         
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container relative z-10 px-4 mx-auto">
           <div className="max-w-6xl mx-auto">
             <div className={`text-center mb-20 transform transition-all duration-1000 ${isCapabilitiesInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              <h2 className="mb-6 text-4xl font-bold md:text-5xl">
                 Built On <span className="text-orange-400">Cutting-Edge Technology</span>
               </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-orange-400 to-yellow-400 mx-auto mb-8"></div>
-              <p className="text-xl text-gray-300 max-w-3xl mx-auto">
+              <div className="w-24 h-1 mx-auto mb-8 bg-gradient-to-r from-orange-400 to-yellow-400"></div>
+              <p className="max-w-3xl mx-auto text-xl text-gray-300">
                 State-of-the-art AI infrastructure that delivers real results.
               </p>
             </div>
             
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16">
+            <div className="grid gap-8 mb-16 md:grid-cols-2 lg:grid-cols-4">
               {capabilities.map((capability, idx) => (
                 <div
                   key={idx}
                   className={`ai-capability-card text-center p-8 rounded-2xl bg-white/5 backdrop-blur-sm border border-white/10 hover:bg-white/10 hover:border-orange-500/50 transition-all duration-500 ${isCapabilitiesInView ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
                   style={{ transitionDelay: `${idx * 100}ms` }}
                 >
-                  <div className="inline-flex p-4 rounded-xl bg-orange-500/20 text-orange-400 mb-6">
+                  <div className="inline-flex p-4 mb-6 text-orange-400 rounded-xl bg-orange-500/20">
                     {capability.icon}
                   </div>
-                  <h3 className="text-xl font-bold mb-2">{capability.title}</h3>
-                  <div className="text-4xl font-bold text-orange-400 mb-2">{capability.stat}</div>
+                  <h3 className="mb-2 text-xl font-bold">{capability.title}</h3>
+                  <div className="mb-2 text-4xl font-bold text-orange-400">{capability.stat}</div>
                   <p className="text-gray-400">{capability.label}</p>
                 </div>
               ))}
@@ -303,12 +303,12 @@ export default function AISolutionsPage() {
             
             {/* Tech Stack */}
             <div className={`transform transition-all duration-1000 delay-500 ${isCapabilitiesInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <h3 className="text-2xl font-bold mb-8 text-center">Powered By Industry-Leading Technologies</h3>
+              <h3 className="mb-8 text-2xl font-bold text-center">Powered By Industry-Leading Technologies</h3>
               <div className="flex flex-wrap justify-center gap-3">
                 {techStack.map((tech, idx) => (
                   <span
                     key={idx}
-                    className="ai-tech-badge px-5 py-3 bg-white/10 backdrop-blur-sm rounded-lg border border-white/20 hover:bg-orange-500/20 hover:border-orange-500 transition-all duration-300"
+                    className="px-5 py-3 transition-all duration-300 border rounded-lg ai-tech-badge bg-white/10 backdrop-blur-sm border-white/20 hover:bg-orange-500/20 hover:border-orange-500"
                   >
                     {tech}
                   </span>
@@ -321,19 +321,19 @@ export default function AISolutionsPage() {
       
       {/* Use Cases */}
       <section ref={useCasesRef} className="py-32 bg-gray-50">
-        <div className="container mx-auto px-4">
+        <div className="container px-4 mx-auto">
           <div className="max-w-6xl mx-auto">
             <div className={`text-center mb-20 transform transition-all duration-1000 ${isUseCasesInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <h2 className="text-4xl md:text-5xl font-bold mb-6">
+              <h2 className="mb-6 text-4xl font-bold md:text-5xl">
                 Real-World <span className="text-orange-600">AI Applications</span>
               </h2>
-              <div className="w-24 h-1 bg-gradient-to-r from-orange-500 to-yellow-500 mx-auto mb-8"></div>
-              <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+              <div className="w-24 h-1 mx-auto mb-8 bg-gradient-to-r from-orange-500 to-yellow-500"></div>
+              <p className="max-w-3xl mx-auto text-xl text-gray-600">
                 See how our AI solutions deliver measurable results across different industries.
               </p>
             </div>
             
-            <div className="grid md:grid-cols-3 gap-8">
+            <div className="grid gap-8 md:grid-cols-3">
               {useCases.map((useCase, idx) => (
                 <div
                   key={idx}
@@ -345,24 +345,24 @@ export default function AISolutionsPage() {
                       src={useCase.image}
                       alt={useCase.title}
                       fill
-                      className="object-cover group-hover:scale-110 transition-transform duration-500"
+                      className="object-cover transition-transform duration-500 group-hover:scale-110"
                     />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent"></div>
                     <div className="absolute top-4 left-4">
-                      <span className="px-3 py-1 bg-orange-600 text-white text-xs font-semibold rounded-full">
+                      <span className="px-3 py-1 text-xs font-semibold text-white bg-orange-600 rounded-full">
                         {useCase.industry}
                       </span>
                     </div>
                   </div>
                   
                   <div className="p-8">
-                    <h3 className="text-xl font-bold mb-3">{useCase.title}</h3>
-                    <p className="text-gray-600 mb-6 leading-relaxed">{useCase.description}</p>
+                    <h3 className="mb-3 text-xl font-bold">{useCase.title}</h3>
+                    <p className="mb-6 leading-relaxed text-gray-600">{useCase.description}</p>
                     
                     <div className="space-y-2">
                       {useCase.results.map((result, rIdx) => (
                         <div key={rIdx} className="flex items-center text-sm">
-                          <Sparkles className="w-4 h-4 text-orange-500 mr-2 flex-shrink-0" />
+                          <Sparkles className="flex-shrink-0 w-4 h-4 mr-2 text-orange-500" />
                           <span className="font-semibold text-gray-700">{result}</span>
                         </div>
                       ))}
@@ -378,29 +378,29 @@ export default function AISolutionsPage() {
       {/* CTA Section */}
       <section 
         ref={ctaRef} 
-        className="py-32 bg-gradient-to-r from-orange-600 via-yellow-600 to-orange-700 text-white relative overflow-hidden"
+        className="relative py-32 overflow-hidden text-white bg-gradient-to-r from-orange-600 via-yellow-600 to-orange-700"
       >
         <div className="absolute inset-0 ai-cta-circuit"></div>
         
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container relative z-10 px-4 mx-auto">
           <div className="max-w-4xl mx-auto text-center">
             <h2 className={`text-4xl md:text-5xl font-bold mb-6 transform transition-all duration-1000 ${isCtaInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               Ready To <span className="text-slate-900">Harness AI</span> For Your Business?
             </h2>
             <p className={`text-xl mb-12 text-white/90 max-w-2xl mx-auto transform transition-all duration-1000 delay-300 ${isCtaInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              Let's discuss how AI can transform your operations, enhance decision-making, and drive unprecedented growth.
+              Let&apos;s discuss how AI can transform your operations, enhance decision-making, and drive unprecedented growth.
             </p>
             <div className={`flex flex-wrap gap-4 justify-center transform transition-all duration-1000 delay-500 ${isCtaInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               <Link 
                 href="/contact" 
-                className="inline-flex items-center px-8 py-4 bg-white text-orange-600 font-semibold rounded-full shadow-lg hover:shadow-xl hover:bg-gray-50 transition-all duration-300"
+                className="inline-flex items-center px-8 py-4 font-semibold text-orange-600 transition-all duration-300 bg-white rounded-full shadow-lg hover:shadow-xl hover:bg-gray-50"
               >
                 Get AI Consultation
-                <ArrowRight className="ml-2 w-5 h-5" />
+                <ArrowRight className="w-5 h-5 ml-2" />
               </Link>
               <Link 
                 href="/features" 
-                className="inline-flex items-center px-8 py-4 bg-transparent border-2 border-white/50 text-white font-semibold rounded-full hover:bg-white/10 transition-all duration-300"
+                className="inline-flex items-center px-8 py-4 font-semibold text-white transition-all duration-300 bg-transparent border-2 rounded-full border-white/50 hover:bg-white/10"
               >
                 Explore All Features
               </Link>

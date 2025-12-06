@@ -238,16 +238,16 @@ export default function AboutPage() {
           </div>
         </div>
         
-        <div className="container mx-auto px-4 relative z-20 pt-32 pb-20">
+        <div className="container relative z-20 px-4 pt-32 pb-20 mx-auto">
           <div className="max-w-4xl">
             <motion.div
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8 }}
             >
-              <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
-                We're on a mission to{" "}
-                <span className="bg-gradient-to-r from-emerald-400 to-teal-500 bg-clip-text text-transparent">
+              <h1 className="mb-6 text-5xl font-bold text-white md:text-7xl">
+                We&apos;re on a mission to{" "}
+                <span className="text-transparent bg-gradient-to-r from-emerald-400 to-teal-500 bg-clip-text">
                   build better software
                 </span>{" "}
                 for a digital world
@@ -258,9 +258,9 @@ export default function AboutPage() {
               initial={{ opacity: 0, y: 30 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.8, delay: 0.2 }}
-              className="text-xl text-gray-300 mb-12 max-w-3xl"
+              className="max-w-3xl mb-12 text-xl text-gray-300"
             >
-              For over a decade, we've been helping businesses transform their ideas into powerful, 
+              For over a decade, we&apos;ve been helping businesses transform their ideas into powerful, 
               scalable, and user-friendly applications that drive real results.
             </motion.p>
           </div>
@@ -272,20 +272,20 @@ export default function AboutPage() {
 
       {/* Stats Section - Light */}
       <section ref={statsRef} className="py-24 bg-white">
-        <div className="container mx-auto px-4">
+        <div className="container px-4 mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isStatsInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="mb-16 text-center"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Our Stats</h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            <h2 className="mb-4 text-4xl font-bold text-gray-900 md:text-5xl">Our Stats</h2>
+            <p className="max-w-2xl mx-auto text-lg text-gray-600">
               Numbers that reflect our commitment to excellence and the trust our clients place in us.
             </p>
           </motion.div>
 
-          <div className="grid grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-2 gap-8 lg:grid-cols-4">
             {[
               { icon: Clock, value: counters.years, label: "Years", subtitle: "Working With Passion" },
               { icon: Users, value: counters.customers, label: "Customer", subtitle: "Satisfied Customer" },
@@ -299,21 +299,21 @@ export default function AboutPage() {
                 transition={{ duration: 0.6, delay: idx * 0.1 }}
                 className="text-center group"
               >
-                <div className="inline-flex items-center justify-center w-20 h-20 rounded-full bg-emerald-100 text-emerald-600 mb-6 group-hover:bg-emerald-500 group-hover:text-white transition-all duration-300 group-hover:scale-110">
+                <div className="inline-flex items-center justify-center w-20 h-20 mb-6 transition-all duration-300 rounded-full bg-emerald-100 text-emerald-600 group-hover:bg-emerald-500 group-hover:text-white group-hover:scale-110">
                   <stat.icon className="w-10 h-10" />
                 </div>
-                <div className="text-5xl font-bold text-gray-900 mb-2">
+                <div className="mb-2 text-5xl font-bold text-gray-900">
                   {stat.value}{stat.label === "Customer" ? "K" : stat.label === "Project" ? "" : ""}
                 </div>
-                <div className="text-xl font-semibold text-gray-700 mb-1">{stat.label}</div>
-                <div className="text-gray-500 text-sm">{stat.subtitle}</div>
+                <div className="mb-1 text-xl font-semibold text-gray-700">{stat.label}</div>
+                <div className="text-sm text-gray-500">{stat.subtitle}</div>
               </motion.div>
             ))}
           </div>
 
           {/* Client logos */}
           <div className="mt-20">
-            <p className="text-center text-gray-600 font-semibold mb-10">
+            <p className="mb-10 font-semibold text-center text-gray-600">
               We Take Care Of More Than 1.5k Trusted Allies
             </p>
             <div className="flex flex-wrap items-center justify-center gap-12 opacity-40 grayscale">
@@ -323,7 +323,7 @@ export default function AboutPage() {
                   initial={{ opacity: 0 }}
                   animate={isStatsInView ? { opacity: 0.4 } : {}}
                   transition={{ duration: 0.6, delay: idx * 0.1 }}
-                  className="hover:opacity-100 hover:grayscale-0 transition-all duration-300"
+                  className="transition-all duration-300 hover:opacity-100 hover:grayscale-0"
                 >
                   <div className="text-2xl font-bold text-gray-600">{company}</div>
                 </motion.div>
@@ -337,29 +337,29 @@ export default function AboutPage() {
 
       {/* Team Section - Light */}
       <section ref={teamRef} className="py-24 bg-white">
-        <div className="container mx-auto px-4">
+        <div className="container px-4 mx-auto">
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={isTeamInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
-            className="text-center mb-16"
+            className="mb-16 text-center"
           >
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">Team Members</h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            <h2 className="mb-4 text-4xl font-bold text-gray-900 md:text-5xl">Team Members</h2>
+            <p className="max-w-2xl mx-auto text-lg text-gray-600">
               Meet the talented individuals who bring passion, expertise, and innovation to every project we deliver.
             </p>
           </motion.div>
 
-          <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-4">
             {teamMembers.map((member, idx) => (
               <motion.div
                 key={idx}
                 initial={{ opacity: 0, y: 30 }}
                 animate={isTeamInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.6, delay: idx * 0.1 }}
-                className="group relative"
+                className="relative group"
               >
-                <div className="relative overflow-hidden rounded-2xl mb-6">
+                <div className="relative mb-6 overflow-hidden rounded-2xl">
                   <Image
                     src={member.image}
                     alt={member.name}
@@ -369,18 +369,18 @@ export default function AboutPage() {
                   />
                   
                   {/* Overlay with social icons */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-8">
+                  <div className="absolute inset-0 flex items-end justify-center pb-8 transition-opacity duration-500 opacity-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent group-hover:opacity-100">
                     <div className="flex gap-3">
                       <a 
                         href={member.social.linkedin}
-                        className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-colors"
+                        className="flex items-center justify-center w-10 h-10 transition-colors bg-white rounded-full hover:bg-emerald-500 hover:text-white"
                       >
                         <Linkedin className="w-5 h-5" />
                       </a>
                       {member.social.twitter && (
                         <a 
                           href={member.social.twitter}
-                          className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-colors"
+                          className="flex items-center justify-center w-10 h-10 transition-colors bg-white rounded-full hover:bg-emerald-500 hover:text-white"
                         >
                           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M23 3a10.9 10.9 0 01-3.14 1.53 4.48 4.48 0 00-7.86 3v1A10.66 10.66 0 013 4s-4 9 5 13a11.64 11.64 0 01-7 2c9 5 20 0 20-11.5a4.5 4.5 0 00-.08-.83A7.72 7.72 0 0023 3z" />
@@ -394,8 +394,8 @@ export default function AboutPage() {
                 </div>
 
                 <div className="text-center">
-                  <h3 className="text-2xl font-bold text-gray-900 mb-1">{member.name}</h3>
-                  <p className="text-emerald-600 font-medium mb-3">{member.role}</p>
+                  <h3 className="mb-1 text-2xl font-bold text-gray-900">{member.name}</h3>
+                  <p className="mb-3 font-medium text-emerald-600">{member.role}</p>
                 </div>
               </motion.div>
             ))}
@@ -415,7 +415,7 @@ export default function AboutPage() {
           <div className="absolute inset-0 bg-gray-950/90" />
         </div>
 
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container relative z-10 px-4 mx-auto">
           <div className="max-w-4xl mx-auto text-center">
             <motion.div
               initial={{ opacity: 0, scale: 0.9 }}
@@ -424,28 +424,28 @@ export default function AboutPage() {
             >
               <div className="inline-block mb-8">
                 <div className="relative">
-                  <div className="absolute inset-0 bg-emerald-500/20 blur-3xl rounded-full" />
-                  <div className="relative w-32 h-32 rounded-full border-4 border-emerald-500 flex flex-col items-center justify-center">
+                  <div className="absolute inset-0 rounded-full bg-emerald-500/20 blur-3xl" />
+                  <div className="relative flex flex-col items-center justify-center w-32 h-32 border-4 rounded-full border-emerald-500">
                     <div className="text-4xl font-bold text-white">10</div>
                     <div className="text-sm text-emerald-400">Years</div>
                   </div>
                 </div>
               </div>
 
-              <h2 className="text-4xl md:text-6xl font-bold text-white mb-6">
+              <h2 className="mb-6 text-4xl font-bold text-white md:text-6xl">
                 Ready to Unlock the Potential of Your Business?
               </h2>
               
-              <p className="text-xl text-gray-300 mb-10 max-w-2xl mx-auto">
-                Let's discuss your project and explore how we can help you achieve your business goals with cutting-edge software solutions.
+              <p className="max-w-2xl mx-auto mb-10 text-xl text-gray-300">
+                Let&apos;s discuss your project and explore how we can help you achieve your business goals with cutting-edge software solutions.
               </p>
 
               <Link
                 href="/contact"
-                className="inline-flex items-center gap-2 px-10 py-5 bg-transparent border-2 border-emerald-500 text-white font-bold rounded-full hover:bg-emerald-500 transition-all duration-300 group text-lg"
+                className="inline-flex items-center gap-2 px-10 py-5 text-lg font-bold text-white transition-all duration-300 bg-transparent border-2 rounded-full border-emerald-500 hover:bg-emerald-500 group"
               >
                 Contact  Us
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
               </Link>
             </motion.div>
           </div>
@@ -454,15 +454,15 @@ export default function AboutPage() {
 
       {/* Latest Articles Preview - Optional Light Section */}
       <section className="py-24 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="text-center mb-16">
-            <h2 className="text-4xl md:text-5xl font-bold text-gray-900 mb-4">The Latest Article</h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+        <div className="container px-4 mx-auto">
+          <div className="mb-16 text-center">
+            <h2 className="mb-4 text-4xl font-bold text-gray-900 md:text-5xl">The Latest Article</h2>
+            <p className="max-w-2xl mx-auto text-lg text-gray-600">
               Stay informed with insights, best practices, and industry trends from our team of experts.
             </p>
           </div>
 
-          <div className="grid md:grid-cols-3 gap-8">
+          <div className="grid gap-8 md:grid-cols-3">
             {[1, 2, 3].map((item) => (
               <motion.div
                 key={item}
@@ -472,7 +472,7 @@ export default function AboutPage() {
                 transition={{ duration: 0.6, delay: item * 0.1 }}
                 className="group"
               >
-                <div className="relative overflow-hidden rounded-2xl mb-6">
+                <div className="relative mb-6 overflow-hidden rounded-2xl">
                   <Image
                     src={`https://images.unsplash.com/photo-${
                       item === 1 ? '1697577418970-95d99b5a55cf' : 
@@ -482,37 +482,37 @@ export default function AboutPage() {
                     alt="Article"
                     width={400}
                     height={250}
-                    className="w-full h-64 object-cover group-hover:scale-105 transition-transform duration-500"
+                    className="object-cover w-full h-64 transition-transform duration-500 group-hover:scale-105"
                   />
-                  <div className="absolute top-4 left-4 bg-emerald-500 text-white px-4 py-2 rounded-full text-sm font-semibold">
+                  <div className="absolute px-4 py-2 text-sm font-semibold text-white rounded-full top-4 left-4 bg-emerald-500">
                     Technology
                   </div>
                 </div>
-                <div className="flex items-center gap-4 text-sm text-gray-500 mb-3">
+                <div className="flex items-center gap-4 mb-3 text-sm text-gray-500">
                   <span>By Admin</span>
                   <span>•</span>
                   <span>Dec {item}, 2024</span>
                 </div>
-                <h3 className="text-xl font-bold text-gray-900 mb-3 group-hover:text-emerald-600 transition-colors">
+                <h3 className="mb-3 text-xl font-bold text-gray-900 transition-colors group-hover:text-emerald-600">
                   {item === 1 && "How AI is Transforming Software Development"}
                   {item === 2 && "Best Practices for Scalable Web Applications"}
                   {item === 3 && "The Future of Mobile App Development"}
                 </h3>
                 <Link 
                   href="/blog"
-                  className="inline-flex items-center text-emerald-600 font-semibold hover:gap-2 transition-all group"
+                  className="inline-flex items-center font-semibold transition-all text-emerald-600 hover:gap-2 group"
                 >
                   Read More
-                  <ArrowRight className="w-4 h-4 ml-1 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
                 </Link>
               </motion.div>
             ))}
           </div>
 
-          <div className="text-center mt-12">
+          <div className="mt-12 text-center">
             <Link
               href="/blog"
-              className="inline-flex items-center px-8 py-4 bg-gray-900 text-white font-semibold rounded-full hover:bg-emerald-600 transition-colors"
+              className="inline-flex items-center px-8 py-4 font-semibold text-white transition-colors bg-gray-900 rounded-full hover:bg-emerald-600"
             >
               View All Articles
               <ArrowRight className="w-5 h-5 ml-2" />

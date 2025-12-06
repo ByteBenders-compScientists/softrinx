@@ -57,8 +57,8 @@ export default function TestimonialsSection() {
   };
 
   return (
-    <section ref={sectionRef} className="py-24 bg-gray-950 text-white overflow-hidden">
-      <div className="container mx-auto px-4">
+    <section ref={sectionRef} className="py-24 overflow-hidden text-white bg-gray-950">
+      <div className="container px-4 mx-auto">
         {/* Header */}
         <div className="flex items-start justify-between mb-16">
           <motion.div
@@ -66,10 +66,10 @@ export default function TestimonialsSection() {
             animate={isInView ? { opacity: 1, y: 0 } : {}}
             transition={{ duration: 0.6 }}
           >
-            <h2 className="text-4xl md:text-5xl font-bold mb-4">Happy Customers</h2>
-            <p className="text-gray-400 text-lg max-w-2xl">
-              Don't just take our word for it—hear what our clients have to say about their experience 
-              working with Softrinx and the results we've delivered.
+            <h2 className="mb-4 text-4xl font-bold md:text-5xl">Happy Customers</h2>
+            <p className="max-w-2xl text-lg text-gray-400">
+              Don&apos;t just take our word for it—hear what our clients have to say about their experience 
+              working with Softrinx and the results we&apos;ve delivered.
             </p>
           </motion.div>
 
@@ -78,19 +78,19 @@ export default function TestimonialsSection() {
             initial={{ opacity: 0, x: 20 }}
             animate={isInView ? { opacity: 1, x: 0 } : {}}
             transition={{ duration: 0.6, delay: 0.2 }}
-            className="hidden md:flex gap-4"
+            className="hidden gap-4 md:flex"
           >
             <button
               onClick={prevSlide}
-              className="w-12 h-12 rounded-full border-2 border-emerald-500 flex items-center justify-center hover:bg-emerald-500 transition-all duration-300 group"
+              className="flex items-center justify-center w-12 h-12 transition-all duration-300 border-2 rounded-full border-emerald-500 hover:bg-emerald-500 group"
             >
-              <ChevronLeft className="w-5 h-5 text-emerald-500 group-hover:text-white transition-colors" />
+              <ChevronLeft className="w-5 h-5 transition-colors text-emerald-500 group-hover:text-white" />
             </button>
             <button
               onClick={nextSlide}
-              className="w-12 h-12 rounded-full border-2 border-emerald-500 flex items-center justify-center hover:bg-emerald-500 transition-all duration-300 group"
+              className="flex items-center justify-center w-12 h-12 transition-all duration-300 border-2 rounded-full border-emerald-500 hover:bg-emerald-500 group"
             >
-              <ChevronRight className="w-5 h-5 text-emerald-500 group-hover:text-white transition-colors" />
+              <ChevronRight className="w-5 h-5 transition-colors text-emerald-500 group-hover:text-white" />
             </button>
           </motion.div>
         </div>
@@ -103,7 +103,7 @@ export default function TestimonialsSection() {
             {testimonials.map((testimonial, idx) => (
               <div
                 key={idx}
-                className="min-w-full flex justify-center"
+                className="flex justify-center min-w-full"
               >
                 <motion.div
                   initial={{ opacity: 0, scale: 0.95 }}
@@ -112,9 +112,9 @@ export default function TestimonialsSection() {
                   className="w-full max-w-4xl"
                 >
                   {/* Testimonial Card */}
-                  <div className="bg-gray-900 rounded-3xl p-10 md:p-12 shadow-2xl relative">
+                  <div className="relative p-10 bg-gray-900 shadow-2xl rounded-3xl md:p-12">
                     {/* Platform Header */}
-                    <div className="flex items-center justify-between mb-8 pb-6 border-b border-gray-800">
+                    <div className="flex items-center justify-between pb-6 mb-8 border-b border-gray-800">
                       <div className="flex items-center gap-4">
                         {testimonial.platform === "Trustpilot" ? (
                           <div className="flex items-center gap-2">
@@ -136,30 +136,30 @@ export default function TestimonialsSection() {
                       {/* Star Rating */}
                       <div className="flex gap-1">
                         {[...Array(testimonial.rating)].map((_, i) => (
-                          <Star key={i} className="w-6 h-6 fill-yellow-400 text-yellow-400" />
+                          <Star key={i} className="w-6 h-6 text-yellow-400 fill-yellow-400" />
                         ))}
                       </div>
                     </div>
 
                     {/* Testimonial Text */}
-                    <p className="text-gray-300 text-lg leading-relaxed mb-8">
-                      "{testimonial.text}"
+                    <p className="mb-8 text-lg leading-relaxed text-gray-300">
+                      &ldquo{testimonial.text}&rdquo;
                     </p>
 
                     {/* Author Info */}
                     <div className="flex items-center justify-between">
                       <div>
-                        <h4 className="text-xl font-bold text-white mb-1">
+                        <h4 className="mb-1 text-xl font-bold text-white">
                           {testimonial.author}
                         </h4>
-                        <p className="text-emerald-400 font-medium">
+                        <p className="font-medium text-emerald-400">
                           {testimonial.role}
                         </p>
                       </div>
                       
                       <div className="text-right">
-                        <p className="text-gray-400 text-sm">{testimonial.date}</p>
-                        <p className="text-gray-500 text-xs">{testimonial.time}</p>
+                        <p className="text-sm text-gray-400">{testimonial.date}</p>
+                        <p className="text-xs text-gray-500">{testimonial.time}</p>
                       </div>
                     </div>
                   </div>
@@ -167,13 +167,13 @@ export default function TestimonialsSection() {
                   {/* Author Image - Centered Below Card */}
                   <div className="flex justify-center -mt-12">
                     <div className="relative">
-                      <div className="absolute inset-0 bg-emerald-500/20 blur-xl rounded-full"></div>
+                      <div className="absolute inset-0 rounded-full bg-emerald-500/20 blur-xl"></div>
                       <Image
                         src={testimonial.image}
                         alt={testimonial.author}
                         width={100}
                         height={100}
-                        className="relative w-24 h-24 rounded-full border-4 border-gray-950 object-cover shadow-xl"
+                        className="relative object-cover w-24 h-24 border-4 rounded-full shadow-xl border-gray-950"
                       />
                     </div>
                   </div>
@@ -183,18 +183,18 @@ export default function TestimonialsSection() {
           </div>
 
           {/* Mobile Navigation */}
-          <div className="flex md:hidden justify-center gap-4 mt-12">
+          <div className="flex justify-center gap-4 mt-12 md:hidden">
             <button
               onClick={prevSlide}
-              className="w-12 h-12 rounded-full border-2 border-emerald-500 flex items-center justify-center hover:bg-emerald-500 transition-all duration-300 group"
+              className="flex items-center justify-center w-12 h-12 transition-all duration-300 border-2 rounded-full border-emerald-500 hover:bg-emerald-500 group"
             >
-              <ChevronLeft className="w-5 h-5 text-emerald-500 group-hover:text-white transition-colors" />
+              <ChevronLeft className="w-5 h-5 transition-colors text-emerald-500 group-hover:text-white" />
             </button>
             <button
               onClick={nextSlide}
-              className="w-12 h-12 rounded-full border-2 border-emerald-500 flex items-center justify-center hover:bg-emerald-500 transition-all duration-300 group"
+              className="flex items-center justify-center w-12 h-12 transition-all duration-300 border-2 rounded-full border-emerald-500 hover:bg-emerald-500 group"
             >
-              <ChevronRight className="w-5 h-5 text-emerald-500 group-hover:text-white transition-colors" />
+              <ChevronRight className="w-5 h-5 transition-colors text-emerald-500 group-hover:text-white" />
             </button>
           </div>
 

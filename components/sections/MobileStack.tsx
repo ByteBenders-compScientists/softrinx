@@ -1,10 +1,24 @@
 import React, { useState } from 'react';
 import { Code2, Smartphone, Layers } from 'lucide-react';
+import Image from 'next/image';
 
 const MobileTechStack = () => {
   const [activeTab, setActiveTab] = useState(0);
 
-  const technologies = {
+  type Technology = {
+    name: string;
+    logo: string;
+    color: string;
+    desc: string;
+  };
+
+  type Technologies = {
+    crossPlatform: Technology[];
+    native: Technology[];
+    backend: Technology[];
+  };
+
+  const technologies: Technologies = {
     crossPlatform: [
       { name: 'Flutter', logo: '/images/images/flutter.png', color: 'from-blue-400 to-cyan-500', desc: 'Google\'s UI toolkit for beautiful native apps' },
       { name: 'React Native', logo: '/images/images/react.png', color: 'from-cyan-500 to-blue-500', desc: 'Build native apps using React' },
@@ -76,7 +90,7 @@ const MobileTechStack = () => {
 
         {/* Tech Cards */}
         <div className="grid gap-8 md:grid-cols-3">
-          {technologies[tabs[activeTab].key].map((tech, i) => (
+        {technologies[tabs[activeTab].key as keyof Technologies].map((tech, i) => (
             <div
               key={i}
               className="relative p-8 transition-all duration-500 bg-gray-900 border border-gray-800 group rounded-2xl hover:border-emerald-500/50 hover:shadow-2xl hover:shadow-emerald-500/20 hover:-translate-y-2"
@@ -86,13 +100,16 @@ const MobileTechStack = () => {
               <div className="relative">
                 <div className="relative w-24 h-24 mx-auto mb-6">
                   <div className={`absolute inset-0 bg-gradient-to-br ${tech.color} blur-xl opacity-0 group-hover:opacity-50 transition-opacity duration-500`}></div>
-                  <img 
+                  <Image
                     src={tech.logo} 
                     alt={tech.name}
+                    width={96}
+                    height={96}
                     className="relative object-contain w-full h-full transition-transform duration-500 filter group-hover:scale-110"
                     onError={(e) => {
-                      e.target.style.display = 'none';
-                      e.target.nextSibling.style.display = 'flex';
+                      (e.target as HTMLImageElement).style.display = 'none';
+                      const nextSibling = (e.target as HTMLImageElement).nextSibling as HTMLElement;
+                      nextSibling.style.display = 'flex';
                     }}
                   />
                   <div className="items-center justify-center hidden w-full h-full">

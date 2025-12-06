@@ -39,8 +39,8 @@ const caseStudies = [
 ];
 
 export default function CaseStudy() {
-  const [visibleCards, setVisibleCards] = useState([]);
-  const observerRefs = useRef([]);
+  const [visibleCards, setVisibleCards] = useState<number[]>([]);
+  const observerRefs = useRef<(HTMLDivElement | null)[]>([]);
 
   useEffect(() => {
     const observers = observerRefs.current.map((ref, index) => {
@@ -67,7 +67,7 @@ export default function CaseStudy() {
   }, []);
 
   return (
-    <section className="relative py-32 bg-gradient-to-b from-gray-50 via-white to-gray-100 overflow-hidden">
+    <section className="relative py-32 overflow-hidden bg-gradient-to-b from-gray-50 via-white to-gray-100">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-[0.03]">
         <div className="absolute inset-0" style={{
@@ -77,14 +77,14 @@ export default function CaseStudy() {
       </div>
 
       {/* Animated gradient orbs */}
-      <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl animate-pulse"></div>
-      <div className="absolute bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
+      <div className="absolute rounded-full top-1/4 left-1/4 w-96 h-96 bg-emerald-500/20 blur-3xl animate-pulse"></div>
+      <div className="absolute rounded-full bottom-1/4 right-1/4 w-96 h-96 bg-blue-500/20 blur-3xl animate-pulse" style={{animationDelay: '2s'}}></div>
 
-      <div className="container mx-auto px-4 relative z-10 max-w-7xl">
+      <div className="container relative z-10 px-4 mx-auto max-w-7xl">
         {/* Header with background text */}
-        <div className="relative text-center mb-24">
+        <div className="relative mb-24 text-center">
           {/* Large background "Case Study" text */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none w-full overflow-hidden">
+          <div className="absolute w-full overflow-hidden -translate-x-1/2 -translate-y-1/2 pointer-events-none left-1/2 top-1/2">
             <h3 className="text-[10rem] md:text-[14rem] lg:text-[18rem] font-black text-gray-900/[0.03] tracking-tighter select-none whitespace-nowrap text-center leading-none">
               Case Study
             </h3>
@@ -92,10 +92,10 @@ export default function CaseStudy() {
           
           {/* Foreground text */}
           <div className="relative pt-8">
-            <h2 className="text-5xl md:text-6xl lg:text-7xl font-bold text-gray-900 tracking-tight mb-6">
+            <h2 className="mb-6 text-5xl font-bold tracking-tight text-gray-900 md:text-6xl lg:text-7xl">
               Case Study
             </h2>
-            <p className="text-gray-600 text-lg max-w-2xl mx-auto">
+            <p className="max-w-2xl mx-auto text-lg text-gray-600">
               Explore our successful projects and see how we deliver exceptional results
             </p>
           </div>
@@ -111,7 +111,7 @@ export default function CaseStudy() {
             {caseStudies.map((study, index) => (
               <div
                 key={study.id}
-                ref={(el) => (observerRefs.current[index] = el)}
+                ref={(el) => { observerRefs.current[index] = el; }}
                 className={`relative flex flex-col lg:flex-row items-center gap-8 ${
                   study.side === 'right' ? 'lg:flex-row-reverse' : ''
                 }`}
@@ -127,28 +127,28 @@ export default function CaseStudy() {
                 style={{ transitionDelay: `${index * 200}ms` }}>
                   <div className={`${study.side === 'left' ? 'lg:pr-16 lg:text-right' : 'lg:pl-16 lg:text-left'}`}>
                     <div className={`inline-block px-4 py-1.5 bg-emerald-500/20 border border-emerald-500/40 rounded mb-4 ${study.side === 'left' ? 'lg:float-right lg:clear-right' : ''}`}>
-                      <span className="text-emerald-600 font-bold uppercase text-xs tracking-wider">{study.category}</span>
+                      <span className="text-xs font-bold tracking-wider uppercase text-emerald-600">{study.category}</span>
                     </div>
-                    <h3 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4 leading-tight hover:text-emerald-600 transition-colors duration-300 clear-both">
+                    <h3 className="clear-both mb-4 text-3xl font-bold leading-tight text-gray-900 transition-colors duration-300 md:text-4xl hover:text-emerald-600">
                       {study.title}
                     </h3>
-                    <p className="text-gray-600 text-base leading-relaxed mb-6">
+                    <p className="mb-6 text-base leading-relaxed text-gray-600">
                       {study.description}
                     </p>
-                    <button className="group inline-flex items-center gap-2 px-6 py-3 bg-transparent border-2 border-gray-300 hover:border-emerald-500 text-gray-900 font-semibold rounded-lg transition-all duration-300 hover:bg-emerald-500/10">
+                    <button className="inline-flex items-center gap-2 px-6 py-3 font-semibold text-gray-900 transition-all duration-300 bg-transparent border-2 border-gray-300 rounded-lg group hover:border-emerald-500 hover:bg-emerald-500/10">
                       View Details
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                      <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                     </button>
                   </div>
                 </div>
 
                 {/* Center connector dot */}
-                <div className="hidden lg:block absolute left-1/2 top-1/2 transform -translate-x-1/2 -translate-y-1/2 z-20">
+                <div className="absolute z-20 hidden transform -translate-x-1/2 -translate-y-1/2 lg:block left-1/2 top-1/2">
                   <div className={`w-5 h-5 rounded-full bg-emerald-500 border-4 border-white shadow-lg ${
                     visibleCards.includes(index) ? 'scale-100 opacity-100' : 'scale-0 opacity-0'
                   } transition-all duration-500`}
                   style={{ transitionDelay: `${index * 200 + 400}ms` }}>
-                    <div className="absolute inset-0 rounded-full bg-emerald-500 animate-ping opacity-75"></div>
+                    <div className="absolute inset-0 rounded-full opacity-75 bg-emerald-500 animate-ping"></div>
                   </div>
                   {/* Horizontal connecting line */}
                   <div className={`absolute top-1/2 -translate-y-1/2 h-0.5 bg-gradient-to-${study.side === 'left' ? 'r' : 'l'} from-emerald-500/80 to-transparent ${
@@ -168,27 +168,27 @@ export default function CaseStudy() {
                       : 'opacity-0 -translate-x-20'
                 } transition-all duration-1000 ease-out`}
                 style={{ transitionDelay: `${index * 200 + 300}ms` }}>
-                  <div className="group relative overflow-hidden rounded-lg border border-gray-200 hover:border-emerald-500/50 transition-all duration-500 shadow-xl hover:shadow-2xl">
+                  <div className="relative overflow-hidden transition-all duration-500 border border-gray-200 rounded-lg shadow-xl group hover:border-emerald-500/50 hover:shadow-2xl">
                     <div className="relative h-[400px] overflow-hidden">
                       <img 
                         src={study.image} 
                         alt={study.title}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                        className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110"
                       />
                       {/* Gradient overlay */}
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-40 group-hover:opacity-60 transition-opacity duration-500"></div>
+                      <div className="absolute inset-0 transition-opacity duration-500 bg-gradient-to-t from-black/60 via-black/10 to-transparent opacity-40 group-hover:opacity-60"></div>
                       
                       {/* Hover overlay */}
-                      <div className="absolute inset-0 bg-emerald-500/0 group-hover:bg-emerald-500/10 transition-all duration-500"></div>
+                      <div className="absolute inset-0 transition-all duration-500 bg-emerald-500/0 group-hover:bg-emerald-500/10"></div>
                     </div>
 
                     {/* Corner accent */}
-                    <div className="absolute top-0 right-0 w-20 h-20 border-t-2 border-r-2 border-emerald-500/0 group-hover:border-emerald-500/60 transition-all duration-500"></div>
-                    <div className="absolute bottom-0 left-0 w-20 h-20 border-b-2 border-l-2 border-blue-500/0 group-hover:border-blue-500/60 transition-all duration-500"></div>
+                    <div className="absolute top-0 right-0 w-20 h-20 transition-all duration-500 border-t-2 border-r-2 border-emerald-500/0 group-hover:border-emerald-500/60"></div>
+                    <div className="absolute bottom-0 left-0 w-20 h-20 transition-all duration-500 border-b-2 border-l-2 border-blue-500/0 group-hover:border-blue-500/60"></div>
 
                     {/* Glow effect */}
-                    <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                      <div className="absolute bottom-0 right-0 w-64 h-64 bg-emerald-500/20 rounded-full blur-3xl"></div>
+                    <div className="absolute inset-0 transition-opacity duration-500 opacity-0 pointer-events-none group-hover:opacity-100">
+                      <div className="absolute bottom-0 right-0 w-64 h-64 rounded-full bg-emerald-500/20 blur-3xl"></div>
                     </div>
                   </div>
                 </div>

@@ -1,12 +1,12 @@
 import React, { useState, useEffect, useRef } from 'react';
 
 export default function TechStackSection() {
-  const [hoveredTech, setHoveredTech] = useState(null);
+  const [hoveredTech, setHoveredTech] = useState<number | null>(null);
   const [mousePosition, setMousePosition] = useState({ x: 0, y: 0 });
-  const sectionRef = useRef(null);
+  const sectionRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
-    const handleMouseMove = (e) => {
+    const handleMouseMove = (e: { clientX: number; clientY: number; }) => {
       if (sectionRef.current) {
         const rect = sectionRef.current.getBoundingClientRect();
         setMousePosition({
@@ -65,10 +65,10 @@ export default function TechStackSection() {
   ];
 
   return (
-    <section ref={sectionRef} className="relative py-32 bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950 overflow-hidden">
+    <section ref={sectionRef} className="relative py-32 overflow-hidden bg-gradient-to-br from-slate-950 via-slate-900 to-slate-950">
       {/* Magnetic cursor effect */}
       <div 
-        className="absolute w-96 h-96 rounded-full pointer-events-none transition-all duration-300 ease-out"
+        className="absolute transition-all duration-300 ease-out rounded-full pointer-events-none w-96 h-96"
         style={{
           left: mousePosition.x - 192,
           top: mousePosition.y - 192,
@@ -93,25 +93,25 @@ export default function TechStackSection() {
       <div className="absolute top-1/4 left-1/4 w-[500px] h-[500px] bg-emerald-500/10 rounded-full blur-[120px] animate-pulse" />
       <div className="absolute bottom-1/4 right-1/4 w-[400px] h-[400px] bg-teal-500/10 rounded-full blur-[120px] animate-pulse" style={{ animationDelay: '1s' }} />
 
-      <div className="container mx-auto px-6 lg:px-12 relative z-10">
+      <div className="container relative z-10 px-6 mx-auto lg:px-12">
         {/* Large background text */}
         <div className="absolute left-1/2 top-[30%] -translate-x-1/2 -translate-y-1/2 text-[220px] font-black text-white/3 whitespace-nowrap pointer-events-none select-none">
           TECH STACK
         </div>
 
         {/* Header */}
-        <div className="max-w-4xl mx-auto text-center mb-32">
-          <div className="inline-block mb-4 px-4 py-2 bg-emerald-500/10 backdrop-blur-sm rounded-full border border-emerald-500/20">
-            <span className="text-emerald-400 text-sm font-semibold tracking-wider uppercase">Technology Arsenal</span>
+        <div className="max-w-4xl mx-auto mb-32 text-center">
+          <div className="inline-block px-4 py-2 mb-4 border rounded-full bg-emerald-500/10 backdrop-blur-sm border-emerald-500/20">
+            <span className="text-sm font-semibold tracking-wider uppercase text-emerald-400">Technology Arsenal</span>
           </div>
           
-          <h2 className="text-6xl md:text-7xl font-bold text-white mb-6 leading-tight">
+          <h2 className="mb-6 text-6xl font-bold leading-tight text-white md:text-7xl">
             Powered By{' '}
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 via-teal-400 to-emerald-500">
               Modern Tech
             </span>
           </h2>
-          <p className="text-xl text-slate-300 max-w-2xl mx-auto">
+          <p className="max-w-2xl mx-auto text-xl text-slate-300">
             We leverage cutting-edge technologies to build scalable, future-proof solutions that drive innovation.
           </p>
         </div>
@@ -185,7 +185,7 @@ export default function TechStackSection() {
 
                   {/* Logo Image */}
                   <div 
-                    className="relative backdrop-blur-sm rounded-2xl p-4 transition-all duration-500"
+                    className="relative p-4 transition-all duration-500 backdrop-blur-sm rounded-2xl"
                     style={{ 
                       width: pos.size, 
                       height: pos.size,
@@ -199,7 +199,7 @@ export default function TechStackSection() {
                     <img
                       src={tech.logo}
                       alt={tech.name}
-                      className="w-full h-full object-contain transition-all duration-500"
+                      className="object-contain w-full h-full transition-all duration-500"
                       style={{
                         filter: isHovered ? 'brightness(1.2) drop-shadow(0 0 20px rgba(16, 185, 129, 0.5))' : 'brightness(0.9)'
                       }}
@@ -244,21 +244,21 @@ export default function TechStackSection() {
         </div>
 
         {/* Stats Section */}
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-8 mt-32 max-w-5xl mx-auto">
+        <div className="grid max-w-5xl grid-cols-2 gap-8 mx-auto mt-32 md:grid-cols-4">
           {[
             { value: "15+", label: "Technologies" },
             { value: "500+", label: "Projects Built" },
             { value: "99.9%", label: "Uptime" },
             { value: "100%", label: "Satisfaction" }
           ].map((stat, idx) => (
-            <div key={idx} className="text-center group cursor-pointer">
+            <div key={idx} className="text-center cursor-pointer group">
               <div className="relative inline-block">
-                <div className="text-5xl font-black text-transparent bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-600 mb-3 group-hover:scale-110 transition-transform duration-300">
+                <div className="mb-3 text-5xl font-black text-transparent transition-transform duration-300 bg-clip-text bg-gradient-to-r from-emerald-400 to-emerald-600 group-hover:scale-110">
                   {stat.value}
                 </div>
-                <div className="absolute inset-0 bg-emerald-500/20 blur-xl rounded-full scale-0 group-hover:scale-150 transition-all duration-500" />
+                <div className="absolute inset-0 transition-all duration-500 scale-0 rounded-full bg-emerald-500/20 blur-xl group-hover:scale-150" />
               </div>
-              <div className="text-sm text-slate-400 uppercase tracking-widest font-semibold">
+              <div className="text-sm font-semibold tracking-widest uppercase text-slate-400">
                 {stat.label}
               </div>
             </div>

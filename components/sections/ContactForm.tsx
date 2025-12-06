@@ -25,17 +25,17 @@ const ContactForm = () => {
 
   return (
     <section className="py-20 bg-gray-50">
-      <div className="container mx-auto px-6">
-        <div className="max-w-4xl mx-auto text-center mb-16">
-          <h2 className="text-4xl font-bold text-gray-900 mb-4">
+      <div className="container px-6 mx-auto">
+        <div className="max-w-4xl mx-auto mb-16 text-center">
+          <h2 className="mb-4 text-4xl font-bold text-gray-900">
             Get In Touch
           </h2>
           <p className="text-xl text-gray-600">
-            Ready to start your next project? Let's discuss how we can help bring your ideas to life.
+            Ready to start your next project? Let&apos;s discuss how we can help bring your ideas to life.
           </p>
         </div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
+        <div className="grid grid-cols-1 gap-8 lg:grid-cols-3">
           {/* Contact Info */}
           <div className="lg:col-span-1">
             <div className="space-y-6">
@@ -66,9 +66,9 @@ const ContactForm = () => {
           {/* Contact Form */}
           <div className="lg:col-span-2">
             <form onSubmit={handleSubmit} className="space-y-6">
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
                 <div>
-                  <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="name" className="block mb-2 text-sm font-medium text-gray-700">
                     Name
                   </label>
                   <input
@@ -83,7 +83,7 @@ const ContactForm = () => {
                   />
                 </div>
                 <div>
-                  <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
+                  <label htmlFor="email" className="block mb-2 text-sm font-medium text-gray-700">
                     Email
                   </label>
                   <input
@@ -99,7 +99,7 @@ const ContactForm = () => {
                 </div>
               </div>
               <div>
-                <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
+                <label htmlFor="message" className="block mb-2 text-sm font-medium text-gray-700">
                   Message
                 </label>
                 <textarea
@@ -115,7 +115,7 @@ const ContactForm = () => {
               </div>
               <button
                 type="submit"
-                className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+                className="w-full px-6 py-3 font-semibold text-white transition-colors bg-blue-600 rounded-lg hover:bg-blue-700"
               >
                 Send Message
               </button>

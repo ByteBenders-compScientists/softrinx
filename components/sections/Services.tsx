@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState } from 'react';
+import { SetStateAction, useEffect, useRef, useState } from 'react';
 import { 
   Code, Smartphone, Server, BrainCircuit, Database, Shield, Cpu, Cloud, ArrowRight, CheckCircle2, Sparkles
 } from 'lucide-react';
@@ -52,7 +52,7 @@ const services = [
 
 export default function Services() {
   const [activeIndex, setActiveIndex] = useState(0);
-  const scrollContainerRef = useRef(null);
+  const scrollContainerRef = useRef<HTMLDivElement | null>(null);
   const [isPaused, setIsPaused] = useState(false);
 
   useEffect(() => {
@@ -77,19 +77,19 @@ export default function Services() {
     return () => clearInterval(interval);
   }, [isPaused]);
 
-  const scrollToCard = (index) => {
+  const scrollToCard = (index: SetStateAction<number>) => {
     setActiveIndex(index);
     if (scrollContainerRef.current) {
       const cardWidth = 290;
       scrollContainerRef.current.scrollTo({
-        left: index * cardWidth,
+        left: (index as number) * cardWidth,
         behavior: 'smooth'
       });
     }
   };
 
   return (
-    <section className="relative py-32 bg-gray-950 overflow-hidden min-h-screen">
+    <section className="relative min-h-screen py-32 overflow-hidden bg-gray-950">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -98,55 +98,55 @@ export default function Services() {
         }}></div>
       </div>
 
-      <div className="container mx-auto px-4 relative z-10 max-w-7xl">
+      <div className="container relative z-10 px-4 mx-auto max-w-7xl">
         {/* Header with stylish background text */}
-        <div className="relative text-center mb-12">
+        <div className="relative mb-12 text-center">
           {/* Large background "Services" text */}
-          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none w-full">
+          <div className="absolute w-full -translate-x-1/2 -translate-y-1/2 pointer-events-none left-1/2 top-1/2">
             <h3 className="text-[14rem] md:text-[18rem] lg:text-[22rem] font-black text-gray-800/20 tracking-tighter select-none whitespace-nowrap text-center leading-none">
               Services
             </h3>
           </div>
           
           {/* Foreground "Our Services" */}
-          <h2 className="relative text-5xl md:text-6xl font-bold text-white tracking-tight pt-4">
+          <h2 className="relative pt-4 text-5xl font-bold tracking-tight text-white md:text-6xl">
             Our Services
           </h2>
         </div>
 
         {/* Intro text section */}
-        <div className="max-w-3xl mx-auto text-center mb-16">
+        <div className="max-w-3xl mx-auto mb-16 text-center">
           <div className="flex items-center justify-center gap-2 mb-6">
             <Sparkles className="w-5 h-5 text-emerald-400" />
-            <span className="text-emerald-400 font-semibold uppercase text-sm tracking-wider">What We Offer</span>
+            <span className="text-sm font-semibold tracking-wider uppercase text-emerald-400">What We Offer</span>
             <Sparkles className="w-5 h-5 text-emerald-400" />
           </div>
-          <p className="text-gray-300 text-lg leading-relaxed mb-8">
+          <p className="mb-8 text-lg leading-relaxed text-gray-300">
             We provide cutting-edge technology solutions tailored to your business needs. From concept to deployment, 
             our expert team delivers innovative services that drive growth and digital transformation.
           </p>
           
           {/* Key features */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mt-12">
+          <div className="grid grid-cols-1 gap-6 mt-12 md:grid-cols-3">
             <div className="flex items-start gap-3 text-left">
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-1" />
+              <CheckCircle2 className="flex-shrink-0 w-5 h-5 mt-1 text-emerald-400" />
               <div>
-                <h4 className="text-white font-semibold mb-1">Expert Team</h4>
-                <p className="text-gray-400 text-sm">Seasoned professionals with years of industry experience</p>
+                <h4 className="mb-1 font-semibold text-white">Expert Team</h4>
+                <p className="text-sm text-gray-400">Seasoned professionals with years of industry experience</p>
               </div>
             </div>
             <div className="flex items-start gap-3 text-left">
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-1" />
+              <CheckCircle2 className="flex-shrink-0 w-5 h-5 mt-1 text-emerald-400" />
               <div>
-                <h4 className="text-white font-semibold mb-1">Modern Tech Stack</h4>
-                <p className="text-gray-400 text-sm">Latest frameworks and cutting-edge technologies</p>
+                <h4 className="mb-1 font-semibold text-white">Modern Tech Stack</h4>
+                <p className="text-sm text-gray-400">Latest frameworks and cutting-edge technologies</p>
               </div>
             </div>
             <div className="flex items-start gap-3 text-left">
-              <CheckCircle2 className="w-5 h-5 text-emerald-400 flex-shrink-0 mt-1" />
+              <CheckCircle2 className="flex-shrink-0 w-5 h-5 mt-1 text-emerald-400" />
               <div>
-                <h4 className="text-white font-semibold mb-1">24/7 Support</h4>
-                <p className="text-gray-400 text-sm">Round-the-clock assistance and maintenance</p>
+                <h4 className="mb-1 font-semibold text-white">24/7 Support</h4>
+                <p className="text-sm text-gray-400">Round-the-clock assistance and maintenance</p>
               </div>
             </div>
           </div>
@@ -160,7 +160,7 @@ export default function Services() {
         >
           <div 
             ref={scrollContainerRef}
-            className="flex gap-5 overflow-x-auto scrollbar-hide snap-x snap-mandatory pb-6 px-2"
+            className="flex gap-5 px-2 pb-6 overflow-x-auto scrollbar-hide snap-x snap-mandatory"
             style={{ scrollbarWidth: 'none', msOverflowStyle: 'none' }}
           >
             {services.map((service, index) => (
@@ -169,61 +169,61 @@ export default function Services() {
                 className="group relative bg-gray-900 rounded-lg overflow-hidden border border-gray-800 hover:border-emerald-500/50 transition-all duration-500 cursor-pointer min-w-[260px] h-[340px] snap-center flex-shrink-0 shadow-lg hover:shadow-2xl"
               >
                 {/* Background image on hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-30 transition-opacity duration-700">
+                <div className="absolute inset-0 transition-opacity duration-700 opacity-0 group-hover:opacity-30">
                   <img 
                     src={service.image} 
                     alt={service.title}
-                    className="w-full h-full object-cover"
+                    className="object-cover w-full h-full"
                   />
                 </div>
 
                 {/* Gradient overlay on hover */}
-                <div className="absolute inset-0 bg-gradient-to-b from-transparent via-gray-900/50 to-gray-900 opacity-0 group-hover:opacity-100 transition-opacity duration-700"></div>
+                <div className="absolute inset-0 transition-opacity duration-700 opacity-0 bg-gradient-to-b from-transparent via-gray-900/50 to-gray-900 group-hover:opacity-100"></div>
 
                 {/* Content */}
-                <div className="relative z-10 p-5 h-full flex flex-col">
+                <div className="relative z-10 flex flex-col h-full p-5">
                   {/* Number */}
-                  <div className="text-5xl font-bold text-gray-800 group-hover:text-gray-700 transition-colors duration-300 mb-2">
+                  <div className="mb-2 text-5xl font-bold text-gray-800 transition-colors duration-300 group-hover:text-gray-700">
                     {service.number}
                   </div>
 
-                  <div className="flex-1 flex flex-col justify-between">
+                  <div className="flex flex-col justify-between flex-1">
                     <div>
                       {/* Title */}
-                      <h3 className="text-base font-bold text-white mb-2 group-hover:text-emerald-400 transition-colors duration-300 leading-tight">
+                      <h3 className="mb-2 text-base font-bold leading-tight text-white transition-colors duration-300 group-hover:text-emerald-400">
                         {service.title}
                       </h3>
 
                       {/* Description */}
-                      <p className="text-gray-400 text-xs leading-relaxed mb-3 line-clamp-3">
+                      <p className="mb-3 text-xs leading-relaxed text-gray-400 line-clamp-3">
                         {service.description}
                       </p>
                     </div>
 
                     {/* Learn More Link */}
-                    <div className="flex items-center gap-2 text-emerald-400 font-semibold group-hover:gap-3 transition-all duration-300 mt-auto">
-                      <span className="uppercase text-xs tracking-wider">Learn More</span>
-                      <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform duration-300" />
+                    <div className="flex items-center gap-2 mt-auto font-semibold transition-all duration-300 text-emerald-400 group-hover:gap-3">
+                      <span className="text-xs tracking-wider uppercase">Learn More</span>
+                      <ArrowRight className="w-4 h-4 transition-transform duration-300 group-hover:translate-x-1" />
                     </div>
                   </div>
                 </div>
 
                 {/* Icon in concentric circles bottom right */}
-                <div className="absolute -bottom-8 -right-8 w-28 h-28 opacity-30 group-hover:opacity-100 transition-all duration-500">
+                <div className="absolute transition-all duration-500 -bottom-8 -right-8 w-28 h-28 opacity-30 group-hover:opacity-100">
                   {/* Concentric circles */}
-                  <div className="absolute inset-0 rounded-full border-2 border-emerald-500/20 group-hover:border-emerald-500/40 transition-colors duration-500"></div>
-                  <div className="absolute inset-3 rounded-full border-2 border-emerald-500/30 group-hover:border-emerald-500/50 transition-colors duration-500"></div>
-                  <div className="absolute inset-6 rounded-full border-2 border-emerald-500/40 group-hover:border-emerald-500/60 transition-colors duration-500 flex items-center justify-center">
+                  <div className="absolute inset-0 transition-colors duration-500 border-2 rounded-full border-emerald-500/20 group-hover:border-emerald-500/40"></div>
+                  <div className="absolute transition-colors duration-500 border-2 rounded-full inset-3 border-emerald-500/30 group-hover:border-emerald-500/50"></div>
+                  <div className="absolute flex items-center justify-center transition-colors duration-500 border-2 rounded-full inset-6 border-emerald-500/40 group-hover:border-emerald-500/60">
                     {/* Icon in center */}
-                    <div className="text-emerald-500 group-hover:text-emerald-400 group-hover:scale-110 transition-all duration-300">
+                    <div className="transition-all duration-300 text-emerald-500 group-hover:text-emerald-400 group-hover:scale-110">
                       {service.icon}
                     </div>
                   </div>
                 </div>
 
                 {/* Glow effect on hover */}
-                <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-500 pointer-events-none">
-                  <div className="absolute bottom-0 right-0 w-40 h-40 bg-emerald-500/20 rounded-full blur-3xl"></div>
+                <div className="absolute inset-0 transition-opacity duration-500 opacity-0 pointer-events-none group-hover:opacity-100">
+                  <div className="absolute bottom-0 right-0 w-40 h-40 rounded-full bg-emerald-500/20 blur-3xl"></div>
                 </div>
               </div>
             ))}
@@ -231,7 +231,7 @@ export default function Services() {
         </div>
 
         {/* Pagination dots */}
-        <div className="flex justify-center items-center gap-2 mb-16">
+        <div className="flex items-center justify-center gap-2 mb-16">
           {services.map((_, index) => (
             <button
               key={index}
@@ -248,22 +248,22 @@ export default function Services() {
 
         {/* Bottom CTA section */}
         <div className="max-w-4xl mx-auto">
-          <div className="bg-gradient-to-br from-gray-900 to-gray-800  p-10 border border-gray-700 relative overflow-hidden">
-            <div className="absolute top-0 right-0 w-64 h-64 bg-emerald-500/10 rounded-full blur-3xl"></div>
+          <div className="relative p-10 overflow-hidden border border-gray-700 bg-gradient-to-br from-gray-900 to-gray-800">
+            <div className="absolute top-0 right-0 w-64 h-64 rounded-full bg-emerald-500/10 blur-3xl"></div>
             <div className="relative z-10 text-center">
-              <h3 className="text-3xl font-bold text-white mb-4">
+              <h3 className="mb-4 text-3xl font-bold text-white">
                 Ready to Build Something Amazing?
               </h3>
-              <p className="text-gray-300 mb-8 max-w-2xl mx-auto">
-                Let's transform your ideas into reality. Our team is ready to deliver exceptional solutions 
+              <p className="max-w-2xl mx-auto mb-8 text-gray-300">
+                Let&apos;s transform your ideas into reality. Our team is ready to deliver exceptional solutions 
                 tailored to your unique business needs.
               </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center items-center">
-                <button className="group px-8 py-4 bg-emerald-500 hover:bg-emerald-600 text-white font-semibold rounded-lg transition-all duration-300 hover:shadow-lg hover:shadow-emerald-500/50 flex items-center gap-2">
+              <div className="flex flex-col items-center justify-center gap-4 sm:flex-row">
+                <button className="flex items-center gap-2 px-8 py-4 font-semibold text-white transition-all duration-300 rounded-lg group bg-emerald-500 hover:bg-emerald-600 hover:shadow-lg hover:shadow-emerald-500/50">
                   Get Started Today
-                  <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                  <ArrowRight className="w-5 h-5 transition-transform group-hover:translate-x-1" />
                 </button>
-                <button className="px-8 py-4 bg-transparent border-2 border-gray-600 hover:border-emerald-500 text-white font-semibold rounded-lg transition-all duration-300">
+                <button className="px-8 py-4 font-semibold text-white transition-all duration-300 bg-transparent border-2 border-gray-600 rounded-lg hover:border-emerald-500">
                   View Our Work
                 </button>
               </div>

@@ -124,33 +124,33 @@ export default function CategoriesPage() {
         {/* Animated Grid Background */}
         <div className="absolute inset-0">
           <div className="categories-grid-pattern"></div>
-          <div className="categories-gradient-orb absolute top-20 left-20 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl"></div>
-          <div className="categories-gradient-orb-delayed absolute bottom-20 right-20 w-96 h-96 bg-teal-500/20 rounded-full blur-3xl"></div>
+          <div className="absolute rounded-full categories-gradient-orb top-20 left-20 w-96 h-96 bg-emerald-500/20 blur-3xl"></div>
+          <div className="absolute rounded-full categories-gradient-orb-delayed bottom-20 right-20 w-96 h-96 bg-teal-500/20 blur-3xl"></div>
         </div>
 
-        <div className="container mx-auto px-4 relative z-10">
+        <div className="container relative z-10 px-4 mx-auto">
           <div className="max-w-4xl mx-auto text-center">
-            <div className="categories-badge inline-flex items-center px-4 py-2 bg-emerald-500/20 backdrop-blur-sm rounded-full text-emerald-300 mb-6">
+            <div className="inline-flex items-center px-4 py-2 mb-6 rounded-full categories-badge bg-emerald-500/20 backdrop-blur-sm text-emerald-300">
               <Wrench className="w-4 h-4 mr-2" />
               <span className="text-sm font-semibold">Explore Topics</span>
             </div>
 
-            <h1 className="text-5xl md:text-6xl font-bold text-white mb-6 categories-hero-title">
-              Browse by <span className="bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text text-transparent">Category</span>
+            <h1 className="mb-6 text-5xl font-bold text-white md:text-6xl categories-hero-title">
+              Browse by <span className="text-transparent bg-gradient-to-r from-emerald-400 to-teal-400 bg-clip-text">Category</span>
             </h1>
 
-            <p className="text-xl text-gray-300 mb-10 categories-hero-subtitle">
+            <p className="mb-10 text-xl text-gray-300 categories-hero-subtitle">
               Dive deep into specialized topics and discover articles tailored to your interests
             </p>
 
-            <div className="categories-stats flex flex-wrap justify-center gap-8">
+            <div className="flex flex-wrap justify-center gap-8 categories-stats">
               {[
                 { value: "6", label: "Categories" },
                 { value: "58", label: "Articles" },
                 { value: "15k", label: "Readers" }
               ].map((stat, idx) => (
                 <div key={idx} className="text-center">
-                  <div className="text-3xl font-bold text-white mb-1">{stat.value}</div>
+                  <div className="mb-1 text-3xl font-bold text-white">{stat.value}</div>
                   <div className="text-sm text-gray-400">{stat.label}</div>
                 </div>
               ))}
@@ -161,16 +161,16 @@ export default function CategoriesPage() {
 
       {/* Categories Grid */}
       <section ref={categoriesRef} className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
-          <div className="max-w-7xl mx-auto">
+        <div className="container px-4 mx-auto">
+          <div className="mx-auto max-w-7xl">
             <div className={`text-center mb-16 transform transition-all duration-1000 ${isCategoriesInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <h2 className="text-3xl md:text-4xl font-bold mb-4">All Categories</h2>
-              <p className="text-xl text-gray-600 max-w-2xl mx-auto">
-                Find exactly what you're looking for across our comprehensive content library
+              <h2 className="mb-4 text-3xl font-bold md:text-4xl">All Categories</h2>
+              <p className="max-w-2xl mx-auto text-xl text-gray-600">
+                Find exactly what you&apos;re looking for across our comprehensive content library
               </p>
             </div>
 
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid gap-8 md:grid-cols-2 lg:grid-cols-3">
               {categories.map((category, idx) => (
                 <div 
                   key={category.slug}
@@ -190,23 +190,23 @@ export default function CategoriesPage() {
                     <div className={`absolute inset-0 bg-gradient-to-br ${category.gradient} opacity-60 mix-blend-multiply transition-opacity duration-300 group-hover:opacity-80`}></div>
                     
                     {/* Floating Icon */}
-                    <div className="absolute top-4 left-4 p-3 bg-white/20 backdrop-blur-md rounded-xl text-white transform transition-transform duration-300 group-hover:scale-110">
+                    <div className="absolute p-3 text-white transition-transform duration-300 transform top-4 left-4 bg-white/20 backdrop-blur-md rounded-xl group-hover:scale-110">
                       {category.icon}
                     </div>
 
                     {/* Article Count Badge */}
-                    <div className="absolute top-4 right-4 px-3 py-1 bg-white/20 backdrop-blur-md rounded-full text-white text-sm font-semibold">
+                    <div className="absolute px-3 py-1 text-sm font-semibold text-white rounded-full top-4 right-4 bg-white/20 backdrop-blur-md">
                       {category.articleCount} articles
                     </div>
                   </div>
 
                   {/* Content */}
                   <div className="p-6">
-                    <h3 className="text-2xl font-bold mb-3 group-hover:text-emerald-600 transition-colors">
+                    <h3 className="mb-3 text-2xl font-bold transition-colors group-hover:text-emerald-600">
                       {category.name}
                     </h3>
 
-                    <p className="text-gray-600 mb-4 leading-relaxed">
+                    <p className="mb-4 leading-relaxed text-gray-600">
                       {category.description}
                     </p>
 
@@ -215,13 +215,13 @@ export default function CategoriesPage() {
                       {category.topics.slice(0, 3).map((topic, topicIdx) => (
                         <span 
                           key={topicIdx}
-                          className="px-3 py-1 bg-gray-100 text-gray-700 text-xs font-medium rounded-full hover:bg-emerald-100 hover:text-emerald-700 transition-colors cursor-pointer"
+                          className="px-3 py-1 text-xs font-medium text-gray-700 transition-colors bg-gray-100 rounded-full cursor-pointer hover:bg-emerald-100 hover:text-emerald-700"
                         >
                           {topic}
                         </span>
                       ))}
                       {category.topics.length > 3 && (
-                        <span className="px-3 py-1 bg-gray-100 text-gray-500 text-xs font-medium rounded-full">
+                        <span className="px-3 py-1 text-xs font-medium text-gray-500 bg-gray-100 rounded-full">
                           +{category.topics.length - 3}
                         </span>
                       )}
@@ -250,14 +250,14 @@ export default function CategoriesPage() {
 
       {/* Popular in Each Category */}
       <section ref={popularRef} className="py-20 bg-white">
-        <div className="container mx-auto px-4">
+        <div className="container px-4 mx-auto">
           <div className="max-w-5xl mx-auto">
             <div className={`text-center mb-12 transform transition-all duration-1000 ${isPopularInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <div className="inline-flex items-center px-4 py-2 bg-orange-100 rounded-full text-orange-600 mb-4">
+              <div className="inline-flex items-center px-4 py-2 mb-4 text-orange-600 bg-orange-100 rounded-full">
                 <TrendingUp className="w-4 h-4 mr-2" />
                 <span className="text-sm font-semibold">Most Popular</span>
               </div>
-              <h2 className="text-3xl font-bold mb-4">Trending Across Categories</h2>
+              <h2 className="mb-4 text-3xl font-bold">Trending Across Categories</h2>
               <p className="text-gray-600">The most read articles from each topic area</p>
             </div>
 
@@ -270,19 +270,19 @@ export default function CategoriesPage() {
                   style={{ transitionDelay: `${idx * 150}ms` }}
                 >
                   <div className="flex items-center gap-4">
-                    <div className="flex items-center justify-center w-12 h-12 bg-emerald-100 text-emerald-600 rounded-full font-bold text-lg">
+                    <div className="flex items-center justify-center w-12 h-12 text-lg font-bold rounded-full bg-emerald-100 text-emerald-600">
                       {idx + 1}
                     </div>
                     <div>
-                      <div className="text-sm text-emerald-600 font-medium mb-1">{article.category}</div>
-                      <div className="font-bold text-lg group-hover:text-emerald-600 transition-colors">
+                      <div className="mb-1 text-sm font-medium text-emerald-600">{article.category}</div>
+                      <div className="text-lg font-bold transition-colors group-hover:text-emerald-600">
                         {article.title}
                       </div>
                     </div>
                   </div>
                   <div className="flex items-center gap-4">
                     <div className="text-sm text-gray-500">{article.views} views</div>
-                    <ChevronRight className="w-5 h-5 text-gray-400 group-hover:text-emerald-600 transform group-hover:translate-x-1 transition-all" />
+                    <ChevronRight className="w-5 h-5 text-gray-400 transition-all transform group-hover:text-emerald-600 group-hover:translate-x-1" />
                   </div>
                 </Link>
               ))}
@@ -293,9 +293,9 @@ export default function CategoriesPage() {
 
       {/* Categories Stats */}
       <section className="py-16 bg-gradient-to-r from-emerald-500 to-teal-600">
-        <div className="container mx-auto px-4">
+        <div className="container px-4 mx-auto">
           <div className="max-w-5xl mx-auto">
-            <div className="grid md:grid-cols-3 gap-8 text-white text-center">
+            <div className="grid gap-8 text-center text-white md:grid-cols-3">
               {[
                 { 
                   icon: <FileText className="w-12 h-12 mx-auto mb-4" />,
@@ -315,7 +315,7 @@ export default function CategoriesPage() {
               ].map((item, idx) => (
                 <div key={idx} className="categories-stat-item">
                   {item.icon}
-                  <div className="text-xl font-bold mb-2">{item.value}</div>
+                  <div className="mb-2 text-xl font-bold">{item.value}</div>
                   <div className="text-sm text-white/80">{item.label}</div>
                 </div>
               ))}
@@ -326,21 +326,21 @@ export default function CategoriesPage() {
 
       {/* Newsletter CTA */}
       <section className="py-20 bg-gray-50">
-        <div className="container mx-auto px-4">
+        <div className="container px-4 mx-auto">
           <div className="max-w-4xl mx-auto text-center">
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            <h2 className="mb-6 text-3xl font-bold md:text-4xl">
               Never Miss an Update
             </h2>
-            <p className="text-xl text-gray-600 mb-8">
+            <p className="mb-8 text-xl text-gray-600">
               Subscribe to get the latest articles from your favorite categories
             </p>
-            <div className="flex flex-col sm:flex-row gap-4 max-w-xl mx-auto">
+            <div className="flex flex-col max-w-xl gap-4 mx-auto sm:flex-row">
               <input
                 type="email"
                 placeholder="Enter your email"
-                className="flex-1 px-6 py-4 rounded-full border-2 border-gray-200 focus:border-emerald-500 focus:outline-none transition-colors"
+                className="flex-1 px-6 py-4 transition-colors border-2 border-gray-200 rounded-full focus:border-emerald-500 focus:outline-none"
               />
-              <button className="px-8 py-4 bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 text-white rounded-full font-semibold shadow-lg hover:shadow-xl transition-all">
+              <button className="px-8 py-4 font-semibold text-white transition-all rounded-full shadow-lg bg-gradient-to-r from-emerald-500 to-teal-600 hover:from-emerald-600 hover:to-teal-700 hover:shadow-xl">
                 Subscribe
               </button>
             </div>

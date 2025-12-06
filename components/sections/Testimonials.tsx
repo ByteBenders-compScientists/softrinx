@@ -81,7 +81,7 @@ export default function Testimonials() {
   const currentTestimonial = testimonials[currentIndex];
 
   return (
-    <section className="relative py-24 bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950 overflow-hidden">
+    <section className="relative py-24 overflow-hidden bg-gradient-to-b from-gray-950 via-gray-900 to-gray-950">
       {/* Background pattern */}
       <div className="absolute inset-0 opacity-5">
         <div className="absolute inset-0" style={{
@@ -106,28 +106,28 @@ export default function Testimonials() {
           <img 
             src={position.image} 
             alt={`Profile ${index + 1}`}
-            className="w-full h-full object-cover"
+            className="object-cover w-full h-full"
           />
         </div>
       ))}
 
-      <div className="container mx-auto px-4 relative z-10 max-w-7xl">
+      <div className="container relative z-10 px-4 mx-auto max-w-7xl">
         {/* Partners carousel at top */}
         <div className="mb-20">
           {/* Header with background text effect */}
-          <div className="relative text-center mb-10">
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none w-full">
+          <div className="relative mb-10 text-center">
+            <div className="absolute w-full -translate-x-1/2 -translate-y-1/2 pointer-events-none left-1/2 top-1/2">
               <h3 className="text-[10rem] md:text-[14rem] lg:text-[18rem] font-black text-gray-800/20 tracking-tighter select-none whitespace-nowrap text-center leading-none">
                 Collaborations
               </h3>
             </div>
             
-            <h3 className="relative text-xl md:text-2xl font-bold text-white tracking-tight pt-4">
+            <h3 className="relative pt-4 text-xl font-bold tracking-tight text-white md:text-2xl">
               Our Collaborations
             </h3>
           </div>
           
-          <div className="relative overflow-hidden bg-gray-800/20 py-6">
+          <div className="relative py-6 overflow-hidden bg-gray-800/20">
             <div className="flex animate-scroll">
               {partners.concat(partners).map((partner, index) => (
                 <div
@@ -139,7 +139,7 @@ export default function Testimonials() {
                     alt={partner.name}
                     width={150}
                     height={48}
-                    className="h-12 w-auto object-contain"
+                    className="object-contain w-auto h-12"
                   />
                 </div>
               ))}
@@ -148,16 +148,16 @@ export default function Testimonials() {
         </div>
 
         {/* Main testimonial content */}
-        <div className="text-center max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto text-center">
           {/* Title with large background text effect */}
           <div className="relative mb-12">
-            <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 pointer-events-none w-full">
+            <div className="absolute w-full -translate-x-1/2 -translate-y-1/2 pointer-events-none left-1/2 top-1/2">
               <h3 className="text-[12rem] md:text-[16rem] lg:text-[20rem] font-black text-gray-800/20 tracking-tighter select-none whitespace-nowrap text-center leading-none">
                 Appreciations
               </h3>
             </div>
             
-            <h2 className="relative text-5xl md:text-6xl font-bold text-white tracking-tight pt-4">
+            <h2 className="relative pt-4 text-5xl font-bold tracking-tight text-white md:text-6xl">
               Appreciations
             </h2>
           </div>
@@ -165,8 +165,8 @@ export default function Testimonials() {
           {/* Trustpilot stars */}
           <div className="flex items-center justify-center gap-2 mb-8">
             <div className="flex items-center gap-1 bg-emerald-600 px-3 py-1.5 rounded">
-              <Star className="w-4 h-4 fill-white text-white" />
-              <span className="text-white font-bold text-sm">Trustpilot</span>
+              <Star className="w-4 h-4 text-white fill-white" />
+              <span className="text-sm font-bold text-white">Trustpilot</span>
             </div>
             <div className="flex gap-1">
               {[1, 2, 3, 4, 5].map((star) => (
@@ -182,7 +182,7 @@ export default function Testimonials() {
                 isAnimating ? 'opacity-0 transform scale-95' : 'opacity-100 transform scale-100'
               }`}
             >
-              "{currentTestimonial.text}"
+              &ldquo;{currentTestimonial.text}&rdquo;
             </p>
           </div>
 
@@ -192,23 +192,23 @@ export default function Testimonials() {
               isAnimating ? 'opacity-0 transform translate-y-4' : 'opacity-100 transform translate-y-0'
             }`}
           >
-            <div className="w-20 h-20 rounded-full overflow-hidden border-3 border-emerald-500 mb-4 shadow-lg shadow-emerald-500/30">
+            <div className="w-20 h-20 mb-4 overflow-hidden rounded-full shadow-lg border-3 border-emerald-500 shadow-emerald-500/30">
               <img 
                 src={currentTestimonial.image} 
                 alt={currentTestimonial.author}
-                className="w-full h-full object-cover"
+                className="object-cover w-full h-full"
               />
             </div>
-            <h4 className="text-white text-2xl font-bold mb-1">
+            <h4 className="mb-1 text-2xl font-bold text-white">
               {currentTestimonial.author}
             </h4>
-            <p className="text-emerald-400 font-medium">
+            <p className="font-medium text-emerald-400">
               {currentTestimonial.role}
             </p>
           </div>
 
           {/* Pagination dots */}
-          <div className="flex justify-center items-center gap-2 mt-12">
+          <div className="flex items-center justify-center gap-2 mt-12">
             {testimonials.map((_, index) => (
               <button
                 key={index}
