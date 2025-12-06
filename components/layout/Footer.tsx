@@ -189,25 +189,28 @@ const Footer = () => {
                   className="flex items-start text-gray-400 hover:text-emerald-400 transition-colors group text-sm"
                 >
                   <MapPin className="w-5 h-5 mr-3 mt-0.5 text-emerald-500 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                  <span>Innovation Tower, 123 Tech Boulevard, Dhaka 1212, Bangladesh</span>
+                  <span>
+                    Nyeri Town, Nyeri County
+                    <br />
+                  </span>
                 </a>
               </li>
               <li>
                 <a 
-                  href="mailto:hello@softrinx.com" 
+                  href="mailto:info@softrinx.com" 
                   className="flex items-center text-gray-400 hover:text-emerald-400 transition-colors group text-sm"
                 >
                   <Mail className="w-5 h-5 mr-3 text-emerald-500 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                  <span>hello@softrinx.com</span>
+                  <span>info@softrinx.com</span>
                 </a>
               </li>
               <li>
                 <a 
-                  href="tel:+8801234567890" 
+                  href="tel:+254 750 109798" 
                   className="flex items-center text-gray-400 hover:text-emerald-400 transition-colors group text-sm"
                 >
                   <Phone className="w-5 h-5 mr-3 text-emerald-500 flex-shrink-0 group-hover:scale-110 transition-transform" />
-                  <span>+880 123 456 7890</span>
+                  <span>+254 750 109798</span>
                 </a>
               </li>
             </ul>

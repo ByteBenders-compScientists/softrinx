@@ -96,32 +96,69 @@ export default function AboutPage() {
   // Team Members Data
   const teamMembers = [
     {
-      name: "Mateo Daniel",
-      role: "Founder, CTO",
-      bio: "Visionary technologist with 15+ years building enterprise-grade software solutions that drive real business transformation.",
-      image: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=600&h=600&q=80",
-      socials: { linkedin: "#", twitter: "#", github: "#" }
+      id: 1,
+      name: "Clint Simiyu",
+      role: "Founder & CEO",
+      bio: "With over 5 years of experience in software development, Clint leads our vision and strategic direction.",
+      image: "/images/images/simiyu.jpg",
+      social: {
+        linkedin: "https://linkedin.com/in/clint-simiyu/",
+        twitter: "https://twitter.com",
+        github: "https://github.com/Clint171",
+        email: "clintsimiyu004@gmail.com"
+      }
     },
     {
-      name: "Elias Josiah",
-      role: "Co-Founder, CEO",
-      bio: "Strategic business leader passionate about leveraging technology to solve complex challenges and create lasting value.",
-      image: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=600&h=600&q=80",
-      socials: { linkedin: "#", twitter: "#" }
+      id: 2,
+      name: "Baruk Ali",
+      role: "CTO",
+      bio: "Baruk oversees our technical strategy and ensures we're using the latest technologies to deliver exceptional results.",
+      image: "/images/images/baruk.jpg",
+      social: {
+        linkedin: "https://www.linkedin.com/in/mohammed-ali-mbaruk-56785639b",
+        twitter: "https://x.com/Baruk_KE",
+        github: "https://github.com/Baruk1-netizen",
+        email: "baruk.developer@gmail.com"
+      }
     },
     {
-      name: "Miles Jaxon",
-      role: "Head of HR & Manager",
-      bio: "People-first leader focused on building high-performing teams and fostering cultures of innovation and excellence.",
-      image: "https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?w=600&h=600&q=80",
-      socials: { linkedin: "#", twitter: "#", facebook: "#", instagram: "#" }
+      id: 3,
+      name: "Walter Onyango",
+      role: "Lead Developer",
+      bio: "Walter heads our development team, architecting robust solutions that meet the complex needs of our enterprise clients.",
+      image: "/images/images/walter.jpg",
+      social: {
+        linkedin: "https://linkedin.com/in/walter-onyango",
+        twitter: "https://x.com/taya_dev",
+        github: "https://github.com/waltertaya",
+        email: "taya.developer@gmail.com"
+      }
     },
     {
-      name: "Silas Nicholas",
-      role: "Software Engineer",
-      bio: "Full-stack engineer specializing in scalable architectures, clean code, and delivering robust solutions on time.",
-      image: "https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?w=600&h=600&q=80",
-      socials: { linkedin: "#", github: "#" }
+      id: 4,
+      name: "Brian Chege",
+      role: "Fullstack Web and Mobile Developer",
+      bio: "Brian specializes in building scalable web and mobile applications, ensuring seamless user experiences across all platforms.",
+      image: "/images/images/brian.jpg",
+      social: {
+        linkedin: "https://linkedin.com",
+        twitter: "https://x.com/https://twitter.com/chegephil24",
+        github: "https://github.com/CHEGEBB/CHEGEBB",
+        email: "chegephil24@gmail.com"
+      }
+    },
+    {
+      id: 5,
+      name: "Samwel Njuguna",
+      role: "AI Solutions Architect",
+      bio: "Samwel leads our AI initiatives, implementing cutting-edge machine learning solutions for our enterprise clients.",
+      image: "/images/images/samwel.jpg",
+      social: {
+        linkedin: "https://www.linkedin.com/in/samwel-njuguna/",
+        twitter: "https://x.com/Njuguna128801",
+        github: "https://github.com/lewmas9152",
+        email: "samwelnjuguna190@gmail.com"
+      }
     }
   ];
 
@@ -335,14 +372,14 @@ export default function AboutPage() {
                   <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-gray-900/50 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500 flex items-end justify-center pb-8">
                     <div className="flex gap-3">
                       <a 
-                        href={member.socials.linkedin}
+                        href={member.social.linkedin}
                         className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-colors"
                       >
                         <Linkedin className="w-5 h-5" />
                       </a>
-                      {member.socials.twitter && (
+                      {member.social.twitter && (
                         <a 
-                          href={member.socials.twitter}
+                          href={member.social.twitter}
                           className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-colors"
                         >
                           <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
@@ -350,26 +387,8 @@ export default function AboutPage() {
                           </svg>
                         </a>
                       )}
-                      {member.socials.facebook && (
-                        <a 
-                          href={member.socials.facebook}
-                          className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-colors"
-                        >
-                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
-                          </svg>
-                        </a>
-                      )}
-                      {member.socials.instagram && (
-                        <a 
-                          href={member.socials.instagram}
-                          className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-emerald-500 hover:text-white transition-colors"
-                        >
-                          <svg className="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M16 11.37A4 4 0 1112.63 8 4 4 0 0116 11.37zm1.5-4.87h.01M7.5 2h9a5.5 5.5 0 015.5 5.5v9a5.5 5.5 0 01-5.5 5.5h-9A5.5 5.5 0 012 16.5v-9A5.5 5.5 0 017.5 2z" />
-                          </svg>
-                        </a>
-                      )}
+                   
+                     
                     </div>
                   </div>
                 </div>
@@ -425,7 +444,7 @@ export default function AboutPage() {
                 href="/contact"
                 className="inline-flex items-center gap-2 px-10 py-5 bg-transparent border-2 border-emerald-500 text-white font-bold rounded-full hover:bg-emerald-500 transition-all duration-300 group text-lg"
               >
-                Contact With Us
+                Contact  Us
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </Link>
             </motion.div>

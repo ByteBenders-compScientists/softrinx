@@ -215,12 +215,12 @@ export default function ServicesPage() {
       {/* Hero Section */}
       <section 
         ref={heroRef}
-        className="relative min-h-[70vh] flex items-center overflow-hidden bg-gradient-to-br from-slate-900 via-blue-900 to-purple-900"
+        className="relative min-h-[70vh] flex items-center overflow-hidden bg-gradient-to-br from-gray-900 via-black to-gray-900"
       >
         <div className="absolute inset-0">
           <div className="absolute inset-0 bg-[url('/grid.svg')] opacity-10"></div>
-          <div className="absolute top-0 right-0 w-96 h-96 bg-blue-500/20 rounded-full blur-3xl"></div>
-          <div className="absolute bottom-0 left-0 w-96 h-96 bg-purple-500/20 rounded-full blur-3xl"></div>
+          <div className="absolute top-0 right-0 w-96 h-96 bg-emerald-500/20 rounded-full blur-3xl"></div>
+          <div className="absolute bottom-0 left-0 w-96 h-96 bg-cyan-500/20 rounded-full blur-3xl"></div>
         </div>
         
         <div className="container mx-auto px-4 relative z-10 pt-32 pb-20">
@@ -232,7 +232,7 @@ export default function ServicesPage() {
             
             <h1 className="text-5xl md:text-7xl font-bold text-white mb-6">
               Software Engineering,{" "}
-              <span className="bg-gradient-to-r from-blue-400 via-purple-400 to-pink-400 bg-clip-text text-transparent">
+              <span className="bg-gradient-to-r from-emerald-400 via-cyan-400 to-blue-500 bg-clip-text text-transparent">
                 ML & Data Science
               </span>
             </h1>
@@ -244,7 +244,7 @@ export default function ServicesPage() {
             <div className="flex flex-wrap gap-4 justify-center">
               <Link 
                 href="/contact" 
-                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-blue-600 to-purple-600 text-white font-semibold rounded-full hover:shadow-xl transition-all duration-300"
+                className="inline-flex items-center px-8 py-4 bg-gradient-to-r from-emerald-500 to-emerald-600 text-white font-semibold rounded-full hover:shadow-xl hover:shadow-emerald-500/25 transition-all duration-300"
               >
                 Get Started
                 <ArrowRight className="ml-2 w-5 h-5" />
@@ -265,7 +265,7 @@ export default function ServicesPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className={`text-center mb-16 transform transition-all duration-1000 ${isSoftwareInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <div className="inline-flex items-center px-4 py-2 bg-blue-100 rounded-full text-blue-600 mb-4">
+              <div className="inline-flex items-center px-4 py-2 bg-emerald-100 rounded-full text-emerald-600 mb-4">
                 <Code className="w-4 h-4 mr-2" />
                 <span className="text-sm font-semibold">Software Engineering</span>
               </div>
@@ -309,11 +309,11 @@ export default function ServicesPage() {
       </section>
 
       {/* Machine Learning Services */}
-      <section ref={mlRef} className="py-24 bg-gradient-to-br from-gray-50 to-purple-50">
+      <section ref={mlRef} className="py-24 bg-gradient-to-br from-gray-50 to-cyan-50">
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className={`text-center mb-16 transform transition-all duration-1000 ${isMLInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <div className="inline-flex items-center px-4 py-2 bg-purple-100 rounded-full text-purple-600 mb-4">
+              <div className="inline-flex items-center px-4 py-2 bg-cyan-100 rounded-full text-cyan-600 mb-4">
                 <Brain className="w-4 h-4 mr-2" />
                 <span className="text-sm font-semibold">Machine Learning</span>
               </div>
@@ -361,7 +361,7 @@ export default function ServicesPage() {
         <div className="container mx-auto px-4">
           <div className="max-w-6xl mx-auto">
             <div className={`text-center mb-16 transform transition-all duration-1000 ${isDataScienceInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
-              <div className="inline-flex items-center px-4 py-2 bg-teal-100 rounded-full text-teal-600 mb-4">
+              <div className="inline-flex items-center px-4 py-2 bg-emerald-100 rounded-full text-emerald-600 mb-4">
                 <TrendingUp className="w-4 h-4 mr-2" />
                 <span className="text-sm font-semibold">Data Science</span>
               </div>
@@ -469,10 +469,10 @@ export default function ServicesPage() {
               ].map((step, idx) => (
                 <div
                   key={idx}
-                  className={`text-center p-8 bg-gradient-to-br from-gray-50 to-white rounded-2xl border-2 border-gray-100 hover:border-blue-300 hover:shadow-lg transition-all duration-500 ${isProcessInView ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
+                  className={`text-center p-8 bg-gradient-to-br from-gray-50 to-white rounded-2xl border-2 border-gray-100 hover:border-emerald-300 hover:shadow-lg transition-all duration-500 ${isProcessInView ? 'opacity-100 scale-100' : 'opacity-0 scale-90'}`}
                   style={{ transitionDelay: `${idx * 100}ms` }}
                 >
-                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-blue-500 to-purple-500 text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
+                  <div className="w-16 h-16 rounded-full bg-gradient-to-br from-emerald-500 to-cyan-500 text-white flex items-center justify-center text-2xl font-bold mx-auto mb-4">
                     {step.number}
                   </div>
                   <h3 className="text-xl font-bold mb-3">{step.title}</h3>
@@ -487,7 +487,7 @@ export default function ServicesPage() {
       {/* CTA Section */}
       <section 
         ref={ctaRef} 
-        className="py-24 bg-gradient-to-r from-blue-600 via-purple-600 to-pink-600 text-white relative overflow-hidden"
+        className="py-24 bg-gradient-to-r from-emerald-600 via-cyan-600 to-blue-600 text-white relative overflow-hidden"
       >
         <div className="absolute inset-0">
           <div className="absolute top-0 right-0 w-96 h-96 bg-white/10 rounded-full blur-3xl"></div>
@@ -505,7 +505,7 @@ export default function ServicesPage() {
             <div className={`flex flex-wrap gap-4 justify-center transform transition-all duration-1000 delay-500 ${isCtaInView ? 'opacity-100 translate-y-0' : 'opacity-0 translate-y-10'}`}>
               <Link 
                 href="/contact" 
-                className="inline-flex items-center px-8 py-4 bg-white text-blue-600 font-semibold rounded-full shadow-lg hover:shadow-xl hover:bg-gray-50 transition-all duration-300"
+                className="inline-flex items-center px-8 py-4 bg-white text-emerald-600 font-semibold rounded-full shadow-lg hover:shadow-xl hover:shadow-emerald-500/25 hover:bg-gray-50 transition-all duration-300"
               >
                 Start Your Project
                 <ArrowRight className="ml-2 w-5 h-5" />
