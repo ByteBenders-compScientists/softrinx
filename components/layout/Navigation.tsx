@@ -35,7 +35,9 @@ const Navigation = () => {
 
   const toggleMenu = () => setIsOpen(!isOpen);
   
-  const handleDropdown = (name: string | null) => {
+  const handleDropdownToggle = (e: React.MouseEvent, name: string) => {
+    e.preventDefault();
+    e.stopPropagation();
     setActiveDropdown(activeDropdown === name ? null : name);
   };
 
@@ -44,7 +46,7 @@ const Navigation = () => {
     { name: "About", path: "/about" },
     {
       name: "Pages",
-      path: "/pages",
+      path: "#",
       dropdown: [
         { name: "Team", path: "/pages/team" },
         { name: "FAQ", path: "/pages/faq" },
@@ -54,7 +56,7 @@ const Navigation = () => {
     },
     {
       name: "Blog",
-      path: "/blog",
+      path: "#",
       dropdown: [
         { name: "Latest Posts", path: "/blog/latest" },
         { name: "Categories", path: "/blog/categories" },
@@ -63,7 +65,7 @@ const Navigation = () => {
     },
     {
       name: "Features",
-      path: "#",
+      path: "/features",
       dropdown: [
         { name: "Web Development", path: "/features/web-development" },
         { name: "Mobile Apps", path: "/features/mobile-apps" },
@@ -118,13 +120,34 @@ const Navigation = () => {
             {navItems.map((item) => (
               <div key={item.name} className="relative group">
                 {item.dropdown ? (
-                  <button 
-                    onClick={() => handleDropdown(item.name)}
-                    className="flex items-center px-4 py-2 text-sm uppercase tracking-wider font-medium text-white hover:text-emerald-400 transition-colors"
-                  >
-                    {item.name}
-                    <ChevronDown size={16} className={`ml-1 transition-transform duration-200 ${activeDropdown === item.name ? 'rotate-180' : ''}`} />
-                  </button>
+                  <div className="flex items-center">
+                    {item.path !== "#" ? (
+                      <>
+                        <Link 
+                          href={item.path}
+                          className="px-4 py-2 text-sm uppercase tracking-wider font-medium text-white hover:text-emerald-400 transition-colors"
+                          onClick={() => setActiveDropdown(null)}
+                        >
+                          {item.name}
+                        </Link>
+                        <button
+                          onClick={(e) => handleDropdownToggle(e, item.name)}
+                          className="px-1 py-2 text-white hover:text-emerald-400 transition-colors"
+                          aria-label={`Toggle ${item.name} dropdown`}
+                        >
+                          <ChevronDown size={16} className={`transition-transform duration-200 ${activeDropdown === item.name ? 'rotate-180' : ''}`} />
+                        </button>
+                      </>
+                    ) : (
+                      <button
+                        onClick={(e) => handleDropdownToggle(e, item.name)}
+                        className="flex items-center px-4 py-2 text-sm uppercase tracking-wider font-medium text-white hover:text-emerald-400 transition-colors"
+                      >
+                        {item.name}
+                        <ChevronDown size={16} className={`ml-1 transition-transform duration-200 ${activeDropdown === item.name ? 'rotate-180' : ''}`} />
+                      </button>
+                    )}
+                  </div>
                 ) : (
                   <Link 
                     href={item.path}
@@ -168,7 +191,7 @@ const Navigation = () => {
               <div className="text-right">
                 <p className="text-xs text-gray-300 uppercase tracking-wider">For Client Support:</p>
                 <a 
-                  href="tel:+254 750 109798" 
+                  href="tel:+254750109798" 
                   className="text-white font-semibold hover:text-emerald-400 transition-colors"
                 >
                 +254 750 109798
@@ -187,7 +210,7 @@ const Navigation = () => {
 
             {/* Hamburger Menu */}
             <button 
-              className="p-2"
+              className="lg:hidden p-2"
               onClick={toggleMenu}
               aria-label="Menu"
             >
@@ -207,7 +230,7 @@ const Navigation = () => {
         <div className="container mx-auto px-4 py-8 h-full overflow-y-auto">
           <div className="flex flex-col h-full">
             <div className="flex justify-between items-center mb-10">
-              <Link href="/" className="flex items-center">
+              <Link href="/" className="flex items-center" onClick={toggleMenu}>
                 <Image 
                   src="/images/images/logo3.png" 
                   alt="Softrinx Logo" 
@@ -242,22 +265,48 @@ const Navigation = () => {
 
             {/* Navigation Items */}
             <div className="flex flex-col space-y-6 text-2xl font-medium">
-              {navItems.map((item, idx) => (
+              {navItems.map((item) => (
                 <div key={item.name} className="border-b border-gray-100 pb-4">
                   {item.dropdown ? (
                     <div>
-                      <button 
-                        onClick={() => handleDropdown(item.name)}
-                        className="flex items-center justify-between w-full text-gray-800 hover:text-emerald-600 transition-colors"
-                      >
-                        {item.name}
-                        <ChevronDown 
-                          size={24} 
-                          className={`transition-transform duration-200 ${
-                            activeDropdown === item.name ? 'rotate-180' : ''
-                          }`} 
-                        />
-                      </button>
+                      <div className="flex items-center justify-between">
+                        {item.path !== "#" ? (
+                          <>
+                            <Link 
+                              href={item.path}
+                              className="flex-1 text-gray-800 hover:text-emerald-600 transition-colors"
+                              onClick={toggleMenu}
+                            >
+                              {item.name}
+                            </Link>
+                            <button 
+                              onClick={(e) => handleDropdownToggle(e, item.name)}
+                              className="p-2 text-gray-800 hover:text-emerald-600 transition-colors"
+                              aria-label={`Toggle ${item.name} submenu`}
+                            >
+                              <ChevronDown 
+                                size={24} 
+                                className={`transition-transform duration-200 ${
+                                  activeDropdown === item.name ? 'rotate-180' : ''
+                                }`} 
+                              />
+                            </button>
+                          </>
+                        ) : (
+                          <button 
+                            onClick={(e) => handleDropdownToggle(e, item.name)}
+                            className="flex items-center justify-between w-full text-gray-800 hover:text-emerald-600 transition-colors"
+                          >
+                            {item.name}
+                            <ChevronDown 
+                              size={24} 
+                              className={`transition-transform duration-200 ${
+                                activeDropdown === item.name ? 'rotate-180' : ''
+                              }`} 
+                            />
+                          </button>
+                        )}
+                      </div>
                       
                       {/* Mobile Dropdown */}
                       <div 
@@ -299,7 +348,7 @@ const Navigation = () => {
                 <div>
                   <p className="text-xs text-gray-600 uppercase tracking-wider">For Client Support:</p>
                   <a 
-                    href="tel:+254 750 109798" 
+                    href="tel:+254750109798" 
                     className="text-lg font-semibold text-emerald-600 hover:text-emerald-700"
                   >
                   +254 750 109798
