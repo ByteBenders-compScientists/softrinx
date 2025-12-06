@@ -38,7 +38,7 @@ const caseStudies = [
   }
 ];
 
-export default function CaseStudies() {
+export default function CaseStudy() {
   const [visibleCards, setVisibleCards] = useState([]);
   const observerRefs = useRef([]);
 
