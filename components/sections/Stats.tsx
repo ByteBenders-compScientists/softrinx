@@ -1,6 +1,6 @@
 import React from 'react'
 
-function StatsSection() {
+function Stats() {
   return (
     <div>
         <section className="bg-white py-20">
@@ -26,4 +26,4 @@ function StatsSection() {
   )
 }
 
-export default StatsSection
+export default Stats
