@@ -88,7 +88,7 @@ const TEAM = [
     name: "Walter Onyango", role: "Co-Founder & Lead Developer", domain: "Full-Stack Engineering",
     bio: "Architects robust, scalable systems. Our backbone on backend infrastructure and API design.",
     image: "/images/images/walter.png",
-    website: "https://www.artfolio.tech/waltertaya",
+    website: "https://waltertaya.pages.dev/",
     linkedin: "https://linkedin.com/in/walter-onyango", github: "https://github.com/waltertaya", twitter: "https://x.com/taya_dev",
   },
   {
