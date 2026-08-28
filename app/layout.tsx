@@ -27,7 +27,7 @@ const GA_ID = 'G-CX70RTK5PX'
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en" data-theme="dark">
+    <html lang="en" data-theme="light">
       <head>
         <script
           dangerouslySetInnerHTML={{
@@ -36,7 +36,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
                 try {
                   var saved = localStorage.getItem('softrinx-theme');
                   var system = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-                  var mode = saved || system;
+                  var mode = saved === 'dark' ? 'dark' : 'light';
                   var dark = {
                     bg: '#080b09', surface: '#0d1210',
                     scrollTrack: '#0d1210', scrollThumb: 'rgba(52,211,153,0.25)',
