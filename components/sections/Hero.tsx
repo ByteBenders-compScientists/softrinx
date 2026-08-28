@@ -36,10 +36,6 @@ function BackgroundVideo() {
 }
 
 // ─── Google "G" mark ────────────────────────────────────────────────────────
-// Standard 4-colour G icon (same shape used on Google's own sign-in buttons
-// and most "Google Reviews" badges). If you have Google's official review
-// badge asset from their brand guidelines, swap it in instead — worth a
-// quick check since Google does have usage rules for review widgets.
 function GoogleIcon({ size = 14 }: { size?: number }) {
   return (
     <svg width={size} height={size} viewBox="0 0 48 48" aria-hidden="true">
@@ -136,11 +132,6 @@ function StatCard({
 }
 
 // ─── Hero ───────────────────────────────────────────────────────────────────
-// Layout now mirrors Bejamas: headline block pinned top-left (not centered),
-// trust badges sit just under it, and the description + CTA buttons are
-// pinned bottom-right. The two blocks are pushed apart with justify-between
-// so on desktop there's real breathing room instead of one cramped centered
-// column floating in the middle of the video.
 export function HeroSection() {
   return (
     <>
@@ -149,17 +140,17 @@ export function HeroSection() {
         style={{
           minHeight: "100svh",
           background: "#050505",
-          borderBottomLeftRadius: "clamp(20px, 4vw, 56px)",
-          borderBottomRightRadius: "clamp(20px, 4vw, 56px)",
+          borderBottomLeftRadius: "clamp(24px, 4vw, 56px)",
+          borderBottomRightRadius: "clamp(24px, 4vw, 56px)",
         }}
       >
         <BackgroundVideo />
 
         <div
           className="relative z-10 flex flex-col justify-center flex-1 gap-16 lg:gap-20 px-6 sm:px-10 lg:px-16 mx-auto w-full"
-          style={{ maxWidth: "1600px", paddingTop: "160px", paddingBottom: "56px" }}
+          style={{ maxWidth: "1600px", paddingTop: "160px", paddingBottom: "80px" }}
         >
-          {/* ── Top-left block: eyebrow + headline + trust badges ── */}
+          {/* Top-left block */}
           <div className="flex flex-col items-start text-left">
             <motion.div
               className="flex items-center gap-2 mb-6"
@@ -208,7 +199,7 @@ export function HeroSection() {
             </motion.div>
           </div>
 
-          {/* ── Description + CTA buttons — left-aligned, same as everything else ── */}
+          {/* Description + CTA buttons */}
           <div className="flex flex-col items-start text-left">
             <motion.p
               initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
@@ -264,13 +255,14 @@ export function HeroSection() {
         </div>
       </section>
 
-      <div className="relative z-20 w-full">
-        <div className="w-full overflow-hidden stats-grid">
+      {/* ── Stats Strip with overlapping negative margin to harmonize with hero curve ── */}
+      <div className="relative z-30 w-full px-6 lg:px-16 mx-auto" style={{ maxWidth: "1400px", marginTop: "-32px" }}>
+        <div className="w-full overflow-hidden stats-grid shadow-2xl" style={{ borderRadius: "20px", border: "1px solid var(--color-border)" }}>
           {[
-            { raw: 50, suffix: "+", title: "Projects Shipped", sub: "Across all industries", delay: 0 },
-            { raw: 3, suffix: "yr", title: "In Business", sub: "Working with passion", delay: 150 },
-            { raw: 100, suffix: "%", title: "Client Satisfaction", sub: "We don't stop until you're happy", delay: 300 },
-            { raw: 15, suffix: "+", title: "Industries Served", sub: "From fintech to healthcare", delay: 450 },
+            { raw: 15, suffix: "+", title: "Projects Shipped", sub: "Since 2024 launch", delay: 0 },
+            { raw: 2, suffix: "yr", title: "In Business", sub: "Agile & growing fast", delay: 150 },
+            { raw: 100, suffix: "%", title: "Client Satisfaction", sub: "Committed to excellence", delay: 300 },
+            { raw: 10, suffix: "+", title: "Industries Served", sub: "Web, mobile & AI solutions", delay: 450 },
           ].map((s) => (
             <div key={s.title} className="stat-cell">
               <StatCard {...s} />
@@ -284,10 +276,9 @@ export function HeroSection() {
             grid-template-columns: repeat(2, 1fr);
             gap: 1px;
             background: var(--color-border);
-            border-top: 1px solid var(--color-border);
           }
           .stat-cell { background: var(--color-surface); }
-          .stat-card-inner { padding: 1.1rem 0.6rem; }
+          .stat-card-inner { padding: 1.25rem 0.8rem; }
           @media (min-width: 640px) {
             .stats-grid { grid-template-columns: repeat(4, 1fr); }
             .stat-card-inner { padding: 2.25rem 1.25rem; }

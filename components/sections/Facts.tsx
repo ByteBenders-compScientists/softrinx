@@ -1,7 +1,7 @@
 "use client";
 
 import { useRef } from 'react';
-import { TrendingUp } from 'lucide-react';
+import { TrendingUp, ShieldCheck, Zap, Code2 } from 'lucide-react';
 import Image from 'next/image';
 import { motion, useInView } from 'framer-motion';
 import { useTheme } from '@/contexts/themeContext';
@@ -29,16 +29,25 @@ export default function Facts() {
     <section
       ref={sectionRef}
       className="relative pb-32 overflow-hidden"
-      style={{ background: "var(--color-surface)", paddingTop: "80px" }}
+      style={{ 
+        background: "var(--color-surface)", 
+        // Negative margin pulls this section slightly up to nest smoothly with the hero's bottom curve
+        marginTop: "-4rem",
+        paddingTop: "7rem",
+        // Soft rounded top corners to mirror or complement smooth curved transitions
+        borderTopLeftRadius: "36px",
+        borderTopRightRadius: "36px",
+        zIndex: 20,
+      }}
     >
-      {/* Top edge glow */}
+      {/* Top ambient glow/fade for smooth blending */}
       <div className="absolute top-0 left-0 right-0 pointer-events-none" style={{ zIndex: 10 }}>
         <div style={{
           height: "1px",
           background: `linear-gradient(90deg, transparent 0%, ${colors.emerald}30 20%, ${colors.emerald}80 50%, ${colors.emerald}30 80%, transparent 100%)`,
         }} />
         <div style={{
-          height: "120px",
+          height: "100px",
           background: `linear-gradient(180deg, ${colors.emeraldBg} 0%, transparent 100%)`,
         }} />
       </div>
@@ -57,7 +66,7 @@ export default function Facts() {
                 letterSpacing: "-0.05em",
                 whiteSpace: "nowrap",
               }}>
-                Excellence
+                Growth
               </span>
             </div>
 
@@ -66,7 +75,7 @@ export default function Facts() {
                 <div className="flex items-center gap-3">
                   <span className="block w-8 h-px" style={{ background: "var(--color-emerald)" }} />
                   <span style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.15em", color: "var(--color-emerald)", textTransform: "uppercase" }}>
-                    Why Choose Us
+                    Why Choose Softrinx
                   </span>
                 </div>
               </Reveal>
@@ -77,7 +86,7 @@ export default function Facts() {
                   color: "var(--color-text)",
                   letterSpacing: "-0.03em",
                 }}>
-                  Unlock The Potential<br />Of Your Business.
+                  Agile Development.<br />Real World Impact.
                 </h2>
               </Reveal>
 
@@ -92,18 +101,19 @@ export default function Facts() {
                       <span className="text-lg font-black" style={{ color: "#040805" }}>S</span>
                     </div>
                     <div>
-                      <h3 style={{ color: "var(--color-emerald)", fontWeight: 700, fontSize: "1.1rem" }}>Softrinx</h3>
-                      <p style={{ color: "var(--color-text-label)", fontSize: "0.8rem" }}>Creative IT Agency & Solutions · Since 2024</p>
+                      <h3 style={{ color: "var(--color-emerald)", fontWeight: 700, fontSize: "1.1rem" }}>Softrinx Agency</h3>
+                      <p style={{ color: "var(--color-text-label)", fontSize: "0.8rem" }}>Full-Stack Web & Mobile Studio · Est. 2024</p>
                     </div>
                   </div>
                   <p style={{ color: "var(--color-text-muted)", fontSize: "0.88rem", lineHeight: 1.75 }}>
-                    Transforming businesses through innovative software solutions. From startups to enterprises,
-                    we deliver cutting-edge technology that drives real growth and measurable results.
+                    Since launching in 2024, we’ve successfully delivered over 15 high-performance web and mobile solutions. 
+                    We take pride in our hands-on engineering approach, ensuring every client works directly with builders 
+                    who care about clean code and rapid delivery.
                   </p>
                   <div className="flex items-center gap-4 mt-5">
-                    <div className="flex items-center justify-center w-14 h-14 rounded-xl"
+                    <div className="flex items-center justify-center px-4 h-14 rounded-xl"
                       style={{ background: "var(--color-emerald-bg)", border: `1px solid var(--color-emerald-border)` }}>
-                      <span style={{ fontSize: "1.6rem", fontWeight: 900, color: "var(--color-text)" }}>#1</span>
+                      <span style={{ fontSize: "1.1rem", fontWeight: 900, color: "var(--color-text)" }}>15+ Projects Shipped</span>
                     </div>
                     <a href="/about"
                       className="transition-all duration-200"
@@ -116,24 +126,24 @@ export default function Facts() {
                         letterSpacing: "0.06em",
                         textTransform: "uppercase",
                       }}>
-                      Learn More
+                      Our Story
                     </a>
                   </div>
                 </div>
               </Reveal>
 
-              {/* Metrics */}
+              {/* Realistic & Credible Metrics (True to 2024 start & ~15 projects) */}
               <div className="flex flex-col gap-5">
                 {[
-                  { value: "98%", label: "Client Retention", desc: "Long-term partnerships built on trust and results" },
-                  { value: "3x",  label: "Faster Delivery",  desc: "Efficient processes that accelerate time-to-market" },
-                  { icon: <TrendingUp size={22} style={{ color: "var(--color-emerald)" }} />, label: "Proven ROI", desc: "Solutions that drive measurable business growth" },
+                  { icon: <Zap size={22} style={{ color: "var(--color-emerald)" }} />, label: "15+ Shipped Projects", desc: "Custom web apps, mobile platforms, and integrations delivered since 2024" },
+                  { icon: <ShieldCheck size={22} style={{ color: "var(--color-emerald)" }} />, label: "Direct Engineer Access", desc: "No middle management—collaborate directly with the full-stack developers building your product" },
+                  { icon: <Code2 size={22} style={{ color: "var(--color-emerald)" }} />, label: "Modern Tech Stack", desc: "Built with production-ready tools like Next.js, React Native, and robust cloud backends" },
                 ].map((m, i) => (
                   <Reveal key={i} delay={0.22 + i * 0.1} y={16}>
                     <div className="flex items-center gap-4">
                       <div className="flex items-center justify-center flex-shrink-0 w-14 h-14 rounded-xl"
                         style={{ background: "var(--color-card)", border: `1px solid var(--color-border)` }}>
-                        {m.icon ?? <span style={{ fontSize: "1.15rem", fontWeight: 900, color: "var(--color-text)" }}>{m.value}</span>}
+                        {m.icon}
                       </div>
                       <div>
                         <p style={{ fontWeight: 700, color: "var(--color-text)", fontSize: "0.95rem" }}>{m.label}</p>
@@ -152,7 +162,7 @@ export default function Facts() {
               <div className="absolute inset-0 pointer-events-none rounded-2xl" style={{
                 background: `radial-gradient(ellipse at 60% 40%, ${colors.emeraldBg} 0%, transparent 70%)`,
               }} />
-              <div className="relative overflow-hidden rounded-2xl"
+              <div className="relative overflow-hidden rounded-2xl shadow-xl"
                 style={{ border: `1px solid var(--color-border)` }}>
                 <Image
                   src="/images/images/homee.png"
