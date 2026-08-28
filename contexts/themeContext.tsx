@@ -64,15 +64,12 @@ function applyTheme(mode: ThemeMode) {
 
 // ─── Provider ─────────────────────────────────────────────────────────────────
 export function ThemeProvider({ children }: { children: ReactNode }) {
-  const [mode, setMode] = useState<ThemeMode>("dark");
+  const [mode, setMode] = useState<ThemeMode>("light"); // Default to light
 
-  // On mount — read saved preference or system preference
+  // On mount — read saved preference or default to light
   useEffect(() => {
     const saved = localStorage.getItem("softrinx-theme") as ThemeMode | null;
-    const system = window.matchMedia("(prefers-color-scheme: dark)").matches
-      ? "dark"
-      : "light";
-    const resolved: ThemeMode = saved ?? system;
+    const resolved: ThemeMode = saved ?? "light"; // Overrides system pref to enforce light default
     setMode(resolved);
     applyTheme(resolved);
   }, []);
