@@ -95,16 +95,7 @@ export function HeroSection() {
       >
         {/* Top-left block */}
         <div className="flex flex-col items-start text-left">
-          <motion.div
-            className="flex items-center gap-2 mb-6"
-            initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
-            transition={{ duration: 0.45, delay: 0.18 }}
-          >
-            <span className="block w-5 h-px" style={{ background: "var(--color-emerald)" }} />
-            <span style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.15em", color: "var(--color-emerald)", textTransform: "uppercase" }}>
-              Software Development
-            </span>
-          </motion.div>
+        
 
           <motion.h1
             initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
