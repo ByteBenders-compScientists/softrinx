@@ -36,8 +36,14 @@ const Navigation = () => {
   const pathname  = usePathname();
   const { isDark, toggle, colors } = useTheme();
 
-  const em       = colors.emerald;
-  const textNav  = isDark ? "rgba(255,255,255,0.65)" : colors.textMuted;
+  const em = colors.emerald;
+
+  // The nav always sits on top of the dark hero video, and on scroll it
+  // becomes a dark frosted-glass bar (not tied to the site's light/dark
+  // toggle) — so text stays white in both states instead of flipping to
+  // dark-on-dark when the theme is light.
+  const navText       = "rgba(255,255,255,0.72)";
+  const navTextBright  = "#ffffff";
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
@@ -63,9 +69,11 @@ const Navigation = () => {
       <nav
         className="fixed z-50 w-full transition-all duration-500"
         style={{
-          background:    scrolled ? colors.navBg        : "transparent",
-          backdropFilter:scrolled ? "blur(18px)"        : "none",
-          boxShadow:     scrolled ? `0 1px 0 0 ${colors.navBorder}` : "none",
+          background: scrolled ? "rgba(6, 10, 9, 0.55)" : "transparent",
+          backdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",
+          WebkitBackdropFilter: scrolled ? "blur(20px) saturate(180%)" : "none",
+          borderBottom: scrolled ? "1px solid rgba(255,255,255,0.08)" : "1px solid transparent",
+          boxShadow: scrolled ? "0 8px 32px rgba(0,0,0,0.25)" : "none",
         }}
       >
         {/* Top emerald accent line */}
@@ -75,7 +83,7 @@ const Navigation = () => {
         <div className="px-5 mx-auto" style={{ maxWidth: "1360px" }}>
           <div className="flex items-center justify-between" style={{ height: "68px", gap: "1rem" }}>
 
-            {/* Logo */}
+            {/* Logo — unchanged */}
             <Link href="/" className="flex-shrink-0" style={{ lineHeight: 0 }}>
               <Image
                 src="/images/images/logo.png"
@@ -103,7 +111,7 @@ const Navigation = () => {
                     key={item.name}
                     href={item.path}
                     className="relative flex items-center px-5 text-[12.5px] tracking-[0.1em] uppercase font-semibold transition-colors duration-200 group"
-                    style={{ color: active ? em : textNav }}
+                    style={{ color: active ? em : navText }}
                   >
                     {/* Active state: left vertical emerald bar + bottom bar */}
                     {active && (
@@ -161,8 +169,8 @@ const Navigation = () => {
                     style={{
                       display: "flex",
                       alignItems: "center",
-                      background: colors.bgCard,
-                      border: `1px solid ${colors.borderMid}`,
+                      background: "rgba(255,255,255,0.08)",
+                      border: "1px solid rgba(255,255,255,0.16)",
                       borderRadius: "6px",
                       padding: "0 10px",
                       width: "220px",
@@ -170,7 +178,7 @@ const Navigation = () => {
                       transition: "opacity 0.2s",
                     }}
                   >
-                    <Search size={13} style={{ color: colors.textFaint, flexShrink: 0 }} />
+                    <Search size={13} style={{ color: "rgba(255,255,255,0.5)", flexShrink: 0 }} />
                     <input
                       ref={searchRef}
                       type="text"
@@ -184,14 +192,14 @@ const Navigation = () => {
                         border: "none",
                         outline: "none",
                         fontSize: "0.82rem",
-                        color: colors.textPrimary,
+                        color: "#fff",
                         padding: "8px 6px",
                         fontFamily: "inherit",
                       }}
                     />
                     {searchQuery && (
                       <button onClick={() => setSearchQuery("")}
-                        style={{ color: colors.textFaint, background: "none", border: "none", cursor: "pointer", display: "flex" }}>
+                        style={{ color: "rgba(255,255,255,0.5)", background: "none", border: "none", cursor: "pointer", display: "flex" }}>
                         <X size={12} />
                       </button>
                     )}
@@ -204,10 +212,10 @@ const Navigation = () => {
                   className="flex items-center justify-center transition-all duration-200"
                   style={{
                     width: "34px", height: "34px",
-                    background: searchOpen ? colors.emeraldBg : "transparent",
-                    border: `1px solid ${searchOpen ? colors.emeraldBorder : "transparent"}`,
+                    background: searchOpen ? colors.emeraldBg : "rgba(255,255,255,0.06)",
+                    border: `1px solid ${searchOpen ? colors.emeraldBorder : "rgba(255,255,255,0.12)"}`,
                     borderRadius: "6px",
-                    color: searchOpen ? em : textNav,
+                    color: searchOpen ? em : navText,
                     cursor: "pointer",
                   }}
                   aria-label="Search"
@@ -242,17 +250,17 @@ const Navigation = () => {
               </button>
 
               {/* Divider */}
-              <div className="flex-shrink-0 hidden w-px h-5 lg:block" style={{ background: colors.border }} />
+              <div className="flex-shrink-0 hidden w-px h-5 lg:block" style={{ background: "rgba(255,255,255,0.14)" }} />
 
               {/* Phone — desktop only, never wraps */}
               <div className="items-center flex-shrink-0 hidden gap-2 lg:flex">
                 <Phone size={14} style={{ color: em, flexShrink: 0 }} />
                 <div style={{ lineHeight: 1.2 }}>
-                  <p style={{ fontSize: "9px", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: colors.textLabel, marginBottom: "1px" }}>
+                  <p style={{ fontSize: "9px", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: "rgba(255,255,255,0.45)", marginBottom: "1px" }}>
                     Support
                   </p>
                   <a href="tel:+254750109798"
-                    style={{ fontSize: "12px", fontWeight: 700, color: colors.textPrimary, whiteSpace: "nowrap" }}>
+                    style={{ fontSize: "12px", fontWeight: 700, color: navTextBright, whiteSpace: "nowrap" }}>
                     +254 750 109798
                   </a>
                 </div>
@@ -270,17 +278,18 @@ const Navigation = () => {
                   fontWeight: 700,
                   letterSpacing: "0.05em",
                   whiteSpace: "nowrap",
+                  borderRadius: "9999px",
                   boxShadow: `0 0 18px ${colors.emeraldGlow}`,
                 }}
               >
                 Get A Quote
               </Link>
 
-              {/* Hamburger — mobile */}
+              {/* Hamburger — mobile. Always white: nav is always dark-styled now. */}
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="flex items-center justify-center transition-colors lg:hidden w-9 h-9"
-                style={{ color: isDark || !scrolled ? "#fff" : colors.textPrimary }}
+                className="relative flex items-center justify-center transition-colors lg:hidden w-9 h-9"
+                style={{ color: "#fff" }}
                 aria-label="Menu"
               >
                 <span className="absolute transition-all duration-300"
@@ -297,7 +306,10 @@ const Navigation = () => {
         </div>
       </nav>
 
-      {/* ── Mobile Drawer ──────────────────────────────────────────────────── */}
+      {/* ── Mobile Menu — Bejamas-style: full-width panel dropping from below
+           the nav bar, plain unboxed nav list, pill CTA pinned to the
+           bottom. (Previously a narrow 300px sidebar sliding from the
+           right — replaced entirely.) ── */}
       <div
         className="fixed inset-0 z-40"
         style={{ opacity: isOpen ? 1 : 0, pointerEvents: isOpen ? "auto" : "none", transition: "opacity 0.3s" }}
@@ -309,25 +321,25 @@ const Navigation = () => {
           onClick={() => setIsOpen(false)}
         />
 
-        {/* Panel — slides from right, top-left and bottom-left rounded */}
+        {/* Panel — full width, drops down from under the nav bar */}
         <div
-          className="absolute right-0 flex flex-col"
+          className="absolute left-0 right-0 flex flex-col"
           style={{
-            width: "min(300px, 85vw)",
+            width: "100%",
             background: colors.bgSurface,
-            borderLeft: `1px solid ${colors.border}`,
-            top: "68px", bottom: 0,
-            borderRadius: "16px 0 0 0",
-            transform: isOpen ? "translateX(0)" : "translateX(100%)",
-            transition: "transform 0.35s cubic-bezier(0.32,0.72,0,1)",
+            borderBottom: `1px solid ${colors.border}`,
+            top: "68px",
+            maxHeight: "calc(100% - 68px)",
+            transform: isOpen ? "translateY(0)" : "translateY(-16px)",
+            opacity: isOpen ? 1 : 0,
+            transition: "transform 0.35s cubic-bezier(0.32,0.72,0,1), opacity 0.3s",
             overflow: "hidden",
           }}
         >
-
-          {/* Search row + X close */}
-          <div className="flex items-center flex-shrink-0 gap-2 px-4 pt-5 pb-3" style={{ marginTop: "8px" }}>
+          {/* Search row */}
+          <div className="flex items-center flex-shrink-0 gap-2 px-5 pt-6 pb-4">
             <div className="flex items-center gap-2 flex-1 px-3 py-2.5"
-              style={{ background: colors.bgCard, border: `1px solid ${colors.border}`, borderRadius: "6px" }}>
+              style={{ background: colors.bgCard, border: `1px solid ${colors.border}`, borderRadius: "8px" }}>
               <Search size={13} style={{ color: colors.textFaint, flexShrink: 0 }} />
               <input
                 type="text"
@@ -338,21 +350,10 @@ const Navigation = () => {
                 }}
               />
             </div>
-            <button
-              onClick={() => setIsOpen(false)}
-              style={{
-                color: colors.textMuted, background: "none", border: "none",
-                cursor: "pointer", display: "flex", padding: "6px", flexShrink: 0,
-              }}>
-              <X size={20} />
-            </button>
           </div>
 
-          {/* Nav links */}
-          <nav className="flex-1 px-4 py-5 overflow-y-auto">
-            <p style={{ fontSize: "9px", fontWeight: 700, letterSpacing: "0.16em", textTransform: "uppercase", color: colors.textFaint, paddingLeft: "6px", marginBottom: "8px" }}>
-              Navigation
-            </p>
+          {/* Nav links — plain stacked list, no boxes, Bejamas-sized type */}
+          <nav className="flex-1 px-5 py-2 overflow-y-auto">
             {NAV_ITEMS.map((item) => {
               const active = isActive(item.path);
               return (
@@ -360,38 +361,26 @@ const Navigation = () => {
                   key={item.name}
                   href={item.path}
                   onClick={() => setIsOpen(false)}
-                  className="flex items-center justify-between px-3 py-3 mb-0.5 text-[14px] font-semibold transition-all duration-200 group"
+                  className="flex items-center py-3 transition-colors duration-200"
                   style={{
-                    color: active ? em : colors.textMuted,
-                    background: active ? colors.emeraldBg : "transparent",
-                    borderRadius: "6px",
-                    border: `1px solid ${active ? colors.emeraldBorder : "transparent"}`,
-                    letterSpacing: "0.02em",
+                    fontSize: "1.65rem",
+                    fontWeight: 600,
+                    letterSpacing: "-0.01em",
+                    color: active ? em : colors.textPrimary,
                   }}
                 >
-                  <div className="flex items-center gap-3">
-                    <span style={{
-                      width: "5px", height: "5px",
-                      background: active ? em : colors.borderMid,
-                      display: "block", flexShrink: 0,
-                      transition: "background 0.2s",
-                    }} />
-                    {item.name}
-                  </div>
-                  {active && (
-                    <span style={{ fontSize: "0.75rem", color: em, opacity: 0.6 }}>→</span>
-                  )}
+                  {item.name}
                 </Link>
               );
             })}
           </nav>
 
-          {/* Drawer footer */}
-          <div className="flex-shrink-0 px-5 py-5 space-y-4" style={{ borderTop: `1px solid ${colors.border}` }}>
+          {/* Panel footer — phone, pill CTA, socials */}
+          <div className="flex-shrink-0 px-5 py-6 space-y-5" style={{ borderTop: `1px solid ${colors.border}` }}>
             {/* Phone */}
             <div className="flex items-center gap-3">
               <div className="flex items-center justify-center flex-shrink-0"
-                style={{ width: "34px", height: "34px", background: colors.emeraldBg, border: `1px solid ${colors.emeraldBorder}`, borderRadius: "6px" }}>
+                style={{ width: "34px", height: "34px", background: colors.emeraldBg, border: `1px solid ${colors.emeraldBorder}`, borderRadius: "50%" }}>
                 <Phone size={14} style={{ color: em }} />
               </div>
               <div>
@@ -404,16 +393,17 @@ const Navigation = () => {
               </div>
             </div>
 
-            {/* CTA */}
+            {/* CTA — full-width pill, matching Bejamas' bottom "Contact" button */}
             <Link
               href="/contact"
               onClick={() => setIsOpen(false)}
               className="flex items-center justify-center w-full font-bold transition-all duration-200"
               style={{
                 background: em, color: "#040805",
-                padding: "0.75rem",
-                fontSize: "13px",
-                letterSpacing: "0.04em",
+                padding: "0.9rem",
+                fontSize: "14px",
+                letterSpacing: "0.02em",
+                borderRadius: "9999px",
               }}
             >
               Get A Quote
@@ -427,7 +417,7 @@ const Navigation = () => {
                   style={{
                     width: "32px", height: "32px",
                     color: colors.textFaint,
-                    borderRadius: "4px",
+                    borderRadius: "50%",
                   }}
                   onMouseEnter={e => (e.currentTarget as HTMLElement).style.color = em}
                   onMouseLeave={e => (e.currentTarget as HTMLElement).style.color = colors.textFaint}
