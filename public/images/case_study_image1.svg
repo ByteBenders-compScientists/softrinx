@@ -1,0 +1,43 @@
+<svg width="560" height="560" viewBox="0 0 560 560" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M560 280C560 205.739 530.5 134.52 477.99 82.0101C425.48 29.4999 354.261 -1.54852e-05 280 -1.22392e-05C205.739 -8.99316e-06 134.52 29.4999 82.0101 82.0101C29.4999 134.52 -1.02615e-06 205.739 -1.22392e-05 280L280 280L560 280Z" fill="#51C1B2"/>
+<path d="M544 280C544 209.983 516.186 142.833 466.676 93.3238C417.167 43.8142 350.017 16 280 16C209.983 16 142.833 43.8142 93.3238 93.3238C43.8142 142.833 16 209.983 16 280L280 280L544 280Z" fill="#2B1D5C"/>
+<path d="M488 280C488 224.835 466.086 171.929 427.078 132.922C388.071 93.9142 335.165 72 280 72C224.835 72 171.929 93.9142 132.922 132.922C93.9142 171.929 72 224.835 72 280L280 280L488 280Z" fill="#181016"/>
+<circle cx="40" cy="40" r="40" transform="matrix(-4.37114e-08 1 1 4.37114e-08 0 360)" fill="#2B1D5C"/>
+<circle cx="40" cy="40" r="40" transform="matrix(1.19249e-08 -1 -1 -1.19249e-08 160 360)" fill="#2B1D5C"/>
+<circle cx="40" cy="40" r="40" transform="matrix(1.19249e-08 -1 -1 -1.19249e-08 394 440)" fill="#2B1D5C"/>
+<circle cx="40" cy="40" r="40" transform="matrix(1.19249e-08 -1 -1 -1.19249e-08 240 400)" fill="#2B1D5C"/>
+<circle cx="40" cy="40" r="40" transform="matrix(-1 -8.74228e-08 -8.74228e-08 1 320 238.568)" fill="#F50031"/>
+<rect x="280" y="278.568" width="40" height="40" transform="rotate(-135 280 278.568)" fill="#F50031"/>
+<circle cx="40" cy="40" r="40" transform="matrix(1.19249e-08 -1 -1 -1.19249e-08 474 400)" fill="#2B1D5C"/>
+<circle cx="40" cy="40" r="40" transform="matrix(1.19249e-08 -1 -1 -1.19249e-08 554 440)" fill="#2B1D5C"/>
+<rect x="394" y="520" width="16" height="80" transform="rotate(-180 394 520)" fill="#2B1D5C"/>
+<rect x="378" y="520" width="16" height="80" transform="rotate(-180 378 520)" fill="#51C1B2"/>
+<rect x="362" y="520" width="16" height="80" transform="rotate(-180 362 520)" fill="#2B1D5C"/>
+<rect x="346" y="520" width="16" height="80" transform="rotate(-180 346 520)" fill="#51C1B2"/>
+<rect x="330" y="520" width="16" height="80" transform="rotate(-180 330 520)" fill="#2B1D5C"/>
+<rect x="160" y="520" width="16" height="160" transform="rotate(-180 160 520)" fill="#51C1B2"/>
+<rect x="144" y="520" width="16" height="160" transform="rotate(-180 144 520)" fill="#2B1D5C"/>
+<rect x="128" y="520" width="16" height="160" transform="rotate(-180 128 520)" fill="#51C1B2"/>
+<rect x="112" y="520" width="16" height="160" transform="rotate(-180 112 520)" fill="#2B1D5C"/>
+<rect x="96" y="520" width="16" height="160" transform="rotate(-180 96 520)" fill="#51C1B2"/>
+<rect x="240" y="520" width="16" height="120" transform="rotate(-180 240 520)" fill="#2B1D5C"/>
+<rect x="224" y="520" width="16" height="120" transform="rotate(-180 224 520)" fill="#51C1B2"/>
+<rect x="208" y="520" width="16" height="120" transform="rotate(-180 208 520)" fill="#2B1D5C"/>
+<rect x="192" y="520" width="16" height="120" transform="rotate(-180 192 520)" fill="#51C1B2"/>
+<rect x="176" y="520" width="16" height="120" transform="rotate(-180 176 520)" fill="#2B1D5C"/>
+<rect x="474" y="480" width="16" height="80" transform="rotate(-180 474 480)" fill="#51C1B2"/>
+<rect x="458" y="480" width="16" height="80" transform="rotate(-180 458 480)" fill="#2B1D5C"/>
+<rect x="442" y="480" width="16" height="80" transform="rotate(-180 442 480)" fill="#51C1B2"/>
+<rect x="426" y="480" width="16" height="80" transform="rotate(-180 426 480)" fill="#2B1D5C"/>
+<rect x="410" y="480" width="16" height="80" transform="rotate(-180 410 480)" fill="#51C1B2"/>
+<rect x="554" y="480" width="16" height="40" transform="rotate(-180 554 480)" fill="#2B1D5C"/>
+<rect x="538" y="480" width="16" height="40" transform="rotate(-180 538 480)" fill="#51C1B2"/>
+<rect x="522" y="480" width="16" height="40" transform="rotate(-180 522 480)" fill="#2B1D5C"/>
+<rect x="506" y="480" width="16" height="40" transform="rotate(-180 506 480)" fill="#51C1B2"/>
+<rect x="490" y="480" width="16" height="40" transform="rotate(-180 490 480)" fill="#2B1D5C"/>
+<rect x="80" y="480" width="16" height="40" transform="rotate(-180 80 480)" fill="#2B1D5C"/>
+<rect x="64" y="480" width="16" height="40" transform="rotate(-180 64 480)" fill="#51C1B2"/>
+<rect x="48" y="480" width="16" height="40" transform="rotate(-180 48 480)" fill="#2B1D5C"/>
+<rect x="32" y="480" width="16" height="40" transform="rotate(-180 32 480)" fill="#51C1B2"/>
+<rect x="16" y="480" width="16" height="40" transform="rotate(-180 16 480)" fill="#2B1D5C"/>
+</svg>

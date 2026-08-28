@@ -8,24 +8,25 @@ import { motion, AnimatePresence } from "framer-motion";
 import {
   Menu, X, Phone, Facebook, Twitter, Instagram,
   Linkedin, Github, ArrowRight, ArrowUpRight,
+  Sun, Moon
 } from "lucide-react";
 import { useTheme } from "@/contexts/themeContext";
 
 const NAV_ITEMS = [
-  { name: "Home",      path: "/" },
-  { name: "About",     path: "/about" },
-  { name: "Services",  path: "/services" },
-  { name: "Features",  path: "/features" },
+  { name: "Home", path: "/" },
+  { name: "About", path: "/about" },
+  { name: "Services", path: "/services" },
+  { name: "Features", path: "/features" },
   { name: "Portfolio", path: "/portfolio" },
-  { name: "Contact",   path: "/contact" },
+  { name: "Contact", path: "/contact" },
 ];
 
 const SOCIALS = [
-  { icon: <Facebook  size={16} />, link: "https://facebook.com"  },
-  { icon: <Twitter   size={16} />, link: "https://twitter.com"   },
+  { icon: <Facebook size={16} />, link: "https://facebook.com" },
+  { icon: <Twitter size={16} />, link: "https://twitter.com" },
   { icon: <Instagram size={16} />, link: "https://instagram.com" },
-  { icon: <Linkedin  size={16} />, link: "https://linkedin.com"  },
-  { icon: <Github    size={16} />, link: "https://github.com"    },
+  { icon: <Linkedin size={16} />, link: "https://linkedin.com" },
+  { icon: <Github size={16} />, link: "https://github.com" },
 ];
 
 // ─── Abstract thumbnail ─────────────────────────────────────────────────────
@@ -40,7 +41,7 @@ function AbstractThumb({ colors = ["#10b981", "#6366f1", "#0ea5e9"] }: { colors?
           `radial-gradient(circle at 25% 20%, ${colors[0]} 0%, transparent 45%), ` +
           `radial-gradient(circle at 80% 30%, ${colors[1]} 0%, transparent 50%), ` +
           `radial-gradient(circle at 50% 85%, ${colors[2]} 0%, transparent 55%), ` +
-          "#f5f7f5", 
+          "#f5f7f5",
       }}
     >
       <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 40%, rgba(255,255,255,0.4) 100%)" }} />
@@ -277,14 +278,16 @@ function PortfolioMenu({ em }: { em: string }) {
 }
 
 const Navigation = () => {
-  const [isOpen, setIsOpen]         = useState(false);
-  const [scrolled, setScrolled]     = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
+  const [scrolled, setScrolled] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const pathname = usePathname();
-  const { colors } = useTheme();
+  
+  // ADDED: Destructured isDark and toggle for the theme button
+  const { isDark, toggle, colors } = useTheme();
 
   const em = colors.emerald;
-  
+
   // Boolean to determine if the nav background is active
   const isNavSolid = scrolled || activeMenu;
 
@@ -374,6 +377,31 @@ const Navigation = () => {
                   </a>
                 </div>
               </div>
+
+              {/* ADDED: Theme Toggle integrated smoothly */}
+              <button
+                onClick={toggle}
+                className="flex items-center justify-center flex-shrink-0 transition-all duration-300 hover:scale-110 active:scale-95"
+                style={{
+                  width: "34px", height: "34px",
+                  background: colors.emeraldBg || "transparent",
+                  border: `1px solid ${colors.emeraldBorder || "transparent"}`,
+                  borderRadius: "50%",
+                  color: em,
+                  position: "relative",
+                  overflow: "hidden",
+                }}
+                aria-label="Toggle theme"
+              >
+                <span className="absolute transition-all duration-300"
+                  style={{ opacity: isDark ? 1 : 0, transform: isDark ? "rotate(0deg) scale(1)" : "rotate(90deg) scale(0.5)" }}>
+                  <Sun size={14} />
+                </span>
+                <span className="absolute transition-all duration-300"
+                  style={{ opacity: isDark ? 0 : 1, transform: isDark ? "rotate(-90deg) scale(0.5)" : "rotate(0deg) scale(1)" }}>
+                  <Moon size={14} />
+                </span>
+              </button>
 
               <Link
                 href="/contact"

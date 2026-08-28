@@ -5,7 +5,6 @@ import { useEffect, useRef, useState } from "react";
 import Link from "next/link";
 import { motion, AnimatePresence, useInView } from "framer-motion";
 import { ArrowUpRight, ArrowRight, Star } from "lucide-react";
-import { useTheme } from "@/contexts/themeContext";
 
 // ─── Background video ───────────────────────────────────────────────────────
 function BackgroundVideo() {
@@ -28,7 +27,7 @@ function BackgroundVideo() {
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.65) 100%)",
+            "linear-gradient(180deg, rgba(0,0,0,0.55) 0%, rgba(0,0,0,0.25) 40%, rgba(0,0,0,0.75) 100%)",
         }}
       />
     </div>
@@ -74,218 +73,130 @@ function CyclingWord() {
   );
 }
 
-// ─── Count-up ───────────────────────────────────────────────────────────────
-function useCountUp(target: number, duration = 1800, start = false) {
-  const [value, setValue] = useState(0);
-  useEffect(() => {
-    if (!start) return;
-    let startTime: number | null = null;
-    const easeOut = (t: number) => 1 - Math.pow(1 - t, 3);
-    const step = (ts: number) => {
-      if (!startTime) startTime = ts;
-      const progress = Math.min((ts - startTime) / duration, 1);
-      setValue(Math.floor(easeOut(progress) * target));
-      if (progress < 1) requestAnimationFrame(step);
-      else setValue(target);
-    };
-    requestAnimationFrame(step);
-  }, [start, target, duration]);
-  return value;
-}
-
-function StatCard({
-  raw, suffix, title, sub, delay,
-}: { raw: number; suffix: string; title: string; sub: string; delay: number }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-40px" });
-  const [fired, setFired] = useState(false);
-  useEffect(() => {
-    if (inView && !fired) {
-      const t = setTimeout(() => setFired(true), delay);
-      return () => clearTimeout(t);
-    }
-  }, [inView, fired, delay]);
-  const count = useCountUp(raw, 1800, fired);
-
-  return (
-    <motion.div
-      ref={ref}
-      className="flex flex-col items-center justify-center stat-card-inner"
-      initial={{ opacity: 0, y: 16 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: delay / 1000 + 0.1 }}
-    >
-      <span className="font-black leading-none tabular-nums"
-        style={{ fontSize: "clamp(1.6rem, 3.5vw, 3rem)", color: "var(--color-text)", letterSpacing: "-0.04em" }}>
-        {count}{suffix}
-      </span>
-      <span className="mt-1 font-semibold text-center"
-        style={{ fontSize: "clamp(0.72rem, 1.1vw, 0.88rem)", color: "var(--color-text-muted)" }}>
-        {title}
-      </span>
-      <span className="mt-0.5 text-center"
-        style={{ fontSize: "0.65rem", color: "var(--color-text-faint)", letterSpacing: "0.03em" }}>
-        {sub}
-      </span>
-    </motion.div>
-  );
-}
-
-// ─── Hero ───────────────────────────────────────────────────────────────────
+// ─── Hero Section with Clean Curved Bottom Edge (Numbers Removed) ───────────
 export function HeroSection() {
   return (
-    <>
-      <section
-        className="relative flex flex-col overflow-hidden"
-        style={{
-          minHeight: "100svh",
-          background: "#050505",
-          borderBottomLeftRadius: "clamp(24px, 4vw, 56px)",
-          borderBottomRightRadius: "clamp(24px, 4vw, 56px)",
-        }}
+    <section
+      className="relative flex flex-col justify-between overflow-hidden"
+      style={{
+        minHeight: "100svh",
+        background: "#050505",
+        // Clean bottom-left and bottom-right corner rounding for mobile and desktop
+    
+        paddingBottom: "100px",
+      }}
+    >
+      <BackgroundVideo />
+
+      {/* Hero Core Content */}
+      <div
+        className="relative z-10 flex flex-col justify-center flex-1 gap-16 lg:gap-20 px-6 sm:px-10 lg:px-16 mx-auto w-full"
+        style={{ maxWidth: "1600px", paddingTop: "160px" }}
       >
-        <BackgroundVideo />
+        {/* Top-left block */}
+        <div className="flex flex-col items-start text-left">
+          <motion.div
+            className="flex items-center gap-2 mb-6"
+            initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.45, delay: 0.18 }}
+          >
+            <span className="block w-5 h-px" style={{ background: "var(--color-emerald)" }} />
+            <span style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.15em", color: "var(--color-emerald)", textTransform: "uppercase" }}>
+              Software Development
+            </span>
+          </motion.div>
 
-        <div
-          className="relative z-10 flex flex-col justify-center flex-1 gap-16 lg:gap-20 px-6 sm:px-10 lg:px-16 mx-auto w-full"
-          style={{ maxWidth: "1600px", paddingTop: "160px", paddingBottom: "80px" }}
-        >
-          {/* Top-left block */}
-          <div className="flex flex-col items-start text-left">
-            <motion.div
-              className="flex items-center gap-2 mb-6"
-              initial={{ opacity: 0, y: -8 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.45, delay: 0.18 }}
-            >
-              <span className="block w-5 h-px" style={{ background: "var(--color-emerald)" }} />
-              <span style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.15em", color: "var(--color-emerald)", textTransform: "uppercase" }}>
-                Software Development
-              </span>
-            </motion.div>
+          <motion.h1
+            initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6, delay: 0.24, ease: [0.32, 0.72, 0, 1] }}
+            style={{
+              fontSize: "clamp(2.6rem, 7vw, 6.8rem)",
+              fontWeight: 900,
+              lineHeight: 0.98,
+              letterSpacing: "-0.04em",
+              color: "#fff",
+            }}
+          >
+            <span className="block">We <CyclingWord /></span>
+            <span className="block">Software.</span>
+          </motion.h1>
 
-            <motion.h1
-              initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.6, delay: 0.24, ease: [0.32, 0.72, 0, 1] }}
-              style={{
-                fontSize: "clamp(2.6rem, 7vw, 6.8rem)",
-                fontWeight: 900,
-                lineHeight: 0.98,
-                letterSpacing: "-0.04em",
-                color: "#fff",
-              }}
-            >
-              <span className="block">We <CyclingWord /></span>
-              <span className="block">Software.</span>
-            </motion.h1>
-
-            <motion.div
-              className="flex flex-wrap items-center gap-3 mt-8"
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-              transition={{ duration: 0.6, delay: 0.5 }}
-            >
-              {["Google"].map((name) => (
-                <div key={name} className="flex items-center gap-2 px-3 py-1.5 backdrop-blur-md"
-                  style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.14)", borderRadius: "9999px" }}>
-                  <GoogleIcon size={14} />
-                  <span style={{ fontSize: "0.7rem", fontWeight: 700, color: "#fff" }}>{name}</span>
-                  <div className="flex gap-0.5">
-                    {[...Array(5)].map((_, i) => (
-                      <Star key={i} size={9} style={{ color: "#facc15", fill: "#facc15" }} />
-                    ))}
-                  </div>
-                  <span style={{ fontSize: "0.68rem", fontWeight: 700, color: "rgba(255,255,255,0.6)" }}>5.0</span>
+          <motion.div
+            className="flex flex-wrap items-center gap-3 mt-8"
+            initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+            transition={{ duration: 0.6, delay: 0.5 }}
+          >
+            {["Google"].map((name) => (
+              <div key={name} className="flex items-center gap-2 px-3 py-1.5 backdrop-blur-md"
+                style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.14)", borderRadius: "9999px" }}>
+                <GoogleIcon size={14} />
+                <span style={{ fontSize: "0.7rem", fontWeight: 700, color: "#fff" }}>{name}</span>
+                <div className="flex gap-0.5">
+                  {[...Array(5)].map((_, i) => (
+                    <Star key={i} size={9} style={{ color: "#facc15", fill: "#facc15" }} />
+                  ))}
                 </div>
-              ))}
-            </motion.div>
-          </div>
+                <span style={{ fontSize: "0.68rem", fontWeight: 700, color: "rgba(255,255,255,0.6)" }}>5.0</span>
+              </div>
+            ))}
+          </motion.div>
+        </div>
 
-          {/* Description + CTA buttons */}
-          <div className="flex flex-col items-start text-left">
-            <motion.p
-              initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.36 }}
+        {/* Description + CTA buttons */}
+        <div className="flex flex-col items-start text-left">
+          <motion.p
+            initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.55, delay: 0.36 }}
+            style={{
+              fontSize: "clamp(1rem, 1.3vw, 1.2rem)",
+              lineHeight: 1.75,
+              color: "rgba(255,255,255,0.72)",
+              maxWidth: "32rem",
+            }}
+          >
+            No bloated timelines, no cookie-cutter templates. We design, build,
+            and ship web platforms, mobile apps, and AI-powered products that
+            hold up under real users — fast enough to launch this quarter,
+            solid enough to scale for years.
+          </motion.p>
+
+          <motion.div
+            className="flex flex-wrap gap-3 mt-7"
+            initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.5, delay: 0.46 }}
+          >
+            <Link
+              href="/contact"
+              className="group inline-flex items-center gap-2 font-bold transition-all duration-200 hover:-translate-y-px active:scale-[0.98]"
               style={{
-                fontSize: "clamp(1rem, 1.3vw, 1.2rem)",
-                lineHeight: 1.75,
-                color: "rgba(255,255,255,0.72)",
-                maxWidth: "32rem",
+                background: "var(--color-emerald)", color: "#040805",
+                padding: "1rem 2.1rem", fontSize: "clamp(0.9rem, 1.15vw, 1rem)",
+                boxShadow: "0 0 28px var(--color-emerald-glow)",
+                borderRadius: "9999px",
               }}
             >
-              No bloated timelines, no cookie-cutter templates. We design, build,
-              and ship web platforms, mobile apps, and AI-powered products that
-              hold up under real users — fast enough to launch this quarter,
-              solid enough to scale for years.
-            </motion.p>
-
-            <motion.div
-              className="flex flex-wrap gap-3 mt-7"
-              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.5, delay: 0.46 }}
+              Get A Quote
+              <ArrowUpRight size={16} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+            </Link>
+            <Link
+              href="/portfolio"
+              className="inline-flex items-center gap-2 font-semibold transition-all duration-200 group backdrop-blur-md"
+              style={{
+                background: "rgba(255,255,255,0.06)",
+                color: "rgba(255,255,255,0.85)",
+                border: "1px solid rgba(255,255,255,0.16)",
+                padding: "1rem 2.1rem",
+                fontSize: "clamp(0.9rem, 1.15vw, 1rem)",
+                borderRadius: "9999px",
+              }}
             >
-              <Link
-                href="/contact"
-                className="group inline-flex items-center gap-2 font-bold transition-all duration-200 hover:-translate-y-px active:scale-[0.98]"
-                style={{
-                  background: "var(--color-emerald)", color: "#040805",
-                  padding: "1rem 2.1rem", fontSize: "clamp(0.9rem, 1.15vw, 1rem)",
-                  boxShadow: "0 0 28px var(--color-emerald-glow)",
-                  borderRadius: "9999px",
-                }}
-              >
-                Get A Quote
-                <ArrowUpRight size={16} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
-              <Link
-                href="/portfolio"
-                className="inline-flex items-center gap-2 font-semibold transition-all duration-200 group backdrop-blur-md"
-                style={{
-                  background: "rgba(255,255,255,0.06)",
-                  color: "rgba(255,255,255,0.85)",
-                  border: "1px solid rgba(255,255,255,0.16)",
-                  padding: "1rem 2.1rem",
-                  fontSize: "clamp(0.9rem, 1.15vw, 1rem)",
-                  borderRadius: "9999px",
-                }}
-              >
-                View Work
-                <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-1" />
-              </Link>
-            </motion.div>
-          </div>
+              View Work
+              <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-1" />
+            </Link>
+          </motion.div>
         </div>
-      </section>
-
-      {/* ── Stats Strip with overlapping negative margin to harmonize with hero curve ── */}
-      <div className="relative z-30 w-full px-6 lg:px-16 mx-auto" style={{ maxWidth: "1400px", marginTop: "-32px" }}>
-        <div className="w-full overflow-hidden stats-grid shadow-2xl" style={{ borderRadius: "20px", border: "1px solid var(--color-border)" }}>
-          {[
-            { raw: 15, suffix: "+", title: "Projects Shipped", sub: "Since 2024 launch", delay: 0 },
-            { raw: 2, suffix: "yr", title: "In Business", sub: "Agile & growing fast", delay: 150 },
-            { raw: 100, suffix: "%", title: "Client Satisfaction", sub: "Committed to excellence", delay: 300 },
-            { raw: 10, suffix: "+", title: "Industries Served", sub: "Web, mobile & AI solutions", delay: 450 },
-          ].map((s) => (
-            <div key={s.title} className="stat-cell">
-              <StatCard {...s} />
-            </div>
-          ))}
-        </div>
-
-        <style>{`
-          .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1px;
-            background: var(--color-border);
-          }
-          .stat-cell { background: var(--color-surface); }
-          .stat-card-inner { padding: 1.25rem 0.8rem; }
-          @media (min-width: 640px) {
-            .stats-grid { grid-template-columns: repeat(4, 1fr); }
-            .stat-card-inner { padding: 2.25rem 1.25rem; }
-          }
-        `}</style>
       </div>
-    </>
+    </section>
   );
 }
 
