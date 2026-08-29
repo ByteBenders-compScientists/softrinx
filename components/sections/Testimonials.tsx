@@ -1,329 +1,283 @@
 "use client";
 
-import { useRef, useState } from "react";
+import { useRef } from "react";
 import { motion, useInView } from "framer-motion";
-import { ArrowUpRight } from "lucide-react";
-import Image from "next/image";
-import Link from "next/link";
-import { useTheme } from "@/contexts/themeContext";
+import { Star, ArrowRight, Quote } from "lucide-react";
+// Adjust this import path to wherever your ThemeProvider is located
+import { useTheme } from "@/contexts/themeContext"; 
 
 // ─── Real client stories from actual Softrinx projects ────────────────────────
 const testimonials = [
   {
     id: 1,
+    company: "MEMORA",
     text: "They didn't just build a website — they built a brand identity that lets our photography breathe online. Every pixel serves the emotion we wanted to convey.",
     author: "Memora Visuals",
-    role: "Photography Studio · Kenya",
+    role: "Photography Studio",
     image: "https://images.unsplash.com/photo-1452587925148-ce544e77e70d?w=200&h=200&fit=crop&crop=center",
-    result: "Live · Converting · Client proud",
-    category: "Web · Branding",
     link: "https://memoravisuals.com",
-    size: "large",
   },
   {
     id: 2,
+    company: "AGRILENS",
     text: "A farmer photographs a diseased crop and gets an AI diagnosis in seconds. Softrinx made something that genuinely matters to smallholder farmers across Kenya.",
-    author: "AgriLens",
-    role: "AI AgriTech Platform · Kenya",
+    author: "AgriLens Team",
+    role: "AI AgriTech Platform",
     image: "https://images.unsplash.com/photo-1574323347407-f5e1ad6d020b?w=200&h=200&fit=crop&crop=center",
-    result: "Protecting yields across Kenya",
-    category: "AI · Web App",
     link: "https://agrilens-farmer.vercel.app/",
-    size: "small",
   },
   {
     id: 3,
+    company: "INTELLIMARK",
     text: "Our lecturers now have AI that grades, tracks, and adapts. Assessment creation went from hours to minutes — deployed across our entire university cohort.",
     author: "IntelliMark",
-    role: "EdTech AI Platform · University",
+    role: "EdTech AI Platform",
     image: "https://images.unsplash.com/photo-1606761568499-6d2451b23c66?w=200&h=200&fit=crop&crop=center",
-    result: "Deployed across university cohorts",
-    category: "EdTech · AI",
     link: "https://intellimark.pages.dev/",
-    size: "small",
   },
   {
     id: 4,
-    text: "Dating apps are all swipe, no substance. Softrinx understood what we wanted to build — genuine human connection — and delivered a platform that actually feels real.",
-    author: "TabooTalks",
-    role: "Connections Platform · Germany",
-    image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=200&h=200&fit=crop&crop=faces",
-    result: "Live in Germany · Growing",
-    category: "Social · Web App",
-    link: "https://www.tabootalks.de/",
-    size: "medium",
+    company: "FARMSENSE",
+    text: "Precision agriculture without expensive IoT hardware — we couldn't believe it was possible. FarmSense is now helping farmers across three counties optimise their yields.",
+    author: "FarmSense",
+    role: "Smart Farming Platform",
+    image: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=200&h=200&fit=crop&crop=center",
+    link: "https://farm-sense-mu.vercel.app/",
   },
   {
     id: 5,
-    text: "Precision agriculture without expensive IoT hardware — we couldn't believe it was possible. FarmSense is now helping farmers across three counties optimise their yields.",
-    author: "FarmSense",
-    role: "Smart Farming Platform · Kenya",
-    image: "https://images.unsplash.com/photo-1464226184884-fa280b87c399?w=200&h=200&fit=crop&crop=center",
-    result: "Precision farming for all",
-    category: "AgriTech · Web App",
-    link: "https://farm-sense-mu.vercel.app/",
-    size: "small",
+    company: "DJAFRO CINEMA",
+    text: "A full streaming platform — custom video player, offline mode, subscriptions — shipped on time and on budget. Exactly what we envisioned for local cinema enthusiasts.",
+    author: "Djafro Team",
+    role: "Movie Streaming Platform",
+    image: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=200&h=200&fit=crop&crop=center",
+    link: "https://djafrocinema.com/",
   },
   {
     id: 6,
-    text: "A full streaming app — custom video player, offline mode, subscriptions — shipped to Google Play on time and on budget. Exactly what BritechMedia envisioned.",
-    author: "DjAfro StreamBox",
-    role: "Mobile Streaming App · Google Play",
-    image: "https://images.unsplash.com/photo-1478720568477-152d9b164e26?w=200&h=200&fit=crop&crop=center",
-    result: "Live on Google Play Store",
-    category: "Mobile · Streaming",
-    link: "https://djafromovies.vercel.app/",
-    size: "medium",
+    company: "WERENTONLINE",
+    text: "Tourists are now effortlessly booking our coastal rentals online. The seamless integration of payments and property management completely transformed our workflow.",
+    author: "WereNtOnline",
+    role: "Travel & Rentals",
+    image: "https://images.unsplash.com/photo-1499793983690-e29da59ef1c2?w=200&h=200&fit=crop&crop=center",
+    link: "https://www.werentonline.com/",
   },
 ];
 
-const partners = [
-  { name: "Healthmaster",     logo: "/images/images/hm.png" },
-  { name: "Uamas",            logo: "/images/images/uamas.png" },
-  { name: "Alx",              logo: "/images/images/alx.png" },
-  { name: "DjAfro StreamBox", logo: "/images/images/afro.png" },
-];
+// ─── Simple SVG for Google Logo ──────────────────────────────────────────────
+const GoogleLogo = () => (
+  <svg viewBox="0 0 24 24" width="24" height="24" xmlns="http://www.w3.org/2000/svg">
+    <path d="M22.56 12.25c0-.78-.07-1.53-.2-2.25H12v4.26h5.92c-.26 1.37-1.04 2.53-2.21 3.31v2.77h3.57c2.08-1.92 3.28-4.74 3.28-8.09z" fill="#4285F4"/>
+    <path d="M12 23c2.97 0 5.46-.98 7.28-2.66l-3.57-2.77c-.98.66-2.23 1.06-3.71 1.06-2.86 0-5.29-1.93-6.16-4.53H2.18v2.84C3.99 20.53 7.7 23 12 23z" fill="#34A853"/>
+    <path d="M5.84 14.09c-.22-.66-.35-1.36-.35-2.09s.13-1.43.35-2.09V7.07H2.18C1.43 8.55 1 10.22 1 12s.43 3.45 1.18 4.93l2.85-2.22.81-.62z" fill="#FBBC05"/>
+    <path d="M12 5.38c1.62 0 3.06.56 4.21 1.64l3.15-3.15C17.45 2.09 14.97 1 12 1 7.7 1 3.99 3.47 2.18 7.07l3.66 2.84c.87-2.6 3.3-4.53 6.16-4.53z" fill="#EA4335"/>
+  </svg>
+);
 
-// ─── Card ─────────────────────────────────────────────────────────────────────
-interface Testimonial {
-  id: number;
-  text: string;
-  author: string;
-  role: string;
-  image: string;
-  result: string;
-  category: string;
-  link: string;
-  size: string;
-}
-
-function TestimonialCard({ t, index }: { t: Testimonial; index: number }) {
-  const ref = useRef(null);
-  const inView = useInView(ref, { once: true, margin: "-50px" });
-  const [hovered, setHovered] = useState(false);
-
+// ─── Theme-Aware Testimonial Card ────────────────────────────────────────────
+function TestimonialCard({ t }: { t: typeof testimonials[0] }) {
   return (
-    <motion.a
+    <a
       href={t.link}
       target="_blank"
       rel="noopener noreferrer"
-      ref={ref}
-      initial={{ opacity: 0, y: 28 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, delay: index * 0.06, ease: [0.32, 0.72, 0, 1] }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="t-card"
-      data-size={t.size}
+      className="testimonial-card flex-shrink-0 flex flex-col justify-between group relative overflow-hidden"
       style={{
-        position: "relative",
-        overflow: "hidden",
-        display: "flex",
-        flexDirection: "column",
-        justifyContent: "space-between",
-        border: "1px solid var(--color-border)",
-        background: "var(--color-surface)",
-        padding: "clamp(1.1rem, 2.5vw, 1.75rem)",
+        width: "clamp(300px, 80vw, 400px)",
+        background: "var(--color-card)",
+        borderRadius: "1.25rem",
+        padding: "2.5rem 2rem",
         textDecoration: "none",
-        cursor: "pointer",
+        boxShadow: "0 4px 20px rgba(0, 0, 0, 0.04)",
+        border: "1px solid var(--color-border)",
+        transition: "transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.4s ease, background 0.3s ease, border-color 0.3s ease",
       }}
     >
-      {/* Category + arrow */}
-      <div style={{ display: "flex", alignItems: "flex-start", justifyContent: "space-between", gap: "0.75rem", marginBottom: "1rem" }}>
-        <span style={{
-          fontSize: "0.58rem", fontWeight: 700, letterSpacing: "0.12em",
-          textTransform: "uppercase", color: "var(--color-emerald)",
-          border: "1px solid var(--color-emerald-border)",
-          background: "var(--color-emerald-bg)",
-          padding: "0.2rem 0.5rem", flexShrink: 0,
-        }}>
-          {t.category}
-        </span>
-        <motion.span
-          animate={{ opacity: hovered ? 1 : 0.28, x: hovered ? 0 : -2, y: hovered ? 0 : 2 }}
-          transition={{ duration: 0.2 }}
-          style={{ color: "var(--color-emerald)", flexShrink: 0, display: "flex" }}>
-          <ArrowUpRight size={15} />
-        </motion.span>
+      {/* ── Massive Faded Shadow Quote Icon ── */}
+      <div className="absolute -top-4 -right-2 pointer-events-none transition-transform duration-700 group-hover:scale-110 group-hover:-rotate-3">
+        <Quote size={140} strokeWidth={0.5} style={{ color: "var(--color-text-faint)", opacity: 0.3 }} />
       </div>
 
-      {/* Quote */}
-      <p style={{
-        fontSize: "clamp(0.82rem, 1.15vw, 0.93rem)",
-        lineHeight: 1.72, color: "var(--color-text)",
-        letterSpacing: "-0.01em", flex: 1, marginBottom: "1.25rem",
-      }}>
-        "{t.text}"
-      </p>
-
-      {/* Result */}
-      <div style={{ display: "flex", alignItems: "center", gap: "0.5rem", marginBottom: "1rem" }}>
-        <div style={{ width: 4, height: 4, background: "var(--color-emerald)", flexShrink: 0 }} />
-        <span style={{ fontSize: "0.65rem", fontWeight: 700, color: "var(--color-emerald)", letterSpacing: "0.04em" }}>
-          {t.result}
-        </span>
-      </div>
-
-      {/* Author */}
-      <div style={{ display: "flex", alignItems: "center", gap: "0.75rem" }}>
-        <div style={{ width: "38px", height: "38px", border: "1px solid var(--color-emerald-border)", flexShrink: 0, overflow: "hidden" }}>
-          <img src={t.image} alt={t.author} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
-        </div>
-        <div style={{ minWidth: 0 }}>
-          <p style={{ fontSize: "0.85rem", fontWeight: 800, color: "var(--color-text)", letterSpacing: "-0.02em", marginBottom: "0.1rem", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-            {t.author}
-          </p>
-          <p style={{ fontSize: "0.64rem", fontWeight: 600, color: "var(--color-emerald)", overflow: "hidden", textOverflow: "ellipsis", whiteSpace: "nowrap" }}>
-            {t.role}
-          </p>
-        </div>
-      </div>
-
-      {/* Hover bottom line */}
-      <motion.div
-        style={{ position: "absolute", bottom: 0, left: 0, height: "2px", background: "var(--color-emerald)" }}
-        animate={{ width: hovered ? "100%" : "0%" }}
-        transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
-      />
-    </motion.a>
-  );
-}
-
-// ─── Partners — pure CSS infinite, truly never ends ───────────────────────────
-function PartnersCarousel() {
-  const items = [...partners, ...partners, ...partners, ...partners];
-  return (
-    <div style={{ position: "relative", overflow: "hidden", height: "72px" }}>
-      <div style={{ position: "absolute", top: 0, bottom: 0, left: 0, width: "110px", zIndex: 10, pointerEvents: "none", background: "linear-gradient(to right, var(--color-bg), transparent)" }} />
-      <div style={{ position: "absolute", top: 0, bottom: 0, right: 0, width: "110px", zIndex: 10, pointerEvents: "none", background: "linear-gradient(to left, var(--color-bg), transparent)" }} />
-      <div className="p-track" style={{ display: "flex", alignItems: "center", gap: "3.5rem", width: "max-content", height: "100%" }}>
-        {items.map((p, i) => (
-          <div key={i} className="p-logo" style={{ flexShrink: 0 }}>
-            <Image src={p.logo} alt={p.name} width={110} height={34}
-              className="object-contain" style={{ height: "34px", width: "auto" }} />
+      <div className="relative z-10 flex flex-col h-full">
+        <div>
+          <div className="flex items-center gap-1 mb-5">
+            {[...Array(5)].map((_, i) => (
+              <Star key={i} size={16} fill="#10B981" color="#10B981" />
+            ))}
           </div>
-        ))}
+          <p style={{
+            fontSize: "1.1rem",
+            lineHeight: 1.65,
+            fontWeight: 400,
+            color: "var(--color-text-muted)",
+            marginBottom: "2.5rem",
+            transition: "color 0.3s ease"
+          }}>
+            "{t.text}"
+          </p>
+        </div>
+
+        <div className="flex items-center gap-4 mt-auto">
+          <div style={{
+            width: "52px",
+            height: "52px",
+            borderRadius: "50%",
+            overflow: "hidden",
+            flexShrink: 0,
+            border: "2px solid var(--color-bg)",
+            transition: "border-color 0.3s ease"
+          }}>
+            <img src={t.image} alt={t.author} style={{ width: "100%", height: "100%", objectFit: "cover" }} />
+          </div>
+          <div>
+            <p style={{ fontWeight: 600, fontSize: "0.95rem", color: "var(--color-text)", margin: 0, transition: "color 0.3s ease" }}>
+              {t.author}
+            </p>
+            <p style={{ fontSize: "0.85rem", color: "var(--color-text-label)", margin: 0, transition: "color 0.3s ease" }}>
+              {t.role}
+            </p>
+          </div>
+        </div>
       </div>
-    </div>
+    </a>
   );
 }
 
-// ─── Section ──────────────────────────────────────────────────────────────────
+// ─── Main Section Component ───────────────────────────────────────────────────
 export default function Testimonials() {
-  const { colors } = useTheme();
+  const { isDark } = useTheme(); // Access theme context
   const headerRef = useRef(null);
   const headerInView = useInView(headerRef, { once: true, margin: "-40px" });
 
+  // Duplicate the array for a seamless infinite scroll loop
+  const scrollItems = [...testimonials, ...testimonials];
+
   return (
-    <section style={{
-      background: "var(--color-bg)",
-      paddingTop: "clamp(64px,10vw,100px)",
-      paddingBottom: "clamp(64px,10vw,100px)",
-      borderTop: "1px solid var(--color-border)",
-      position: "relative",
-    }}>
-      <div className="px-6 mx-auto lg:px-16" style={{ maxWidth: "1360px" }}>
-
+    <section 
+      style={{
+        background: "var(--color-surface)", 
+        paddingTop: "clamp(80px,12vw,120px)",
+        paddingBottom: "clamp(64px,10vw,100px)",
+        position: "relative",
+        overflow: "hidden",
+        transition: "background 0.3s ease"
+      }}
+    >
+      <div className="px-6 mx-auto lg:px-16 relative z-10" style={{ maxWidth: "1400px" }}>
+        
         {/* Header */}
-        <div ref={headerRef} className="flex flex-col gap-6 mb-12 lg:flex-row lg:items-end lg:justify-between">
-          <div>
-            <motion.div className="flex items-center gap-3 mb-5"
-              initial={{ opacity: 0, x: -12 }}
-              animate={headerInView ? { opacity: 1, x: 0 } : {}}
-              transition={{ duration: 0.45 }}>
-              <span style={{ display: "block", width: "2rem", height: "1px", background: "var(--color-emerald)" }} />
-              <span style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.15em", color: "var(--color-emerald)", textTransform: "uppercase" }}>
-                Client Stories
-              </span>
-            </motion.div>
+        <div ref={headerRef} className="mb-14 text-center md:text-left flex flex-col md:flex-row items-center justify-between gap-6">
+          <div className="max-w-2xl">
             <motion.h2
-              initial={{ opacity: 0, y: 16 }}
+              initial={{ opacity: 0, y: 20 }}
               animate={headerInView ? { opacity: 1, y: 0 } : {}}
-              transition={{ duration: 0.55, delay: 0.07, ease: [0.32, 0.72, 0, 1] }}
-              style={{ fontSize: "clamp(2.2rem, 5vw, 4rem)", fontWeight: 900, letterSpacing: "-0.04em", lineHeight: 1.0, color: "var(--color-text)" }}>
-              Real projects.<br />
-              <span style={{ color: "var(--color-emerald)" }}>Real results.</span>
+              transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
+              style={{ 
+                fontSize: "clamp(2.2rem, 4.5vw, 3.8rem)", 
+                fontWeight: 800, 
+                letterSpacing: "-0.03em", 
+                lineHeight: 1.1, 
+                color: "var(--color-text)",
+                marginBottom: "1rem",
+                transition: "color 0.3s ease"
+              }}
+            >
+              Results that speak volumes.
             </motion.h2>
+            <motion.p
+              initial={{ opacity: 0, y: 20 }}
+              animate={headerInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              style={{ fontSize: "1.15rem", color: "var(--color-text-muted)", transition: "color 0.3s ease" }}
+            >
+              Find out why our clients trust us to build platforms that scale.
+            </motion.p>
           </div>
-          <motion.div
-            initial={{ opacity: 0, y: 10 }}
-            animate={headerInView ? { opacity: 1, y: 0 } : {}}
-            transition={{ duration: 0.5, delay: 0.13 }}
-            style={{ display: "flex", flexDirection: "column", gap: "0.75rem" }}>
-            <p style={{ fontSize: "0.88rem", lineHeight: 1.75, color: "var(--color-text-muted)", maxWidth: "22rem" }}>
-              Every card is a live product. Click any to see it in the wild.
-            </p>
-            <Link href="/portfolio"
-              className="inline-flex items-center gap-2 font-semibold group"
-              style={{ color: "var(--color-emerald)", fontSize: "0.82rem", width: "fit-content" }}>
-              Full portfolio <ArrowUpRight size={13} />
-            </Link>
-          </motion.div>
         </div>
+      </div>
 
-        {/* Grid */}
-        <div className="gap-px mb-16 t-grid" style={{ display: "grid", background: "var(--color-border)" }}>
-          {testimonials.map((t, i) => (
-            <TestimonialCard key={t.id} t={t} index={i} />
+      {/* ── Auto-Scrolling Marquee ── */}
+      <div className="marquee-wrapper mb-20 relative w-full overflow-hidden">
+        {/* Fade gradients using the dynamic theme background */}
+        <div 
+          className="absolute top-0 bottom-0 left-0 w-32 z-10 pointer-events-none" 
+          style={{ background: "linear-gradient(to right, var(--color-bg) 0%, transparent 100%)" }}
+        />
+        <div 
+          className="absolute top-0 bottom-0 right-0 w-32 z-10 pointer-events-none" 
+          style={{ background: "linear-gradient(to left, var(--color-bg) 0%, transparent 100%)" }}
+        />
+        
+        <div className="marquee-track flex gap-6 px-6 py-4">
+          {scrollItems.map((t, i) => (
+            <TestimonialCard key={`${t.id}-${i}`} t={t} />
           ))}
         </div>
+      </div>
 
-        {/* Partners */}
-        <div>
-          <motion.p className="mb-8 text-center"
-            initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
-            style={{ fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.18em", color: "var(--color-text-faint)", textTransform: "uppercase" }}>
-            Trusted collaborations
-          </motion.p>
-          <PartnersCarousel />
+      {/* ── Bottom Review Footer ── */}
+      <div className="px-6 mx-auto lg:px-16" style={{ maxWidth: "1400px" }}>
+        <div className="flex flex-col sm:flex-row items-center justify-between gap-6 pt-8 border-t" style={{ borderColor: "var(--color-border)" }}>
+          <p style={{ color: "var(--color-text-muted)", fontSize: "0.875rem", fontWeight: 500 }}>
+            Join other satisfied clients scaling with us
+          </p>
+          
+          <div className="flex items-center gap-4">
+            <div style={{
+              background: "var(--color-surface)",
+              padding: "0.625rem",
+              borderRadius: "9999px",
+              border: "1px solid var(--color-border)",
+              boxShadow: isDark ? "none" : "0 1px 2px rgba(0,0,0,0.05)",
+            }}>
+              <GoogleLogo />
+            </div>
+            <div>
+              <div className="flex items-center gap-1.5 mb-0.5">
+                {[...Array(5)].map((_, i) => (
+                  <Star key={`g-${i}`} size={16} fill="#F59E0B" color="#F59E0B" />
+                ))}
+                <span style={{ fontWeight: 700, color: "var(--color-text)", marginLeft: "0.25rem" }}>5.0</span>
+              </div>
+              <p style={{ fontSize: "0.75rem", color: "var(--color-text-label)", margin: 0, fontWeight: 500, letterSpacing: "0.025em", textTransform: "uppercase" }}>
+                Based on Google Reviews
+              </p>
+            </div>
+          </div>
+
+          <a 
+            href="#reviews" 
+            className="flex items-center gap-2 text-sm font-semibold group transition-colors hover:!text-emerald-500"
+            style={{ color: "var(--color-text)" }}
+          >
+            View all reviews 
+            <span className="transform transition-transform group-hover:translate-x-1">
+              <ArrowRight size={16} />
+            </span>
+          </a>
         </div>
-
-        {/* CTA */}
-        <motion.div className="flex justify-center mt-10"
-          initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.2 }}>
-          <Link href="/portfolio"
-            className="inline-flex items-center gap-2 font-semibold"
-            style={{ border: "1px solid var(--color-emerald-border)", color: "var(--color-emerald)", fontSize: "0.85rem", padding: "0.7rem 1.5rem", letterSpacing: "0.03em" }}>
-            View All Projects <ArrowUpRight size={15} />
-          </Link>
-        </motion.div>
       </div>
 
       <style>{`
-        /* ── Grid breakpoints ── */
-
-        /* Mobile: 1 col, no bento spans at all */
-        .t-grid { grid-template-columns: 1fr; }
-        .t-card {
-          grid-column: span 1 !important;
-          grid-row:    span 1 !important;
-          min-height: 190px;
+        .testimonial-card:hover {
+          transform: translateY(-6px);
+          box-shadow: 0 20px 40px rgba(0, 0, 0, 0.12) !important;
+          background: var(--color-card-hover) !important;
         }
 
-        /* Tablet: 2 equal cols, still no spans */
-        @media (min-width: 580px) {
-          .t-grid { grid-template-columns: repeat(2, 1fr); }
+        .marquee-wrapper:hover .marquee-track {
+          animation-play-state: paused;
         }
 
-        /* Desktop: full 3-col bento with size spans */
-        @media (min-width: 1024px) {
-          .t-grid { grid-template-columns: repeat(3, 1fr); }
-          .t-card[data-size="large"]  { grid-column: span 2 !important; grid-row: span 1 !important; min-height: 260px; }
-          .t-card[data-size="medium"] { grid-column: span 1 !important; grid-row: span 2 !important; }
-          .t-card[data-size="small"]  { grid-column: span 1 !important; grid-row: span 1 !important; min-height: 240px; }
+        .marquee-track {
+          width: max-content;
+          animation: scroll 40s linear infinite;
         }
 
-        /* ── Infinite partner scroll ── */
-        .p-logo { opacity: 0.35; filter: grayscale(1); transition: opacity 0.3s, filter 0.3s; }
-        .p-logo:hover { opacity: 1; filter: grayscale(0); }
-
-        @keyframes p-scroll {
-          from { transform: translateX(0); }
-          to   { transform: translateX(-50%); }
+        @keyframes scroll {
+          0% { transform: translateX(0); }
+          100% { transform: translateX(calc(-50% - 0.75rem)); } 
         }
-        .p-track { animation: p-scroll 26s linear infinite; will-change: transform; }
-        .p-track:hover { animation-play-state: paused; }
       `}</style>
     </section>
   );
