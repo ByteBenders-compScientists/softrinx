@@ -15,8 +15,8 @@ const CASES = [
     pills: ["1,000+ Downloads", "Live on Play Store"],
     image: "/images/afro.png",
     link: "https://djafrocinema.com",
-    span: "col-span-1 md:col-span-2", // Large top card
-    aspect: "aspect-[16/10] md:aspect-[21/9]",
+    span: "col-span-1 md:col-span-3", // Full width
+    aspect: "aspect-[16/10] md:aspect-[21/9]", 
   },
   {
     id: "hmex",
@@ -26,8 +26,8 @@ const CASES = [
     pills: ["Active Beta", "Real Users Onboarded"],
     image: "/images/hmex2.png",
     link: "https://hmex.healthmasterco.com/",
-    span: "col-span-1",
-    aspect: "aspect-[4/3] md:aspect-[3/4]", // Taller portrait card
+    span: "col-span-1 md:col-span-1", // 1/3 width (keeps height reasonable)
+    aspect: "aspect-[4/3] md:aspect-[4/5]", // Portrait
   },
   {
     id: "agrilens",
@@ -37,8 +37,8 @@ const CASES = [
     pills: ["Field-Tested", "Daily Usage"],
     image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=900&h=600&fit=crop",
     link: "#",
-    span: "col-span-1",
-    aspect: "aspect-[4/3]", // Wider landscape card
+    span: "col-span-1 md:col-span-2", // 2/3 width
+    aspect: "aspect-[4/3] md:aspect-[16/9]", // Landscape
   },
   {
     id: "memora",
@@ -48,8 +48,8 @@ const CASES = [
     pills: ["Live & Converting", "Brand Established"],
     image: "/images/memora.png",
     link: "https://memoravisuals.com/",
-    span: "col-span-1",
-    aspect: "aspect-[4/3]", // Wider landscape card
+    span: "col-span-1 md:col-span-2", // 2/3 width
+    aspect: "aspect-[4/3] md:aspect-[16/9]", // Landscape
   },
   {
     id: "explain",
@@ -59,8 +59,8 @@ const CASES = [
     pills: ["AI Powered", "Accessibility"],
     image: "/images/extension.png",
     link: "#",
-    span: "col-span-1",
-    aspect: "aspect-[4/3] md:aspect-[3/4]", // Taller portrait card
+    span: "col-span-1 md:col-span-1", // 1/3 width (keeps height reasonable)
+    aspect: "aspect-[4/3] md:aspect-[4/5]", // Portrait
   },
   {
     id: "werent",
@@ -70,12 +70,12 @@ const CASES = [
     pills: ["Active Bookings", "Kenya Coast Market"],
     image: "/images/werent.png",
     link: "https://www.werentonline.com/",
-    span: "col-span-1 md:col-span-2", // Large bottom card
+    span: "col-span-1 md:col-span-3", // Full width
     aspect: "aspect-[16/10] md:aspect-[21/9]",
   }
 ];
 
-// ─── Single Card (Matching Reference Design) ──────────────────────────────────
+// ─── Single Card ──────────────────────────────────────────────────────────────
 function CaseCard({ c, index }: { c: (typeof CASES)[0]; index: number }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
@@ -90,7 +90,7 @@ function CaseCard({ c, index }: { c: (typeof CASES)[0]; index: number }) {
     >
       <Link href={c.link} target={c.link.startsWith("http") ? "_blank" : "_self"} className="block w-full h-full cursor-pointer">
         
-        {/* Stack/Category Label (Top) */}
+        {/* Stack/Category Label */}
         <p style={{
           fontSize: "0.75rem",
           color: "var(--color-text-muted)",
@@ -104,7 +104,7 @@ function CaseCard({ c, index }: { c: (typeof CASES)[0]; index: number }) {
         <div 
           className={`relative w-full overflow-hidden mb-5 ${c.aspect}`}
           style={{ 
-            borderRadius: "1.5rem", // Large rounded corners from reference
+            borderRadius: "1.5rem",
             background: "var(--color-surface)",
             border: "1px solid var(--color-border)"
           }}
@@ -115,10 +115,9 @@ function CaseCard({ c, index }: { c: (typeof CASES)[0]; index: number }) {
             className="object-cover w-full h-full transition-transform duration-700 ease-out group-hover:scale-105"
           />
           
-          {/* Subtle Dark Overlay for contrast on hover */}
           <div className="absolute inset-0 transition-colors duration-500 bg-black/5 group-hover:bg-black/20" />
 
-          {/* Stat Pills (Bottom Left over image) */}
+          {/* Stat Pills */}
           <div className="absolute flex flex-wrap gap-2 bottom-4 left-4 right-4">
             {c.pills.map((pill, i) => (
               <span 
@@ -131,7 +130,7 @@ function CaseCard({ c, index }: { c: (typeof CASES)[0]; index: number }) {
           </div>
         </div>
 
-        {/* Content Row (Bottom) */}
+        {/* Content Row */}
         <div className="flex items-start justify-between gap-4">
           <div className="flex-1 pr-4">
             <h3 style={{
@@ -162,7 +161,6 @@ function CaseCard({ c, index }: { c: (typeof CASES)[0]; index: number }) {
               border: "1px solid var(--color-border)",
             }}
           >
-            {/* The arrow container handles the hover color changes natively via group-hover */}
             <div className="flex items-center justify-center w-full h-full text-[var(--color-text)] transition-colors duration-300 rounded-full group-hover:bg-[#2DD4BF] group-hover:text-[#040805] group-hover:border-[#2DD4BF]">
               <ArrowUpRight 
                 size={20} 
@@ -254,8 +252,8 @@ export default function CaseStudy() {
           </motion.div>
         </div>
 
-        {/* Modern Grid Layout — Added items-start for that uneven masonry look */}
-        <div className="grid grid-cols-1 items-start gap-x-8 gap-y-16 md:grid-cols-2">
+        {/* Switched to md:grid-cols-3 for perfect masonry scaling */}
+        <div className="grid grid-cols-1 items-start gap-x-8 gap-y-16 md:grid-cols-3">
           {CASES.map((c, i) => (
             <CaseCard key={c.id} c={c} index={i} />
           ))}
