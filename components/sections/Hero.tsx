@@ -79,7 +79,7 @@ export function HeroSection() {
     <section
       className="relative flex flex-col justify-between overflow-hidden"
       style={{
-        minHeight: "100svh",
+        minHeight: "110svh",
         background: "#050505",
         // Clean bottom-left and bottom-right corner rounding for mobile and desktop
     
