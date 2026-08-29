@@ -19,7 +19,7 @@ function BackgroundVideo() {
         preload="auto"
         poster="/images/hero2-poster.jpg"
       >
-        <source src="/images/hero2.mp4" type="video/mp4" />
+        <source src="/images/hero1.mp4" type="video/mp4" />
       </video>
 
       {/* Dark overlay for text legibility */}
