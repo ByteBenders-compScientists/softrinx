@@ -6,12 +6,10 @@ import { motion, useInView, useScroll, useTransform } from "framer-motion";
 import Image from "next/image";
 import {
   Code, Smartphone, Server, BrainCircuit, Database, Shield,
-  ArrowRight, ArrowUpRight,
+  ArrowRight
 } from "lucide-react";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
-// hover = the fill color this specific card gets on hover — not just emerald
-// for every card, a distinct accent per service so the grid feels alive.
 const SERVICES = [
   {
     number: "01", icon: Code, title: "Custom Software", titleLine2: "Development",
@@ -83,7 +81,6 @@ function ParallaxImage() {
 }
 
 // ─── Vertical hover card ───────────────────────────────────────────────────────
-// Hover tracked in JS state (not CSS :hover) so inline colors update reliably.
 function ServiceCard({ service, index, last, glass }: {
   service: typeof SERVICES[number]; index: number; last: boolean; glass?: boolean;
 }) {
@@ -108,8 +105,6 @@ function ServiceCard({ service, index, last, glass }: {
         borderColor: glass ? "rgba(255,255,255,0.18)" : "var(--color-border)",
         minHeight: "clamp(240px, 20vw, 340px)",
         padding: "clamp(1.75rem, 2.2vw, 2.5rem)",
-        // The glass card physically overlaps the image column so the photo
-        // bleeds through the blur — "image behind the cards" effect.
         marginRight: glass ? "clamp(-48px, -4vw, -80px)" : undefined,
         zIndex: glass ? 30 : undefined,
         backdropFilter: glass ? "blur(18px)" : undefined,
@@ -168,15 +163,13 @@ export default function Services() {
   return (
     <section
       ref={sectionRef}
+      className="relative w-full overflow-hidden"
       style={{ background: "var(--color-bg)", paddingTop: 0, paddingBottom: 0 }}
     >
-      {/* ── Full-bleed block: "Our Services" now lives INSIDE the row as a
-          vertical spine label — no separate strip sitting above it, so the
-          cards+image genuinely are the whole section from the top down. ── */}
+      {/* ── Services Grid & Image ── */}
       <div className="w-full" style={{ borderTop: "1px solid var(--color-border)" }}>
         <div className="relative flex flex-col lg:flex-row lg:min-h-[min(60vh,560px)]">
 
-          {/* Vertical spine label */}
           <div
             className="items-center justify-center flex-shrink-0 hidden border-r lg:flex"
             style={{ width: "56px", borderColor: "var(--color-border)" }}
@@ -191,7 +184,7 @@ export default function Services() {
               — Our Services
             </span>
           </div>
-          {/* Mobile equivalent — simple horizontal label above the stack */}
+          
           <div className="order-first lg:order-none flex items-center gap-3 px-6 py-5 border-b lg:hidden" style={{ borderColor: "var(--color-border)" }}>
             <span className="block w-8 h-px" style={{ background: "var(--color-emerald)" }} />
             <span style={{ fontSize: "0.7rem", fontWeight: 600, letterSpacing: "0.15em", color: "var(--color-emerald)", textTransform: "uppercase" }}>
@@ -199,7 +192,6 @@ export default function Services() {
             </span>
           </div>
 
-          {/* Image — mobile: full width, second (after the label). Desktop: sits at the end of the row */}
           <div className="w-full lg:order-last lg:w-[32%] flex-shrink-0 relative">
             <ParallaxImage />
           </div>
@@ -218,53 +210,110 @@ export default function Services() {
         </div>
       </div>
 
-      {/* ── CTA — split sharp panel ── */}
-      <Reveal y={24}>
-        <div className="grid grid-cols-1 lg:grid-cols-2" style={{ borderTop: `1px solid var(--color-border)` }}>
-          <div className="relative flex flex-col justify-between overflow-hidden" style={{
-            background: "var(--color-emerald)", padding: "clamp(2.5rem, 5vw, 4rem)",
-            borderRight: `1px solid rgba(255,255,255,0.12)`,
-          }}>
-            <div className="absolute inset-0 pointer-events-none" style={{
-              backgroundImage: "repeating-linear-gradient(45deg, rgba(0,0,0,0.04) 0px, rgba(0,0,0,0.04) 1px, transparent 1px, transparent 8px)",
-            }} />
-            <div className="relative z-10">
-              <p style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.15em", color: "rgba(0,0,0,0.5)", textTransform: "uppercase", marginBottom: "1.5rem" }}>
-                Start a Project
-              </p>
-              <h3 style={{ fontSize: "clamp(1.8rem, 4vw, 3rem)", fontWeight: 900, letterSpacing: "-0.04em", lineHeight: 1.0, color: "#040805", marginBottom: "2.5rem" }}>
-                Ready to Build<br />Something Real?
-              </h3>
-              <Link href="/contact" className="inline-flex items-center gap-3 font-bold transition-all duration-200 group" style={{
-                background: "#040805", color: "var(--color-emerald)", padding: "0.85rem 1.75rem", fontSize: "0.88rem", letterSpacing: "0.02em",
-              }}>
-                Get A Quote
-                <ArrowUpRight size={16} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
-            </div>
+      {/* ── CTA Section ── */}
+      <div className="w-full border-t" style={{ borderColor: "var(--color-border)" }}>
+        <div className="grid grid-cols-1 lg:grid-cols-2">
+          
+          {/* LEFT — Start a Project */}
+          <div
+            className="relative flex flex-col justify-between overflow-hidden border-b lg:border-b-0 lg:border-r group"
+            style={{
+              background: "var(--color-bg)",
+              borderColor: "var(--color-border)",
+              padding: "clamp(2.5rem, 5vw, 4.5rem)",
+              minHeight: "clamp(340px, 45vh, 480px)",
+            }}
+          >
+            <motion.div 
+              className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-0"
+              style={{
+                background: "radial-gradient(circle at 0% 50%, rgba(45, 212, 191, 0.08) 0%, transparent 70%)" 
+              }}
+            />
+
+            <img
+              src="/images/bottom1.svg"
+              alt=""
+              aria-hidden="true"
+              className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/3 rotate-90 pointer-events-none select-none transition-transform duration-700 group-hover:scale-110 opacity-15 md:opacity-35 z-0"
+              style={{ width: "clamp(280px, 45vw, 450px)", height: "auto" }}
+            />
+
+            <Reveal y={20} delay={0.1}>
+              <div className="relative z-10">
+                <p style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.2em", color: "var(--color-emerald)", textTransform: "uppercase", marginBottom: "1.25rem" }}>
+                  Start a Project
+                </p>
+                <h3 style={{ fontSize: "clamp(2.2rem, 5vw, 3.8rem)", fontWeight: 800, letterSpacing: "-0.03em", lineHeight: 1.05, color: "var(--color-text)" }}>
+                  Ready to Build<br />Something Real?
+                </h3>
+              </div>
+            </Reveal>
+
+            <Reveal y={20} delay={0.2}>
+              <div className="relative z-10 mt-12">
+                <Link href="/contact" className="inline-flex items-center gap-3 font-bold transition-all duration-300 group/btn hover:-translate-y-0.5" style={{
+                  background: "var(--color-text)", color: "var(--color-bg)", padding: "1rem 2.2rem", fontSize: "0.95rem", letterSpacing: "0.03em", borderRadius: "99px"
+                }}>
+                  Get A Quote
+                  <ArrowRight size={18} className="transition-transform duration-300 group-hover/btn:translate-x-1" />
+                </Link>
+              </div>
+            </Reveal>
           </div>
 
-          <div className="flex flex-col justify-between" style={{ background: "var(--color-surface)", padding: "clamp(2.5rem, 5vw, 4rem)" }}>
-            <div>
-              <p style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.15em", color: "var(--color-text-faint)", textTransform: "uppercase", marginBottom: "1.5rem" }}>
-                Or Learn More
-              </p>
-              <h3 style={{ fontSize: "clamp(1.4rem, 3vw, 2.2rem)", fontWeight: 700, letterSpacing: "-0.03em", lineHeight: 1.1, color: "var(--color-text)", marginBottom: "1rem" }}>
-                Explore how we&apos;ve helped companies ship faster and grow smarter.
-              </h3>
-              <p style={{ fontSize: "0.88rem", lineHeight: 1.75, color: "var(--color-text-muted)", maxWidth: "22rem" }}>
-                Our portfolio spans fintech, healthtech, e-commerce, and enterprise SaaS. Real work. Real results.
-              </p>
-            </div>
-            <Link href="/portfolio" className="inline-flex items-center gap-2 mt-8 font-semibold transition-colors duration-200 group" style={{
-              color: "var(--color-emerald)", fontSize: "0.88rem",
-            }}>
-              View Our Work
-              <ArrowRight size={15} className="transition-transform duration-200 group-hover:translate-x-1" />
-            </Link>
+          {/* RIGHT — Learn More */}
+          <div
+            className="relative flex flex-col justify-between overflow-hidden group"
+            style={{
+              background: "var(--color-surface)",
+              padding: "clamp(2.5rem, 5vw, 4.5rem)",
+              minHeight: "clamp(340px, 45vh, 480px)",
+            }}
+          >
+            <motion.div 
+              className="absolute inset-0 pointer-events-none opacity-0 group-hover:opacity-100 transition-opacity duration-700 z-0"
+              style={{
+                background: "radial-gradient(circle at 100% 100%, rgba(255, 255, 255, 0.04) 0%, transparent 70%)" 
+              }}
+            />
+
+            <img
+              src="/images/bottom2.svg"
+              alt=""
+              aria-hidden="true"
+              className="absolute right-0 bottom-0 translate-x-1/4 translate-y-1/4 pointer-events-none select-none transition-transform duration-700 group-hover:scale-110 opacity-15 md:opacity-35 z-0"
+              style={{ width: "clamp(280px, 45vw, 450px)", height: "auto" }}
+            />
+
+            <Reveal y={20} delay={0.2}>
+              <div className="relative z-10">
+                <p style={{ fontSize: "0.72rem", fontWeight: 700, letterSpacing: "0.2em", color: "var(--color-text-faint)", textTransform: "uppercase", marginBottom: "1.25rem" }}>
+                  Or Learn More
+                </p>
+                <h3 style={{ fontSize: "clamp(1.6rem, 3.5vw, 2.4rem)", fontWeight: 700, letterSpacing: "-0.02em", lineHeight: 1.15, color: "var(--color-text)", marginBottom: "1.25rem", maxWidth: "22ch" }}>
+                  Explore how we&apos;ve helped companies ship faster and grow smarter.
+                </h3>
+                <p style={{ fontSize: "0.95rem", lineHeight: 1.7, color: "var(--color-text-muted)", maxWidth: "26rem" }}>
+                  Our portfolio spans fintech, healthtech, e-commerce, and enterprise SaaS. Real work. Real results.
+                </p>
+              </div>
+            </Reveal>
+
+            <Reveal y={20} delay={0.3}>
+              <div className="relative z-10 mt-10">
+                <Link href="/portfolio" className="inline-flex items-center gap-3 font-bold transition-all duration-300 group/btn hover:text-[var(--color-emerald)]" style={{
+                  color: "var(--color-text)", padding: "0.5rem 0", fontSize: "0.95rem", letterSpacing: "0.03em", borderBottom: "2px solid var(--color-emerald)"
+                }}>
+                  View Our Work
+                  <ArrowRight size={18} className="transition-transform duration-300 group-hover/btn:translate-x-1" />
+                </Link>
+              </div>
+            </Reveal>
           </div>
+          
         </div>
-      </Reveal>
+      </div>
     </section>
   );
 }

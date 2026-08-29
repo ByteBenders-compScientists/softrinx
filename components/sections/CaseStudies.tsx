@@ -4,194 +4,175 @@ import { useRef, useState } from "react";
 import Link from "next/link";
 import { motion, useInView } from "framer-motion";
 import { ArrowUpRight } from "lucide-react";
-import { useTheme } from "@/contexts/themeContext";
 
 // ─── Data ─────────────────────────────────────────────────────────────────────
 const CASES = [
   {
-    number: "01",
-    category: "Music Streaming",
-    title: "Djafro StreamBox — 1,000+ Downloads on Google Play",
-    result: "1k+ downloads · Live on Play Store",
+    id: "djafro",
+    stack: "(React Native, Node.js, AWS)",
+    title: "Djafro Cinema",
+    description: "Movie streaming platform and mobile app for local cinema enthusiasts.",
+    pills: ["1,000+ Downloads", "Live on Play Store"],
     image: "/images/afro.png",
-    size: "large",
+    link: "https://djafrocinema.com",
+    span: "col-span-1 md:col-span-2", // Large top card
+    aspect: "aspect-[16/10] md:aspect-[21/9]",
   },
   {
-    number: "02",
-    category: "HealthTech",
-    title: "HealthMaster App — In Active Beta Testing",
-    result: "Beta live · Real users onboarded",
-    image: "/images/graphic.webp",
-    size: "small",
+    id: "hmex",
+    stack: "(Next.js, Supabase, Tailwind)",
+    title: "HealthMaster (HMEX)",
+    description: "Healthcare management and practitioner platform.",
+    pills: ["Active Beta", "Real Users Onboarded"],
+    image: "/images/hmex2.png",
+    link: "https://hmex.healthmasterco.com/",
+    span: "col-span-1",
+    aspect: "aspect-[4/3] md:aspect-[3/4]", // Taller portrait card
   },
   {
-    number: "03",
-    category: "Community Platform",
-    title: "TabooTalks — Used by People Across Germany",
-    result: "Active users · Germany market",
-    image: "https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=600&h=600&fit=crop",
-    size: "small",
-  },
-  {
-    number: "04",
-    category: "AgriTech",
-    title: "AgriLens — Helping Farmers Make Smarter Decisions",
-    result: "Used by farmers daily · Field-tested",
+    id: "agrilens",
+    stack: "(React, Python, Machine Learning)",
+    title: "AgriLens",
+    description: "Helping farmers make smarter, data-driven decisions.",
+    pills: ["Field-Tested", "Daily Usage"],
     image: "https://images.unsplash.com/photo-1625246333195-78d9c38ad449?w=900&h=600&fit=crop",
-    size: "large",
+    link: "#",
+    span: "col-span-1",
+    aspect: "aspect-[4/3]", // Wider landscape card
   },
   {
-    number: "05",
-    category: "Creative Agency",
-    title: "Memora Visuals — Digital Presence for a Creative Studio",
-    result: "Live & converting · Brand established",
+    id: "memora",
+    stack: "(Next.js, Framer Motion, Vercel)",
+    title: "Memora Visuals",
+    description: "Digital presence for a high-end creative studio.",
+    pills: ["Live & Converting", "Brand Established"],
     image: "/images/memora.png",
-    size: "small",
+    link: "https://memoravisuals.com/",
+    span: "col-span-1",
+    aspect: "aspect-[4/3]", // Wider landscape card
   },
   {
-    number: "06",
-    category: "Travel & Rentals",
-    title: "WereNtOnline — Tourists Booking Kenya Coast Rentals Online",
-    result: "Active bookings · Kenya Coast market",
+    id: "explain",
+    stack: "(Chrome API, OpenAI, React)",
+    title: "Explain It to Me",
+    description: "AI Text Simplifier Chrome Extension.",
+    pills: ["AI Powered", "Accessibility"],
+    image: "/images/extension.png",
+    link: "#",
+    span: "col-span-1",
+    aspect: "aspect-[4/3] md:aspect-[3/4]", // Taller portrait card
+  },
+  {
+    id: "werent",
+    stack: "(Next.js, Stripe, Contentful)",
+    title: "WereNtOnline",
+    description: "Tourists booking Kenya Coast rentals online.",
+    pills: ["Active Bookings", "Kenya Coast Market"],
     image: "/images/werent.png",
-    size: "small",
-  },{
-    number:"07",
-    category:"Chrome web extension",
-    title:"Explain It to Me - AI Text Simplifier",
-    result:"Transform complex text into clear explanations with AI - from beginner to expert level",
-    image:"/images/extension.png",
-    size:"small"
+    link: "https://www.werentonline.com/",
+    span: "col-span-1 md:col-span-2", // Large bottom card
+    aspect: "aspect-[16/10] md:aspect-[21/9]",
   }
 ];
 
-// ─── Single card ──────────────────────────────────────────────────────────────
-function CaseCard({
-  c, index,
-}: {
-  c: (typeof CASES)[0];
-  index: number;
-}) {
+// ─── Single Card (Matching Reference Design) ──────────────────────────────────
+function CaseCard({ c, index }: { c: (typeof CASES)[0]; index: number }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
-  const [hovered, setHovered] = useState(false);
 
   return (
     <motion.div
       ref={ref}
-      initial={{ opacity: 0, y: 28 }}
+      initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, delay: index * 0.08, ease: [0.32, 0.72, 0, 1] }}
-      onMouseEnter={() => setHovered(true)}
-      onMouseLeave={() => setHovered(false)}
-      className="relative overflow-hidden group"
-      style={{
-        border: `1px solid var(--color-border)`,
-        cursor: "pointer",
-        background: "var(--color-surface)",
-        gridColumn: c.size === "large" ? "span 2" : "span 1",
-      }}
+      transition={{ duration: 0.6, delay: index * 0.1, ease: [0.32, 0.72, 0, 1] }}
+      className={`group ${c.span} flex flex-col`}
     >
-      {/* Image */}
-      <div className="relative overflow-hidden" style={{ height: c.size === "large" ? "clamp(220px,28vw,340px)" : "clamp(180px,22vw,260px)" }}>
-        <motion.img
-          src={c.image}
-          alt={c.title}
-          className="object-cover w-full h-full"
-          animate={{ scale: hovered ? 1.04 : 1 }}
-          transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
-        />
-        {/* Dark scrim */}
-        <motion.div
-          className="absolute inset-0"
-          animate={{ background: hovered ? "rgba(8,11,9,0.55)" : "rgba(8,11,9,0.25)" }}
-          transition={{ duration: 0.35 }}
-        />
-        {/* Category tag */}
-        <div className="absolute top-4 left-4">
-          <span style={{
-            fontSize: "0.62rem",
-            fontWeight: 700,
-            letterSpacing: "0.14em",
-            textTransform: "uppercase",
-            color: "var(--color-emerald)",
-            background: "rgba(8,11,9,0.75)",
-            padding: "0.25rem 0.6rem",
-            border: `1px solid var(--color-emerald-border)`,
-          }}>
-            {c.category}
-          </span>
-        </div>
-        {/* Number */}
-        <div className="absolute top-4 right-4">
-          <span style={{
-            fontSize: "0.65rem",
-            fontWeight: 700,
-            letterSpacing: "0.08em",
-            color: "rgba(255,255,255,0.4)",
-          }}>
-            {c.number}
-          </span>
-        </div>
-      </div>
+      <Link href={c.link} target={c.link.startsWith("http") ? "_blank" : "_self"} className="block w-full h-full cursor-pointer">
+        
+        {/* Stack/Category Label (Top) */}
+        <p style={{
+          fontSize: "0.75rem",
+          color: "var(--color-text-muted)",
+          marginBottom: "0.75rem",
+          fontWeight: 500
+        }}>
+          {c.stack}
+        </p>
 
-      {/* Content row */}
-      <div className="flex items-start justify-between gap-4 p-5">
-        <div className="flex-1 min-w-0">
-          <h3 style={{
-            fontSize: c.size === "large" ? "clamp(1rem, 1.8vw, 1.25rem)" : "clamp(0.88rem, 1.4vw, 1rem)",
-            fontWeight: 700,
-            letterSpacing: "-0.02em",
-            lineHeight: 1.25,
-            color: "var(--color-text)",
-            marginBottom: "0.5rem",
-          }}>
-            {c.title}
-          </h3>
-          <span style={{
-            fontSize: "0.7rem",
-            fontWeight: 600,
-            color: "var(--color-emerald)",
-            letterSpacing: "0.04em",
-          }}>
-            {c.result}
-          </span>
-        </div>
-
-        {/* Arrow */}
-        <motion.div
-          animate={{
-            x: hovered ? 0 : -4,
-            y: hovered ? 0 : 4,
-            opacity: hovered ? 1 : 0.35,
-          }}
-          transition={{ duration: 0.25 }}
-          style={{
-            width: "36px",
-            height: "36px",
-            border: `1px solid var(--color-emerald-border)`,
-            background: hovered ? "var(--color-emerald)" : "transparent",
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "center",
-            flexShrink: 0,
-            transition: "background 0.25s",
+        {/* Image Container */}
+        <div 
+          className={`relative w-full overflow-hidden mb-5 ${c.aspect}`}
+          style={{ 
+            borderRadius: "1.5rem", // Large rounded corners from reference
+            background: "var(--color-surface)",
+            border: "1px solid var(--color-border)"
           }}
         >
-          <ArrowUpRight
-            size={16}
-            style={{ color: hovered ? "#040805" : "var(--color-emerald)" }}
+          <motion.img
+            src={c.image}
+            alt={c.title}
+            className="object-cover w-full h-full transition-transform duration-700 ease-out group-hover:scale-105"
           />
-        </motion.div>
-      </div>
+          
+          {/* Subtle Dark Overlay for contrast on hover */}
+          <div className="absolute inset-0 transition-colors duration-500 bg-black/5 group-hover:bg-black/20" />
 
-      {/* Bottom emerald line on hover */}
-      <motion.div
-        className="absolute bottom-0 left-0 h-[2px]"
-        animate={{ width: hovered ? "100%" : "0%" }}
-        transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
-        style={{ background: "var(--color-emerald)" }}
-      />
+          {/* Stat Pills (Bottom Left over image) */}
+          <div className="absolute flex flex-wrap gap-2 bottom-4 left-4 right-4">
+            {c.pills.map((pill, i) => (
+              <span 
+                key={i} 
+                className="px-3 py-1.5 text-[0.7rem] sm:text-xs font-semibold tracking-wide text-black bg-white rounded-full shadow-sm"
+              >
+                {pill}
+              </span>
+            ))}
+          </div>
+        </div>
+
+        {/* Content Row (Bottom) */}
+        <div className="flex items-start justify-between gap-4">
+          <div className="flex-1 pr-4">
+            <h3 style={{
+              fontSize: "clamp(1.1rem, 2vw, 1.4rem)",
+              fontWeight: 600,
+              letterSpacing: "-0.02em",
+              lineHeight: 1.3,
+              color: "var(--color-text)",
+            }}>
+              {c.title}
+            </h3>
+            <p className="mt-1" style={{
+              fontSize: "clamp(0.85rem, 1.2vw, 1rem)",
+              color: "var(--color-text-muted)",
+              lineHeight: 1.5,
+            }}>
+              {c.description}
+            </p>
+          </div>
+
+          {/* Animated Arrow Button */}
+          <div 
+            className="flex items-center justify-center flex-shrink-0 transition-all duration-300 rounded-full"
+            style={{
+              width: "44px",
+              height: "44px",
+              background: "var(--color-surface)",
+              border: "1px solid var(--color-border)",
+            }}
+          >
+            {/* The arrow container handles the hover color changes natively via group-hover */}
+            <div className="flex items-center justify-center w-full h-full text-[var(--color-text)] transition-colors duration-300 rounded-full group-hover:bg-[#2DD4BF] group-hover:text-[#040805] group-hover:border-[#2DD4BF]">
+              <ArrowUpRight 
+                size={20} 
+                className="transition-transform duration-300 group-hover:scale-110 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" 
+              />
+            </div>
+          </div>
+        </div>
+        
+      </Link>
     </motion.div>
   );
 }
@@ -204,14 +185,14 @@ export default function CaseStudy() {
   return (
     <section style={{
       background: "var(--color-bg)",
-      paddingTop: "clamp(64px,10vw,100px)",
-      paddingBottom: "clamp(64px,10vw,100px)",
+      paddingTop: "clamp(80px,12vw,120px)",
+      paddingBottom: "clamp(80px,12vw,120px)",
       borderTop: `1px solid var(--color-border)`,
     }}>
-      <div className="px-6 mx-auto lg:px-16" style={{ maxWidth: "1360px" }}>
+      <div className="px-6 mx-auto lg:px-12" style={{ maxWidth: "1400px" }}>
 
         {/* Header */}
-        <div ref={headerRef} className="flex flex-col justify-between gap-8 mb-12 lg:flex-row lg:items-end">
+        <div ref={headerRef} className="flex flex-col justify-between gap-8 mb-16 lg:flex-row lg:items-end">
           <div>
             <motion.div
               className="flex items-center gap-3 mb-5"
@@ -234,14 +215,14 @@ export default function CaseStudy() {
               animate={headerInView ? { opacity: 1, y: 0 } : {}}
               transition={{ duration: 0.55, delay: 0.07, ease: [0.32, 0.72, 0, 1] }}
               style={{
-                fontSize: "clamp(2.2rem, 5vw, 4rem)",
+                fontSize: "clamp(2.5rem, 6vw, 4.5rem)",
                 fontWeight: 900,
                 letterSpacing: "-0.04em",
                 lineHeight: 1.0,
                 color: "var(--color-text)",
               }}
             >
-              Work That<br />Speaks.
+              Featured<br />Projects
             </motion.h2>
           </div>
 
@@ -252,86 +233,34 @@ export default function CaseStudy() {
             className="flex flex-col items-start gap-4 lg:items-end"
           >
             <p style={{
-              fontSize: "clamp(0.85rem, 1.3vw, 0.95rem)",
+              fontSize: "clamp(0.95rem, 1.3vw, 1.05rem)",
               lineHeight: 1.75,
               color: "var(--color-text-muted)",
-              maxWidth: "22rem",
-              textAlign: "right",
-            }}>
-              Real products. Real users. From Kenya&apos;s coast to Germany — these are the things we&apos;ve built and shipped.
+              maxWidth: "24rem",
+              textAlign: "left",
+            }} className="lg:text-right">
+              Real products. Real users. From Kenya&apos;s coast to European markets — these are the platforms we&apos;ve built and shipped.
             </p>
             <Link
               href="/portfolio"
-              className="inline-flex items-center gap-2 font-semibold transition-colors duration-200 group"
-              style={{ color: "var(--color-emerald)", fontSize: "0.85rem" }}
+              className="inline-flex items-center gap-2 font-bold transition-colors duration-200 group"
+              style={{ color: "var(--color-emerald)", fontSize: "0.95rem" }}
             >
-              All work
+              View all work
               <motion.span animate={{ x: 0 }} whileHover={{ x: 4 }} transition={{ duration: 0.2 }}>
-                <ArrowUpRight size={15} />
+                <ArrowUpRight size={18} />
               </motion.span>
             </Link>
           </motion.div>
         </div>
 
-        {/* Grid */}
-        <div
-          className="gap-px case-study-grid"
-          style={{ display: "grid", background: "var(--color-border)" }}
-        >
+        {/* Modern Grid Layout — Added items-start for that uneven masonry look */}
+        <div className="grid grid-cols-1 items-start gap-x-8 gap-y-16 md:grid-cols-2">
           {CASES.map((c, i) => (
-            <CaseCard key={c.number} c={c} index={i} />
+            <CaseCard key={c.id} c={c} index={i} />
           ))}
         </div>
 
-        {/* Metrics band */}
-        <motion.div
-          className="grid grid-cols-2 mt-px lg:grid-cols-4"
-          style={{ background: "var(--color-border)", gap: "1px" }}
-          initial={{ opacity: 0 }}
-          whileInView={{ opacity: 1 }}
-          viewport={{ once: true }}
-          transition={{ duration: 0.5, delay: 0.3 }}
-        >
-          {[
-            { value: "6+",   label: "Products Shipped" },
-            { value: "3",    label: "Countries Reached" },
-            { value: "1k+",  label: "End Users" },
-            { value: "100%", label: "Still in Production" },
-          ].map((m) => (
-            <div key={m.label} className="flex items-center gap-3 px-5 py-4"
-              style={{ background: "var(--color-surface)" }}>
-              <span style={{ fontSize: "clamp(1.1rem, 2vw, 1.6rem)", fontWeight: 900, letterSpacing: "-0.04em", color: "var(--color-text)" }}>
-                {m.value}
-              </span>
-              <span style={{ fontSize: "0.7rem", fontWeight: 500, color: "var(--color-text-faint)", letterSpacing: "0.04em", lineHeight: 1.3 }}>
-                {m.label}
-              </span>
-            </div>
-          ))}
-        </motion.div>
-
-        <style>{`
-          .case-study-grid {
-            grid-template-columns: 1fr;
-          }
-          .case-study-grid > * {
-            grid-column: span 1 !important;
-          }
-          @media (min-width: 640px) {
-            .case-study-grid {
-              grid-template-columns: repeat(2, 1fr);
-            }
-          }
-          @media (min-width: 1024px) {
-            .case-study-grid {
-              grid-template-columns: repeat(3, 1fr);
-            }
-            .case-study-grid > *:nth-child(1),
-            .case-study-grid > *:nth-child(4) {
-              grid-column: span 2 !important;
-            }
-          }
-        `}</style>
       </div>
     </section>
   );
