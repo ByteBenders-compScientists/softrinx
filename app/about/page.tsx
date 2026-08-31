@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
 import {
   ArrowUpRight, ArrowRight, Linkedin, Github, Twitter,
   MapPin, Mail, Code2, Zap, Globe, Shield, Target, ExternalLink,
@@ -12,7 +12,8 @@ import { useTheme } from "@/contexts/themeContext";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 
-// ─── Hero Background Image ────────────────────────────────────────────────────
+// ─── Hero Background Image ─────────────────────────────────────────────────────
+// Unchanged — hero stays exactly as is.
 function BackgroundHeroImage() {
   return (
     <div className="absolute inset-0 overflow-hidden" style={{ zIndex: 0 }}>
@@ -21,13 +22,12 @@ function BackgroundHeroImage() {
         alt="About Softrinx"
         fill
         className="object-cover w-full h-full"
-        style={{ 
-          filter: "blur(2px)", 
-          transform: "scale(1.05)" // Scales up slightly to hide blurred edges
+        style={{
+          filter: "blur(2px)",
+          transform: "scale(1.05)"
         }}
         priority
       />
-      {/* Dark, serious overlay for text legibility */}
       <div
         className="absolute inset-0"
         style={{
@@ -65,18 +65,19 @@ function VerticalLines({ side = "right" }: { side?: "left" | "right" }) {
 }
 
 // ─── Team ─────────────────────────────────────────────────────────────────────
+// Image convention: /images/images/{firstname}.png (lowercase first name).
 const TEAM = [
   {
-    name: "Clint Simiyu", role: "CEO , founder and software engineer", domain: "Architecture & Strategy",
-    bio: "Leads technical vision, client strategy, and the overall direction of Softrinx.Backend guru and problem solver",
+    name: "Clint Simiyu", role: "CEO, Founder & Software Engineer", domain: "Architecture & Strategy",
+    bio: "Leads technical vision, client strategy, and the overall direction of Softrinx. Backend guru and problem solver.",
     image: "/images/images/clint.png",
     website: null,
     linkedin: "https://linkedin.com/in/clint-simiyu/", github: "https://github.com/Clint171", twitter: "https://twitter.com",
   },
   {
-    name: "Baruk Ali", role: "COO, co-founder & software engineer", domain: "Operations & Growth",
+    name: "Baruk Ali", role: "COO, Co-Founder & Software Engineer", domain: "Operations & Growth",
     bio: "Oversees technical operations, partnerships, and delivery. Ensures every project runs on time and to specification.",
-    image: "/images/images/baruk2.png",
+    image: "/images/images/baruk.png",
     website: null,
     linkedin: "https://www.linkedin.com/in/mohammed-ali-mbaruk-56785639b", github: "https://github.com/Baruk1-netizen", twitter: "https://x.com/Baruk_KE",
   },
@@ -88,93 +89,124 @@ const TEAM = [
     linkedin: "https://linkedin.com/in/walter-onyango", github: "https://github.com/waltertaya", twitter: "https://x.com/taya_dev",
   },
   {
-    name: "Brian Chege", role: "CTO , Co-Founder & Lead Mobile Dev", domain: "Web & Mobile",
+    name: "Brian Chege", role: "CTO, Co-Founder & Lead Mobile Dev", domain: "Web & Mobile",
     bio: "Builds seamless cross-platform experiences. Leads all mobile app development at Softrinx.",
-    image: "/images/images/brian.jpeg",
+    image: "/images/images/brian.png",
     website: "https://www.brianchege.me",
     linkedin: "https://linkedin.com", github: "https://github.com/CHEGEBB", twitter: "https://twitter.com/chegephil24",
   },
   {
     name: "Samwel Njuguna", role: "Co-Founder & Lead AI Engineer", domain: "AI / ML",
     bio: "Leads all AI and ML initiatives. Turns LLMs and intelligent automation into real, shipped products.",
-    image: "/images/images/sam2.png",
+    image: "/images/images/samwel.png",
     website: null,
     linkedin: "https://www.linkedin.com/in/samwel-njuguna/", github: "https://github.com/lewmas9152", twitter: "https://x.com/Njuguna128801",
+  },
+  {
+    name: "Dante Kadagi", role: "Mobile Developer", domain: "Mobile Development",
+    bio: "Builds smooth, reliable mobile experiences across iOS and Android, working closely with design and backend to ship features people actually enjoy using.",
+    image: "/images/images/dante.png",
+    website: null,
+    linkedin: null, github: null, twitter: null,
+  },
+  {
+    name: "Elizabeth Muthoni", role: "Lead Marketer & Web Developer", domain: "Marketing & Web Development",
+    bio: "Leads marketing strategy and brand growth, while contributing hands-on to web development work across the team.",
+    image: "/images/images/elizabeth.png",
+    website: null,
+    linkedin: null, github: null, twitter: null,
   },
 ];
 
 function TeamCard({ member, index }: { member: typeof TEAM[0]; index: number }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
-  const [hovered, setHovered] = useState(false);
-  return (
-    <motion.div ref={ref}
-      initial={{ opacity: 0, y: 24 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, delay: index * 0.07, ease: [0.32, 0.72, 0, 1] }}
-      onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
-      style={{ background: "var(--color-surface)", border: "1px solid var(--color-border)", position: "relative", overflow: "hidden", cursor: "default" }}>
-      <div className="relative overflow-hidden" style={{ height: "clamp(200px, 24vw, 275px)" }}>
-        <motion.div className="w-full h-full" animate={{ scale: hovered ? 1.03 : 1 }} transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}>
-          <Image src={member.image} alt={member.name} fill className="object-contain object-top"
-            style={{ filter: hovered ? "grayscale(0%)" : "grayscale(15%)", transition: "filter 0.5s" }} />
-        </motion.div>
-        <motion.div className="absolute inset-0"
-          animate={{ background: hovered ? "linear-gradient(to top,rgba(8,11,9,0.8) 0%,rgba(8,11,9,0.05) 55%)" : "linear-gradient(to top,rgba(8,11,9,0.45) 0%,transparent 50%)" }}
-          transition={{ duration: 0.35 }} />
-        <div className="absolute bottom-3 left-3 flex items-center gap-1.5"
-          style={{ background: "rgba(8,11,9,0.85)", border: "1px solid var(--color-emerald-border)", padding: "0.2rem 0.55rem" }}>
-          <span style={{ fontSize: "0.58rem", fontWeight: 700, letterSpacing: "0.08em", color: "var(--color-emerald)" }}>{member.domain}</span>
-        </div>
 
-        {member.website && (
-          <motion.a
-            href={member.website}
-            target="_blank"
-            rel="noopener noreferrer"
-            initial={{ opacity: 0, y: 12 }}
-            animate={{ opacity: hovered ? 1 : 0, y: hovered ? 0 : 12 }}
-            transition={{ duration: 0.25, ease: [0.32, 0.72, 0, 1] }}
-            onClick={e => e.stopPropagation()}
-            style={{
-              position: "absolute", bottom: "clamp(2.2rem,4vw,2.8rem)", right: "0.75rem",
-              display: "flex", alignItems: "center", gap: "0.35rem",
-              background: "var(--color-emerald)",
-              color: "#040805",
-              padding: "0.25rem 0.65rem",
-              fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.08em",
-              textDecoration: "none", textTransform: "uppercase",
-              pointerEvents: hovered ? "auto" : "none",
-            }}
-          >
-            <Globe size={10} />
-            Portfolio
-            <ArrowUpRight size={10} />
-          </motion.a>
-        )}
+  const socials = [
+    { href: member.linkedin, Icon: Linkedin, label: "LinkedIn" },
+    { href: member.github, Icon: Github, label: "GitHub" },
+    { href: member.twitter, Icon: Twitter, label: "Twitter" },
+  ].filter((s) => s.href);
+
+  return (
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: index * 0.06, ease: [0.32, 0.72, 0, 1] }}
+      style={{
+        flex: "1 1 250px",
+        maxWidth: "290px",
+        background: "var(--color-surface)",
+        border: "1px solid var(--color-border)",
+        borderRadius: "1.25rem",
+        overflow: "hidden",
+      }}
+    >
+      <div
+        style={{
+          position: "relative",
+          aspectRatio: "4 / 5",
+          background: "var(--color-bg)",
+        }}
+      >
+        <Image
+          src={member.image}
+          alt={member.name}
+          fill
+          className="object-contain"
+        />
       </div>
-      <div className="p-5">
-        <div className="flex items-start justify-between gap-3 mb-3">
-          <div>
-            <h3 style={{ fontSize: "clamp(0.9rem, 1.2vw, 1rem)", fontWeight: 800, letterSpacing: "-0.02em", color: "var(--color-text)", lineHeight: 1.2 }}>{member.name}</h3>
-            <span style={{ fontSize: "0.62rem", fontWeight: 700, color: "var(--color-emerald)", letterSpacing: "0.06em", textTransform: "uppercase" }}>{member.role}</span>
+
+      <div style={{ padding: "1.4rem" }}>
+        <h3 style={{ fontSize: "1rem", fontWeight: 800, letterSpacing: "-0.02em", color: "var(--color-text)", lineHeight: 1.2, marginBottom: "0.2rem" }}>
+          {member.name}
+        </h3>
+        <p style={{ fontSize: "0.72rem", fontWeight: 700, color: "var(--color-emerald)", letterSpacing: "0.03em", marginBottom: "0.15rem" }}>
+          {member.role}
+        </p>
+        <p style={{ fontSize: "0.68rem", color: "var(--color-text-faint)", letterSpacing: "0.04em", textTransform: "uppercase", marginBottom: "0.9rem" }}>
+          {member.domain}
+        </p>
+        <p style={{ fontSize: "0.78rem", lineHeight: 1.65, color: "var(--color-text-muted)", marginBottom: "1.1rem" }}>
+          {member.bio}
+        </p>
+
+        <div className="flex items-center justify-between pt-3" style={{ borderTop: "1px solid var(--color-border)" }}>
+          <div className="flex gap-2">
+            {socials.length > 0 ? (
+              socials.map(({ href, Icon, label }) => (
+                <a
+                  key={label}
+                  href={href as string}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  aria-label={`${member.name} on ${label}`}
+                  className="flex items-center justify-center"
+                  style={{ width: 26, height: 26, borderRadius: "0.5rem", border: "1px solid var(--color-border)", color: "var(--color-text-faint)" }}
+                >
+                  <Icon size={12} />
+                </a>
+              ))
+            ) : (
+              <span style={{ fontSize: "0.68rem", color: "var(--color-text-faint)" }}>&nbsp;</span>
+            )}
           </div>
-          <div className="flex gap-1.5 shrink-0">
-            {[{ href: member.linkedin, Icon: Linkedin }, { href: member.github, Icon: Github }, { href: member.twitter, Icon: Twitter }].map(({ href, Icon }) => (
-              <a key={href} href={href} target="_blank" rel="noopener noreferrer"
-                className="flex items-center justify-center transition-all duration-200"
-                style={{ width: 26, height: 26, border: "1px solid var(--color-border)", color: "var(--color-text-faint)" }}
-                onMouseEnter={e => { (e.currentTarget as HTMLElement).style.borderColor = "var(--color-emerald-border)"; (e.currentTarget as HTMLElement).style.color = "var(--color-emerald)"; }}
-                onMouseLeave={e => { (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)"; (e.currentTarget as HTMLElement).style.color = "var(--color-text-faint)"; }}>
-                <Icon size={11} />
-              </a>
-            ))}
-          </div>
+
+          {member.website && (
+            <a
+              href={member.website}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-1"
+              style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--color-emerald)" }}
+            >
+              Portfolio
+              <ArrowUpRight size={11} />
+            </a>
+          )}
         </div>
-        <p style={{ fontSize: "0.77rem", lineHeight: 1.68, color: "var(--color-text-muted)" }}>{member.bio}</p>
       </div>
-      <motion.div className="absolute bottom-0 left-0 h-[2px]"
-        animate={{ width: hovered ? "100%" : "0%" }} transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
-        style={{ background: "var(--color-emerald)" }} />
     </motion.div>
   );
 }
@@ -207,42 +239,65 @@ const WORK = [
   },
 ];
 
+// Subtle vertical parallax on the photo as the card scrolls through view.
+function ParallaxWorkImage({ src, alt }: { src: string; alt: string }) {
+  const ref = useRef<HTMLDivElement>(null);
+  const { scrollYProgress } = useScroll({ target: ref, offset: ["start end", "end start"] });
+  const y = useTransform(scrollYProgress, [0, 1], ["-6%", "6%"]);
+
+  return (
+    <div ref={ref} style={{ position: "relative", overflow: "hidden", height: "100%" }}>
+      <motion.img
+        src={src}
+        alt={alt}
+        style={{
+          position: "absolute",
+          top: "-8%",
+          left: 0,
+          width: "100%",
+          height: "116%",
+          objectFit: "cover",
+          y,
+        }}
+      />
+    </div>
+  );
+}
+
 function WorkCard({ w, index }: { w: typeof WORK[0]; index: number }) {
   const ref = useRef(null);
   const inView = useInView(ref, { once: true, margin: "-60px" });
-  const [hovered, setHovered] = useState(false);
   return (
-    <motion.div ref={ref}
-      initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, delay: index * 0.07, ease: [0.32, 0.72, 0, 1] }}
-      onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
-      style={{ background: "var(--color-bg)", border: "1px solid var(--color-border)", position: "relative", overflow: "hidden", cursor: "default" }}>
-      <div className="relative overflow-hidden" style={{ height: "clamp(150px, 18vw, 210px)" }}>
-        <motion.img src={w.image} alt={w.product} className="object-cover w-full h-full"
-          animate={{ scale: hovered ? 1.04 : 1 }} transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }} />
-        <motion.div className="absolute inset-0"
-          animate={{ background: hovered ? "rgba(8,11,9,0.55)" : "rgba(8,11,9,0.28)" }} transition={{ duration: 0.35 }} />
-        <div className="absolute top-3 left-3">
-          <span style={{ fontSize: "0.56rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: "var(--color-emerald)", background: "rgba(8,11,9,0.8)", padding: "0.2rem 0.55rem", border: "1px solid var(--color-emerald-border)" }}>
-            {w.category}
-          </span>
-        </div>
+    <motion.div
+      ref={ref}
+      initial={{ opacity: 0, y: 20 }}
+      animate={inView ? { opacity: 1, y: 0 } : {}}
+      transition={{ duration: 0.5, delay: index * 0.07, ease: [0.32, 0.72, 0, 1] }}
+      style={{
+        background: "var(--color-bg)",
+        border: "1px solid var(--color-border)",
+        borderRadius: "1.25rem",
+        overflow: "hidden",
+      }}
+    >
+      <div style={{ height: "clamp(150px, 18vw, 210px)" }}>
+        <ParallaxWorkImage src={w.image} alt={w.product} />
       </div>
-      <div className="flex items-start justify-between gap-4 p-5">
-        <div className="flex-1 min-w-0">
-          <div style={{ fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.1em", color: "var(--color-text-faint)", textTransform: "uppercase", marginBottom: "0.25rem" }}>{w.client}</div>
-          <h3 style={{ fontSize: "clamp(0.9rem, 1.4vw, 1.05rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.2, color: "var(--color-text)", marginBottom: "0.5rem" }}>{w.product}</h3>
-          <p style={{ fontSize: "0.74rem", lineHeight: 1.65, color: "var(--color-text-muted)", marginBottom: "0.6rem" }}>{w.description}</p>
-          <span style={{ fontSize: "0.67rem", fontWeight: 700, color: "var(--color-emerald)", letterSpacing: "0.04em" }}>{w.result}</span>
+      <div style={{ padding: "1.4rem" }}>
+        <div style={{ fontSize: "0.6rem", fontWeight: 700, letterSpacing: "0.1em", color: "var(--color-emerald)", textTransform: "uppercase", marginBottom: "0.4rem" }}>
+          {w.category}
         </div>
-        <motion.div animate={{ x: hovered ? 0 : -4, y: hovered ? 0 : 4, opacity: hovered ? 1 : 0.3 }} transition={{ duration: 0.25 }}
-          style={{ width: 32, height: 32, border: "1px solid var(--color-emerald-border)", background: hovered ? "var(--color-emerald)" : "transparent", display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0, transition: "background 0.25s" }}>
-          <ArrowUpRight size={13} style={{ color: hovered ? "#040805" : "var(--color-emerald)" }} />
-        </motion.div>
+        <div style={{ fontSize: "0.65rem", fontWeight: 600, color: "var(--color-text-faint)", textTransform: "uppercase", marginBottom: "0.3rem" }}>
+          {w.client}
+        </div>
+        <h3 style={{ fontSize: "1.02rem", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.2, color: "var(--color-text)", marginBottom: "0.55rem" }}>
+          {w.product}
+        </h3>
+        <p style={{ fontSize: "0.78rem", lineHeight: 1.65, color: "var(--color-text-muted)", marginBottom: "0.7rem" }}>
+          {w.description}
+        </p>
+        <span style={{ fontSize: "0.7rem", fontWeight: 700, color: "var(--color-emerald)" }}>{w.result}</span>
       </div>
-      <motion.div className="absolute bottom-0 left-0 h-[2px]"
-        animate={{ width: hovered ? "100%" : "0%" }} transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}
-        style={{ background: "var(--color-emerald)" }} />
     </motion.div>
   );
 }
@@ -256,33 +311,27 @@ const VALUES = [
 ];
 
 function ValueCard({ v, index, inView }: { v: typeof VALUES[0]; index: number; inView: boolean }) {
-  const [hovered, setHovered] = useState(false);
   const Icon = v.icon;
   return (
     <motion.div
       initial={{ opacity: 0, y: 20 }} animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.09 }}
-      onMouseEnter={() => setHovered(true)} onMouseLeave={() => setHovered(false)}
-      style={{ padding: "clamp(1.5rem, 2.5vw, 2rem)", border: "1px solid var(--color-border)", background: hovered ? "var(--color-card-hover)" : "var(--color-card)", position: "relative", overflow: "hidden", transition: "background 0.25s", cursor: "default" }}>
+      transition={{ duration: 0.5, delay: index * 0.08 }}
+      style={{
+        padding: "clamp(1.5rem, 2.5vw, 2rem)",
+        border: "1px solid var(--color-border)",
+        borderRadius: "1.25rem",
+        background: "var(--color-card, var(--color-surface))",
+      }}
+    >
       <div className="flex items-center justify-center mb-5"
-        style={{ width: 38, height: 38, border: hovered ? "1px solid var(--color-emerald-border)" : "1px solid var(--color-border)", background: hovered ? "var(--color-emerald-bg)" : "transparent", transition: "all 0.25s" }}>
-        <Icon size={16} style={{ color: hovered ? "var(--color-emerald)" : "var(--color-text-faint)" }} />
+        style={{ width: 40, height: 40, borderRadius: "0.75rem", border: "1px solid var(--color-border)" }}>
+        <Icon size={17} style={{ color: "var(--color-emerald)" }} />
       </div>
-      <h4 style={{ fontSize: "0.9rem", fontWeight: 800, letterSpacing: "-0.02em", color: "var(--color-text)", marginBottom: "0.5rem" }}>{v.title}</h4>
-      <p style={{ fontSize: "0.78rem", lineHeight: 1.72, color: "var(--color-text-muted)" }}>{v.body}</p>
-      <motion.div className="absolute bottom-0 left-0 h-[2px]"
-        animate={{ width: hovered ? "100%" : "0%" }} transition={{ duration: 0.35 }}
-        style={{ background: "var(--color-emerald)" }} />
+      <h4 style={{ fontSize: "0.92rem", fontWeight: 800, letterSpacing: "-0.02em", color: "var(--color-text)", marginBottom: "0.5rem" }}>{v.title}</h4>
+      <p style={{ fontSize: "0.8rem", lineHeight: 1.7, color: "var(--color-text-muted)" }}>{v.body}</p>
     </motion.div>
   );
 }
-
-// ─── Testimonials ─────────────────────────────────────────────────────────────
-const TESTIMONIALS = [
-  { text: "The HealthMaster app completely changed how our patients manage their medication. Softrinx understood the clinical requirements and delivered beyond what we expected.", author: "Irenee", role: "Client — HealthMaster", initial: "I" },
-  { text: "Working with Softrinx on our brand platform was seamless. They took our vision seriously and built something we're genuinely proud to show the world.", author: "BritechMedia", role: "Client — Brand & Digital Platform", initial: "B" },
-  { text: "Decluttr came to life exactly as we imagined it. The team was communicative, fast, and delivered a polished product that our users love.", author: "Mercy", role: "Client — Decluttr", initial: "M" },
-];
 
 // ─── Process ──────────────────────────────────────────────────────────────────
 const PROCESS = [
@@ -306,6 +355,12 @@ export default function AboutPage() {
   const testimonialInView = useInView(testimonialRef, { once: true, margin: "-60px" });
   const ctaInView = useInView(ctaRef, { once: true, margin: "-60px" });
 
+  const TESTIMONIALS = [
+    { text: "The HealthMaster app completely changed how our patients manage their medication. Softrinx understood the clinical requirements and delivered beyond what we expected.", author: "Irenee", role: "Client — HealthMaster", initial: "I" },
+    { text: "Working with Softrinx on our brand platform was seamless. They took our vision seriously and built something we're genuinely proud to show the world.", author: "BritechMedia", role: "Client — Brand & Digital Platform", initial: "B" },
+    { text: "Decluttr came to life exactly as we imagined it. The team was communicative, fast, and delivered a polished product that our users love.", author: "Mercy", role: "Client — Decluttr", initial: "M" },
+  ];
+
   const [activeTestimonial, setActiveTestimonial] = useState(0);
   useEffect(() => {
     const t = setInterval(() => setActiveTestimonial((i) => (i + 1) % TESTIMONIALS.length), 5000);
@@ -316,11 +371,11 @@ export default function AboutPage() {
     <main style={{ background: "var(--color-bg)" }}>
       <Navigation />
 
-      {/* ══ CLEAN, SERIOUS HERO ════════════════════════════════════════════════ */}
-      <section 
+      {/* ══ HERO — unchanged ═══════════════════════════════════════════════════ */}
+      <section
         className="relative flex items-center justify-center overflow-hidden"
         style={{
-          minHeight: "92svh", // Slightly less than full height to show the curve cleanly
+          minHeight: "92svh",
           background: "#050505",
           borderBottomLeftRadius: "clamp(24px, 4vw, 48px)",
           borderBottomRightRadius: "clamp(24px, 4vw, 48px)",
@@ -332,7 +387,7 @@ export default function AboutPage() {
 
         <div className="relative z-10 w-full px-6 mx-auto lg:px-16" style={{ maxWidth: "1400px", paddingTop: "140px" }}>
           <div className="flex flex-col items-start max-w-4xl text-left">
-            
+
             <motion.div
               initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.15, ease: [0.32, 0.72, 0, 1] }}
@@ -371,7 +426,6 @@ export default function AboutPage() {
               We are a collective of engineers and strategists building scalable software for ambitious brands. No fluff, just shipped products.
             </motion.p>
 
-            {/* CTAs */}
             <motion.div
               className="flex flex-wrap gap-4"
               initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
@@ -445,7 +499,7 @@ export default function AboutPage() {
             </motion.div>
           </div>
 
-          <div className="grid grid-cols-1 gap-px lg:grid-cols-2" style={{ background: "var(--color-border)" }}>
+          <div className="grid grid-cols-1 gap-6 lg:grid-cols-2">
             {[
               { label: "Mission", icon: Target, heading: "Empowering through technology.", body: "To empower startups, enterprises, individuals, businesses and companies with accessible, reliable technology solutions that transform challenges into opportunities." },
               { label: "Vision", icon: Globe, heading: "The world's go-to tech partner.", body: "To be the trusted go-to technology partner globally — where any tech issue finds a solution and every digital ambition becomes reality." },
@@ -455,10 +509,14 @@ export default function AboutPage() {
                 <motion.div key={item.label}
                   initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }}
                   transition={{ duration: 0.55, delay: i * 0.1 }}
-                  style={{ padding: "clamp(2rem, 3.5vw, 3rem)", background: "var(--color-surface)", position: "relative" }}>
-                  {i === 0 && <div className="absolute top-0 left-0 w-full h-[2px]" style={{ background: "var(--color-emerald)" }} />}
+                  style={{
+                    padding: "clamp(2rem, 3.5vw, 3rem)",
+                    background: "var(--color-bg)",
+                    border: "1px solid var(--color-border)",
+                    borderRadius: "1.5rem",
+                  }}>
                   <div className="flex items-center gap-3 mb-5">
-                    <div style={{ width: 36, height: 36, border: "1px solid var(--color-emerald-border)", background: "var(--color-emerald-bg)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <div style={{ width: 38, height: 38, borderRadius: "0.75rem", border: "1px solid var(--color-border)", display: "flex", alignItems: "center", justifyContent: "center" }}>
                       <Icon size={16} style={{ color: "var(--color-emerald)" }} />
                     </div>
                     <span style={{ fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.15em", color: "var(--color-emerald)", textTransform: "uppercase" }}>{item.label}</span>
@@ -484,7 +542,7 @@ export default function AboutPage() {
               Not corporate platitudes. These are the actual principles that govern how we hire, how we build, and how we treat every client.
             </p>
           </div>
-          <div className="grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-4" style={{ background: "var(--color-border)" }}>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {VALUES.map((v, i) => <ValueCard key={v.title} v={v} index={i} inView={valuesInView} />)}
           </div>
         </div>
@@ -497,14 +555,18 @@ export default function AboutPage() {
             <SectionLabel text="How We Work" />
             <h2 style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)", fontWeight: 900, letterSpacing: "-0.04em", lineHeight: 1.0, color: "var(--color-text)" }}>The Softrinx<br />playbook.</h2>
           </div>
-          <div className="grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-4" style={{ background: "var(--color-border)" }}>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {PROCESS.map((step, i) => (
               <motion.div key={step.num}
                 initial={{ opacity: 0, y: 20 }} animate={processInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.08 }}
-                style={{ padding: "clamp(1.5rem, 2.5vw, 2rem)", background: "var(--color-surface)", position: "relative" }}>
-                {i === 0 && <div className="absolute top-0 left-0 w-full h-[2px]" style={{ background: "var(--color-emerald)" }} />}
-                <span style={{ display: "block", fontSize: "clamp(3rem, 5vw, 5rem)", fontWeight: 900, letterSpacing: "-0.06em", lineHeight: 1, color: "var(--color-border-mid)", marginBottom: "1rem", userSelect: "none" }}>{step.num}</span>
+                style={{
+                  padding: "clamp(1.5rem, 2.5vw, 2rem)",
+                  background: "var(--color-bg)",
+                  border: "1px solid var(--color-border)",
+                  borderRadius: "1.25rem",
+                }}>
+                <span style={{ display: "block", fontSize: "clamp(2.5rem, 4vw, 3.6rem)", fontWeight: 900, letterSpacing: "-0.06em", lineHeight: 1, color: "var(--color-border-mid, var(--color-border))", marginBottom: "1rem", userSelect: "none" }}>{step.num}</span>
                 <h4 style={{ fontSize: "1rem", fontWeight: 800, letterSpacing: "-0.02em", color: "var(--color-text)", marginBottom: "0.6rem" }}>{step.title}</h4>
                 <p style={{ fontSize: "0.8rem", lineHeight: 1.72, color: "var(--color-text-muted)" }}>{step.body}</p>
               </motion.div>
@@ -519,13 +581,13 @@ export default function AboutPage() {
           <div className="flex flex-col justify-between gap-8 mb-14 lg:flex-row lg:items-end">
             <div>
               <SectionLabel text="The Team" />
-              <h2 style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)", fontWeight: 900, letterSpacing: "-0.04em", lineHeight: 1.0, color: "var(--color-text)" }}>Five engineers.<br />One standard.</h2>
+              <h2 style={{ fontSize: "clamp(2rem, 4vw, 3.4rem)", fontWeight: 900, letterSpacing: "-0.04em", lineHeight: 1.0, color: "var(--color-text)" }}>Seven people.<br />One standard.</h2>
             </div>
             <p style={{ fontSize: "0.88rem", lineHeight: 1.75, color: "var(--color-text-muted)", maxWidth: "22rem" }}>
-              Everyone here ships production code, talks to clients, and owns their domain completely. No silos, no middlemen.
+              Everyone here ships production work, talks to clients, and owns their domain completely. No silos, no middlemen.
             </p>
           </div>
-          <div className="grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-3" style={{ background: "var(--color-border)" }}>
+          <div className="flex flex-wrap justify-center gap-6">
             {TEAM.map((member, i) => <TeamCard key={member.name} member={member} index={i} />)}
           </div>
         </div>
@@ -544,7 +606,7 @@ export default function AboutPage() {
               Full portfolio <ArrowUpRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
             </Link>
           </div>
-          <div className="grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-4" style={{ background: "var(--color-border)" }}>
+          <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">
             {WORK.map((w, i) => <WorkCard key={w.product} w={w} index={i} />)}
           </div>
         </div>
@@ -562,14 +624,14 @@ export default function AboutPage() {
                   initial={{ opacity: 0, y: 16 }} animate={{ opacity: 1, y: 0 }} exit={{ opacity: 0, y: -16 }}
                   transition={{ duration: 0.4, ease: [0.32, 0.72, 0, 1] }}>
                   <div className="flex gap-1 mb-6">
-                    {[...Array(5)].map((_, i) => <div key={i} style={{ width: 6, height: 6, background: "var(--color-emerald)" }} />)}
+                    {[...Array(5)].map((_, i) => <div key={i} style={{ width: 6, height: 6, borderRadius: "999px", background: "var(--color-emerald)" }} />)}
                   </div>
                   <blockquote style={{ fontSize: "clamp(1.05rem, 2vw, 1.5rem)", fontWeight: 800, letterSpacing: "-0.02em", lineHeight: 1.38, color: "var(--color-text)", marginBottom: "2rem" }}>
                     "{TESTIMONIALS[activeTestimonial].text}"
                   </blockquote>
                   <div className="flex items-center gap-4">
                     <div className="flex items-center justify-center font-black"
-                      style={{ width: 40, height: 40, background: "var(--color-emerald-bg)", border: "1px solid var(--color-emerald-border)", color: "var(--color-emerald)", fontSize: "0.9rem", flexShrink: 0 }}>
+                      style={{ width: 40, height: 40, borderRadius: "0.75rem", background: "var(--color-emerald-bg, var(--color-surface))", border: "1px solid var(--color-border)", color: "var(--color-emerald)", fontSize: "0.9rem", flexShrink: 0 }}>
                       {TESTIMONIALS[activeTestimonial].initial}
                     </div>
                     <div>
@@ -581,17 +643,23 @@ export default function AboutPage() {
               </AnimatePresence>
               <div className="flex gap-2 mt-8">
                 {TESTIMONIALS.map((_, i) => (
-                  <button key={i} onClick={() => setActiveTestimonial(i)} style={{ width: i === activeTestimonial ? 28 : 6, height: 6, border: "none", cursor: "pointer", padding: 0, background: i === activeTestimonial ? "var(--color-emerald)" : "var(--color-border-mid)", transition: "all 0.3s ease" }} />
+                  <button key={i} onClick={() => setActiveTestimonial(i)} style={{ width: i === activeTestimonial ? 28 : 6, height: 6, borderRadius: "999px", border: "none", cursor: "pointer", padding: 0, background: i === activeTestimonial ? "var(--color-emerald)" : "var(--color-border-mid, var(--color-border))", transition: "all 0.3s ease" }} />
                 ))}
               </div>
             </div>
-            <div className="flex flex-col gap-px" style={{ background: "var(--color-border)" }}>
+            <div className="flex flex-col gap-3">
               {TESTIMONIALS.map((t, i) => (
                 <motion.div key={i}
                   initial={{ opacity: 0, x: 16 }} animate={testimonialInView ? { opacity: 1, x: 0 } : {}}
                   transition={{ duration: 0.5, delay: i * 0.08 }}
                   onClick={() => setActiveTestimonial(i)}
-                  style={{ padding: "1.25rem 1.5rem", cursor: "pointer", transition: "all 0.25s", background: i === activeTestimonial ? "var(--color-emerald-bg)" : "var(--color-surface)", borderLeft: `3px solid ${i === activeTestimonial ? "var(--color-emerald)" : "transparent"}` }}>
+                  style={{
+                    padding: "1.1rem 1.4rem",
+                    cursor: "pointer",
+                    borderRadius: "1rem",
+                    border: `1px solid ${i === activeTestimonial ? "var(--color-emerald)" : "var(--color-border)"}`,
+                    background: i === activeTestimonial ? "var(--color-emerald-bg, var(--color-surface))" : "var(--color-surface)",
+                  }}>
                   <div style={{ fontSize: "0.82rem", fontWeight: 800, letterSpacing: "-0.01em", marginBottom: "0.2rem", color: i === activeTestimonial ? "var(--color-text)" : "var(--color-text-muted)" }}>{t.author}</div>
                   <div style={{ fontSize: "0.7rem", color: "var(--color-text-faint)" }}>{t.role}</div>
                 </motion.div>
@@ -605,26 +673,18 @@ export default function AboutPage() {
       <section ref={ctaRef} style={{ background: "var(--color-surface)", borderBottom: "1px solid var(--color-border)", position: "relative", overflow: "hidden" }}>
         <VerticalLines side="left" />
         <div className="px-6 mx-auto lg:px-16" style={{ maxWidth: "1360px" }}>
-          <div className="grid grid-cols-1 gap-px lg:grid-cols-2" style={{ background: "var(--color-border)" }}>
+          <div className="grid grid-cols-1 gap-6 py-16 lg:grid-cols-2 lg:py-24">
             <motion.div initial={{ opacity: 0, x: -20 }} animate={ctaInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
               className="relative overflow-hidden"
-              style={{ padding: "clamp(3rem, 6vw, 6rem) clamp(1.5rem, 4vw, 4rem)", background: "var(--color-emerald)" }}>
-              <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ opacity: 0.08 }}>
-                <defs>
-                  <pattern id="diag" width="32" height="32" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                    <line x1="0" y1="0" x2="0" y2="32" stroke="#000" strokeWidth="1.5" />
-                  </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#diag)" />
-              </svg>
+              style={{ padding: "clamp(2.5rem, 5vw, 4rem)", background: "var(--color-emerald)", borderRadius: "1.5rem" }}>
               <div className="relative z-10">
                 <h2 style={{ fontSize: "clamp(2rem, 4vw, 3.5rem)", fontWeight: 900, letterSpacing: "-0.04em", lineHeight: 1.0, color: "#040805", marginBottom: "1.5rem" }}>
                   Ready to build<br />something real?
                 </h2>
                 <Link href="/contact"
                   className="inline-flex items-center gap-2 font-bold transition-all duration-200 group hover:-translate-y-px"
-                  style={{ background: "#040805", color: "var(--color-emerald)", padding: "0.85rem 1.8rem", fontSize: "0.88rem" }}>
+                  style={{ background: "#040805", color: "var(--color-emerald)", padding: "0.85rem 1.8rem", fontSize: "0.88rem", borderRadius: "0.75rem" }}>
                   Start a project
                   <ArrowUpRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </Link>
@@ -633,14 +693,20 @@ export default function AboutPage() {
 
             <motion.div initial={{ opacity: 0, x: 20 }} animate={ctaInView ? { opacity: 1, x: 0 } : {}}
               transition={{ duration: 0.6, delay: 0.08, ease: [0.32, 0.72, 0, 1] }}
-              style={{ padding: "clamp(3rem, 6vw, 6rem) clamp(1.5rem, 4vw, 4rem)", background: "var(--color-bg)", display: "flex", flexDirection: "column", justifyContent: "center", gap: "2rem" }}>
+              style={{
+                padding: "clamp(2.5rem, 5vw, 4rem)",
+                background: "var(--color-bg)",
+                border: "1px solid var(--color-border)",
+                borderRadius: "1.5rem",
+                display: "flex", flexDirection: "column", justifyContent: "center", gap: "2rem",
+              }}>
               <p style={{ fontSize: "clamp(0.88rem, 1.4vw, 1rem)", lineHeight: 1.82, color: "var(--color-text-muted)", maxWidth: "28rem" }}>
                 We work with funded startups, established enterprises, and ambitious teams who want software that performs — not just software that exists.
               </p>
               <div className="flex flex-col gap-3">
                 {["No retainer lock-ins", "Fixed-price or T&M — your call", "Full source code, always yours"].map((item) => (
                   <div key={item} className="flex items-center gap-3">
-                    <div style={{ width: 6, height: 6, background: "var(--color-emerald)", flexShrink: 0 }} />
+                    <div style={{ width: 6, height: 6, borderRadius: "999px", background: "var(--color-emerald)", flexShrink: 0 }} />
                     <span style={{ fontSize: "0.82rem", fontWeight: 600, color: "var(--color-text-muted)" }}>{item}</span>
                   </div>
                 ))}
