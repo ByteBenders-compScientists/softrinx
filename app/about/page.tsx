@@ -43,8 +43,31 @@ function LottieAnimation() {
   );
 }
 
+// ─── Hero Background Image ────────────────────────────────────────────────────
+function BackgroundHeroImage() {
+  return (
+    <div className="absolute inset-0" style={{ zIndex: 0 }}>
+      <Image
+        src="/images/abouthero.png"
+        alt="About Softrinx"
+        fill
+        className="object-cover w-full h-full"
+        priority
+      />
+      {/* Dark overlay for text legibility, mimicking the homepage video feel */}
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.85) 100%)",
+        }}
+      />
+    </div>
+  );
+}
+
 // ─── Helpers ──────────────────────────────────────────────────────────────────
-function SectionLabel({ text }: { text: string }) {
+function SectionLabel({ text, dark = false }: { text: string, dark?: boolean }) {
   return (
     <div className="flex items-center gap-3 mb-5">
       <span className="block w-8 h-px" style={{ background: "var(--color-emerald)" }} />
@@ -323,21 +346,24 @@ export default function AboutPage() {
     <main style={{ background: "var(--color-bg)" }}>
       <Navigation />
 
-      {/* ══ HERO ═══════════════════════════════════════════════════════════════ */}
-      <section className="relative flex items-center overflow-hidden"
-        style={{ minHeight: "100svh", background: "var(--color-bg)" }}>
-        <div className="absolute pointer-events-none" style={{
-          top: "-20%", left: "55%", transform: "translateX(-50%)",
-          width: "70vw", height: "70vw", maxWidth: "800px", maxHeight: "800px",
-          background: `radial-gradient(ellipse at 50% 0%, ${colors.emeraldBg} 0%, transparent 70%)`,
-        }} />
-        <VerticalLines side="right" />
+      {/* ══ AWESOME HERO ═══════════════════════════════════════════════════════ */}
+      <section className="relative flex items-center justify-between overflow-hidden"
+        style={{
+          minHeight: "110svh",
+          background: "#050505",
+          paddingBottom: "100px",
+        }}>
+        
+        <BackgroundHeroImage />
 
+        {/* Hero Core Content Layout */}
         <div className="relative z-10 w-full px-6 mx-auto lg:px-16"
-          style={{ maxWidth: "1360px", paddingTop: "clamp(110px, 14vw, 144px)", paddingBottom: "clamp(64px, 8vw, 96px)" }}>
+          style={{ maxWidth: "1600px", paddingTop: "160px" }}>
+          
           <div className="flex flex-col-reverse gap-12 lg:grid lg:items-center"
             style={{ gridTemplateColumns: "45fr 55fr" }}>
 
+            {/* Left side: Lottie Animation (retained for layout, floating over the dark image) */}
             <motion.div className="flex items-center justify-center"
               initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.85, delay: 0.15, ease: [0.32, 0.72, 0, 1] }}
@@ -345,59 +371,109 @@ export default function AboutPage() {
               <LottieAnimation />
             </motion.div>
 
-            <motion.div className="flex flex-col"
-              initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.08, ease: [0.32, 0.72, 0, 1] }}
-              style={{ gap: "clamp(1.2rem, 2vw, 1.8rem)" }}>
-              <div className="flex items-center gap-3">
-                <span className="block w-8 h-px" style={{ background: "var(--color-emerald)" }} />
-                <span style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.16em", color: "var(--color-emerald)", textTransform: "uppercase" }}>
-                  About Softrinx
-                </span>
-              </div>
+            {/* Right side: Text Block */}
+            <div className="flex flex-col items-start text-left">
+              <motion.div
+                initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.20, ease: [0.32, 0.72, 0, 1] }}
+              >
+                <SectionLabel text="About Softrinx" />
+              </motion.div>
 
-              <h1 style={{ fontSize: "clamp(2.6rem, 5.5vw, 5rem)", fontWeight: 900, letterSpacing: "-0.04em", lineHeight: 1.0, color: "var(--color-text)" }}>
-                The engineers
-                <br />
-                <span style={{ color: "var(--color-emerald)" }}>behind</span>
-                <br />
-                the work.
-              </h1>
+              <motion.h1
+                initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.6, delay: 0.24, ease: [0.32, 0.72, 0, 1] }}
+                style={{
+                  fontSize: "clamp(2.6rem, 6vw, 5.8rem)",
+                  fontWeight: 900,
+                  lineHeight: 0.98,
+                  letterSpacing: "-0.04em",
+                  color: "#fff", // Forced white because of dark image background
+                  marginBottom: "1.5rem"
+                }}
+              >
+                <span className="block">The engineers</span>
+                <span className="block" style={{ color: "var(--color-emerald)" }}>behind</span>
+                <span className="block">the work.</span>
+              </motion.h1>
 
-              <p style={{ fontSize: "clamp(0.88rem, 1.3vw, 1rem)", lineHeight: 1.82, color: "var(--color-text-muted)", maxWidth: "30rem" }}>
+              <motion.p
+                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.55, delay: 0.36 }}
+                style={{
+                  fontSize: "clamp(1rem, 1.3vw, 1.2rem)",
+                  lineHeight: 1.75,
+                  color: "rgba(255,255,255,0.72)",
+                  maxWidth: "34rem",
+                  marginBottom: "2rem"
+                }}
+              >
                 Softrinx is a full-spectrum tech solutions company built by engineers — covering software, web, mobile, AI/ML, networking and IT. Whether you're a startup, enterprise, or individual, we deliver the expertise you need, all in one place.
-              </p>
+              </motion.p>
 
-              <div className="flex flex-wrap gap-2">
+              {/* Glassmorphic Badges */}
+              <motion.div
+                className="flex flex-wrap items-center gap-3 mb-8"
+                initial={{ opacity: 0 }} animate={{ opacity: 1 }}
+                transition={{ duration: 0.6, delay: 0.42 }}
+              >
                 {[{ label: "Westlands, Nairobi, Kenya", icon: MapPin }, { label: "Founded 2024", icon: Target }, { label: "info@softrinx.com", icon: Mail }]
                   .map(({ label, icon: Icon }) => (
-                    <div key={label} className="flex items-center gap-2"
-                      style={{ border: "1px solid var(--color-border)", padding: "0.35rem 0.8rem", background: "var(--color-card)" }}>
-                      <Icon size={11} style={{ color: "var(--color-emerald)" }} />
-                      <span style={{ fontSize: "0.72rem", fontWeight: 600, color: "var(--color-text-muted)", letterSpacing: "0.03em" }}>{label}</span>
+                    <div key={label} className="flex items-center gap-2 backdrop-blur-md"
+                      style={{
+                        background: "rgba(255,255,255,0.06)",
+                        border: "1px solid rgba(255,255,255,0.14)",
+                        borderRadius: "9999px",
+                        padding: "0.35rem 0.8rem",
+                      }}>
+                      <Icon size={12} style={{ color: "var(--color-emerald)" }} />
+                      <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#fff" }}>{label}</span>
                     </div>
                   ))}
-              </div>
+              </motion.div>
 
-              <div className="flex flex-wrap gap-3 pt-1">
-                <Link href="/contact"
-                  className="inline-flex items-center gap-2 font-bold transition-all duration-200 group hover:-translate-y-px"
-                  style={{ background: "var(--color-emerald)", color: "#040805", padding: "0.8rem 1.6rem", fontSize: "0.88rem", boxShadow: `0 0 24px var(--color-emerald-glow)` }}>
+              {/* CTAs */}
+              <motion.div
+                className="flex flex-wrap gap-3"
+                initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.5, delay: 0.46 }}
+              >
+                <Link
+                  href="/contact"
+                  className="group inline-flex items-center gap-2 font-bold transition-all duration-200 hover:-translate-y-px active:scale-[0.98]"
+                  style={{
+                    background: "var(--color-emerald)", color: "#040805",
+                    padding: "1rem 2.1rem", fontSize: "clamp(0.9rem, 1.15vw, 1rem)",
+                    boxShadow: "0 0 28px var(--color-emerald-glow)",
+                    borderRadius: "9999px",
+                  }}
+                >
                   Work With Us
-                  <ArrowUpRight size={15} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+                  <ArrowUpRight size={16} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </Link>
-                <Link href="/portfolio"
-                  className="inline-flex items-center gap-2 font-semibold transition-all duration-200"
-                  style={{ color: "var(--color-text-muted)", border: "1px solid var(--color-border-mid)", padding: "0.8rem 1.6rem", fontSize: "0.88rem", background: "transparent" }}>
-                  View Portfolio <ArrowRight size={14} />
+                <Link
+                  href="/portfolio"
+                  className="inline-flex items-center gap-2 font-semibold transition-all duration-200 group backdrop-blur-md"
+                  style={{
+                    background: "rgba(255,255,255,0.06)",
+                    color: "rgba(255,255,255,0.85)",
+                    border: "1px solid rgba(255,255,255,0.16)",
+                    padding: "1rem 2.1rem",
+                    fontSize: "clamp(0.9rem, 1.15vw, 1rem)",
+                    borderRadius: "9999px",
+                  }}
+                >
+                  View Portfolio
+                  <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-1" />
                 </Link>
-              </div>
-            </motion.div>
+              </motion.div>
+            </div>
           </div>
         </div>
 
+        {/* Bottom fading edge to blend into the next section based on active theme */}
         <div className="absolute bottom-0 left-0 w-full pointer-events-none"
-          style={{ height: 80, background: "linear-gradient(to top, var(--color-surface), transparent)" }} />
+          style={{ height: 120, background: "linear-gradient(to top, var(--color-surface), transparent)" }} />
       </section>
 
       {/* ══ WHO WE ARE + MISSION + VISION ══════════════════════════════════════ */}

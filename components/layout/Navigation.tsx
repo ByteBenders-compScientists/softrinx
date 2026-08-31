@@ -29,6 +29,8 @@ const SOCIALS = [
   { icon: <Github size={16} />, link: "https://github.com" },
 ];
 
+const MEGA_ITEMS = ["About", "Services", "Features", "Portfolio", "Contact"];
+
 // ─── Abstract thumbnail ─────────────────────────────────────────────────────
 function AbstractThumb({ colors = ["#10b981", "#6366f1", "#0ea5e9"] }: { colors?: string[] }) {
   return (
@@ -41,55 +43,47 @@ function AbstractThumb({ colors = ["#10b981", "#6366f1", "#0ea5e9"] }: { colors?
           `radial-gradient(circle at 25% 20%, ${colors[0]} 0%, transparent 45%), ` +
           `radial-gradient(circle at 80% 30%, ${colors[1]} 0%, transparent 50%), ` +
           `radial-gradient(circle at 50% 85%, ${colors[2]} 0%, transparent 55%), ` +
-          "#f5f7f5",
+          "var(--color-bg)",
       }}
     >
-      <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 40%, rgba(255,255,255,0.4) 100%)" }} />
+      <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, transparent 40%, var(--color-card-hover) 100%)" }} />
     </div>
   );
 }
 
-// ─── Mega menu content ──────────────────────────────────────────────────────
-const MEGA_MENUS: Record<string, { kind: string }> = {
-  About: { kind: "about" },
-  Services: { kind: "services" },
-  Features: { kind: "features" },
-  Portfolio: { kind: "portfolio" },
-  Contact: { kind: "contact" },
-};
-
-function AboutMenu({ em }: { em: string }) {
+// ─── Content panes ──────────────────────────────────────────────────────────
+function AboutContent({ em }: { em: string }) {
   return (
-    <div className="grid grid-cols-[1fr_280px] gap-8" style={{ padding: "20px" }}>
+    <div className="grid grid-cols-[1fr_280px] gap-10">
       <div>
-        <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.4)", marginBottom: "14px" }}>
+        <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--color-text-label)", marginBottom: "14px" }}>
           Who We Are
         </p>
         <div className="grid grid-cols-2 gap-4">
-          <Link href="/about" className="block p-3 transition-colors rounded-lg hover:bg-black/5">
-            <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "#0a0f0d" }}>Our Story</p>
-            <p style={{ fontSize: "0.8rem", color: "rgba(0,0,0,0.55)", marginTop: "2px" }}>The journey of Softrinx</p>
+          <Link href="/about" className="block p-3 transition-colors rounded-lg hover:bg-[var(--color-card-hover)]">
+            <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--color-text)" }}>Our Story</p>
+            <p style={{ fontSize: "0.8rem", color: "var(--color-text-muted)", marginTop: "2px" }}>The journey of Softrinx</p>
           </Link>
-          <Link href="/about#team" className="block p-3 transition-colors rounded-lg hover:bg-black/5">
-            <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "#0a0f0d" }}>Leadership</p>
-            <p style={{ fontSize: "0.8rem", color: "rgba(0,0,0,0.55)", marginTop: "2px" }}>Meet the core team</p>
+          <Link href="/about#team" className="block p-3 transition-colors rounded-lg hover:bg-[var(--color-card-hover)]">
+            <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--color-text)" }}>Leadership</p>
+            <p style={{ fontSize: "0.8rem", color: "var(--color-text-muted)", marginTop: "2px" }}>Meet the core team</p>
           </Link>
-          <Link href="/careers" className="block p-3 transition-colors rounded-lg hover:bg-black/5">
-            <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "#0a0f0d" }}>Careers</p>
-            <p style={{ fontSize: "0.8rem", color: "rgba(0,0,0,0.55)", marginTop: "2px" }}>Join our growing agency</p>
+          <Link href="/careers" className="block p-3 transition-colors rounded-lg hover:bg-[var(--color-card-hover)]">
+            <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--color-text)" }}>Careers</p>
+            <p style={{ fontSize: "0.8rem", color: "var(--color-text-muted)", marginTop: "2px" }}>Join our growing agency</p>
           </Link>
-          <Link href="/about#mission" className="block p-3 transition-colors rounded-lg hover:bg-black/5">
-            <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "#0a0f0d" }}>Mission</p>
-            <p style={{ fontSize: "0.8rem", color: "rgba(0,0,0,0.55)", marginTop: "2px" }}>Our vision for the future</p>
+          <Link href="/about#mission" className="block p-3 transition-colors rounded-lg hover:bg-[var(--color-card-hover)]">
+            <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--color-text)" }}>Mission</p>
+            <p style={{ fontSize: "0.8rem", color: "var(--color-text-muted)", marginTop: "2px" }}>Our vision for the future</p>
           </Link>
         </div>
       </div>
       <Link href="/about" className="block group">
-        <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.4)", marginBottom: "10px" }}>
+        <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--color-text-label)", marginBottom: "10px" }}>
           Inside Softrinx
         </p>
         <AbstractThumb colors={["#f59e0b", "#ec4899", "#8b5cf6"]} />
-        <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "#0a0f0d", marginTop: "12px", lineHeight: 1.35 }}>
+        <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--color-text)", marginTop: "12px", lineHeight: 1.35 }}>
           Building the future of digital enterprise
         </p>
         <span className="inline-flex items-center gap-1 transition-transform duration-200 group-hover:translate-x-0.5"
@@ -101,15 +95,15 @@ function AboutMenu({ em }: { em: string }) {
   );
 }
 
-function FeaturesMenu({ em }: { em: string }) {
+function FeaturesContent({ em }: { em: string }) {
   return (
-    <div className="grid grid-cols-[280px_1fr] gap-8" style={{ padding: "20px" }}>
+    <div className="grid grid-cols-[280px_1fr] gap-10">
       <Link href="/features" className="block group">
-        <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.4)", marginBottom: "10px" }}>
+        <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--color-text-label)", marginBottom: "10px" }}>
           Our Tech Stack
         </p>
         <AbstractThumb colors={["#3b82f6", "#14b8a6", "#8b5cf6"]} />
-        <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "#0a0f0d", marginTop: "12px", lineHeight: 1.35 }}>
+        <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--color-text)", marginTop: "12px", lineHeight: 1.35 }}>
           Modern infrastructure for scalable applications
         </p>
         <span className="inline-flex items-center gap-1 transition-transform duration-200 group-hover:translate-x-0.5"
@@ -118,25 +112,25 @@ function FeaturesMenu({ em }: { em: string }) {
         </span>
       </Link>
       <div>
-        <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.4)", marginBottom: "14px" }}>
+        <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--color-text-label)", marginBottom: "14px" }}>
           Capabilities
         </p>
         <div className="grid grid-cols-2 gap-4">
           <div className="p-3">
-            <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "#0a0f0d" }}>Cloud Hosting</p>
-            <p style={{ fontSize: "0.8rem", color: "rgba(0,0,0,0.55)", marginTop: "2px" }}>AWS & Vercel optimization</p>
+            <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--color-text)" }}>Cloud Hosting</p>
+            <p style={{ fontSize: "0.8rem", color: "var(--color-text-muted)", marginTop: "2px" }}>AWS & Vercel optimization</p>
           </div>
           <div className="p-3">
-            <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "#0a0f0d" }}>Security</p>
-            <p style={{ fontSize: "0.8rem", color: "rgba(0,0,0,0.55)", marginTop: "2px" }}>Enterprise-grade protection</p>
+            <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--color-text)" }}>Security</p>
+            <p style={{ fontSize: "0.8rem", color: "var(--color-text-muted)", marginTop: "2px" }}>Enterprise-grade protection</p>
           </div>
           <div className="p-3">
-            <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "#0a0f0d" }}>AI Integration</p>
-            <p style={{ fontSize: "0.8rem", color: "rgba(0,0,0,0.55)", marginTop: "2px" }}>Automate your workflows</p>
+            <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--color-text)" }}>AI Integration</p>
+            <p style={{ fontSize: "0.8rem", color: "var(--color-text-muted)", marginTop: "2px" }}>Automate your workflows</p>
           </div>
           <div className="p-3">
-            <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "#0a0f0d" }}>Analytics</p>
-            <p style={{ fontSize: "0.8rem", color: "rgba(0,0,0,0.55)", marginTop: "2px" }}>Data-driven insights</p>
+            <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--color-text)" }}>Analytics</p>
+            <p style={{ fontSize: "0.8rem", color: "var(--color-text-muted)", marginTop: "2px" }}>Data-driven insights</p>
           </div>
         </div>
       </div>
@@ -144,34 +138,34 @@ function FeaturesMenu({ em }: { em: string }) {
   );
 }
 
-function ContactMenu({ em }: { em: string }) {
+function ContactContent({ em }: { em: string }) {
   return (
-    <div className="grid grid-cols-[1fr_280px] gap-8" style={{ padding: "20px" }}>
+    <div className="grid grid-cols-[1fr_280px] gap-10">
       <div>
-        <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.4)", marginBottom: "14px" }}>
+        <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--color-text-label)", marginBottom: "14px" }}>
           Get In Touch
         </p>
         <div className="flex flex-col gap-4">
-          <Link href="/contact" className="block p-3 transition-colors rounded-lg hover:bg-black/5">
-            <p style={{ fontSize: "1rem", fontWeight: 700, color: "#0a0f0d" }}>Sales & Proposals</p>
-            <p style={{ fontSize: "0.85rem", color: "rgba(0,0,0,0.55)", marginTop: "2px" }}>Discuss a new project with our team</p>
+          <Link href="/contact" className="block p-3 transition-colors rounded-lg hover:bg-[var(--color-card-hover)]">
+            <p style={{ fontSize: "1rem", fontWeight: 700, color: "var(--color-text)" }}>Sales & Proposals</p>
+            <p style={{ fontSize: "0.85rem", color: "var(--color-text-muted)", marginTop: "2px" }}>Discuss a new project with our team</p>
           </Link>
-          <a href="tel:+254750109798" className="block p-3 transition-colors rounded-lg hover:bg-black/5">
-            <p style={{ fontSize: "1rem", fontWeight: 700, color: "#0a0f0d" }}>Direct Line</p>
-            <p style={{ fontSize: "0.85rem", color: "rgba(0,0,0,0.55)", marginTop: "2px" }}>+254 750 109798</p>
+          <a href="tel:+254750109798" className="block p-3 transition-colors rounded-lg hover:bg-[var(--color-card-hover)]">
+            <p style={{ fontSize: "1rem", fontWeight: 700, color: "var(--color-text)" }}>Direct Line</p>
+            <p style={{ fontSize: "0.85rem", color: "var(--color-text-muted)", marginTop: "2px" }}>+254 750 109798</p>
           </a>
-          <a href="mailto:info@softrinx.com" className="block p-3 transition-colors rounded-lg hover:bg-black/5">
-            <p style={{ fontSize: "1rem", fontWeight: 700, color: "#0a0f0d" }}>General Inquiry</p>
-            <p style={{ fontSize: "0.85rem", color: "rgba(0,0,0,0.55)", marginTop: "2px" }}>info@softrinx.com</p>
+          <a href="mailto:info@softrinx.com" className="block p-3 transition-colors rounded-lg hover:bg-[var(--color-card-hover)]">
+            <p style={{ fontSize: "1rem", fontWeight: 700, color: "var(--color-text)" }}>General Inquiry</p>
+            <p style={{ fontSize: "0.85rem", color: "var(--color-text-muted)", marginTop: "2px" }}>info@softrinx.com</p>
           </a>
         </div>
       </div>
       <Link href="/contact" className="block group">
-        <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.4)", marginBottom: "10px" }}>
+        <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--color-text-label)", marginBottom: "10px" }}>
           Global Reach
         </p>
         <AbstractThumb colors={["#f43f5e", "#d946ef", "#6366f1"]} />
-        <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "#0a0f0d", marginTop: "12px", lineHeight: 1.35 }}>
+        <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--color-text)", marginTop: "12px", lineHeight: 1.35 }}>
           Ready to scale your business worldwide?
         </p>
         <span className="inline-flex items-center gap-1 transition-transform duration-200 group-hover:translate-x-0.5"
@@ -183,48 +177,51 @@ function ContactMenu({ em }: { em: string }) {
   );
 }
 
-function ServicesMenu({ em }: { em: string }) {
+function ServicesContent({ em }: { em: string }) {
   const columns = [
     { label: "Services", items: ["Web Development", "Mobile Apps", "Payment Integrations", "AI & Automation"], more: "All services" },
     { label: "Platforms", items: ["Next.js", "React Native", "Appwrite", "Node.js"] },
     { label: "Industries", items: ["Fintech", "Healthcare", "E-commerce"] },
   ];
   return (
-    <div style={{ padding: "20px" }}>
+    <div>
       <Link
         href="/services"
-        className="flex items-center justify-between transition-all duration-200 group"
+        className="flex items-center justify-between transition-all duration-200 group hover:bg-[var(--color-card-hover)]"
         style={{
-          background: "#f4f7f5", borderRadius: "14px", border: "1px solid rgba(0,0,0,0.04)",
-          padding: "18px 22px", marginBottom: "22px",
+          background: "var(--color-card)", 
+          borderRadius: "14px", 
+          border: "1px solid var(--color-border-mid)",
+          padding: "18px 22px", 
+          marginBottom: "24px",
         }}
       >
-        <span style={{ fontSize: "1.15rem", fontWeight: 700, color: "#0a0f0d" }}>
+        <span style={{ fontSize: "1.15rem", fontWeight: 700, color: "var(--color-text)" }}>
           Your whole web team.
         </span>
-        <span className="flex items-center gap-2" style={{ fontSize: "0.8rem", fontWeight: 600, color: "rgba(0,0,0,0.6)" }}>
+        <span className="flex items-center gap-2" style={{ fontSize: "0.8rem", fontWeight: 600, color: "var(--color-text-muted)" }}>
           Discover <ArrowRight size={11} /> Design <ArrowRight size={11} /> Build <ArrowRight size={11} /> Launch
           <span className="flex items-center justify-center transition-transform duration-200 group-hover:translate-x-0.5"
-            style={{ width: "28px", height: "28px", borderRadius: "50%", border: "1px solid rgba(0,0,0,0.15)", marginLeft: "8px" }}>
-            <ArrowRight size={13} color="#0a0f0d" />
+            style={{ width: "28px", height: "28px", borderRadius: "50%", border: "1px solid var(--color-border)", marginLeft: "8px" }}>
+            <ArrowRight size={13} style={{ color: "var(--color-text)" }} />
           </span>
         </span>
       </Link>
 
-      <div className="grid grid-cols-3 gap-8">
+      <div className="grid grid-cols-3 gap-10">
         {columns.map((col) => (
           <div key={col.label}>
-            <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.4)", marginBottom: "12px" }}>
+            <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--color-text-label)", marginBottom: "12px" }}>
               {col.label}
             </p>
             <div className="flex flex-col gap-2.5">
               {col.items.map((item) => (
-                <Link key={item} href="/services" style={{ fontSize: "0.95rem", fontWeight: 600, color: "#0a0f0d" }}>
+                <Link key={item} href="/services" className="hover:text-[var(--color-emerald)] transition-colors" style={{ fontSize: "0.95rem", fontWeight: 600, color: "var(--color-text)" }}>
                   {item}
                 </Link>
               ))}
               {col.more && (
-                <Link href="/services" style={{ fontSize: "0.82rem", color: "rgba(0,0,0,0.5)", textDecoration: "underline", marginTop: "4px" }}>
+                <Link href="/services" style={{ fontSize: "0.82rem", color: "var(--color-text-muted)", textDecoration: "underline", marginTop: "4px" }}>
                   {col.more}
                 </Link>
               )}
@@ -236,20 +233,20 @@ function ServicesMenu({ em }: { em: string }) {
   );
 }
 
-function PortfolioMenu({ em }: { em: string }) {
+function PortfolioContent({ em }: { em: string }) {
   const builds = [
     { title: "Fintech Dashboard", stack: "Next.js · Node" },
     { title: "Streaming Platform", stack: "Next.js · Appwrite" },
     { title: "Healthcare Portal", stack: "React Native" },
   ];
   return (
-    <div className="grid grid-cols-[280px_1fr] gap-8" style={{ padding: "20px" }}>
+    <div className="grid grid-cols-[280px_1fr] gap-10">
       <Link href="/portfolio" className="block group">
-        <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.4)", marginBottom: "10px" }}>
+        <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--color-text-label)", marginBottom: "10px" }}>
           Featured case study
         </p>
         <AbstractThumb />
-        <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "#0a0f0d", marginTop: "12px", lineHeight: 1.35 }}>
+        <p style={{ fontSize: "0.95rem", fontWeight: 700, color: "var(--color-text)", marginTop: "12px", lineHeight: 1.35 }}>
           Experience the work we've done for our clients and the impact we've made in their industries.
         </p>
         <span className="inline-flex items-center gap-1 transition-transform duration-200 group-hover:translate-x-0.5"
@@ -258,18 +255,18 @@ function PortfolioMenu({ em }: { em: string }) {
         </span>
       </Link>
       <div>
-        <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "rgba(0,0,0,0.4)", marginBottom: "14px" }}>
+        <p style={{ fontSize: "10px", fontWeight: 700, letterSpacing: "0.1em", textTransform: "uppercase", color: "var(--color-text-label)", marginBottom: "14px" }}>
           Recent builds
         </p>
         <div className="flex flex-col gap-4">
           {builds.map((b) => (
-            <Link key={b.title} href="/portfolio" className="block p-2 -ml-2 transition-colors rounded-lg hover:bg-black/5">
-              <p style={{ fontSize: "1rem", fontWeight: 700, color: "#0a0f0d" }}>{b.title}</p>
-              <p style={{ fontSize: "0.8rem", color: "rgba(0,0,0,0.55)", marginTop: "1px" }}>{b.stack}</p>
+            <Link key={b.title} href="/portfolio" className="block p-2 -ml-2 transition-colors rounded-lg hover:bg-[var(--color-card-hover)]">
+              <p style={{ fontSize: "1rem", fontWeight: 700, color: "var(--color-text)" }}>{b.title}</p>
+              <p style={{ fontSize: "0.8rem", color: "var(--color-text-muted)", marginTop: "1px" }}>{b.stack}</p>
             </Link>
           ))}
         </div>
-        <Link href="/portfolio" style={{ fontSize: "0.82rem", color: "rgba(0,0,0,0.6)", textDecoration: "underline", marginTop: "16px", display: "inline-block" }}>
+        <Link href="/portfolio" style={{ fontSize: "0.82rem", color: "var(--color-text-muted)", textDecoration: "underline", marginTop: "16px", display: "inline-block" }}>
           All work
         </Link>
       </div>
@@ -282,20 +279,18 @@ const Navigation = () => {
   const [scrolled, setScrolled] = useState(false);
   const [activeMenu, setActiveMenu] = useState<string | null>(null);
   const pathname = usePathname();
-  
-  // ADDED: Destructured isDark and toggle for the theme button
+
   const { isDark, toggle, colors } = useTheme();
 
   const em = colors.emerald;
 
-  // Boolean to determine if the nav background is active
   const isNavSolid = scrolled || activeMenu;
 
-  // Dynamic colors based on scroll/menu state
-  const dynamicNavText = isNavSolid ? "#0a0f0d" : "#ffffff";
-  const dynamicNavTextFaint = isNavSolid ? "rgba(10, 15, 13, 0.6)" : "rgba(255, 255, 255, 0.7)";
-  const mobileMenuIconColor = isNavSolid || isOpen ? "#0a0f0d" : "#ffffff";
-  const hoverPillBg = isNavSolid ? "rgba(0,0,0,0.05)" : "rgba(255,255,255,0.15)";
+  // Utilize CSS variables for theme aware typography
+  const dynamicNavText = isNavSolid ? "var(--color-text)" : "#ffffff";
+  const dynamicNavTextFaint = isNavSolid ? "var(--color-text-muted)" : "rgba(255, 255, 255, 0.7)";
+  const mobileMenuIconColor = isNavSolid || isOpen ? "var(--color-text)" : "#ffffff";
+  const hoverPillBg = isNavSolid ? "var(--color-card-hover)" : "rgba(255,255,255,0.15)";
 
   useEffect(() => {
     const fn = () => setScrolled(window.scrollY > 20);
@@ -312,12 +307,13 @@ const Navigation = () => {
         className="fixed top-0 z-50 w-full transition-all duration-500"
         onMouseLeave={() => setActiveMenu(null)}
         style={{
-          background: isNavSolid ? "rgba(255, 255, 255, 0.3)" : "transparent",
+          background: isNavSolid ? "var(--color-nav-bg)" : "transparent",
           backdropFilter: isNavSolid ? "blur(18px) saturate(180%)" : "none",
           WebkitBackdropFilter: isNavSolid ? "blur(18px) saturate(180%)" : "none",
-          borderBottom: isNavSolid ? `1px solid rgba(0,0,0,0.06)` : "1px solid transparent",
-          borderBottomLeftRadius: isNavSolid ? "24px" : "0px",
-          borderBottomRightRadius: isNavSolid ? "24px" : "0px",
+          borderBottom: isNavSolid ? `1px solid var(--color-nav-border)` : "1px solid transparent",
+          // Keep corners rounded on scroll unless the mega menu is open
+          borderBottomLeftRadius: (isNavSolid && !activeMenu) ? "24px" : "0px",
+          borderBottomRightRadius: (isNavSolid && !activeMenu) ? "24px" : "0px",
         }}
       >
         <div className="absolute top-0 left-0 right-0 h-[2px] pointer-events-none"
@@ -339,7 +335,7 @@ const Navigation = () => {
             <div className="items-stretch justify-center flex-1 hidden lg:flex">
               {NAV_ITEMS.map((item) => {
                 const active = isActive(item.path);
-                const hasMenu = !!MEGA_MENUS[item.name];
+                const hasMenu = MEGA_ITEMS.includes(item.name);
                 const highlighted = active || activeMenu === item.name;
                 return (
                   <div
@@ -378,7 +374,6 @@ const Navigation = () => {
                 </div>
               </div>
 
-              {/* ADDED: Theme Toggle integrated smoothly */}
               <button
                 onClick={toggle}
                 className="flex items-center justify-center flex-shrink-0 transition-all duration-300 hover:scale-110 active:scale-95"
@@ -434,38 +429,81 @@ const Navigation = () => {
           </div>
         </div>
 
-        <div className="relative hidden w-full px-10 lg:block">
-          <div className="relative mx-auto w-full max-w-[1440px]">
-            <AnimatePresence>
-              {activeMenu && MEGA_MENUS[activeMenu] && (
-                <motion.div
-                  initial={{ opacity: 0, y: -6 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0, y: -6 }}
-                  transition={{ duration: 0.18, ease: [0.32, 0.72, 0, 1] }}
-                  className="absolute"
-                  style={{
-                    top: "10px", right: "0",
-                    width: ["About", "Contact", "Features"].includes(activeMenu) ? "650px" : activeMenu === "Portfolio" ? "760px" : "820px",
-                    background: "rgba(255, 255, 255, 0.85)",
-                    backdropFilter: "blur(24px) saturate(160%)",
-                    border: "1px solid rgba(0,0,0,0.08)",
-                    borderRadius: "18px",
-                    boxShadow: "0 24px 60px rgba(0,0,0,0.08)",
-                  }}
-                >
-                  {activeMenu === "About" && <AboutMenu em={em} />}
-                  {activeMenu === "Services" && <ServicesMenu em={em} />}
-                  {activeMenu === "Features" && <FeaturesMenu em={em} />}
-                  {activeMenu === "Portfolio" && <PortfolioMenu em={em} />}
-                  {activeMenu === "Contact" && <ContactMenu em={em} />}
-                </motion.div>
-              )}
-            </AnimatePresence>
-          </div>
+        {/* ── Full-width mega menu container ── */}
+        <div className="absolute left-0 right-0 hidden w-full lg:block" style={{ top: "68px" }}>
+          <AnimatePresence>
+            {activeMenu && MEGA_ITEMS.includes(activeMenu) && (
+              <motion.div
+                initial={{ opacity: 0, y: -6 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -6 }}
+                transition={{ duration: 0.18, ease: [0.32, 0.72, 0, 1] }}
+                className="w-full overflow-hidden"
+                style={{
+                  background: "var(--color-surface)", // theme aware
+                  borderBottom: "1px solid var(--color-border)",
+                  boxShadow: "0 24px 60px rgba(0,0,0,0.05)",
+                }}
+              >
+                {/* Max-width container to align with navbar padding */}
+                <div className="w-full px-6 mx-auto lg:px-10" style={{ maxWidth: "1440px" }}>
+                  <div className="grid" style={{ gridTemplateColumns: "260px 1fr" }}>
+                    
+                    {/* Persistent sidebar */}
+                    <div
+                      className="flex flex-col py-6"
+                      style={{ borderRight: "1px solid var(--color-border)" }}
+                    >
+                      {MEGA_ITEMS.map((name) => {
+                        const item = NAV_ITEMS.find((n) => n.name === name)!;
+                        const active = activeMenu === name;
+                        return (
+                          <Link
+                            key={name}
+                            href={item.path}
+                            onMouseEnter={() => setActiveMenu(name)}
+                            className="flex items-center justify-between mx-3 my-0.5 transition-all duration-150"
+                            style={{
+                              padding: "12px 14px",
+                              borderRadius: "10px",
+                              background: active ? "var(--color-card-hover)" : "transparent",
+                              color: "var(--color-text)",
+                              fontSize: "0.95rem",
+                              fontWeight: active ? 700 : 600,
+                            }}
+                          >
+                            {name}
+                            {active && <ArrowRight size={15} style={{ color: em }} />}
+                          </Link>
+                        );
+                      })}
+
+                      <Link
+                        href="/services"
+                        className="mx-3 mt-3 pt-3 underline"
+                        style={{ borderTop: "1px solid var(--color-border)", fontSize: "0.82rem", fontWeight: 600, color: "var(--color-text-muted)" }}
+                      >
+                        All services
+                      </Link>
+                    </div>
+
+                    {/* Content pane */}
+                    <div style={{ padding: "26px 40px" }}>
+                      {activeMenu === "About" && <AboutContent em={em} />}
+                      {activeMenu === "Services" && <ServicesContent em={em} />}
+                      {activeMenu === "Features" && <FeaturesContent em={em} />}
+                      {activeMenu === "Portfolio" && <PortfolioContent em={em} />}
+                      {activeMenu === "Contact" && <ContactContent em={em} />}
+                    </div>
+                  </div>
+                </div>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
       </nav>
 
+      {/* ── Mobile menu ── */}
       <div
         className="fixed inset-0 z-40"
         style={{ opacity: isOpen ? 1 : 0, pointerEvents: isOpen ? "auto" : "none", transition: "opacity 0.3s" }}
