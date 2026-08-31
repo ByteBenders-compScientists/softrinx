@@ -17,12 +17,12 @@ function BackgroundHeroImage() {
   return (
     <div className="absolute inset-0 overflow-hidden" style={{ zIndex: 0 }}>
       <Image
-        src="/images/abouthero.png"
+        src="/images/about.png"
         alt="About Softrinx"
         fill
         className="object-cover w-full h-full"
         style={{ 
-          filter: "blur(8px)", 
+          filter: "blur(2px)", 
           transform: "scale(1.05)" // Scales up slightly to hide blurred edges
         }}
         priority
