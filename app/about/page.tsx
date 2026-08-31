@@ -12,54 +12,27 @@ import { useTheme } from "@/contexts/themeContext";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 
-// ─── Lottie ───────────────────────────────────────────────────────────────────
-function LottieAnimation() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const [loaded, setLoaded] = useState(false);
-  useEffect(() => {
-    let anim: any, cancelled = false;
-    import("lottie-web").then((lottie) => {
-      if (cancelled || !containerRef.current) return;
-      anim = lottie.default.loadAnimation({
-        container: containerRef.current!,
-        renderer: "svg", loop: true, autoplay: true,
-        path: "/animations/services.json",
-      });
-      anim.addEventListener("DOMLoaded", () => { if (!cancelled) setLoaded(true); });
-    });
-    return () => { cancelled = true; anim?.destroy(); };
-  }, []);
-  return (
-    <div className="relative flex items-center justify-center w-full h-full">
-      {!loaded && (
-        <div className="absolute inset-0 flex items-center justify-center">
-          <div className="w-6 h-6 border-2 rounded-full animate-spin"
-            style={{ borderColor: "rgba(255,255,255,0.1)", borderTopColor: "var(--color-emerald)" }} />
-        </div>
-      )}
-      <div ref={containerRef} className="w-full h-full"
-        style={{ opacity: loaded ? 1 : 0, transition: "opacity 0.5s ease" }} />
-    </div>
-  );
-}
-
 // ─── Hero Background Image ────────────────────────────────────────────────────
 function BackgroundHeroImage() {
   return (
-    <div className="absolute inset-0" style={{ zIndex: 0 }}>
+    <div className="absolute inset-0 overflow-hidden" style={{ zIndex: 0 }}>
       <Image
         src="/images/abouthero.png"
         alt="About Softrinx"
         fill
         className="object-cover w-full h-full"
+        style={{ 
+          filter: "blur(8px)", 
+          transform: "scale(1.05)" // Scales up slightly to hide blurred edges
+        }}
         priority
       />
-      {/* Dark overlay for text legibility, mimicking the homepage video feel */}
+      {/* Dark, serious overlay for text legibility */}
       <div
         className="absolute inset-0"
         style={{
           background:
-            "linear-gradient(180deg, rgba(0,0,0,0.65) 0%, rgba(0,0,0,0.4) 40%, rgba(0,0,0,0.85) 100%)",
+            "linear-gradient(180deg, rgba(5,5,5,0.7) 0%, rgba(5,5,5,0.6) 40%, rgba(5,5,5,0.95) 100%)",
         }}
       />
     </div>
@@ -67,7 +40,7 @@ function BackgroundHeroImage() {
 }
 
 // ─── Helpers ──────────────────────────────────────────────────────────────────
-function SectionLabel({ text, dark = false }: { text: string, dark?: boolean }) {
+function SectionLabel({ text }: { text: string }) {
   return (
     <div className="flex items-center gap-3 mb-5">
       <span className="block w-8 h-px" style={{ background: "var(--color-emerald)" }} />
@@ -153,7 +126,6 @@ function TeamCard({ member, index }: { member: typeof TEAM[0]; index: number }) 
           <span style={{ fontSize: "0.58rem", fontWeight: 700, letterSpacing: "0.08em", color: "var(--color-emerald)" }}>{member.domain}</span>
         </div>
 
-        {/* Website pill — slides up on hover, only shown if member has a website */}
         {member.website && (
           <motion.a
             href={member.website}
@@ -322,8 +294,6 @@ const PROCESS = [
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function AboutPage() {
-  const { colors } = useTheme();
-
   const valuesRef = useRef(null);
   const processRef = useRef(null);
   const teamRef = useRef(null);
@@ -346,140 +316,103 @@ export default function AboutPage() {
     <main style={{ background: "var(--color-bg)" }}>
       <Navigation />
 
-      {/* ══ AWESOME HERO ═══════════════════════════════════════════════════════ */}
-      <section className="relative flex items-center justify-between overflow-hidden"
+      {/* ══ CLEAN, SERIOUS HERO ════════════════════════════════════════════════ */}
+      <section 
+        className="relative flex items-center justify-center overflow-hidden"
         style={{
-          minHeight: "110svh",
+          minHeight: "92svh", // Slightly less than full height to show the curve cleanly
           background: "#050505",
-          paddingBottom: "100px",
-        }}>
-        
+          borderBottomLeftRadius: "clamp(24px, 4vw, 48px)",
+          borderBottomRightRadius: "clamp(24px, 4vw, 48px)",
+          borderBottom: "1px solid rgba(255,255,255,0.05)",
+          paddingBottom: "80px",
+        }}
+      >
         <BackgroundHeroImage />
 
-        {/* Hero Core Content Layout */}
-        <div className="relative z-10 w-full px-6 mx-auto lg:px-16"
-          style={{ maxWidth: "1600px", paddingTop: "160px" }}>
-          
-          <div className="flex flex-col-reverse gap-12 lg:grid lg:items-center"
-            style={{ gridTemplateColumns: "45fr 55fr" }}>
-
-            {/* Left side: Lottie Animation (retained for layout, floating over the dark image) */}
-            <motion.div className="flex items-center justify-center"
-              initial={{ opacity: 0, x: -24 }} animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.85, delay: 0.15, ease: [0.32, 0.72, 0, 1] }}
-              style={{ height: "clamp(280px, 36vw, 500px)" }}>
-              <LottieAnimation />
+        <div className="relative z-10 w-full px-6 mx-auto lg:px-16" style={{ maxWidth: "1400px", paddingTop: "140px" }}>
+          <div className="flex flex-col items-start max-w-4xl text-left">
+            
+            <motion.div
+              initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.15, ease: [0.32, 0.72, 0, 1] }}
+            >
+              <SectionLabel text="About Softrinx" />
             </motion.div>
 
-            {/* Right side: Text Block */}
-            <div className="flex flex-col items-start text-left">
-              <motion.div
-                initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.20, ease: [0.32, 0.72, 0, 1] }}
-              >
-                <SectionLabel text="About Softrinx" />
-              </motion.div>
+            <motion.h1
+              initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.20, ease: [0.32, 0.72, 0, 1] }}
+              style={{
+                fontSize: "clamp(3.2rem, 7vw, 6.5rem)",
+                fontWeight: 900,
+                lineHeight: 0.95,
+                letterSpacing: "-0.04em",
+                color: "#ffffff",
+                marginBottom: "1.5rem"
+              }}
+            >
+              <span className="block">The engineers</span>
+              <span className="block" style={{ color: "var(--color-emerald)" }}>behind</span>
+              <span className="block">the work.</span>
+            </motion.h1>
 
-              <motion.h1
-                initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.6, delay: 0.24, ease: [0.32, 0.72, 0, 1] }}
+            <motion.p
+              initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.30 }}
+              style={{
+                fontSize: "clamp(1.05rem, 1.4vw, 1.3rem)",
+                lineHeight: 1.7,
+                color: "rgba(255,255,255,0.7)",
+                maxWidth: "36rem",
+                marginBottom: "2.5rem"
+              }}
+            >
+              We are a collective of engineers and strategists building scalable software for ambitious brands. No fluff, just shipped products.
+            </motion.p>
+
+            {/* CTAs */}
+            <motion.div
+              className="flex flex-wrap gap-4"
+              initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.5, delay: 0.40 }}
+            >
+              <Link
+                href="/contact"
+                className="group inline-flex items-center gap-2 font-bold transition-all duration-200 hover:-translate-y-px active:scale-[0.98]"
                 style={{
-                  fontSize: "clamp(2.6rem, 6vw, 5.8rem)",
-                  fontWeight: 900,
-                  lineHeight: 0.98,
-                  letterSpacing: "-0.04em",
-                  color: "#fff", // Forced white because of dark image background
-                  marginBottom: "1.5rem"
+                  background: "var(--color-emerald)", color: "#040805",
+                  padding: "1rem 2.2rem", fontSize: "clamp(0.9rem, 1.15vw, 1rem)",
+                  boxShadow: "0 0 28px var(--color-emerald-glow)",
+                  borderRadius: "9999px",
                 }}
               >
-                <span className="block">The engineers</span>
-                <span className="block" style={{ color: "var(--color-emerald)" }}>behind</span>
-                <span className="block">the work.</span>
-              </motion.h1>
-
-              <motion.p
-                initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.55, delay: 0.36 }}
+                Work With Us
+                <ArrowUpRight size={16} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
+              <Link
+                href="/portfolio"
+                className="inline-flex items-center gap-2 font-semibold transition-all duration-200 group backdrop-blur-md"
                 style={{
-                  fontSize: "clamp(1rem, 1.3vw, 1.2rem)",
-                  lineHeight: 1.75,
-                  color: "rgba(255,255,255,0.72)",
-                  maxWidth: "34rem",
-                  marginBottom: "2rem"
+                  background: "rgba(255,255,255,0.04)",
+                  color: "rgba(255,255,255,0.9)",
+                  border: "1px solid rgba(255,255,255,0.12)",
+                  padding: "1rem 2.2rem",
+                  fontSize: "clamp(0.9rem, 1.15vw, 1rem)",
+                  borderRadius: "9999px",
                 }}
               >
-                Softrinx is a full-spectrum tech solutions company built by engineers — covering software, web, mobile, AI/ML, networking and IT. Whether you're a startup, enterprise, or individual, we deliver the expertise you need, all in one place.
-              </motion.p>
-
-              {/* Glassmorphic Badges */}
-              <motion.div
-                className="flex flex-wrap items-center gap-3 mb-8"
-                initial={{ opacity: 0 }} animate={{ opacity: 1 }}
-                transition={{ duration: 0.6, delay: 0.42 }}
-              >
-                {[{ label: "Westlands, Nairobi, Kenya", icon: MapPin }, { label: "Founded 2024", icon: Target }, { label: "info@softrinx.com", icon: Mail }]
-                  .map(({ label, icon: Icon }) => (
-                    <div key={label} className="flex items-center gap-2 backdrop-blur-md"
-                      style={{
-                        background: "rgba(255,255,255,0.06)",
-                        border: "1px solid rgba(255,255,255,0.14)",
-                        borderRadius: "9999px",
-                        padding: "0.35rem 0.8rem",
-                      }}>
-                      <Icon size={12} style={{ color: "var(--color-emerald)" }} />
-                      <span style={{ fontSize: "0.72rem", fontWeight: 700, color: "#fff" }}>{label}</span>
-                    </div>
-                  ))}
-              </motion.div>
-
-              {/* CTAs */}
-              <motion.div
-                className="flex flex-wrap gap-3"
-                initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.5, delay: 0.46 }}
-              >
-                <Link
-                  href="/contact"
-                  className="group inline-flex items-center gap-2 font-bold transition-all duration-200 hover:-translate-y-px active:scale-[0.98]"
-                  style={{
-                    background: "var(--color-emerald)", color: "#040805",
-                    padding: "1rem 2.1rem", fontSize: "clamp(0.9rem, 1.15vw, 1rem)",
-                    boxShadow: "0 0 28px var(--color-emerald-glow)",
-                    borderRadius: "9999px",
-                  }}
-                >
-                  Work With Us
-                  <ArrowUpRight size={16} className="transition-transform duration-200 group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </Link>
-                <Link
-                  href="/portfolio"
-                  className="inline-flex items-center gap-2 font-semibold transition-all duration-200 group backdrop-blur-md"
-                  style={{
-                    background: "rgba(255,255,255,0.06)",
-                    color: "rgba(255,255,255,0.85)",
-                    border: "1px solid rgba(255,255,255,0.16)",
-                    padding: "1rem 2.1rem",
-                    fontSize: "clamp(0.9rem, 1.15vw, 1rem)",
-                    borderRadius: "9999px",
-                  }}
-                >
-                  View Portfolio
-                  <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-1" />
-                </Link>
-              </motion.div>
-            </div>
+                View Portfolio
+                <ArrowRight size={16} className="transition-transform duration-200 group-hover:translate-x-1" />
+              </Link>
+            </motion.div>
           </div>
         </div>
-
-        {/* Bottom fading edge to blend into the next section based on active theme */}
-        <div className="absolute bottom-0 left-0 w-full pointer-events-none"
-          style={{ height: 120, background: "linear-gradient(to top, var(--color-surface), transparent)" }} />
       </section>
 
       {/* ══ WHO WE ARE + MISSION + VISION ══════════════════════════════════════ */}
       <section style={{
         background: "var(--color-surface)",
-        borderTop: "1px solid var(--color-border)", borderBottom: "1px solid var(--color-border)",
         paddingTop: "clamp(72px, 10vw, 112px)", paddingBottom: "clamp(72px, 10vw, 112px)",
       }}>
         <div className="px-6 mx-auto lg:px-16" style={{ maxWidth: "1360px" }}>
@@ -540,7 +473,7 @@ export default function AboutPage() {
       </section>
 
       {/* ══ VALUES ═════════════════════════════════════════════════════════════ */}
-      <section ref={valuesRef} style={{ paddingTop: "clamp(72px, 10vw, 112px)", paddingBottom: "clamp(72px, 10vw, 112px)", background: "var(--color-bg)", borderBottom: "1px solid var(--color-border)" }}>
+      <section ref={valuesRef} style={{ paddingTop: "clamp(72px, 10vw, 112px)", paddingBottom: "clamp(72px, 10vw, 112px)", background: "var(--color-bg)", borderBottom: "1px solid var(--color-border)", borderTop: "1px solid var(--color-border)" }}>
         <div className="px-6 mx-auto lg:px-16" style={{ maxWidth: "1360px" }}>
           <div className="flex flex-col justify-between gap-8 mb-14 lg:flex-row lg:items-end">
             <div>
