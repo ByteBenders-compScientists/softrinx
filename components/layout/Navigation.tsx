@@ -307,7 +307,8 @@ const Navigation = () => {
         className="fixed top-0 z-50 w-full transition-all duration-500"
         onMouseLeave={() => setActiveMenu(null)}
         style={{
-          background: isNavSolid ? "var(--color-nav-bg)" : "transparent",
+          // Use a translucent background color based on the current theme so the frosted glass blur can show through
+          background: isNavSolid ? (isDark ? "rgba(10, 10, 10, 0.6)" : "rgba(255, 255, 255, 0.6)") : "transparent",
           backdropFilter: isNavSolid ? "blur(18px) saturate(180%)" : "none",
           WebkitBackdropFilter: isNavSolid ? "blur(18px) saturate(180%)" : "none",
           borderBottom: isNavSolid ? `1px solid var(--color-nav-border)` : "1px solid transparent",
@@ -360,18 +361,14 @@ const Navigation = () => {
             </div>
 
             <div className="flex items-center flex-shrink-0 gap-3">
+              {/* DESKTOP PHONE ROW */}
               <div className="items-center flex-shrink-0 hidden gap-2 lg:flex">
                 <Phone size={14} style={{ color: em, flexShrink: 0 }} />
-                <div style={{ lineHeight: 1.2 }}>
-                  <p className="transition-colors duration-200" style={{ fontSize: "9px", fontWeight: 600, letterSpacing: "0.12em", textTransform: "uppercase", color: dynamicNavTextFaint, marginBottom: "1px" }}>
-                    Support
-                  </p>
-                  <a href="tel:+254750109798"
-                    className="transition-colors duration-200"
-                    style={{ fontSize: "12px", fontWeight: 700, color: dynamicNavText, whiteSpace: "nowrap" }}>
-                    +254 750 109798
-                  </a>
-                </div>
+                <a href="tel:+254750109798"
+                  className="transition-colors duration-200 hover:opacity-80"
+                  style={{ fontSize: "13px", fontWeight: 700, color: dynamicNavText, whiteSpace: "nowrap" }}>
+                  +254 750 109798
+                </a>
               </div>
 
               <button
@@ -552,19 +549,15 @@ const Navigation = () => {
           </nav>
 
           <div className="flex-shrink-0 px-5 py-6 space-y-5" style={{ borderTop: `1px solid ${colors.border}` }}>
+            {/* MOBILE PHONE ROW */}
             <div className="flex items-center gap-3">
               <div className="flex items-center justify-center flex-shrink-0"
                 style={{ width: "34px", height: "34px", background: colors.emeraldBg, border: `1px solid ${colors.emeraldBorder}`, borderRadius: "50%" }}>
                 <Phone size={14} style={{ color: em }} />
               </div>
-              <div>
-                <p style={{ fontSize: "9px", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: colors.textFaint }}>
-                  Client Support
-                </p>
-                <a href="tel:+254750109798" style={{ fontSize: "13px", fontWeight: 700, color: colors.textPrimary }}>
-                  +254 750 109798
-                </a>
-              </div>
+              <a href="tel:+254750109798" style={{ fontSize: "14px", fontWeight: 700, color: colors.textPrimary }}>
+                +254 750 109798
+              </a>
             </div>
 
             <Link
