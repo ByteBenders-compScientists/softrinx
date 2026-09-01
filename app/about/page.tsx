@@ -217,12 +217,11 @@ export default function AboutPage() {
 
       {/* ══ HERO ═════════════════════════════════════════════════════════════ */}
       <section className="relative flex items-center justify-center overflow-hidden"
-        style={{ minHeight: "92svh", background: "#050505", borderBottomLeftRadius: "clamp(24px, 4vw, 48px)", borderBottomRightRadius: "clamp(24px, 4vw, 48px)", borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "80px", zIndex: 10 }}>
+        style={{ minHeight: "100svh", background: "#050505", borderBottomLeftRadius: "clamp(24px, 4vw, 48px)", borderBottomRightRadius: "clamp(24px, 4vw, 48px)", borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "80px", zIndex: 10 }}>
         <BackgroundHeroImage />
         <div className="relative z-10 w-full px-6 mx-auto lg:px-16" style={{ maxWidth: "1400px", paddingTop: "140px" }}>
           <div className="flex flex-col items-start max-w-4xl text-left">
             <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.15, ease: [0.32, 0.72, 0, 1] }}>
-              <SectionLabel text="About Softrinx" />
             </motion.div>
             <motion.h1 initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.20, ease: [0.32, 0.72, 0, 1] }}
               style={{ fontSize: "clamp(3.2rem, 7vw, 6.5rem)", fontWeight: 900, lineHeight: 0.95, letterSpacing: "-0.04em", color: "#ffffff", marginBottom: "1.5rem" }}>
