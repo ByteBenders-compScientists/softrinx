@@ -157,7 +157,7 @@ const TEAM = [
   { name: "Walter Onyango", role: "Co-Founder & Lead Developer", domain: "Full-Stack Engineering", bio: "Architects robust, scalable systems. Our backbone on backend infrastructure and API design.", image: "/images/images/walter2.png", website: "https://waltertaya.pages.dev/", linkedin: "https://linkedin.com/in/walter-onyango", github: "https://github.com/waltertaya", twitter: "https://x.com/taya_dev" },
   { name: "Samwel Njuguna", role: "Co-Founder & Lead AI Engineer", domain: "AI / ML", bio: "Leads all AI and ML initiatives. Turns LLMs and intelligent automation into real, shipped products.", image: "/images/images/sam.png", website: null, linkedin: "https://www.linkedin.com/in/samwel-njuguna/", github: "https://github.com/lewmas9152", twitter: "https://x.com/Njuguna128801" },
   { name: "Elizabeth Muthoni", role: "Lead Marketer & Web Developer", domain: "Marketing & Web Development", bio: "Leads marketing strategy and brand growth, while contributing hands-on to web development work across the team.", image: "/images/images/elizabeth.png", website: null, linkedin: null, github: null, twitter: null },
-  { name: "Dante Kadagi", role: "Mobile Developer", domain: "Mobile Development", bio: "Builds smooth, reliable mobile experiences across iOS and Android, working closely with design and backend.", image: "/images/images/dante.png", website: null, linkedin: null, github: null, twitter: null },
+  { name: "Dante Kadagi", role: "Mobile Developer", domain: "Mobile Development", bio: "Builds smooth, reliable mobile experiences across iOS and Android, working closely with design and backend.", image: "/images/images/dante2.png", website: null, linkedin: null, github: null, twitter: null },
 ];
 
 function TeamTile({ member, index }: { member: typeof TEAM[0]; index: number }) {
@@ -346,7 +346,7 @@ export default function AboutPage() {
             className="relative w-full lg:w-1/2 p-10 lg:p-20 xl:p-32 flex flex-col justify-center bg-[var(--color-surface)] border-r border-[var(--color-border)] z-10"
             style={{ clipPath: "polygon(0 0, 100% 0, 100% calc(100% - 4rem), calc(100% - 4rem) 100%, 0 100%)" }} 
           >
-            <SectionLabel text="Initiate Project" />
+           
             <h2 className="text-4xl md:text-5xl lg:text-6xl font-black text-[var(--color-text)] tracking-tight leading-[1.05] mb-6">
               Ready to engineer <br/>
               your vision?
@@ -368,7 +368,7 @@ export default function AboutPage() {
             className="relative w-full lg:w-1/2 min-h-[400px] lg:min-h-full overflow-hidden"
           >
             <Image 
-              src="/images/bgcta.svg" 
+              src="/images/cta2.png" 
               alt="Architecture Graphic" 
               fill 
               className="object-cover transition-transform duration-700 hover:scale-105" 
