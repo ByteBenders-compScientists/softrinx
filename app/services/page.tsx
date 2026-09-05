@@ -2,7 +2,7 @@
 
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence, useInView } from "framer-motion";
+import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
 import {
   Globe, Smartphone, Brain, Shield, Palette,
   GraduationCap, ArrowUpRight, ArrowRight,
@@ -237,8 +237,48 @@ function SectionLabel({ text }: { text: string }) {
   );
 }
 
+// ─── Hero background video (with scroll-driven parallax) ─────────────────────
+// The video sits in its own motion layer so it can drift/scale at a different
+// rate than the foreground content as the page scrolls — that's what actually
+// reads as parallax rather than a static poster with a filter on it.
+function HeroVideoBackground({
+  videoScale,
+  videoY,
+}: {
+  videoScale: any;
+  videoY: any;
+}) {
+  return (
+    <motion.div className="absolute inset-0" style={{ scale: videoScale, y: videoY, zIndex: 0 }}>
+      <video
+        autoPlay
+        muted
+        loop
+        playsInline
+        poster="/images/services-hero-poster.jpg"
+        className="absolute inset-0 object-cover w-full h-full"
+      >
+        {/* Drop your downloaded stock clip in /public/videos and point these at it.
+            Two formats covers Safari (mp4/h264) + smaller webm elsewhere. */}
+        <source src="/videos/services-hero.webm" type="video/webm" />
+        <source src="/images/services-hero.mp4" type="video/mp4" />
+      </video>
+      <div
+        className="absolute inset-0"
+        style={{
+          background:
+            "linear-gradient(180deg, rgba(5,5,5,0.72) 0%, rgba(5,5,5,0.5) 38%, rgba(5,5,5,0.68) 72%, rgba(5,5,5,0.97) 100%)",
+        }}
+      />
+    </motion.div>
+  );
+}
+
 // ─── Hero interactive graphic ─────────────────────────────────────────────────
-// A live terminal-style code block that types through service keywords
+// A live terminal-style code block that types through service keywords.
+// Not used in the hero anymore now that the hero has a video background —
+// kept here in case you want to drop it into another section (e.g. the
+// "Why Us" or "Process" section) later.
 function HeroGraphic() {
   const { colors } = useTheme();
   const lines = [
@@ -275,6 +315,7 @@ function HeroGraphic() {
       border: "1px solid var(--color-border)",
       position: "relative",
       overflow: "hidden",
+      borderRadius: "14px",
     }}>
       {/* Window bar */}
       <div style={{
@@ -363,6 +404,7 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[0]; index: n
         border: "1px solid var(--color-border)",
         background: open ? "var(--color-surface)" : "var(--color-bg)",
         position: "relative", overflow: "hidden",
+        borderRadius: "14px",
         transition: "background 0.25s",
       }}>
 
@@ -388,6 +430,7 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[0]; index: n
               border: open ? "1px solid var(--color-emerald-border)" : "1px solid var(--color-border)",
               background: open ? "var(--color-emerald-bg)" : "transparent",
               display: "flex", alignItems: "center", justifyContent: "center",
+              borderRadius: "10px",
               transition: "all 0.25s",
             }}>
               <Icon size={17} style={{ color: open ? "var(--color-emerald)" : "var(--color-text-faint)" }} />
@@ -419,6 +462,7 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[0]; index: n
                 border: "1px solid var(--color-border)",
                 display: "flex", alignItems: "center", justifyContent: "center",
                 color: "var(--color-text-muted)", flexShrink: 0,
+                borderRadius: "8px",
               }}>
               <ArrowUpRight size={13} />
             </motion.div>
@@ -469,7 +513,7 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[0]; index: n
                     Tech stack
                   </div>
                   {/* Tab bar */}
-                  <div className="flex flex-wrap" style={{ border: "1px solid var(--color-border)", marginBottom: "1rem" }}>
+                  <div className="flex flex-wrap" style={{ border: "1px solid var(--color-border)", borderRadius: "8px", overflow: "hidden", marginBottom: "1rem" }}>
                     {service.stack.map((s, i) => (
                       <button key={s.label} onClick={() => setStackTab(i)}
                         style={{
@@ -504,6 +548,7 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[0]; index: n
                           border: "1px solid var(--color-border)",
                           background: "var(--color-card)",
                           padding: "0.3rem 0.7rem",
+                          borderRadius: "999px",
                         }}>
                           {item}
                         </span>
@@ -524,7 +569,7 @@ function ServiceCard({ service, index }: { service: typeof SERVICES[0]; index: n
                     </div>
                     <Link href="/contact"
                       className="inline-flex items-center gap-2 font-bold transition-all duration-200 group hover:-translate-y-px"
-                      style={{ background: "var(--color-emerald)", color: "#040805", padding: "0.6rem 1.25rem", fontSize: "0.75rem", boxShadow: "0 0 18px var(--color-emerald-glow)" }}>
+                      style={{ background: "var(--color-emerald)", color: "#040805", padding: "0.6rem 1.25rem", fontSize: "0.75rem", borderRadius: "999px", boxShadow: "0 0 18px var(--color-emerald-glow)" }}>
                       Get a Quote
                       <ArrowUpRight size={12} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                     </Link>
@@ -553,6 +598,7 @@ function PackageCard({ pkg, index, inView }: { pkg: typeof PACKAGES[0]; index: n
         border: pkg.highlight ? "1px solid var(--color-emerald-border)" : "1px solid var(--color-border)",
         background: pkg.highlight ? "var(--color-emerald-bg)" : hovered ? "var(--color-surface)" : "var(--color-bg)",
         position: "relative", overflow: "hidden",
+        borderRadius: "14px",
         transition: "background 0.25s",
         padding: "clamp(1.75rem, 3vw, 2.5rem)",
         display: "flex", flexDirection: "column",
@@ -596,6 +642,7 @@ function PackageCard({ pkg, index, inView }: { pkg: typeof PACKAGES[0]; index: n
           color: pkg.highlight ? "#040805" : "var(--color-emerald)",
           border: pkg.highlight ? "none" : "1px solid var(--color-emerald-border)",
           padding: "0.72rem 1.5rem", fontSize: "0.78rem",
+          borderRadius: "999px",
           boxShadow: pkg.highlight ? "0 0 22px var(--color-emerald-glow)" : "none",
         }}>
         {pkg.highlight ? "Start Now" : pkg.price === "Custom" ? "Let's Talk" : "Get Started"}
@@ -615,6 +662,7 @@ function PackageCard({ pkg, index, inView }: { pkg: typeof PACKAGES[0]; index: n
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function ServicesPage() {
   const { colors } = useTheme();
+  const heroRef = useRef(null);
   const packagesRef = useRef(null);
   const whyRef = useRef(null);
   const processRef = useRef(null);
@@ -622,115 +670,134 @@ export default function ServicesPage() {
   const whyInView = useInView(whyRef, { once: true, margin: "-60px" });
   const processInView = useInView(processRef, { once: true, margin: "-60px" });
 
+  // Scroll-driven parallax for the hero: the video scales up and drifts down
+  // slower than the page scroll, the foreground content drifts up faster and
+  // fades — that speed mismatch between layers is what reads as parallax.
+  const { scrollYProgress: heroProgress } = useScroll({
+    target: heroRef,
+    offset: ["start start", "end start"],
+  });
+  const videoScale = useTransform(heroProgress, [0, 1], [1, 1.22]);
+  const videoY = useTransform(heroProgress, [0, 1], [0, 110]);
+  const contentY = useTransform(heroProgress, [0, 1], [0, -70]);
+  const contentOpacity = useTransform(heroProgress, [0, 0.75], [1, 0]);
+
   return (
     <main style={{ background: "var(--color-bg)" }}>
       <Navigation />
 
       {/* ══ HERO ════════════════════════════════════════════════════════════════ */}
-      <section className="relative overflow-hidden" style={{
-        background: "var(--color-bg)",
-        minHeight: "100svh",
-        display: "flex",
-        alignItems: "center",
-      }}>
-        {/* Ambient glow */}
-        <div className="absolute pointer-events-none" style={{
-          top: "-20%", left: "35%", transform: "translateX(-50%)",
-          width: "80vw", height: "80vw", maxWidth: "900px", maxHeight: "900px",
-          background: `radial-gradient(ellipse at 50% 0%, ${colors.emeraldBg} 0%, transparent 68%)`,
-        }} />
-        {/* Vertical lines */}
-        <div className="absolute top-0 bottom-0 flex gap-4 pointer-events-none left-8">
+      <section
+        ref={heroRef}
+        className="relative flex items-center justify-center overflow-hidden"
+        style={{
+          minHeight: "100svh",
+          background: "#050505",
+          borderBottomLeftRadius: "clamp(24px, 4vw, 48px)",
+          borderBottomRightRadius: "clamp(24px, 4vw, 48px)",
+          borderBottom: "1px solid rgba(255,255,255,0.05)",
+          paddingBottom: "80px",
+          zIndex: 10,
+        }}
+      >
+        <HeroVideoBackground videoScale={videoScale} videoY={videoY} />
+
+        {/* Signature vertical lines, carried over from the rest of the page */}
+        <div className="absolute top-0 bottom-0 z-[1] flex gap-4 pointer-events-none left-8">
           {[0, 1, 2].map(i => (
-            <motion.div key={i} className="w-px" style={{ background: "var(--color-border)" }}
+            <motion.div key={i} className="w-px" style={{ background: "rgba(255,255,255,0.12)" }}
               initial={{ scaleY: 0 }} animate={{ scaleY: 1 }}
               transition={{ duration: 1.3, delay: i * 0.13 }} />
           ))}
         </div>
 
-        <div className="relative z-10 w-full px-6 mx-auto lg:px-16"
-          style={{ maxWidth: "1360px", paddingTop: "clamp(110px, 14vw, 144px)", paddingBottom: "clamp(64px, 8vw, 96px)" }}>
-
-          <div className="grid items-center gap-12 lg:grid-cols-2 lg:gap-16">
-            {/* LEFT — text */}
-            <motion.div className="flex flex-col"
-              initial={{ opacity: 0, y: 24 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7, delay: 0.08, ease: [0.32, 0.72, 0, 1] }}
-              style={{ gap: "clamp(1.2rem, 2vw, 1.8rem)" }}>
-
-              <div className="flex items-center gap-3">
-                <span className="block w-8 h-px" style={{ background: "var(--color-emerald)" }} />
-                <span style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.16em", color: "var(--color-emerald)", textTransform: "uppercase" }}>
-                  Services
-                </span>
-              </div>
-
-              <h1 style={{ fontSize: "clamp(2.8rem, 6.5vw, 6rem)", fontWeight: 900, letterSpacing: "-0.05em", lineHeight: 0.93, color: "var(--color-text)" }}>
-                Every service
-                <br />
-                <span style={{ color: "var(--color-emerald)" }}>your team</span>
-                <br />
-                needs to win.
-              </h1>
-
-              <p style={{ fontSize: "clamp(0.88rem, 1.4vw, 1rem)", lineHeight: 1.82, color: "var(--color-text-muted)", maxWidth: "30rem" }}>
-                Six domains. One team. Full-stack web, mobile apps, AI/ML, cybersecurity, UI/UX design, and mentorship — all from five engineers who've shipped real products to real users.
-              </p>
-
-              {/* Service quick nav */}
-              <div className="flex flex-wrap gap-2 pt-1">
-                {SERVICES.map(s => (
-                  <button key={s.id}
-                    onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
-                    style={{
-                      fontSize: "0.65rem", fontWeight: 700, letterSpacing: "0.06em",
-                      color: "var(--color-text-faint)",
-                      border: "1px solid var(--color-border)",
-                      background: "var(--color-card)",
-                      padding: "0.28rem 0.65rem",
-                      transition: "all 0.18s",
-                      cursor: "pointer",
-                    }}
-                    onMouseEnter={e => {
-                      (e.currentTarget as HTMLElement).style.borderColor = "var(--color-emerald-border)";
-                      (e.currentTarget as HTMLElement).style.color = "var(--color-emerald)";
-                    }}
-                    onMouseLeave={e => {
-                      (e.currentTarget as HTMLElement).style.borderColor = "var(--color-border)";
-                      (e.currentTarget as HTMLElement).style.color = "var(--color-text-faint)";
-                    }}>
-                    {s.title.split(" ")[0]}
-                  </button>
-                ))}
-              </div>
-
-              <div className="flex flex-wrap gap-3">
-                <Link href="/contact"
-                  className="inline-flex items-center gap-2 font-bold transition-all duration-200 group hover:-translate-y-px"
-                  style={{ background: "var(--color-emerald)", color: "#040805", padding: "0.8rem 1.6rem", fontSize: "0.88rem", boxShadow: `0 0 28px var(--color-emerald-glow)` }}>
-                  Get a Free Quote
-                  <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </Link>
-                <Link href="/portfolio"
-                  className="inline-flex items-center gap-2 font-semibold transition-all duration-200"
-                  style={{ color: "var(--color-text-muted)", border: "1px solid var(--color-border-mid)", padding: "0.8rem 1.6rem", fontSize: "0.88rem", background: "transparent" }}>
-                  See Our Work <ArrowRight size={14} />
-                </Link>
-              </div>
+        <motion.div
+          className="relative z-10 w-full px-6 mx-auto lg:px-16"
+          style={{ maxWidth: "1400px", paddingTop: "140px", y: contentY, opacity: contentOpacity }}
+        >
+          <div className="flex flex-col items-start max-w-4xl text-left">
+            <motion.div
+              initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.1, ease: [0.32, 0.72, 0, 1] }}
+              className="flex items-center gap-3 mb-6"
+            >
+              <span className="block w-8 h-px" style={{ background: "var(--color-emerald)" }} />
+              <span style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.18em", color: "var(--color-emerald)", textTransform: "uppercase" }}>
+                Services
+              </span>
             </motion.div>
 
-            {/* RIGHT — live typing graphic */}
+            <motion.h1
+              initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, delay: 0.2, ease: [0.32, 0.72, 0, 1] }}
+              style={{ fontSize: "clamp(3rem, 6.8vw, 6.2rem)", fontWeight: 900, lineHeight: 0.95, letterSpacing: "-0.04em", color: "#ffffff", marginBottom: "1.5rem" }}
+            >
+              <span className="block">Every service</span>
+              <span className="block" style={{ color: "var(--color-emerald)" }}>your team</span>
+              <span className="block">needs to win.</span>
+            </motion.h1>
+
+            <motion.p
+              initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.32 }}
+              style={{ fontSize: "clamp(1rem, 1.3vw, 1.15rem)", lineHeight: 1.75, color: "rgba(255,255,255,0.72)", maxWidth: "34rem", marginBottom: "2rem" }}
+            >
+              Six domains. One team. Full-stack web, mobile apps, AI/ML, cybersecurity, UI/UX design, and mentorship — all from engineers who've shipped real products to real users.
+            </motion.p>
+
             <motion.div
-              initial={{ opacity: 0, x: 24 }} animate={{ opacity: 1, x: 0 }}
-              transition={{ duration: 0.85, delay: 0.18, ease: [0.32, 0.72, 0, 1] }}
-              className="hidden lg:block">
-              <HeroGraphic />
+              initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.4 }}
+              className="flex flex-wrap gap-2 mb-9"
+            >
+              {SERVICES.map(s => (
+                <button key={s.id}
+                  onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
+                  style={{
+                    fontSize: "0.66rem", fontWeight: 700, letterSpacing: "0.06em",
+                    color: "rgba(255,255,255,0.65)",
+                    border: "1px solid rgba(255,255,255,0.16)",
+                    background: "rgba(255,255,255,0.04)",
+                    backdropFilter: "blur(6px)",
+                    padding: "0.32rem 0.75rem",
+                    borderRadius: "999px",
+                    transition: "all 0.18s",
+                    cursor: "pointer",
+                  }}
+                  onMouseEnter={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "var(--color-emerald)";
+                    (e.currentTarget as HTMLElement).style.color = "var(--color-emerald)";
+                    (e.currentTarget as HTMLElement).style.background = "rgba(16,185,129,0.08)";
+                  }}
+                  onMouseLeave={e => {
+                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.16)";
+                    (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.65)";
+                    (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)";
+                  }}>
+                  {s.title.split(" ")[0]}
+                </button>
+              ))}
+            </motion.div>
+
+            <motion.div
+              initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.55, delay: 0.48 }}
+              className="flex flex-wrap gap-3"
+            >
+              <Link href="/contact"
+                className="inline-flex items-center gap-2 font-bold transition-all duration-200 group hover:-translate-y-px"
+                style={{ background: "var(--color-emerald)", color: "#040805", padding: "0.85rem 1.7rem", fontSize: "0.9rem", borderRadius: "999px", boxShadow: "0 0 30px var(--color-emerald-glow)" }}>
+                Get a Free Quote
+                <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
+              </Link>
+              <Link href="/portfolio"
+                className="inline-flex items-center gap-2 font-semibold transition-all duration-200"
+                style={{ color: "rgba(255,255,255,0.85)", border: "1px solid rgba(255,255,255,0.22)", padding: "0.85rem 1.7rem", fontSize: "0.9rem", borderRadius: "999px", background: "rgba(255,255,255,0.03)" }}>
+                See Our Work <ArrowRight size={14} />
+              </Link>
             </motion.div>
           </div>
-        </div>
-
-        <div className="absolute bottom-0 left-0 w-full pointer-events-none"
-          style={{ height: 80, background: "linear-gradient(to top, var(--color-surface), transparent)" }} />
+        </motion.div>
       </section>
 
       {/* ══ DOMAIN STRIP ════════════════════════════════════════════════════════ */}
@@ -744,7 +811,7 @@ export default function ServicesPage() {
                   initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
                   transition={{ duration: 0.35, delay: i * 0.05 }}
                   className="flex flex-col items-center justify-center gap-2 px-2 py-5 group"
-                  style={{ background: "var(--color-surface)", cursor: "pointer", transition: "background 0.2s" }}
+                  style={{ background: "var(--color-surface)", borderRadius: "10px", cursor: "pointer", transition: "background 0.2s" }}
                   onClick={() => document.getElementById("services")?.scrollIntoView({ behavior: "smooth" })}
                   onMouseEnter={e => (e.currentTarget as HTMLElement).style.background = "var(--color-emerald-bg)"}
                   onMouseLeave={e => (e.currentTarget as HTMLElement).style.background = "var(--color-surface)"}>
@@ -865,9 +932,9 @@ export default function ServicesPage() {
                     initial={{ opacity: 0, x: 14 }}
                     animate={whyInView ? { opacity: 1, x: 0 } : {}}
                     transition={{ duration: 0.5, delay: i * 0.08 }}
-                    style={{ padding: "1.2rem 1.5rem", background: "var(--color-bg)", position: "relative", display: "flex", gap: "1rem", alignItems: "flex-start" }}>
+                    style={{ padding: "1.2rem 1.5rem", background: "var(--color-bg)", borderRadius: "10px", position: "relative", display: "flex", gap: "1rem", alignItems: "flex-start" }}>
                     {i === 0 && <div className="absolute top-0 left-0 w-full h-[2px]" style={{ background: "var(--color-emerald)" }} />}
-                    <div style={{ width: 32, height: 32, flexShrink: 0, border: "1px solid var(--color-border)", display: "flex", alignItems: "center", justifyContent: "center" }}>
+                    <div style={{ width: 32, height: 32, flexShrink: 0, border: "1px solid var(--color-border)", borderRadius: "8px", display: "flex", alignItems: "center", justifyContent: "center" }}>
                       <Icon size={14} style={{ color: "var(--color-emerald)" }} />
                     </div>
                     <div>
@@ -913,7 +980,7 @@ export default function ServicesPage() {
                 initial={{ opacity: 0, y: 20 }}
                 animate={processInView ? { opacity: 1, y: 0 } : {}}
                 transition={{ duration: 0.5, delay: i * 0.09 }}
-                style={{ padding: "clamp(1.5rem, 2.5vw, 2.2rem)", background: "var(--color-surface)", position: "relative" }}>
+                style={{ padding: "clamp(1.5rem, 2.5vw, 2.2rem)", background: "var(--color-surface)", borderRadius: "12px", position: "relative" }}>
                 {i === 0 && <div className="absolute top-0 left-0 w-full h-[2px]" style={{ background: "var(--color-emerald)" }} />}
                 <span style={{ display: "block", fontSize: "clamp(3rem, 5vw, 5rem)", fontWeight: 900, letterSpacing: "-0.06em", lineHeight: 1, color: "var(--color-border-mid)", marginBottom: "1rem", userSelect: "none" }}>
                   {step.num}
@@ -941,7 +1008,7 @@ export default function ServicesPage() {
             <motion.div className="relative overflow-hidden"
               initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
               transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
-              style={{ padding: "clamp(3.5rem, 7vw, 7rem) clamp(1.5rem, 4vw, 4rem)", background: "var(--color-emerald)" }}>
+              style={{ padding: "clamp(3.5rem, 7vw, 7rem) clamp(1.5rem, 4vw, 4rem)", background: "var(--color-emerald)", borderRadius: "20px" }}>
               <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ opacity: 0.07 }}>
                 <defs>
                   <pattern id="diagsvc2" width="32" height="32" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
@@ -961,7 +1028,7 @@ export default function ServicesPage() {
                 </p>
                 <Link href="/contact"
                   className="inline-flex items-center gap-2 font-bold transition-all duration-200 group hover:-translate-y-px"
-                  style={{ background: "#040805", color: "var(--color-emerald)", padding: "0.9rem 2rem", fontSize: "0.88rem" }}>
+                  style={{ background: "#040805", color: "var(--color-emerald)", padding: "0.9rem 2rem", fontSize: "0.88rem", borderRadius: "999px" }}>
                   Get a Free Quote
                   <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
                 </Link>
@@ -972,7 +1039,7 @@ export default function ServicesPage() {
             <motion.div
               initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
               transition={{ duration: 0.6, delay: 0.08, ease: [0.32, 0.72, 0, 1] }}
-              style={{ padding: "clamp(3.5rem, 7vw, 7rem) clamp(1.5rem, 4vw, 4rem)", background: "var(--color-surface)", display: "flex", flexDirection: "column", justifyContent: "center", gap: "2rem" }}>
+              style={{ padding: "clamp(3.5rem, 7vw, 7rem) clamp(1.5rem, 4vw, 4rem)", background: "var(--color-surface)", borderRadius: "20px", display: "flex", flexDirection: "column", justifyContent: "center", gap: "2rem" }}>
               <div>
                 <div style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.14em", color: "var(--color-emerald)", textTransform: "uppercase", marginBottom: "1rem" }}>
                   What to expect
