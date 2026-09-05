@@ -2,186 +2,118 @@
 
 import { useRef, useState, useEffect } from "react";
 import Link from "next/link";
-import { motion, AnimatePresence, useInView, useScroll, useTransform } from "framer-motion";
+import { motion, useInView, useScroll, useTransform, animate } from "framer-motion";
 import {
   Globe, Smartphone, Brain, Building2, Palette,
   GraduationCap, ArrowUpRight, ArrowRight,
-  ExternalLink, CheckCircle2, Code2, Server,
-  Database, Cloud, Zap, Lock, Users,
-  Rocket, Star, Flame,
+  Check, Star, Flame, Code2, Users, Lock, Zap
 } from "lucide-react";
-import { useTheme } from "@/contexts/themeContext";
 import Navigation from "@/components/layout/Navigation";
 import Footer from "@/components/layout/Footer";
 
+// ─── Animated Counter ─────────────────────────────────────────────────────────
+function AnimatedCounter({ value, suffix = "", duration = 2 }: { value: number; suffix?: string; duration?: number }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-50px" });
+  const [count, setCount] = useState("0");
+
+  useEffect(() => {
+    if (inView) {
+      const controls = animate(0, value, {
+        duration,
+        ease: "easeOut",
+        onUpdate: (v) => {
+          setCount(Math.floor(v).toString() + suffix);
+        }
+      });
+      return controls.stop;
+    }
+  }, [inView, value, suffix, duration]);
+
+  return <span ref={ref}>{count}</span>;
+}
+
 // ─── Data ─────────────────────────────────────────────────────────────────────
-// Six services. Cybersecurity is folded into the MSME/small-business offering
-// below rather than sold as its own line item — security is a built-in feature
-// of everything we ship, not a separate product most small clients ask for.
 const SERVICES = [
   {
     id: "web",
     icon: Globe,
     number: "01",
     title: "Full-Stack Web Development",
-    tagline: "From idea to deployed product — we own the whole stack.",
-    accent: "#10B981",
-    sell: "We engineer fast, scalable, production-grade web applications. Whether it's a SaaS, a consumer app, or an enterprise portal — we've shipped them all and we build them right. No shortcuts, no spaghetti.",
+    tagline: "Production-grade architectures.",
+    sell: "We engineer fast, scalable web applications. Whether it's a B2B SaaS, a high-traffic consumer platform, or complex internal tooling — we own the stack from database to deployment. No shortcuts, just robust engineering.",
     features: [
-      "Custom web application architecture",
-      "REST & GraphQL API development",
-      "Database design & optimisation",
-      "Auth systems & role-based access",
+      "Custom application architecture",
+      "REST & GraphQL API design",
+      "PostgreSQL & NoSQL optimization",
+      "Secure auth & role-based access",
       "Third-party API integrations",
-      "CI/CD & cloud deployment",
+      "CI/CD pipeline configuration",
     ],
     pricing: "From KES 10,000",
-    pricingNote: "Basic package · scope-based pricing",
+    image: "https://images.unsplash.com/photo-1555066931-4365d14bab8c?auto=format&fit=crop&w=1200&q=80",
   },
   {
     id: "mobile",
     icon: Smartphone,
     number: "02",
     title: "Mobile App Development",
-    tagline: "Native-quality apps. Every screen. Every platform.",
-    accent: "#38BDF8",
-    sell: "We build polished, performant mobile apps that users actually love. From Play Store to App Store — we've shipped StreamBox to Google Play and we handle the full mobile lifecycle end-to-end.",
+    tagline: "Native performance. Every platform.",
+    sell: "Polished, high-performance mobile applications that command engagement. We handle the complete lifecycle — from initial architecture and offline-first data sync to final App Store and Play Store publishing.",
     features: [
-      "Cross-platform iOS & Android apps",
-      "Custom UI/UX for mobile",
-      "Offline-first architecture",
-      "Push notifications",
-      "In-app purchases & subscriptions",
-      "Play Store & App Store publishing",
+      "Cross-platform iOS & Android",
+      "Fluid, responsive mobile UI/UX",
+      "Offline-first local storage",
+      "Push notification systems",
+      "Secure in-app transactions",
+      "Automated store deployments",
     ],
     pricing: "From KES 25,000",
-    pricingNote: "Scope-based · cross-platform included",
+    image: "https://images.unsplash.com/photo-1512941937669-90a1b58e7e9c?auto=format&fit=crop&w=1200&q=80",
   },
   {
     id: "ai",
     icon: Brain,
     number: "03",
     title: "AI & Machine Learning",
-    tagline: "We build AI — not just wrap it.",
-    accent: "#A78BFA",
-    sell: "From custom-trained models to intelligent chatbots — we bring real AI into your product. AgriLens, our crop disease detection platform, is a trained computer vision model running in production for Kenyan farmers. That's what we build.",
+    tagline: "Applied intelligence, not just wrappers.",
+    sell: "We integrate genuine machine learning capabilities into your products. From custom-trained computer vision models like AgriLens to sophisticated NLP pipelines — we build AI that solves actual business problems.",
     features: [
       "Custom ML model training",
       "LLM integration & fine-tuning",
       "Computer vision systems",
       "NLP & text analysis pipelines",
-      "AI chatbots & assistants",
-      "Model deployment & monitoring",
+      "Predictive data modeling",
+      "Production model monitoring",
     ],
     pricing: "From KES 40,000",
-    pricingNote: "Complexity-based pricing",
+    image: "https://images.unsplash.com/photo-1620712943543-bcc4688e7485?auto=format&fit=crop&w=1200&q=80",
   },
   {
     id: "msme",
     icon: Building2,
     number: "04",
-    title: "MSME & Small Business Solutions",
-    tagline: "Look established. Run like one, too.",
-    accent: "#FBBF24",
-    sell: "Most small businesses and MSMEs lose customers before they even get a chance — a broken website, no online presence, or systems that don't talk to each other. We build affordable, professional web and mobile presence, plus the internal tools that help you run day-to-day — inventory, orders, payments — so you compete with businesses twice your size.",
+    title: "MSME Enterprise Solutions",
+    tagline: "Run like a tier-one company.",
+    sell: "We digitize small and medium businesses to punch above their weight. Get professional digital storefronts coupled with bespoke internal tools for inventory, M-Pesa payments, and operations — integrated seamlessly.",
     features: [
-      "Professional business website",
-      "M-Pesa & payment integration",
-      "Inventory & order management",
-      "WhatsApp Business automation",
-      "Security & backups built in",
-      "Ongoing support & updates",
+      "Professional corporate presence",
+      "M-Pesa Daraja API integration",
+      "Custom inventory management",
+      "Automated client reporting",
+      "Built-in security & backups",
+      "Ongoing system maintenance",
     ],
     pricing: "From KES 8,000",
-    pricingNote: "Tailored to your business size",
-  },
-  {
-    id: "design",
-    icon: Palette,
-    number: "05",
-    title: "UI/UX Design",
-    tagline: "Design that converts. Interfaces users remember.",
-    accent: "#F472B6",
-    sell: "We craft interfaces that are not just beautiful — they're purposeful. Every interaction is intentional, every flow tested. The UI you're looking at right now? We built that too.",
-    features: [
-      "User research & personas",
-      "Wireframing & prototyping",
-      "High-fidelity UI design",
-      "Design systems & components",
-      "Responsive & mobile design",
-      "Interactive prototypes",
-    ],
-    pricing: "From KES 8,000",
-    pricingNote: "Per screen or full project pricing",
-  },
-  {
-    id: "mentorship",
-    icon: GraduationCap,
-    number: "06",
-    title: "Tech Mentorship",
-    tagline: "We teach what we've actually shipped.",
-    accent: "#22D3EE",
-    sell: "Real engineers. Real curriculum. We mentor developers and students using the same skills and patterns we use in production — not textbook theory. Practical, focused, and honest about what the industry actually needs.",
-    features: [
-      "1-on-1 personalised sessions",
-      "Project-based learning",
-      "Live code reviews",
-      "Career guidance & roadmaps",
-      "Interview preparation",
-      "Group cohort programmes",
-    ],
-    pricing: "From KES 2,000",
-    pricingNote: "Per session · packages available",
+    image: "https://images.unsplash.com/photo-1460925895917-afdab827c52f?auto=format&fit=crop&w=1200&q=80",
   },
 ];
 
-// Why-Softrinx cards. "span" controls how wide the card sits in the 3-col grid
-// on desktop — one wide card up front (mirrors a hero-ish feature callout),
-// the rest sit evenly beneath it.
-const WHY_US = [
-  {
-    icon: Users,
-    title: "You talk to the engineer",
-    body: "No account managers. No middlemen. You reach out — you get the engineer building your product.",
-    span: 2,
-  },
-  {
-    icon: Zap,
-    title: "7 products shipped in year one",
-    body: "AgriLens, HealthMaster, StreamBox, Decluttr, IntelliMark — real users, real traction.",
-    span: 1,
-  },
-  {
-    icon: Lock,
-    title: "Full source code. Always yours.",
-    body: "Everything we build belongs to you. Walk away with the repo. No lock-in, ever.",
-    span: 1,
-  },
-  {
-    icon: Globe,
-    title: "Built in Westlands, Nairobi. Used globally.",
-    body: "Products used in Kenya and Germany. World-class engineering has no zip code requirement.",
-    span: 1,
-  },
-  {
-    icon: Code2,
-    title: "We do it right or we fix it.",
-    body: "If something isn't working post-launch, we fix it. No blame, no extra charge.",
-    span: 1,
-  },
-];
-
-// Pricing tiers. "unit" is shown right next to the price the way a monthly
-// plan would show "/month" — ours are one-time, scope-priced packages, so we
-// label the unit accordingly instead of inventing a subscription.
 const PACKAGES = [
   {
     name: "Starter",
-    icon: Rocket,
     price: "KES 10,000",
-    unit: "one-time",
-    tag: "MVPs & small sites",
-    description: "For individuals, MVPs, and small business websites that need to look and work great without the enterprise budget.",
+    description: "Perfect for individuals and small teams beginning to build their digital presence.",
     features: [
       "Up to 5-page web application",
       "Responsive design included",
@@ -191,14 +123,12 @@ const PACKAGES = [
       "7-day delivery",
     ],
     highlight: false,
+    icon: Building2,
   },
   {
     name: "Growth",
-    icon: Star,
     price: "KES 35,000",
-    unit: "one-time",
-    tag: "Most popular",
-    description: "For startups that need a full product — web or mobile — built properly and shipped on time.",
+    description: "Designed for growing companies ready to integrate scalable software into their operations.",
     features: [
       "Full-stack web or mobile app",
       "Custom UI/UX design",
@@ -210,14 +140,12 @@ const PACKAGES = [
       "30-day post-launch support",
     ],
     highlight: true,
+    icon: Star,
   },
   {
     name: "Enterprise",
-    icon: Flame,
     price: "Custom",
-    unit: "",
-    tag: "Complex systems",
-    description: "For complex systems, AI products, and ongoing contracts where quality and communication are non-negotiable.",
+    description: "Custom-built for enterprises seeking full-scale digital transformation and ongoing support.",
     features: [
       "Full system architecture design",
       "AI / ML integration",
@@ -229,255 +157,12 @@ const PACKAGES = [
       "Ongoing retainer available",
     ],
     highlight: false,
+    icon: Flame,
   },
 ];
 
-// ─── Helpers ──────────────────────────────────────────────────────────────────
-function SectionLabel({ text, accent, center }: { text: string; accent?: string; center?: boolean }) {
-  return (
-    <div className={`flex items-center gap-3 mb-5 ${center ? "justify-center" : ""}`}>
-      <span className="block w-8 h-px" style={{ background: accent || "var(--color-emerald)" }} />
-      <span style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.16em", color: accent || "var(--color-emerald)", textTransform: "uppercase" }}>
-        {text}
-      </span>
-    </div>
-  );
-}
-
-// ─── Per-service SVG illustrations ─────────────────────────────────────────────
-// Hand-built, brand-colored placeholders — one distinct composition per domain.
-// Swap the <svg> markup inside any of these for a Figma/AI-generated graphic
-// later; the component contract (accepts `accent`) stays the same.
-function WebSVG({ accent }: { accent: string }) {
-  return (
-    <svg viewBox="0 0 320 260" className="w-full h-auto">
-      <defs>
-        <linearGradient id="webGrad" x1="0" y1="0" x2="1" y2="1">
-          <stop offset="0%" stopColor={accent} stopOpacity="0.9" />
-          <stop offset="100%" stopColor={accent} stopOpacity="0.35" />
-        </linearGradient>
-      </defs>
-      <rect x="20" y="30" width="280" height="190" rx="16" fill="#0d0f0d" stroke={accent} strokeOpacity="0.3" />
-      <rect x="20" y="30" width="280" height="34" rx="16" fill="url(#webGrad)" opacity="0.15" />
-      <circle cx="38" cy="47" r="4" fill="#ff5f56" />
-      <circle cx="52" cy="47" r="4" fill="#ffbd2e" />
-      <circle cx="66" cy="47" r="4" fill="#27c93f" />
-      <rect x="44" y="86" width="120" height="10" rx="5" fill={accent} opacity="0.85" />
-      <rect x="44" y="106" width="180" height="8" rx="4" fill="#ffffff" opacity="0.15" />
-      <rect x="44" y="122" width="150" height="8" rx="4" fill="#ffffff" opacity="0.15" />
-      <rect x="44" y="146" width="90" height="34" rx="8" fill={accent} opacity="0.9" />
-      <circle cx="250" cy="160" r="30" fill={accent} opacity="0.12" />
-      <circle cx="250" cy="160" r="16" fill={accent} opacity="0.35" />
-    </svg>
-  );
-}
-
-function MobileSVG({ accent }: { accent: string }) {
-  return (
-    <svg viewBox="0 0 320 260" className="w-full h-auto">
-      <rect x="110" y="20" width="100" height="220" rx="20" fill="#0d0f0d" stroke={accent} strokeOpacity="0.35" />
-      <rect x="120" y="40" width="80" height="150" rx="8" fill={accent} opacity="0.08" />
-      <rect x="128" y="52" width="64" height="10" rx="5" fill={accent} opacity="0.75" />
-      <rect x="128" y="70" width="44" height="8" rx="4" fill="#fff" opacity="0.15" />
-      <rect x="128" y="86" width="64" height="30" rx="6" fill={accent} opacity="0.25" />
-      <rect x="128" y="124" width="64" height="30" rx="6" fill="#fff" opacity="0.08" />
-      <circle cx="160" cy="215" r="6" fill={accent} opacity="0.6" />
-      <circle cx="70" cy="90" r="26" fill={accent} opacity="0.12" />
-      <circle cx="250" cy="180" r="20" fill={accent} opacity="0.15" />
-    </svg>
-  );
-}
-
-function AISVG({ accent }: { accent: string }) {
-  const nodes: [number, number][] = [[60, 60], [160, 40], [260, 70], [80, 150], [180, 140], [250, 170], [150, 220]];
-  const edges: [number, number][] = [[0, 1], [1, 2], [0, 3], [1, 4], [2, 5], [3, 4], [4, 5], [4, 6], [3, 6]];
-  return (
-    <svg viewBox="0 0 320 260" className="w-full h-auto">
-      {edges.map(([a, b], i) => (
-        <line key={i} x1={nodes[a][0]} y1={nodes[a][1]} x2={nodes[b][0]} y2={nodes[b][1]} stroke={accent} strokeOpacity="0.35" strokeWidth="1.5" />
-      ))}
-      {nodes.map(([x, y], i) => (
-        <circle key={i} cx={x} cy={y} r={i === 4 ? 11 : 7} fill={accent} opacity={i === 4 ? 0.9 : 0.55} />
-      ))}
-    </svg>
-  );
-}
-
-function MSMESVG({ accent }: { accent: string }) {
-  return (
-    <svg viewBox="0 0 320 260" className="w-full h-auto">
-      <rect x="60" y="110" width="200" height="110" rx="6" fill="#0d0f0d" stroke={accent} strokeOpacity="0.3" />
-      <path d="M50 110 L160 60 L270 110 Z" fill={accent} opacity="0.85" />
-      <rect x="80" y="150" width="50" height="70" rx="4" fill={accent} opacity="0.25" />
-      <rect x="150" y="150" width="90" height="40" rx="4" fill="#fff" opacity="0.1" />
-      <rect x="150" y="196" width="40" height="24" rx="4" fill={accent} opacity="0.5" />
-      <circle cx="230" cy="70" r="18" fill={accent} opacity="0.18" />
-      <path d="M40 230 h240" stroke={accent} strokeOpacity="0.2" strokeWidth="2" />
-    </svg>
-  );
-}
-
-function DesignSVG({ accent }: { accent: string }) {
-  return (
-    <svg viewBox="0 0 320 260" className="w-full h-auto">
-      <rect x="50" y="40" width="150" height="110" rx="10" fill={accent} opacity="0.15" />
-      <rect x="90" y="80" width="150" height="110" rx="10" fill="#0d0f0d" stroke={accent} strokeOpacity="0.4" />
-      <circle cx="130" cy="120" r="14" fill={accent} opacity="0.75" />
-      <rect x="160" y="112" width="60" height="8" rx="4" fill="#fff" opacity="0.2" />
-      <rect x="160" y="128" width="40" height="8" rx="4" fill="#fff" opacity="0.15" />
-      <circle cx="245" cy="60" r="10" fill={accent} opacity="0.6" />
-      <circle cx="260" cy="90" r="6" fill={accent} opacity="0.4" />
-    </svg>
-  );
-}
-
-function MentorshipSVG({ accent }: { accent: string }) {
-  return (
-    <svg viewBox="0 0 320 260" className="w-full h-auto">
-      <path d="M160 60 L260 100 L160 140 L60 100 Z" fill={accent} opacity="0.8" />
-      <path d="M100 112 v40 q60 30 120 0 v-40" fill="none" stroke={accent} strokeOpacity="0.4" strokeWidth="3" />
-      <rect x="140" y="150" width="40" height="60" rx="4" fill="#0d0f0d" stroke={accent} strokeOpacity="0.3" />
-      <circle cx="230" cy="180" r="20" fill={accent} opacity="0.15" />
-      <circle cx="90" cy="170" r="14" fill={accent} opacity="0.2" />
-    </svg>
-  );
-}
-
-const SERVICE_SVGS: Record<string, React.FC<{ accent: string }>> = {
-  web: WebSVG,
-  mobile: MobileSVG,
-  ai: AISVG,
-  msme: MSMESVG,
-  design: DesignSVG,
-  mentorship: MentorshipSVG,
-};
-
-// Wraps the flat SVG in a soft glow + a slow, continuous float so the
-// illustration feels alive even before scroll animation kicks in.
-function ServiceGraphic({ variant, accent }: { variant: string; accent: string }) {
-  const Graphic = SERVICE_SVGS[variant] || WebSVG;
-  return (
-    <motion.div
-      animate={{ y: [0, -14, 0] }}
-      transition={{ duration: 5.5, repeat: Infinity, ease: "easeInOut" }}
-      className="relative w-full max-w-[380px] mx-auto"
-    >
-      <div className="absolute inset-0 rounded-full blur-3xl pointer-events-none" style={{ background: accent, opacity: 0.22 }} />
-      <Graphic accent={accent} />
-    </motion.div>
-  );
-}
-
-// ─── Service story section (alternating text / graphic, full-bleed) ───────────
-function ServiceStorySection({ service, index }: { service: typeof SERVICES[0]; index: number }) {
-  const sectionRef = useRef(null);
-  const revealRef = useRef(null);
-  const inView = useInView(revealRef, { once: true, margin: "-100px" });
-  const reverse = index % 2 === 1;
-  const Icon = service.icon;
-
-  // Scroll-driven parallax: the graphic drifts opposite to scroll direction,
-  // independent of the text column, so the two layers move at different
-  // speeds as the section passes through view.
-  const { scrollYProgress } = useScroll({ target: sectionRef, offset: ["start end", "end start"] });
-  const graphicParallaxY = useTransform(scrollYProgress, [0, 1], [50, -50]);
-
-  // Each section gets a slightly different graphic entrance so the six
-  // sections don't all feel like the same animation repeated.
-  const entrance = [
-    { initial: { opacity: 0, scale: 0.82 }, animate: { opacity: 1, scale: 1 } },
-    { initial: { opacity: 0, rotate: -8, y: 40 }, animate: { opacity: 1, rotate: 0, y: 0 } },
-    { initial: { opacity: 0, x: reverse ? -50 : 50 }, animate: { opacity: 1, x: 0 } },
-  ][index % 3];
-
-  return (
-    <section
-      ref={sectionRef}
-      style={{
-        paddingTop: "clamp(64px, 9vw, 104px)",
-        paddingBottom: "clamp(64px, 9vw, 104px)",
-        background: index % 2 === 0 ? "var(--color-bg)" : "var(--color-surface)",
-        borderBottom: "1px solid var(--color-border)",
-        overflow: "hidden",
-      }}
-    >
-      <div ref={revealRef} className="px-6 mx-auto lg:px-16" style={{ maxWidth: "1360px" }}>
-        <div className="grid items-center gap-12 lg:gap-24 lg:grid-cols-2">
-          {/* Text */}
-          <motion.div
-            className={reverse ? "lg:order-2" : "lg:order-1"}
-            initial={{ opacity: 0, x: reverse ? 40 : -40 }}
-            animate={inView ? { opacity: 1, x: 0 } : {}}
-            transition={{ duration: 0.7, ease: [0.32, 0.72, 0, 1] }}
-          >
-            <div className="flex items-center gap-3 mb-5">
-              <div style={{
-                width: 34, height: 34, borderRadius: "9px",
-                background: `${service.accent}22`, border: `1px solid ${service.accent}55`,
-                display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
-              }}>
-                <Icon size={15} style={{ color: service.accent }} />
-              </div>
-              <span style={{ fontSize: "0.66rem", fontWeight: 700, letterSpacing: "0.14em", textTransform: "uppercase", color: service.accent }}>
-                {service.number} · {service.title}
-              </span>
-            </div>
-
-            <h2 style={{ fontSize: "clamp(1.9rem, 3.3vw, 2.7rem)", fontWeight: 900, letterSpacing: "-0.03em", lineHeight: 1.08, color: "var(--color-text)", marginBottom: "1.1rem" }}>
-              {service.tagline}
-            </h2>
-
-            <p style={{ fontSize: "0.92rem", lineHeight: 1.85, color: "var(--color-text-muted)", marginBottom: "1.6rem", maxWidth: "34rem" }}>
-              {service.sell}
-            </p>
-
-            <div className="flex flex-col gap-2 mb-8">
-              {service.features.slice(0, 4).map(f => (
-                <div key={f} className="flex items-start gap-2.5">
-                  <CheckCircle2 size={14} style={{ color: service.accent, flexShrink: 0, marginTop: "0.2rem" }} />
-                  <span style={{ fontSize: "0.82rem", color: "var(--color-text-muted)", lineHeight: 1.5 }}>{f}</span>
-                </div>
-              ))}
-            </div>
-
-            <div className="flex flex-wrap items-center gap-6 pt-6" style={{ borderTop: "1px solid var(--color-border)" }}>
-              <div>
-                <div style={{ fontSize: "1.05rem", fontWeight: 900, letterSpacing: "-0.02em", color: "var(--color-text)" }}>{service.pricing}</div>
-                <div style={{ fontSize: "0.65rem", color: "var(--color-text-faint)" }}>{service.pricingNote}</div>
-              </div>
-              <Link href="/contact" className="inline-flex items-center gap-2 font-semibold transition-colors group" style={{ color: service.accent, fontSize: "0.85rem" }}>
-                Need the details? Talk to us <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-              </Link>
-            </div>
-          </motion.div>
-
-          {/* Graphic */}
-          <motion.div
-            className={reverse ? "lg:order-1" : "lg:order-2"}
-            initial={entrance.initial}
-            animate={inView ? entrance.animate : {}}
-            transition={{ duration: 0.8, ease: [0.32, 0.72, 0, 1] }}
-            style={{ y: graphicParallaxY }}
-          >
-            <ServiceGraphic variant={service.id} accent={service.accent} />
-          </motion.div>
-        </div>
-      </div>
-    </section>
-  );
-}
-
-// ─── Hero background video (with scroll-driven parallax) ─────────────────────
-// The video sits in its own motion layer so it can drift/scale at a different
-// rate than the foreground content as the page scrolls — that's what actually
-// reads as parallax rather than a static poster with a filter on it.
-function HeroVideoBackground({
-  videoScale,
-  videoY,
-}: {
-  videoScale: any;
-  videoY: any;
-}) {
+// ─── Hero background video ────────────────────────────────────────────────────
+function HeroVideoBackground({ videoScale, videoY }: { videoScale: any; videoY: any; }) {
   return (
     <motion.div className="absolute inset-0" style={{ scale: videoScale, y: videoY, zIndex: 0 }}>
       <video
@@ -488,132 +173,159 @@ function HeroVideoBackground({
         poster="/images/services-hero-poster.jpg"
         className="absolute inset-0 object-cover w-full h-full"
       >
-        {/* Drop your downloaded stock clip in /public/videos and point these at it.
-            Two formats covers Safari (mp4/h264) + smaller webm elsewhere. */}
         <source src="/videos/services-hero.webm" type="video/webm" />
         <source src="/images/services-hero.mp4" type="video/mp4" />
       </video>
       <div
         className="absolute inset-0"
         style={{
-          background:
-            "linear-gradient(180deg, rgba(5,5,5,0.72) 0%, rgba(5,5,5,0.5) 38%, rgba(5,5,5,0.68) 72%, rgba(5,5,5,0.97) 100%)",
+          background: "linear-gradient(180deg, rgba(5,5,5,0.72) 0%, rgba(5,5,5,0.5) 38%, rgba(5,5,5,0.68) 72%, rgba(5,5,5,0.97) 100%)",
         }}
       />
     </motion.div>
   );
 }
 
-// ─── Why-Softrinx feature card ─────────────────────────────────────────────────
-function WhyCard({ item, index, inView, span }: { item: typeof WHY_US[0]; index: number; inView: boolean; span: number }) {
-  const Icon = item.icon;
+// ─── Clean Service Component (Typography + Photography, No SVGs) ──────────────
+function ServiceSection({ service, index }: { service: typeof SERVICES[0]; index: number }) {
+  const ref = useRef(null);
+  const inView = useInView(ref, { once: true, margin: "-10%" });
+  const reverse = index % 2 !== 0;
+
   return (
-    <motion.div
-      initial={{ opacity: 0, y: 16 }}
-      animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.5, delay: index * 0.07 }}
-      className={span === 2 ? "md:col-span-2" : ""}
-      style={{
-        background: "var(--color-bg)",
-        border: "1px solid var(--color-border)",
-        borderRadius: "18px",
-        padding: "1.75rem",
-        display: "flex",
-        flexDirection: "column",
-        gap: "0.9rem",
-        minHeight: span === 2 ? "168px" : "auto",
-        justifyContent: "space-between",
-      }}
+    <section 
+      ref={ref} 
+      className="relative py-24 lg:py-32 overflow-hidden bg-[#050505] border-b border-white/5"
     >
-      <div style={{
-        width: 38, height: 38, borderRadius: "11px",
-        background: "var(--color-emerald-bg)", border: "1px solid var(--color-emerald-border)",
-        display: "flex", alignItems: "center", justifyContent: "center", flexShrink: 0,
-      }}>
-        <Icon size={17} style={{ color: "var(--color-emerald)" }} />
-      </div>
-      <div>
-        <div style={{ fontSize: span === 2 ? "1.15rem" : "0.95rem", fontWeight: 800, letterSpacing: "-0.015em", color: "var(--color-text)", marginBottom: "0.4rem" }}>
-          {item.title}
+      <div className="max-w-[1400px] mx-auto px-6 lg:px-16 w-full">
+        <div className={`flex flex-col gap-12 lg:gap-20 ${reverse ? 'lg:flex-row-reverse' : 'lg:flex-row'} items-center`}>
+          
+          {/* Content Side */}
+          <motion.div 
+            className="flex-1 w-full"
+            initial={{ opacity: 0, x: reverse ? 40 : -40 }}
+            animate={inView ? { opacity: 1, x: 0 } : {}}
+            transition={{ duration: 0.7, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="flex items-center gap-4 mb-6">
+              <span className="text-5xl font-black text-[#333333]">
+                {service.number}
+              </span>
+              <h3 className="text-2xl lg:text-4xl font-black tracking-tight text-white">{service.title}</h3>
+            </div>
+
+            <h4 className="text-xl lg:text-2xl font-semibold mb-6 leading-tight text-[var(--color-emerald)]">
+              {service.tagline}
+            </h4>
+
+            <p className="text-base lg:text-lg text-gray-400 mb-10 leading-relaxed max-w-2xl">
+              {service.sell}
+            </p>
+
+            <div className="grid sm:grid-cols-2 gap-y-5 gap-x-8 mb-10">
+              {service.features.map(f => (
+                <div key={f} className="flex items-start gap-3">
+                  <div className="mt-1.5 w-1.5 h-1.5 rounded-full flex-shrink-0 bg-[var(--color-emerald)]" />
+                  <span className="text-sm font-medium text-gray-300">{f}</span>
+                </div>
+              ))}
+            </div>
+
+            <div className="pt-8 border-t border-white/10 flex flex-wrap items-center gap-8">
+              <div>
+                <p className="text-xs font-semibold uppercase tracking-widest text-gray-500 mb-1">Starting At</p>
+                <p className="text-2xl font-bold text-white">{service.pricing}</p>
+              </div>
+              <Link href="/contact" className="group flex items-center gap-3 text-sm font-bold transition-all text-[var(--color-emerald)] uppercase tracking-widest">
+                Request a quote 
+                <span className="bg-white/5 p-2 rounded-full group-hover:bg-[var(--color-emerald)] group-hover:text-black transition-colors">
+                  <ArrowRight size={16} />
+                </span>
+              </Link>
+            </div>
+          </motion.div>
+
+          {/* Photography Side (Replacing SVGs) */}
+          <motion.div 
+            className="flex-1 w-full"
+            initial={{ opacity: 0, scale: 0.95 }}
+            animate={inView ? { opacity: 1, scale: 1 } : {}}
+            transition={{ duration: 0.8, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
+          >
+            <div className="relative aspect-[4/3] max-w-[600px] mx-auto rounded-2xl overflow-hidden border border-white/10 shadow-2xl">
+              <img 
+                src={service.image} 
+                alt={service.title}
+                className="w-full h-full object-cover"
+              />
+              <div className="absolute inset-0 bg-black/20" />
+            </div>
+          </motion.div>
+
         </div>
-        <div style={{ fontSize: "0.82rem", lineHeight: 1.65, color: "var(--color-text-muted)", maxWidth: span === 2 ? "30rem" : "none" }}>
-          {item.body}
-        </div>
       </div>
-    </motion.div>
+    </section>
   );
 }
 
-// ─── Package card ─────────────────────────────────────────────────────────────
-function PackageCard({ pkg, index, inView }: { pkg: typeof PACKAGES[0]; index: number; inView: boolean }) {
+// ─── Clean Pricing Card (Compacted to match reference) ────────────────────────
+function PricingCard({ pkg, index, inView }: { pkg: typeof PACKAGES[0]; index: number; inView: boolean }) {
   const Icon = pkg.icon;
-  const onColor = pkg.highlight ? "#040805" : "var(--color-text)";
-  const onMuted = pkg.highlight ? "rgba(4,8,5,0.65)" : "var(--color-text-muted)";
-  const onFaint = pkg.highlight ? "rgba(4,8,5,0.5)" : "var(--color-text-faint)";
 
   return (
     <motion.div
-      initial={{ opacity: 0, y: 24 }}
+      initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.55, delay: index * 0.09 }}
+      transition={{ duration: 0.6, delay: index * 0.1 }}
+      className="flex flex-col p-6 lg:p-8 rounded-[1.5rem] relative z-10"
       style={{
-        border: pkg.highlight ? "none" : "1px solid var(--color-border)",
-        background: pkg.highlight ? "var(--color-emerald)" : "var(--color-bg)",
-        borderRadius: "20px",
-        boxShadow: pkg.highlight ? "0 0 40px var(--color-emerald-glow)" : "none",
-        padding: "clamp(1.75rem, 3vw, 2.25rem)",
-        display: "flex", flexDirection: "column",
-      }}>
-      {/* Icon badge + plan label */}
-      <div className="flex items-center gap-2.5 mb-5">
-        <div style={{
-          width: 30, height: 30, borderRadius: "9px", flexShrink: 0,
-          background: pkg.highlight ? "#040805" : "var(--color-emerald-bg)",
-          border: pkg.highlight ? "none" : "1px solid var(--color-emerald-border)",
-          display: "flex", alignItems: "center", justifyContent: "center",
-        }}>
-          <Icon size={14} style={{ color: pkg.highlight ? "var(--color-emerald)" : "var(--color-emerald)" }} />
+        background: pkg.highlight ? "var(--color-emerald)" : "#ffffff",
+        border: pkg.highlight ? "none" : "1px solid #E5E7EB",
+        color: "#111827",
+        boxShadow: pkg.highlight ? "0 20px 40px -15px var(--color-emerald)" : "0 10px 30px -10px rgba(0,0,0,0.05)",
+      }}
+    >
+      <div className="flex items-center gap-3 mb-4">
+        <div 
+          className="w-8 h-8 rounded-md flex items-center justify-center flex-shrink-0" 
+          style={{ background: pkg.highlight ? "#111827" : "var(--color-emerald)", color: pkg.highlight ? "var(--color-emerald)" : "#111827" }}
+        >
+          <Icon size={16} strokeWidth={2.5} />
         </div>
-        <span style={{ fontSize: "0.68rem", fontWeight: 800, letterSpacing: "0.1em", textTransform: "uppercase", color: onColor }}>
-          {pkg.name} plan
+        <span className="text-sm font-bold tracking-[0.15em] uppercase">
+          {pkg.name} PLAN
         </span>
       </div>
 
-      <p style={{ fontSize: "0.82rem", lineHeight: 1.6, color: onMuted, marginBottom: "1.4rem" }}>
+      <p className="text-sm leading-relaxed mb-4 min-h-[3rem]" style={{ color: pkg.highlight ? "#374151" : "#6B7280" }}>
         {pkg.description}
       </p>
 
-      {/* Price */}
-      <div className="flex items-baseline gap-2 mb-6">
-        <span style={{ fontSize: "clamp(1.9rem, 3vw, 2.5rem)", fontWeight: 900, letterSpacing: "-0.04em", color: onColor, lineHeight: 1 }}>
+      <div className="flex items-end gap-1 mb-6">
+        <span className="text-4xl lg:text-5xl font-medium tracking-tighter leading-none">
           {pkg.price}
         </span>
-        {pkg.unit && (
-          <span style={{ fontSize: "0.78rem", fontWeight: 600, color: onFaint }}>
-            / {pkg.unit}
-          </span>
-        )}
+        {pkg.price !== "Custom" && <span className="text-sm font-medium mb-1" style={{ color: pkg.highlight ? "#4B5563" : "#9CA3AF" }}>/project</span>}
       </div>
 
-      <div className="flex flex-col gap-2.5 flex-1 mb-7">
+      <div className="flex flex-col gap-3 mb-8 flex-1">
         {pkg.features.map(f => (
-          <div key={f} className="flex items-start gap-2.5">
-            <CheckCircle2 size={15} style={{ color: onColor, flexShrink: 0, marginTop: "0.1rem", opacity: pkg.highlight ? 0.85 : 1 }} />
-            <span style={{ fontSize: "0.78rem", color: onMuted, lineHeight: 1.5 }}>{f}</span>
+          <div key={f} className="flex items-start gap-3">
+            <div className="mt-1 w-5 h-5 rounded-full flex items-center justify-center flex-shrink-0" style={{ background: "#111827" }}>
+              <Check size={12} strokeWidth={4} style={{ color: pkg.highlight ? "var(--color-emerald)" : "#ffffff" }} />
+            </div>
+            <span className="text-sm font-medium">{f}</span>
           </div>
         ))}
       </div>
 
       <Link href="/contact"
-        className="inline-flex items-center justify-center gap-2 font-bold transition-all duration-200 hover:-translate-y-px"
+        className="w-full py-3 rounded-full flex items-center justify-center font-bold transition-transform hover:-translate-y-1 tracking-[0.1em] text-[0.8rem]"
         style={{
-          background: pkg.highlight ? "#040805" : "var(--color-text)",
-          color: pkg.highlight ? "var(--color-emerald)" : "var(--color-bg)",
-          padding: "0.8rem 1.5rem", fontSize: "0.78rem",
-          letterSpacing: "0.06em", textTransform: "uppercase",
-          borderRadius: "999px",
+          background: "#111827",
+          color: "var(--color-emerald)",
         }}>
-        Get Started
+        GET STARTED
       </Link>
     </motion.div>
   );
@@ -621,18 +333,13 @@ function PackageCard({ pkg, index, inView }: { pkg: typeof PACKAGES[0]; index: n
 
 // ─── Page ─────────────────────────────────────────────────────────────────────
 export default function ServicesPage() {
-  const { colors } = useTheme();
   const heroRef = useRef(null);
+  const metricsRef = useRef(null);
   const packagesRef = useRef(null);
-  const whyRef = useRef(null);
-  const processRef = useRef(null);
-  const packagesInView = useInView(packagesRef, { once: true, margin: "-60px" });
-  const whyInView = useInView(whyRef, { once: true, margin: "-60px" });
-  const processInView = useInView(processRef, { once: true, margin: "-60px" });
+  
+  const metricsInView = useInView(metricsRef, { once: true, margin: "-50px" });
+  const packagesInView = useInView(packagesRef, { once: true, margin: "-100px" });
 
-  // Scroll-driven parallax for the hero: the video scales up and drifts down
-  // slower than the page scroll, the foreground content drifts up faster and
-  // fades — that speed mismatch between layers is what reads as parallax.
   const { scrollYProgress: heroProgress } = useScroll({
     target: heroRef,
     offset: ["start start", "end start"],
@@ -643,10 +350,10 @@ export default function ServicesPage() {
   const contentOpacity = useTransform(heroProgress, [0, 0.75], [1, 0]);
 
   return (
-    <main style={{ background: "var(--color-bg)" }}>
+    <main style={{ background: "var(--color-bg)", minHeight: "100vh" }}>
       <Navigation />
 
-      {/* ══ HERO — untouched ═══════════════════════════════════════════════════ */}
+      {/* ══ HERO ════════════════════════════════════════════════════════════════ */}
       <section
         ref={heroRef}
         className="relative flex items-center justify-center overflow-hidden"
@@ -662,7 +369,6 @@ export default function ServicesPage() {
       >
         <HeroVideoBackground videoScale={videoScale} videoY={videoY} />
 
-        {/* Signature vertical lines, carried over from the rest of the page */}
         <div className="absolute top-0 bottom-0 z-[1] flex gap-4 pointer-events-none left-8">
           {[0, 1, 2].map(i => (
             <motion.div key={i} className="w-px" style={{ background: "rgba(255,255,255,0.12)" }}
@@ -681,8 +387,8 @@ export default function ServicesPage() {
               transition={{ duration: 0.6, delay: 0.1, ease: [0.32, 0.72, 0, 1] }}
               className="flex items-center gap-3 mb-6"
             >
-              <span className="block w-8 h-px" style={{ background: "var(--color-emerald)" }} />
-              <span style={{ fontSize: "0.7rem", fontWeight: 700, letterSpacing: "0.18em", color: "var(--color-emerald)", textTransform: "uppercase" }}>
+              <span className="block w-8 h-px bg-[var(--color-emerald)]" />
+              <span className="text-[0.7rem] font-bold tracking-[0.18em] text-[var(--color-emerald)] uppercase">
                 Services
               </span>
             </motion.div>
@@ -690,277 +396,227 @@ export default function ServicesPage() {
             <motion.h1
               initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.6, delay: 0.2, ease: [0.32, 0.72, 0, 1] }}
-              style={{ fontSize: "clamp(3rem, 6.8vw, 6.2rem)", fontWeight: 900, lineHeight: 0.95, letterSpacing: "-0.04em", color: "#ffffff", marginBottom: "1.5rem" }}
+              className="text-[clamp(3rem,6.8vw,6.2rem)] font-black leading-[0.95] tracking-[-0.04em] text-white mb-6"
             >
               <span className="block">Every service</span>
-              <span className="block" style={{ color: "var(--color-emerald)" }}>your team</span>
+              <span className="block text-[var(--color-emerald)]">your team</span>
               <span className="block">needs to win.</span>
             </motion.h1>
 
             <motion.p
               initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.32 }}
-              style={{ fontSize: "clamp(1rem, 1.3vw, 1.15rem)", lineHeight: 1.75, color: "rgba(255,255,255,0.72)", maxWidth: "34rem", marginBottom: "2rem" }}
+              className="text-[clamp(1rem,1.3vw,1.15rem)] leading-[1.75] text-white/70 max-w-[34rem] mb-8"
             >
-              Six domains. One team. Full-stack web, mobile apps, AI/ML, MSME &amp; small business solutions, UI/UX design, and mentorship — all from engineers who've shipped real products to real users.
+              Four core domains. One unified team. Full-stack web, mobile apps, genuine AI/ML integration, and robust MSME solutions — built by software engineers who ship products to real users.
             </motion.p>
 
             <motion.div
               initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.55, delay: 0.4 }}
-              className="flex flex-wrap gap-2 mb-9"
-            >
-              {SERVICES.map(s => (
-                <button key={s.id}
-                  onClick={() => document.getElementById(`service-${s.id}`)?.scrollIntoView({ behavior: "smooth" })}
-                  style={{
-                    fontSize: "0.66rem", fontWeight: 700, letterSpacing: "0.06em",
-                    color: "rgba(255,255,255,0.65)",
-                    border: "1px solid rgba(255,255,255,0.16)",
-                    background: "rgba(255,255,255,0.04)",
-                    backdropFilter: "blur(6px)",
-                    padding: "0.32rem 0.75rem",
-                    borderRadius: "999px",
-                    transition: "all 0.18s",
-                    cursor: "pointer",
-                  }}
-                  onMouseEnter={e => {
-                    (e.currentTarget as HTMLElement).style.borderColor = s.accent;
-                    (e.currentTarget as HTMLElement).style.color = s.accent;
-                    (e.currentTarget as HTMLElement).style.background = `${s.accent}18`;
-                  }}
-                  onMouseLeave={e => {
-                    (e.currentTarget as HTMLElement).style.borderColor = "rgba(255,255,255,0.16)";
-                    (e.currentTarget as HTMLElement).style.color = "rgba(255,255,255,0.65)";
-                    (e.currentTarget as HTMLElement).style.background = "rgba(255,255,255,0.04)";
-                  }}>
-                  {s.title.split(" ")[0]}
-                </button>
-              ))}
-            </motion.div>
-
-            <motion.div
-              initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.55, delay: 0.48 }}
-              className="flex flex-wrap gap-3"
+              className="flex flex-wrap gap-4"
             >
               <Link href="/contact"
-                className="inline-flex items-center gap-2 font-bold transition-all duration-200 group hover:-translate-y-px"
-                style={{ background: "var(--color-emerald)", color: "#040805", padding: "0.85rem 1.7rem", fontSize: "0.9rem", borderRadius: "999px", boxShadow: "0 0 30px var(--color-emerald-glow)" }}>
+                className="inline-flex items-center gap-2 font-bold transition-transform hover:-translate-y-1 uppercase tracking-widest text-[0.85rem]"
+                style={{ background: "var(--color-emerald)", color: "#000000", padding: "1rem 2rem", borderRadius: "999px" }}>
                 Get a Free Quote
-                <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-              </Link>
-              <Link href="/portfolio"
-                className="inline-flex items-center gap-2 font-semibold transition-all duration-200"
-                style={{ color: "rgba(255,255,255,0.85)", border: "1px solid rgba(255,255,255,0.22)", padding: "0.85rem 1.7rem", fontSize: "0.9rem", borderRadius: "999px", background: "rgba(255,255,255,0.03)" }}>
-                See Our Work <ArrowRight size={14} />
+                <ArrowUpRight size={16} strokeWidth={2.5} />
               </Link>
             </motion.div>
           </div>
         </motion.div>
       </section>
 
-      {/* ══ WHY US — redesigned as a card grid ══════════════════════════════════ */}
-      <section ref={whyRef} style={{
-        paddingTop: "clamp(72px, 10vw, 112px)",
-        paddingBottom: "clamp(72px, 10vw, 112px)",
-        background: "var(--color-bg)",
-        borderBottom: "1px solid var(--color-border)",
-      }}>
-        <div className="px-6 mx-auto lg:px-16" style={{ maxWidth: "1360px" }}>
-          {/* Centered header */}
-          <div className="flex flex-col items-center max-w-2xl mx-auto mb-14 text-center">
-            <SectionLabel text="Why Softrinx" center />
-            <h2 style={{ fontSize: "clamp(2rem, 4.5vw, 3.6rem)", fontWeight: 900, letterSpacing: "-0.045em", lineHeight: 1.02, color: "var(--color-text)", marginBottom: "1.25rem" }}>
-              Engineers who <span style={{ color: "var(--color-emerald)" }}>actually ship.</span>
-            </h2>
-            <p style={{ fontSize: "0.9rem", lineHeight: 1.8, color: "var(--color-text-muted)", marginBottom: "1.75rem" }}>
-              We're not a marketplace or an agency that passes your project to a stranger. We are the engineers who build it — five CS graduates from DeKUT, Westlands, Nairobi, who treat every project like it's our own startup.
-            </p>
-            <Link href="/about"
-              className="inline-flex items-center gap-2 font-bold transition-all duration-200 hover:-translate-y-px"
-              style={{ background: "var(--color-text)", color: "var(--color-bg)", padding: "0.7rem 1.5rem", fontSize: "0.8rem", borderRadius: "999px" }}>
-              Meet the team <ArrowRight size={14} />
-            </Link>
-          </div>
-
-          {/* Card grid, inside a soft surface tray */}
-          <div style={{ background: "var(--color-surface)", borderRadius: "26px", padding: "clamp(0.75rem, 2vw, 1rem)" }}>
-            <div className="grid grid-cols-1 gap-3 md:grid-cols-3">
-              {WHY_US.map((item, i) => (
-                <WhyCard key={item.title} item={item} index={i} inView={whyInView} span={item.span} />
-              ))}
+      {/* ══ METRICS / ABOUT (Exact Match to image_02068a.png style) ════════════ */}
+      <section ref={metricsRef} className="py-24 lg:py-32 bg-white">
+        <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12">
+          
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={metricsInView ? { opacity: 1, y: 0 } : {}}
+            transition={{ duration: 0.6 }}
+            className="mb-16"
+          >
+            <div className="flex items-center gap-3 mb-6 text-black font-bold tracking-widest text-xs uppercase">
+              <span className="w-1.5 h-1.5 bg-black" />
+              About Us
             </div>
+            <h2 className="text-4xl lg:text-6xl font-medium tracking-tight text-black max-w-4xl leading-[1.1]">
+              A registered engineering partner dedicated to building <span className="bg-[#0EA5E9] text-white rounded-full px-2 py-0.5 inline-flex items-center justify-center align-middle mx-1"><Globe size={32} /></span> smarter and <span className="bg-[var(--color-emerald)] text-black rounded-full px-2 py-0.5 inline-flex items-center justify-center align-middle mx-1"><Zap size={32} /></span> more adaptive software.
+            </h2>
+          </motion.div>
+
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+            
+            {/* Card 1: Blue / Image (Spans 2 rows on desktop) */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={metricsInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.1 }}
+              className="md:row-span-2 bg-[#0EA5E9] rounded-[2rem] p-4 flex flex-col relative overflow-hidden min-h-[400px] md:min-h-full"
+            >
+              <div className="absolute top-8 left-8 z-10 flex items-center gap-2 font-black text-white text-xl tracking-tighter">
+                <Code2 size={24} /> SOFTRINX
+              </div>
+              <img 
+                src="https://images.unsplash.com/photo-1552664730-d307ca884978?auto=format&fit=crop&w=1200&q=80" 
+                alt="Engineering team"
+                className="absolute inset-0 w-full h-1/2 md:h-[65%] object-cover rounded-t-[1.5rem]"
+              />
+              <div className="bg-white rounded-[1.5rem] p-8 mt-auto relative z-10 w-full shadow-xl">
+                <h3 className="text-6xl lg:text-7xl font-medium tracking-tighter text-black mb-2">
+                  <AnimatedCounter value={7} suffix="+" duration={2} />
+                </h3>
+                <p className="text-sm font-medium text-gray-800 leading-relaxed pr-4">
+                  Proprietary products shipped in our first year, from AI platforms to consumer apps.
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Card 2: Grey */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={metricsInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.2 }}
+              className="bg-[#F3F4F6] rounded-[2rem] p-8 lg:p-10 flex flex-col justify-between min-h-[280px]"
+            >
+              <p className="text-sm font-medium text-gray-900 mb-4">Commitment to code ownership</p>
+              <h3 className="text-6xl lg:text-7xl font-medium tracking-tighter text-black mb-8">
+                <AnimatedCounter value={100} suffix="%" duration={1.5} />
+              </h3>
+              <div className="mt-auto">
+                <div className="flex -space-x-3 mb-4">
+                  <div className="w-10 h-10 rounded-full bg-black flex items-center justify-center border-2 border-[#F3F4F6]"><Lock size={16} color="white" /></div>
+                  <div className="w-10 h-10 rounded-full bg-gray-300 flex items-center justify-center border-2 border-[#F3F4F6]"><Code2 size={16} color="black" /></div>
+                </div>
+                <p className="text-sm font-medium text-gray-700 leading-relaxed">
+                  "No lock-in. Full source code access from day one. You own the IP of everything we build."
+                </p>
+              </div>
+            </motion.div>
+
+            {/* Card 3: Theme Emerald */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={metricsInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.3 }}
+              className="bg-[var(--color-emerald)] rounded-[2rem] p-8 lg:p-10 flex flex-col min-h-[280px]"
+            >
+              <p className="text-sm font-medium text-black mb-4">Engineers Dedicated</p>
+              <h3 className="text-6xl lg:text-7xl font-medium tracking-tighter text-black mb-4">
+                <AnimatedCounter value={5} suffix="+" duration={1} />
+              </h3>
+              <p className="text-sm font-medium text-black/80 leading-relaxed mt-auto">
+                Direct access to the founders and developers writing your code. Zero account managers in the way.
+              </p>
+            </motion.div>
+
+            {/* Card 4: Black (Spans bottom right) */}
+            <motion.div 
+              initial={{ opacity: 0, y: 20 }}
+              animate={metricsInView ? { opacity: 1, y: 0 } : {}}
+              transition={{ duration: 0.6, delay: 0.4 }}
+              className="md:col-span-2 bg-[#111827] rounded-[2rem] p-8 lg:p-10 flex flex-col sm:flex-row sm:items-end justify-between gap-6 min-h-[200px]"
+            >
+              <div>
+                <p className="text-lg font-medium text-white/80 mb-2">Reach</p>
+                <p className="text-sm font-medium text-gray-400 max-w-sm leading-relaxed">
+                  Engineered in Westlands, Nairobi. Deployed for users across Kenya, Germany, and beyond.
+                </p>
+              </div>
+              <h3 className="text-5xl lg:text-7xl font-medium tracking-tighter text-white leading-none">
+                Global
+              </h3>
+            </motion.div>
+
           </div>
         </div>
       </section>
 
-      {/* ══ SERVICE STORIES — one alternating section per service ══════════════ */}
+      {/* ══ SERVICE STORIES ════════════════════════════════════════════════════ */}
       {SERVICES.map((service, i) => (
         <div key={service.id} id={`service-${service.id}`}>
-          <ServiceStorySection service={service} index={i} />
+          <ServiceSection service={service} index={i} />
         </div>
       ))}
 
-      {/* ══ PRICING — redesigned to match the reference pricing UI ═════════════ */}
-      <section ref={packagesRef} style={{
-        paddingTop: "clamp(72px, 10vw, 112px)",
-        paddingBottom: "clamp(72px, 10vw, 112px)",
-        background: "var(--color-surface)",
-        borderBottom: "1px solid var(--color-border)",
-      }}>
-        <div className="px-6 mx-auto lg:px-16" style={{ maxWidth: "1360px" }}>
-          {/* Centered header */}
-          <div className="flex flex-col items-center max-w-2xl mx-auto mb-14 text-center">
-            <SectionLabel text="Pricing" center />
-            <h2 style={{ fontSize: "clamp(2rem, 4.5vw, 3.6rem)", fontWeight: 900, letterSpacing: "-0.045em", lineHeight: 1.02, color: "var(--color-text)", marginBottom: "1.25rem" }}>
-              Transparent. <span style={{ color: "var(--color-emerald)" }}>No surprises.</span>
+      {/* ══ PRICING (Exact match to image_0bf6d4.png) ══════════════════════════ */}
+      <section ref={packagesRef} className="py-32 bg-[#F9FAFB]">
+        <div className="w-full max-w-[1400px] mx-auto px-6 lg:px-12">
+          
+          <div className="flex flex-col items-center text-center mb-20">
+            <h2 className="text-4xl lg:text-5xl font-black text-[#111827] tracking-tight mb-6 leading-tight">
+              Flexible Plans Built for<br/>Every Stage of Growth
             </h2>
-            <p style={{ fontSize: "0.9rem", lineHeight: 1.8, color: "var(--color-text-muted)", marginBottom: "1.75rem" }}>
-              Starting prices in Kenyan Shillings. Every project gets a detailed quote after a free 30-minute scoping call — no commitment.
+            <p className="text-base lg:text-lg text-[#6B7280] max-w-2xl mb-10">
+              Whether you're validating an MVP or scaling enterprise architecture, we offer transparent, scope-based pricing that delivers value.
             </p>
             <Link href="/contact"
-              className="inline-flex items-center gap-2 font-bold transition-all duration-200 hover:-translate-y-px"
-              style={{ background: "var(--color-text)", color: "var(--color-bg)", padding: "0.7rem 1.5rem", fontSize: "0.8rem", borderRadius: "999px" }}>
-              Get a Free Quote <ArrowUpRight size={14} />
+              className="inline-flex items-center gap-3 font-bold transition-transform hover:-translate-y-1 tracking-widest text-[0.8rem]"
+              style={{
+                background: "#111827", color: "var(--color-emerald)",
+                padding: "0.5rem 0.5rem 0.5rem 1.5rem", borderRadius: "999px"
+              }}>
+              GET STARTED
+              <div style={{ background: "var(--color-emerald)", color: "#111827", padding: "0.5rem", borderRadius: "50%" }}>
+                <ArrowUpRight size={16} strokeWidth={3} />
+              </div>
             </Link>
           </div>
 
-          <div className="grid grid-cols-1 gap-5 lg:grid-cols-3">
-            {PACKAGES.map((pkg, i) => <PackageCard key={pkg.name} pkg={pkg} index={i} inView={packagesInView} />)}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 relative">
+            <div className="absolute inset-y-4 inset-x-[-1rem] bg-white rounded-[2rem] shadow-sm z-0 hidden md:block" />
+            {PACKAGES.map((pkg, i) => <PricingCard key={pkg.name} pkg={pkg} index={i} inView={packagesInView} />)}
           </div>
 
-          <motion.div initial={{ opacity: 0 }} animate={packagesInView ? { opacity: 1 } : {}} transition={{ duration: 0.5, delay: 0.35 }}
-            className="flex flex-wrap items-center justify-center gap-6 pt-8 mt-10"
-            style={{ borderTop: "1px solid var(--color-border)" }}>
-            {["All prices in KES", "Free scoping call", "No hidden fees", "Source code is yours", "Contract work available"].map(note => (
-              <div key={note} className="flex items-center gap-2">
-                <div style={{ width: 5, height: 5, background: "var(--color-emerald)" }} />
-                <span style={{ fontSize: "0.7rem", fontWeight: 600, color: "var(--color-text-faint)", letterSpacing: "0.03em" }}>{note}</span>
-              </div>
-            ))}
-          </motion.div>
         </div>
       </section>
 
-      {/* ══ PROCESS ═════════════════════════════════════════════════════════════ */}
-      <section ref={processRef} style={{
-        paddingTop: "clamp(72px, 10vw, 112px)",
-        paddingBottom: "clamp(72px, 10vw, 112px)",
-        background: "var(--color-bg)",
-        borderBottom: "1px solid var(--color-border)",
-      }}>
-        <div className="px-6 mx-auto lg:px-16" style={{ maxWidth: "1360px" }}>
-          <div className="mb-14">
-            <SectionLabel text="How It Works" />
-            <h2 style={{ fontSize: "clamp(2rem, 4vw, 3.6rem)", fontWeight: 900, letterSpacing: "-0.04em", lineHeight: 0.95, color: "var(--color-text)" }}>
-              First message to
-              <br />
-              <span style={{ color: "var(--color-emerald)" }}>live product.</span>
-            </h2>
-          </div>
-          <div className="grid grid-cols-1 gap-px sm:grid-cols-2 lg:grid-cols-4" style={{ background: "var(--color-border)" }}>
-            {[
-              { num: "01", title: "You reach out", body: "Tell us what you need. WhatsApp, email, contact form — we respond the same business day, always." },
-              { num: "02", title: "Free scoping call", body: "30 minutes. We understand the project, ask the right questions, and tell you exactly how we'd build it." },
-              { num: "03", title: "Clear proposal", body: "Written scope, fixed timeline, fixed price. No ambiguity, no hourly guesswork, no hidden fees." },
-              { num: "04", title: "We build & ship", body: "Weekly updates. Real code, real progress. Launch — and we're here after it too." },
-            ].map((step, i) => (
-              <motion.div key={step.num}
-                initial={{ opacity: 0, y: 20 }}
-                animate={processInView ? { opacity: 1, y: 0 } : {}}
-                transition={{ duration: 0.5, delay: i * 0.09 }}
-                style={{ padding: "clamp(1.5rem, 2.5vw, 2.2rem)", background: "var(--color-surface)", borderRadius: "12px", position: "relative" }}>
-                {i === 0 && <div className="absolute top-0 left-0 w-full h-[2px]" style={{ background: "var(--color-emerald)" }} />}
-                <span style={{ display: "block", fontSize: "clamp(3rem, 5vw, 5rem)", fontWeight: 900, letterSpacing: "-0.06em", lineHeight: 1, color: "var(--color-border-mid)", marginBottom: "1rem", userSelect: "none" }}>
-                  {step.num}
-                </span>
-                <h4 style={{ fontSize: "1rem", fontWeight: 800, letterSpacing: "-0.02em", color: "var(--color-text)", marginBottom: "0.6rem" }}>{step.title}</h4>
-                <p style={{ fontSize: "0.8rem", lineHeight: 1.72, color: "var(--color-text-muted)" }}>{step.body}</p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-      </section>
-
-      {/* ══ CTA ═════════════════════════════════════════════════════════════════ */}
-      <section style={{ background: "var(--color-bg)", position: "relative", overflow: "hidden" }}>
-        <div className="absolute top-0 bottom-0 flex gap-4 pointer-events-none right-8">
-          {[0, 1, 2].map(i => (
-            <motion.div key={i} className="w-px" style={{ background: "var(--color-border)" }}
-              initial={{ scaleY: 0 }} whileInView={{ scaleY: 1 }} viewport={{ once: true }}
-              transition={{ duration: 1.2, delay: i * 0.12 }} />
-          ))}
-        </div>
-        <div className="px-6 mx-auto lg:px-16" style={{ maxWidth: "1360px" }}>
-          <div className="grid grid-cols-1 gap-px lg:grid-cols-2" style={{ background: "var(--color-border)" }}>
-            {/* Emerald */}
-            <motion.div className="relative overflow-hidden"
-              initial={{ opacity: 0, x: -20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
-              transition={{ duration: 0.6, ease: [0.32, 0.72, 0, 1] }}
-              style={{ padding: "clamp(3.5rem, 7vw, 7rem) clamp(1.5rem, 4vw, 4rem)", background: "var(--color-emerald)", borderRadius: "20px" }}>
-              <svg className="absolute inset-0 w-full h-full pointer-events-none" style={{ opacity: 0.07 }}>
-                <defs>
-                  <pattern id="diagsvc2" width="32" height="32" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
-                    <line x1="0" y1="0" x2="0" y2="32" stroke="#000" strokeWidth="1.5" />
-                  </pattern>
-                </defs>
-                <rect width="100%" height="100%" fill="url(#diagsvc2)" />
-              </svg>
-              <div className="relative z-10">
-                <h2 style={{ fontSize: "clamp(2.2rem, 4.5vw, 4rem)", fontWeight: 900, letterSpacing: "-0.045em", lineHeight: 0.95, color: "#040805", marginBottom: "1.5rem" }}>
-                  Ready to start
-                  <br />
-                  your project?
-                </h2>
-                <p style={{ fontSize: "0.88rem", lineHeight: 1.75, color: "rgba(4,8,5,0.65)", marginBottom: "2rem", maxWidth: "22rem" }}>
-                  Tell us what you're building. We'll tell you exactly how we'd build it — and what it would cost.
-                </p>
-                <Link href="/contact"
-                  className="inline-flex items-center gap-2 font-bold transition-all duration-200 group hover:-translate-y-px"
-                  style={{ background: "#040805", color: "var(--color-emerald)", padding: "0.9rem 2rem", fontSize: "0.88rem", borderRadius: "999px" }}>
-                  Get a Free Quote
-                  <ArrowUpRight size={15} className="transition-transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5" />
-                </Link>
-              </div>
-            </motion.div>
-
-            {/* Dark */}
-            <motion.div
-              initial={{ opacity: 0, x: 20 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }}
-              transition={{ duration: 0.6, delay: 0.08, ease: [0.32, 0.72, 0, 1] }}
-              style={{ padding: "clamp(3.5rem, 7vw, 7rem) clamp(1.5rem, 4vw, 4rem)", background: "var(--color-surface)", borderRadius: "20px", display: "flex", flexDirection: "column", justifyContent: "center", gap: "2rem" }}>
-              <div>
-                <div style={{ fontSize: "0.68rem", fontWeight: 700, letterSpacing: "0.14em", color: "var(--color-emerald)", textTransform: "uppercase", marginBottom: "1rem" }}>
-                  What to expect
-                </div>
-                <div className="flex flex-col gap-4">
-                  {[
-                    { title: "Response within 24 hours", body: "We don't ghost. You'll hear back the same business day." },
-                    { title: "Free scoping call", body: "30 minutes to understand your project — no commitment, no pitch." },
-                    { title: "Fixed price, clear scope", body: "A written proposal with timeline, cost, and deliverables. No guessing." },
-                  ].map(({ title, body }) => (
-                    <div key={title} className="flex gap-3">
-                      <div style={{ width: 6, height: 6, background: "var(--color-emerald)", flexShrink: 0, marginTop: "0.42rem" }} />
-                      <div>
-                        <div style={{ fontSize: "0.82rem", fontWeight: 800, color: "var(--color-text)", marginBottom: "0.2rem" }}>{title}</div>
-                        <div style={{ fontSize: "0.74rem", lineHeight: 1.6, color: "var(--color-text-muted)" }}>{body}</div>
-                      </div>
-                    </div>
-                  ))}
+      {/* ══ FULL WIDTH CTA (Exact match to image_0bf731.jpg) ═══════════════════ */}
+      <section className="relative w-full overflow-hidden">
+        {/* Full width container, no horizontal padding constraints on background */}
+        <div className="relative w-full py-32 lg:py-48">
+          <img 
+            src="https://images.unsplash.com/photo-1506744626753-1436eba18f28?auto=format&fit=crop&w=2850&q=80" 
+            alt="Beautiful landscape" 
+            className="absolute inset-0 w-full h-full object-cover object-center"
+          />
+          <div className="absolute inset-0 bg-blue-900/30 mix-blend-multiply" />
+          <div className="absolute inset-0 bg-gradient-to-r from-blue-900/70 via-blue-900/40 to-transparent" />
+          
+          <div className="relative z-10 w-full max-w-[1600px] mx-auto px-6 lg:px-12">
+            <div className="max-w-3xl">
+              
+              <div className="flex items-center gap-4 mb-8">
+                <span className="text-sm font-semibold text-white/90">Trusted by over 5,000+ users</span>
+                <div className="flex -space-x-3">
+                  <img src="https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=100&q=80" alt="Avatar 1" className="w-8 h-8 rounded-full border-2 border-[#1E3A8A] object-cover" />
+                  <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?auto=format&fit=crop&w=100&q=80" alt="Avatar 2" className="w-8 h-8 rounded-full border-2 border-[#1E3A8A] object-cover" />
+                  <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?auto=format&fit=crop&w=100&q=80" alt="Avatar 3" className="w-8 h-8 rounded-full border-2 border-[#1E3A8A] object-cover" />
                 </div>
               </div>
-              <div className="flex flex-wrap gap-5">
-                <Link href="/contact" className="inline-flex items-center gap-2 font-semibold transition-colors group"
-                  style={{ color: "var(--color-emerald)", fontSize: "0.85rem" }}>
-                  Go to contact page <ArrowRight size={14} className="transition-transform group-hover:translate-x-1" />
-                </Link>
-                <a href="mailto:info@softrinx.com" className="inline-flex items-center gap-2 font-semibold"
-                  style={{ color: "var(--color-text-faint)", fontSize: "0.82rem" }}>
-                  info@softrinx.com <ExternalLink size={12} />
-                </a>
-              </div>
-            </motion.div>
+
+              <h2 className="text-4xl lg:text-6xl font-medium text-white tracking-tight leading-[1.1] mb-6">
+                We combine human insight with artificial intelligence
+              </h2>
+              
+              <p className="text-lg lg:text-xl text-white/80 leading-relaxed mb-10 max-w-2xl">
+                Our engineering team bridges strategic thinking and advanced technologies to help companies streamline processes, improve decision-making, and create intelligent digital experiences.
+              </p>
+
+              <Link href="/contact"
+                className="inline-flex items-center gap-3 font-bold transition-transform hover:-translate-y-1 tracking-[0.1em] text-[0.8rem] uppercase"
+                style={{
+                  background: "var(--color-emerald)", color: "#111827",
+                  padding: "0.5rem 0.5rem 0.5rem 1.5rem", borderRadius: "999px"
+                }}>
+                GET STARTED
+                <div style={{ background: "#111827", color: "var(--color-emerald)", padding: "0.5rem", borderRadius: "50%" }}>
+                  <ArrowUpRight size={16} strokeWidth={3} />
+                </div>
+              </Link>
+
+            </div>
           </div>
         </div>
       </section>
