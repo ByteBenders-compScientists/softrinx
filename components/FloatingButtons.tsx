@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 "use client";
 
 import { useEffect, useState, useCallback } from "react";
@@ -26,19 +27,22 @@ function Tooltip({ label, visible, isDark }: { label: string; visible: boolean; 
           transition={{ duration: 0.18, ease: [0.32, 0.72, 0, 1] }}
           style={{
             position: "absolute",
-            right: "calc(100% + 10px)",
+            right: "calc(100% + 14px)",
             top: "50%",
             transform: "translateY(-50%)",
-            background: isDark ? "#0d1210" : "#ffffff",
+            background: isDark ? "rgba(13, 18, 16, 0.95)" : "rgba(255, 255, 255, 0.95)",
+            backdropFilter: "blur(8px)",
+            WebkitBackdropFilter: "blur(8px)",
             border: "1px solid var(--color-border)",
-            padding: "0.42rem 0.8rem",
+            borderRadius: "12px",
+            padding: "0.5rem 1rem",
             whiteSpace: "nowrap",
-            boxShadow: "0 4px 20px rgba(0,0,0,0.18)",
+            boxShadow: "0 8px 30px rgba(0,0,0,0.12)",
             pointerEvents: "none",
           }}
         >
           <span style={{
-            fontSize: "0.7rem", fontWeight: 700,
+            fontSize: "0.75rem", fontWeight: 700,
             color: "var(--color-text)", letterSpacing: "0.04em",
           }}>
             {label}
@@ -78,7 +82,7 @@ function ScrollToTopButton() {
   }, [handleScroll]);
 
   // Progress ring
-  const SIZE = 52;
+  const SIZE = 54;
   const STROKE = 2.5;
   const R = (SIZE - STROKE * 2) / 2;
   const CIRC = 2 * Math.PI * R;
@@ -90,9 +94,9 @@ function ScrollToTopButton() {
           onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.5 }}
+          initial={{ opacity: 0, scale: 0.5, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.5, y: 20 }}
           transition={{ type: "spring", stiffness: 320, damping: 24 }}
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.93 }}
@@ -100,26 +104,29 @@ function ScrollToTopButton() {
           style={{
             position: "relative",
             width: `${SIZE}px`, height: `${SIZE}px`,
-            background: isDark ? "#0d1210" : "#ffffff",
+            background: isDark ? "rgba(13, 18, 16, 0.85)" : "rgba(255, 255, 255, 0.85)",
+            backdropFilter: "blur(12px)",
+            WebkitBackdropFilter: "blur(12px)",
+            borderRadius: "50%",
             border: "1px solid var(--color-border)",
             display: "flex", alignItems: "center", justifyContent: "center",
             cursor: "pointer", padding: 0, flexShrink: 0,
             boxShadow: hovered
-              ? "0 8px 28px rgba(0,0,0,0.22), 0 0 0 1px var(--color-emerald)"
-              : "0 4px 16px rgba(0,0,0,0.15)",
-            transition: "box-shadow 0.22s ease",
+              ? "0 12px 32px rgba(0,0,0,0.22), 0 0 0 1px var(--color-emerald)"
+              : "0 6px 20px rgba(0,0,0,0.12)",
+            transition: "box-shadow 0.3s ease",
           }}
         >
           <Tooltip label="Scroll to top" visible={hovered} isDark={isDark} />
 
           {/* Progress ring */}
           <svg width={SIZE} height={SIZE}
-            style={{ position: "absolute", inset: 0, transform: "rotate(-90deg)" }}>
+            style={{ position: "absolute", inset: 0, transform: "rotate(-90deg)", borderRadius: "50%" }}>
             <circle cx={SIZE/2} cy={SIZE/2} r={R}
               fill="none" stroke="var(--color-border)" strokeWidth={STROKE} />
             <circle cx={SIZE/2} cy={SIZE/2} r={R}
               fill="none" stroke="var(--color-emerald)" strokeWidth={STROKE}
-              strokeLinecap="square"
+              strokeLinecap="round"
               strokeDasharray={CIRC}
               strokeDashoffset={CIRC * (1 - progress)}
               style={{ transition: "stroke-dashoffset 0.1s linear" }}
@@ -128,16 +135,16 @@ function ScrollToTopButton() {
 
           {/* Arrow */}
           <motion.div
-            animate={{ y: hovered ? -2 : 0 }}
-            transition={{ duration: 0.18 }}
+            animate={{ y: hovered ? -3 : 0 }}
+            transition={{ duration: 0.2, ease: "easeOut" }}
             style={{
               position: "relative", zIndex: 1,
-              color: hovered ? "var(--color-emerald)" : "var(--color-text-muted)",
+              color: hovered ? "var(--color-emerald)" : "var(--color-text)",
               transition: "color 0.2s",
               display: "flex",
             }}
           >
-            <ArrowUp size={17} strokeWidth={2.5} />
+            <ArrowUp size={20} strokeWidth={2.5} />
           </motion.div>
         </motion.button>
       )}
@@ -157,6 +164,7 @@ function WhatsAppButton() {
   }, []);
 
   const href = `https://wa.me/254750109798?text=${encodeURIComponent("Hi Softrinx! I'd like to discuss a project.")}`;
+  const SIZE = 54;
 
   return (
     <AnimatePresence>
@@ -167,34 +175,36 @@ function WhatsAppButton() {
           rel="noopener noreferrer"
           onMouseEnter={() => setHovered(true)}
           onMouseLeave={() => setHovered(false)}
-          initial={{ opacity: 0, scale: 0.5 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0, scale: 0.5 }}
+          initial={{ opacity: 0, scale: 0.5, y: 20 }}
+          animate={{ opacity: 1, scale: 1, y: 0 }}
+          exit={{ opacity: 0, scale: 0.5, y: 20 }}
           transition={{ type: "spring", stiffness: 320, damping: 24 }}
           whileHover={{ scale: 1.08 }}
           whileTap={{ scale: 0.93 }}
           style={{
             position: "relative",
-            width: "52px", height: "52px",
+            width: `${SIZE}px`, height: `${SIZE}px`,
             background: "#25D366",
+            borderRadius: "50%",
             display: "flex", alignItems: "center", justifyContent: "center",
             color: "#ffffff", flexShrink: 0,
-            boxShadow: "0 4px 20px rgba(37,211,102,0.4), 0 2px 8px rgba(0,0,0,0.18)",
+            boxShadow: "0 8px 24px rgba(37,211,102,0.45), 0 4px 12px rgba(0,0,0,0.15)",
             textDecoration: "none",
           }}
         >
           <Tooltip label="Chat on WhatsApp" visible={hovered} isDark={isDark} />
-          <WhatsAppIcon size={23} />
+          <WhatsAppIcon size={25} />
 
           {/* Pulse ring */}
           <motion.div
             style={{
               position: "absolute", inset: 0,
               border: "2px solid #25D366",
+              borderRadius: "50%",
               pointerEvents: "none",
             }}
-            animate={{ scale: [1, 1.6, 1.6], opacity: [0.65, 0, 0] }}
-            transition={{ duration: 2.4, repeat: Infinity, ease: "easeOut", repeatDelay: 1.4 }}
+            animate={{ scale: [1, 1.5, 1.5], opacity: [0.7, 0, 0] }}
+            transition={{ duration: 2.2, repeat: Infinity, ease: "easeOut", repeatDelay: 1 }}
           />
         </motion.a>
       )}
@@ -213,7 +223,7 @@ export default function FloatingButtons() {
       display: "flex",
       flexDirection: "column",
       alignItems: "center",
-      gap: "0.65rem",
+      gap: "0.75rem",
     }}>
       <ScrollToTopButton />
       <WhatsAppButton />
