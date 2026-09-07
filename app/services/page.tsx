@@ -185,7 +185,7 @@ function HeroVideoBackground({ videoScale, videoY }: { videoScale: any; videoY: 
     <motion.div className="absolute inset-0" style={{ scale: videoScale, y: videoY, zIndex: 0 }}>
       <video autoPlay muted loop playsInline poster="/images/services-hero-poster.jpg" className="absolute inset-0 object-cover w-full h-full">
         <source src="/videos/services-hero.webm" type="video/webm" />
-        <source src="/images/services-hero.mp4" type="video/mp4" />
+        <source src="/images/heroo3.mp4" type="video/mp4" />
       </video>
       <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(5,5,5,0.72) 0%, rgba(5,5,5,0.5) 38%, rgba(5,5,5,0.68) 72%, rgba(5,5,5,0.97) 100%)" }} />
     </motion.div>
@@ -375,8 +375,6 @@ export default function ServicesPage() {
           style={{ maxWidth: "1400px", paddingTop: "140px", y: contentY, opacity: contentOpacity }}>
           <div className="flex flex-col items-start max-w-4xl text-left">
             <motion.div initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.1, ease: [0.32, 0.72, 0, 1] }} className="flex items-center gap-3 mb-6">
-              <span className="block w-8 h-px bg-[var(--color-emerald)]" />
-              <span className="text-[0.7rem] font-bold tracking-[0.18em] text-[var(--color-emerald)] uppercase">Services</span>
             </motion.div>
 
             <motion.h1 initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2, ease: [0.32, 0.72, 0, 1] }} className="text-[clamp(3rem,6.8vw,6.2rem)] font-black leading-[0.95] tracking-[-0.04em] text-white mb-6">
