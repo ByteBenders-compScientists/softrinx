@@ -380,7 +380,7 @@ export default function ServicesPage() {
             <motion.h1 initial={{ opacity: 0, y: 14 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.6, delay: 0.2, ease: [0.32, 0.72, 0, 1] }} className="text-[clamp(3rem,6.8vw,6.2rem)] font-black leading-[0.95] tracking-[-0.04em] text-white mb-6">
               <span className="block">Every service</span>
               <span className="block text-[var(--color-emerald)]">your team</span>
-              <span className="block">needs to win.</span>
+              <span className="block">needs to succeed.</span>
             </motion.h1>
 
             <motion.p initial={{ opacity: 0, y: 10 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.55, delay: 0.32 }} className="text-[clamp(1rem,1.3vw,1.15rem)] leading-[1.75] text-white/70 max-w-[34rem] mb-8">
@@ -402,19 +402,20 @@ export default function ServicesPage() {
       <section ref={metricsRef} className="py-24 lg:py-32 bg-[var(--color-bg)]">
         <div className="w-full max-w-[1600px] mx-auto px-4 sm:px-6 lg:px-12">
           
-          <motion.div initial={{ opacity: 0, y: 20 }} animate={metricsInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} className="mb-16">
-            <div className="flex items-center gap-3 mb-6 font-bold tracking-widest text-xs uppercase text-[var(--color-text)]">
-              <span className="w-1.5 h-1.5 bg-[var(--color-text)]" />
+        <motion.div initial={{ opacity: 0, y: 20 }} animate={metricsInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }} className="mb-16">
+            <div className="relative flex items-center gap-3 mb-6 font-black tracking-[0.2em] text-4xl md:text-5xl uppercase text-[var(--color-text)] drop-shadow-[0_4px_6px_rgba(0,0,0,0.4)] [text-shadow:1px_1px_0px_rgba(0,0,0,0.15),2px_2px_0px_rgba(0,0,0,0.15)] select-none">
               About Us
+              <span className="absolute -left-2 -top-4 -z-10 font-black tracking-widest text-6xl uppercase opacity-[0.03] text-[var(--color-text)] pointer-events-none">
+                About
+              </span>
             </div>
-            <h2 className="text-4xl lg:text-6xl font-medium tracking-tight text-[var(--color-text)] max-w-4xl leading-[1.1]">
-              A registered engineering partner dedicated to building <span className="bg-[#0EA5E9] text-white rounded-full px-2 py-0.5 inline-flex items-center justify-center align-middle mx-1"><Globe size={32} /></span> smarter and <span className="bg-[var(--color-emerald)] text-[#111827] rounded-full px-2 py-0.5 inline-flex items-center justify-center align-middle mx-1"><Zap size={32} /></span> more adaptive software.
-            </h2>
           </motion.div>
+
+
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
             
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={metricsInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.1 }} className="md:row-span-2 bg-[#0EA5E9] rounded-[2rem] p-4 flex flex-col relative overflow-hidden min-h-[400px] md:min-h-full">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={metricsInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.1 }} className="md:row-span-2 bg-[#32CD32] rounded-[2rem] p-4 flex flex-col relative overflow-hidden min-h-[400px] md:min-h-full">
               <div className="absolute top-8 left-8 z-10 flex items-center gap-2 font-black text-white text-xl tracking-tighter">
                 <Code2 size={24} /> SOFTRINX
               </div>
@@ -445,7 +446,7 @@ export default function ServicesPage() {
               </div>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={metricsInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.3 }} className="bg-[var(--color-emerald)] rounded-[2rem] p-8 lg:p-10 flex flex-col min-h-[280px]">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={metricsInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.3 }} className="bg-[#00A86B] rounded-[2rem] p-8 lg:p-10 flex flex-col min-h-[280px]">
               <p className="text-sm font-medium text-[#111827] mb-4">Engineers Dedicated</p>
               <h3 className="text-6xl lg:text-7xl font-medium tracking-tighter text-[#111827] mb-4">
                 <AnimatedCounter value={5} suffix="+" duration={1} />
@@ -455,14 +456,14 @@ export default function ServicesPage() {
               </p>
             </motion.div>
 
-            <motion.div initial={{ opacity: 0, y: 20 }} animate={metricsInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.4 }} className="md:col-span-2 bg-[var(--color-card)] border border-[var(--color-border)] rounded-[2rem] p-8 lg:p-10 flex flex-col sm:flex-row sm:items-end justify-between gap-6 min-h-[200px]">
+            <motion.div initial={{ opacity: 0, y: 20 }} animate={metricsInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6, delay: 0.4 }} className="md:col-span-2 bg-[var(--color-card)] border border-2 border-dotted border-[var(--color-border)] rounded-[2rem] p-8 lg:p-10 flex flex-col sm:flex-row sm:items-end justify-between gap-6 min-h-[200px]">
               <div>
                 <p className="text-lg font-medium text-[var(--color-text)] mb-2">Reach</p>
                 <p className="text-sm font-medium text-[var(--color-text-muted)] max-w-sm leading-relaxed">
                   Engineered in Westlands, Nairobi. Deployed for users across Kenya, Germany, and beyond.
                 </p>
               </div>
-              <h3 className="text-5xl lg:text-7xl font-medium tracking-tighter text-[var(--color-text)] leading-none">
+              <h3 className="text-5xl  lg:text-7xl font-medium tracking-tighter text-[var(--color-text)] leading-none">
                 Global
               </h3>
             </motion.div>
