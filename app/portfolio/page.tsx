@@ -22,7 +22,7 @@ function SectionLabel({ text, dark = false }: { text: string; dark?: boolean }) 
 }
 
 // ─── Data: Case Studies (Bento Grid Layout) ───────────────────────────────────
-// The grid is 3 columns. Span classes ensure they lock together perfectly.
+// The 3-column grid uses exact col and row spans to lock together perfectly.
 const CASES = [
   {
     id: "djafro",
@@ -37,7 +37,7 @@ const CASES = [
     id: "hmex",
     title: "HealthMaster (HMEX)",
     description: "Healthcare management and practitioner platform with AI risk assessment.",
-    image: "/images/hmex2.png", // Or "/images/hmex.png"
+    image: "/images/hmex2.png", 
     link: "https://hmex.healthmasterco.com/",
     // Small square: spans 1 col, 1 row
     span: "md:col-span-1 md:row-span-1",
@@ -55,7 +55,7 @@ const CASES = [
     id: "memora",
     title: "Memora Visuals",
     description: "Digital presence and storytelling platform for a high-end creative studio.",
-    image: "/images/memora.png", // Or the unsplash equivalent
+    image: "/images/memora.png", 
     link: "https://memoravisuals.com/",
     // Wide rectangle: spans 2 cols, 1 row
     span: "md:col-span-2 md:row-span-1",
@@ -98,37 +98,32 @@ const CASES = [
   }
 ];
 
-// ─── Data: Testimonials ───────────────────────────────────────────────────────
+// ─── Data: Testimonials (No Images) ───────────────────────────────────────────
 const TESTIMONIALS = [
   {
     quote: "The streaming architecture they built for us handles massive spikes without a hiccup. Our users love the offline downloads feature.",
     author: "BritechMedia",
     role: "DjAfro Cinema",
-    image: "https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=800&auto=format&fit=crop",
   },
   {
     quote: "They completely revamped our digital presence. The site is incredibly fast, and the visual hierarchy perfectly showcases our photography.",
     author: "Creative Director",
     role: "Memora Visuals",
-    image: "https://images.unsplash.com/photo-1553514029-1318c9127859?q=80&w=800&auto=format&fit=crop",
   },
   {
     quote: "Softrinx brought clarity to complex problems, breaking down barriers and delivering an automated grading system that actually works.",
     author: "University Admin",
     role: "IntelliMark",
-    image: "https://images.unsplash.com/photo-1560250097-0b93528c311a?q=80&w=800&auto=format&fit=crop",
   },
   {
     quote: "We streamlined our property listings significantly. Clear map integrations and instant booking requests removed all internal confusion.",
     author: "Operations Lead",
     role: "WereNtOnline",
-    image: "https://images.unsplash.com/photo-1580489944761-15a19d654956?q=80&w=800&auto=format&fit=crop",
   },
   {
     quote: "Their insight resolved difficult hurdles, opening new paths for our farmers. The machine learning model is shockingly accurate in the field.",
     author: "Agri Enterprise",
     role: "AgriLens & FarmSense",
-    image: "https://images.unsplash.com/photo-1607990281513-2c110a25bd8c?q=80&w=800&auto=format&fit=crop",
   },
 ];
 
@@ -142,43 +137,38 @@ function CaseCard({ c, index }: { c: (typeof CASES)[0]; index: number }) {
       ref={ref}
       initial={{ opacity: 0, y: 30 }}
       animate={inView ? { opacity: 1, y: 0 } : {}}
-      transition={{ duration: 0.6, delay: index * 0.1, ease: [0.32, 0.72, 0, 1] }}
-      // On mobile, force a fixed height. On desktop, let the grid auto-rows dictate height.
-      className={`group relative overflow-hidden rounded-[2rem] border border-[var(--color-border)] bg-[var(--color-surface)] h-[400px] md:h-auto ${c.span}`}
+      transition={{ duration: 0.6, delay: index * 0.08, ease: [0.32, 0.72, 0, 1] }}
+      className={`group relative overflow-hidden rounded-[2rem] lg:rounded-[2.5rem] border border-[var(--color-border)] bg-[var(--color-surface)] min-h-[350px] md:min-h-0 ${c.span}`}
     >
       <Link href={c.link} target={c.link.startsWith("http") ? "_blank" : "_self"} className="block w-full h-full relative z-10">
         
         {/* Background Image Container */}
-        <div className="absolute inset-0 z-0 bg-[#0A0A0A]">
+        <div className="absolute inset-0 z-0 bg-[#050505] overflow-hidden">
           <Image
             src={c.image}
             alt={c.title}
             fill
-            className="object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.32,0.72,0,1)] group-hover:scale-105 opacity-80 group-hover:opacity-100"
+            className="object-cover transition-transform duration-[1.2s] ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:scale-110 opacity-70 group-hover:opacity-100"
           />
-          {/* Gradient overlay: gets darker on hover to make text pop */}
-          <div className="absolute inset-0 transition-colors duration-700 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent opacity-90 group-hover:from-[#050505] group-hover:via-[#050505]/70" />
+          {/* Gradient overlay to ensure text readability */}
+          <div className="absolute inset-0 transition-colors duration-700 bg-gradient-to-t from-[#050505] via-[#050505]/40 to-transparent opacity-90 group-hover:from-[#050505] group-hover:via-[#050505]/60" />
         </div>
 
-        {/* Content Layer (Bottom aligned) */}
+        {/* Content Layer */}
         <div className="absolute inset-0 p-6 md:p-8 flex flex-col justify-end z-10">
-          <div className="flex items-end justify-between gap-6">
-            
-            {/* Left: Text */}
+          <div className="flex items-end justify-between gap-4">
             <div className="flex flex-col">
-              <h3 className="text-2xl md:text-3xl font-bold tracking-tight text-white mb-2 transition-transform duration-500 origin-left">
+              <h3 className="text-2xl md:text-3xl font-black tracking-tight text-white mb-2 transition-transform duration-500 origin-left group-hover:text-[var(--color-emerald)]">
                 {c.title}
               </h3>
-              <p className="text-sm md:text-base text-white/70 line-clamp-2 max-w-[90%]">
+              <p className="text-sm md:text-base text-white/80 line-clamp-2 max-w-[90%] font-medium">
                 {c.description}
               </p>
             </div>
 
-            {/* Right: Circular Arrow Button */}
-            <div className="flex-shrink-0 w-12 h-12 rounded-full border border-white/20 bg-white/10 backdrop-blur-md flex items-center justify-center text-white transition-all duration-500 group-hover:bg-white group-hover:text-black group-hover:scale-110">
+            <div className="flex-shrink-0 w-12 h-12 rounded-full border border-white/20 bg-white/10 backdrop-blur-md flex items-center justify-center text-white transition-all duration-500 group-hover:bg-[var(--color-emerald)] group-hover:border-[var(--color-emerald)] group-hover:text-black group-hover:scale-110 shadow-lg">
               <ArrowUpRight size={20} strokeWidth={2.5} className="transition-transform duration-500 group-hover:rotate-45" />
             </div>
-
           </div>
         </div>
 
@@ -187,42 +177,39 @@ function CaseCard({ c, index }: { c: (typeof CASES)[0]; index: number }) {
   );
 }
 
-// ─── Testimonials Marquee Component ───────────────────────────────────────────
+// ─── Testimonials Marquee Component (Modern Text-Only UI) ─────────────────────
 function TestimonialMarquee() {
-  // Duplicate the array so the loop is seamless
   const duplicatedTestimonials = [...TESTIMONIALS, ...TESTIMONIALS];
 
   return (
-    <div className="relative flex overflow-hidden py-10">
-      {/* Left/Right Edge Fades */}
-      <div className="absolute top-0 bottom-0 left-0 z-10 w-20 md:w-40 bg-gradient-to-r from-[var(--color-bg)] to-transparent pointer-events-none" />
-      <div className="absolute top-0 bottom-0 right-0 z-10 w-20 md:w-40 bg-gradient-to-l from-[var(--color-bg)] to-transparent pointer-events-none" />
+    <div className="relative flex overflow-hidden py-4">
+      {/* Edge Fades */}
+      <div className="absolute top-0 bottom-0 left-0 z-10 w-24 md:w-48 bg-gradient-to-r from-[var(--color-bg)] to-transparent pointer-events-none" />
+      <div className="absolute top-0 bottom-0 right-0 z-10 w-24 md:w-48 bg-gradient-to-l from-[var(--color-bg)] to-transparent pointer-events-none" />
 
       <motion.div
         className="flex gap-6 md:gap-8 px-4 w-fit"
         animate={{ x: ["0%", "-50%"] }}
-        transition={{ ease: "linear", duration: 40, repeat: Infinity }}
+        transition={{ ease: "linear", duration: 45, repeat: Infinity }}
       >
         {duplicatedTestimonials.map((t, idx) => (
           <div 
             key={idx} 
-            className="flex flex-col flex-shrink-0 w-[300px] md:w-[380px] rounded-[2rem] overflow-hidden bg-[var(--color-surface)] border border-[var(--color-border)] transition-transform duration-300 hover:-translate-y-2"
+            className="group relative flex flex-col flex-shrink-0 w-[320px] md:w-[420px] h-[320px] md:h-[350px] p-8 md:p-10 rounded-[2rem] lg:rounded-[2.5rem] bg-[var(--color-surface)] border-[1.5px] border-dashed border-[var(--color-border-mid)] transition-all duration-500 hover:border-[var(--color-emerald-border)] hover:-translate-y-2 overflow-hidden"
           >
-            {/* Top Image Box */}
-            <div className="relative w-full h-48 md:h-56 bg-[var(--color-border)]">
-              <Image src={t.image} alt={t.author} fill className="object-cover" />
-            </div>
+            {/* Subtle Abstract Radial Glow on Hover */}
+            <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 bg-[radial-gradient(ellipse_at_top_right,rgba(45,212,191,0.08),transparent_60%)] pointer-events-none" />
             
-            {/* Bottom Content Box */}
-            <div className="flex flex-col flex-grow p-6 md:p-8">
-              <Quote size={32} className="text-[var(--color-emerald)] mb-4" />
-              <p className="text-[var(--color-text)] font-medium leading-relaxed mb-8 flex-grow text-sm md:text-base">
+            <div className="relative z-10 flex flex-col h-full">
+              <Quote size={32} className="text-[var(--color-border-bright)] group-hover:text-[var(--color-emerald)] transition-colors duration-500 mb-6 opacity-60 group-hover:opacity-100" />
+              
+              <p className="text-[var(--color-text)] font-medium leading-relaxed mb-6 flex-grow text-sm md:text-base">
                 "{t.quote}"
               </p>
               
-              <div className="flex flex-col items-end text-right border-t border-[var(--color-border)] pt-4 mt-auto">
-                <span className="text-sm font-bold text-[var(--color-text)]">{t.author}</span>
-                <span className="text-xs font-semibold text-[var(--color-text-faint)] uppercase tracking-wider mt-1">{t.role}</span>
+              <div className="flex flex-col border-t border-[var(--color-border)] pt-5 mt-auto">
+                <span className="text-base font-black text-[var(--color-text)] tracking-tight">{t.author}</span>
+                <span className="text-xs font-bold text-[var(--color-emerald)] uppercase tracking-widest mt-1">{t.role}</span>
               </div>
             </div>
           </div>
@@ -247,13 +234,13 @@ export default function PortfolioPage() {
       {/* ══ HERO ═══════════════════════════════════════════════════════════════ */}
       <section className="relative flex items-center overflow-hidden"
         style={{
-          minHeight: "75svh", background: "#050505",
+          minHeight: "98svh", background: "#050505",
           borderBottomLeftRadius: "clamp(24px, 4vw, 48px)", borderBottomRightRadius: "clamp(24px, 4vw, 48px)",
           borderBottom: "1px solid rgba(255,255,255,0.05)", paddingBottom: "80px", zIndex: 10,
         }}>
 
         <div className="absolute inset-0" style={{ zIndex: 0 }}>
-          <Image src="/images/cta5.jpg" alt="Softrinx engineering" fill priority className="object-cover opacity-60" />
+          <Image src="/images/cta5.jpg" alt="Softrinx engineering" fill priority className="object-cover opacity-90" />
           <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(5,5,5,0.85) 0%, rgba(5,5,5,0.7) 40%, rgba(5,5,5,0.95) 100%)" }} />
         </div>
 
@@ -283,7 +270,7 @@ export default function PortfolioPage() {
           
           <div ref={headerRef} className="flex flex-col lg:flex-row lg:items-end justify-between gap-8 mb-16">
             <motion.div initial={{ opacity: 0, y: 16 }} animate={headerInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.6 }}>
-              <SectionLabel text="Selected Work" />
+             
               <h2 className="text-4xl lg:text-5xl font-black text-[var(--color-text)] tracking-tight leading-[1.1]">
                 Products we&apos;ve built.<br />
                 <span className="text-[var(--color-emerald)]">Systems we own.</span>
@@ -291,8 +278,8 @@ export default function PortfolioPage() {
             </motion.div>
           </div>
 
-          {/* Grid setup: 1 column on mobile, 3 columns on desktop. Auto-rows keeps the height consistent for spans. */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 md:auto-rows-[300px]">
+          {/* Puzzle Grid setup: 1 column on mobile, 3 columns on desktop with auto-rows to lock the aspect ratios seamlessly */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 md:auto-rows-[300px] grid-flow-row-dense">
             {CASES.map((c, i) => (
               <CaseCard key={c.id} c={c} index={i} />
             ))}
@@ -301,8 +288,8 @@ export default function PortfolioPage() {
         </div>
       </section>
 
-      {/* ══ TESTIMONIALS (Photo-Top Marquee) ═══════════════════════════════════ */}
-      <section className="py-24 lg:py-32 bg-[var(--color-bg)] border-y border-[var(--color-border)] overflow-hidden">
+      {/* ══ TESTIMONIALS (Modern Text-Only UI) ═════════════════════════════════ */}
+      <section className="py-24 lg:py-32 bg-[var(--color-bg)] border-t border-[var(--color-border)] overflow-hidden">
         <div className="px-6 mx-auto lg:px-16 mb-12" style={{ maxWidth: "1400px" }}>
           <div className="text-center flex flex-col items-center">
             <SectionLabel text="Client Feedback" />
@@ -315,24 +302,26 @@ export default function PortfolioPage() {
         <TestimonialMarquee />
       </section>
 
-      {/* ══ CTA (Softly Blurred Video) ═════════════════════════════════════════ */}
+      {/* ══ CTA (Exact Structure, Swapped Video for Image) ═════════════════════ */}
       <section className="relative p-3 md:p-5 lg:p-6 bg-[var(--color-bg)] pb-20">
         <div ref={ctaRef} className="relative w-full rounded-[2rem] lg:rounded-[3rem] overflow-hidden min-h-[58vh] flex flex-col justify-end border border-[var(--color-border)] py-16 px-8 lg:px-16">
 
-          <video autoPlay muted loop playsInline className="absolute inset-0 object-cover w-full h-full scale-105" style={{ filter: "blur(4px)" }}>
-            <source src="/videos/features-cta.webm" type="video/webm" />
-            <source src="/images/cta.mp4" type="video/mp4" />
-          </video>
+          <div className="absolute inset-0 z-0">
+            <Image 
+              src="/images/cta5.jpg" 
+              alt="Ready to build" 
+              fill 
+              className="object-cover scale-105" 
+              style={{ filter: "blur(0px)" }} 
+              priority
+            />
+          </div>
 
-          <div className="absolute inset-0" style={{ background: "linear-gradient(180deg, rgba(5,5,5,0.15) 0%, rgba(5,5,5,0.3) 42%, rgba(5,5,5,0.95) 100%)" }} />
+          <div className="absolute inset-0 z-0" style={{ background: "linear-gradient(180deg, rgba(5,5,5,0.15) 0%, rgba(5,5,5,0.3) 42%, rgba(5,5,5,0.95) 100%)" }} />
 
           <motion.div initial={{ opacity: 0, y: 24 }} animate={ctaInView ? { opacity: 1, y: 0 } : {}} transition={{ duration: 0.65, ease: [0.32, 0.72, 0, 1] }}
             className="relative z-10 max-w-2xl">
 
-            <div className="flex items-center gap-3 mb-5 font-bold tracking-[0.2em] text-xs uppercase text-[var(--color-emerald)]">
-              <span className="w-1.5 h-1.5 bg-[var(--color-emerald)] shadow-[0_0_10px_var(--color-emerald)] rounded-full" />
-              Get Started
-            </div>
 
             <h2 className="text-3xl md:text-4xl lg:text-6xl font-black text-white tracking-tight leading-[1.05] mb-5">
               Ready to build <br/> your own?
